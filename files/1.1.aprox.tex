@@ -1,0 +1,177 @@
+\documentclass[../Main.tex]{subfiles}
+
+\begin{document}
+\chapter{Approximation \& Numerical Methods}
+
+\intro{
+
+}
+
+\section{Newton's Method}
+
+\defn{Iterative Newton Method}{
+    Newton's iterative method can be used for finding approximate roots of a function \( f(x) = 0 \). The iterative formula is given by:
+    
+    \begin{equation}
+        x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+    \end{equation}
+    \begin{itemize}
+        \item \( x_n \) is the current approximation
+        \item \( f'(x_n) \) is the derivative of the function at \( x_n \)
+        \item \( x_{n+1} \) is the next approximation
+    \end{itemize}
+}
+
+\defn{Multivariate Newton }{
+    \begin{equation}
+        \left(x\right)\approx f\left(x_0\right)+J_f\left(x_0\right)\ast\left(x-x_0\right)\left|x\approx x_0\right.
+    \end{equation}
+
+}
+
+\section{Taylor Series}
+
+\defn{Approximation Using Taylor Polynomial}{
+
+    Given a function \( f \) which is which is \( N+1 \) differentiable in range \( [a;b] \) we can use Taylor polynomial
+    \begin{equation}
+        p_N(x) = \sum_{i=0}^N \frac{f^{(i)}(\hat{x})}{i!} (x - \hat{x})^i
+    \end{equation}
+    around the middle of the development point
+    \begin{equation}
+        \hat{x} = \frac{a+b}{2}
+    \end{equation}
+    to approximate. Further if
+    \begin{equation}
+        |f^{(N+1)}(x)| \leq m
+    \end{equation}
+    Then the error can be assessed using:
+    \begin{equation}
+        |f(x)-p_N(x)| \leq \frac{m (b-a)^{N+1} }{ 2^{N+1}(N+1)!}, 
+        \forall x \in [a;b]
+    \end{equation}
+
+    The series only accurately represents a function for those arguments \( x\) whose distance from the development point \( x_0\) is smaller than the radius of convergence \(T\) of the Taylor series, i.e. for which the condition \( |x-x_0| \leq R \) is fulfilled. The radius of convergence \(R\) is a distance from the function f and the development point \(x_0\).
+}
+
+\defn{Linearization}{   
+
+    \begin{equation}
+        { y_{t}=f(x_{0})+{\frac {\mathrm {d} f}{\mathrm {d} x}}{\bigg |}_{x_{0}}\cdot (x-x_{0})}, x \approx x_0
+    \end{equation}
+    This can be interpreted as a Taylor polynomial of degree one. This means we can choose a range \(  I \) where the function f can be differentiated 2 times and choose m such that \(  \forall x \in I \):
+    \begin{equation}
+        |f^{''}(x)| \leq m
+    \end{equation}
+    Then we can calculate the approximation error \( \Delta \):
+    \begin{equation}
+        x \in [x_0 - \sqrt{\frac{2 \Delta}{m}}; x_0 + \sqrt{\frac{2 \Delta}{m}}]
+    \end{equation}
+}
+
+\section{Fourier}
+
+\defn{Fourier Series}{
+    Let \( T \) be the fundamental period of a function \( f(t) \). Then the quantity
+    \[
+    \omega = \frac{2\pi}{T}
+    \]
+    is called the fundamental angular frequency of this function (the term \( k\omega \) is occasionally also referred to as \( \omega_k \)).
+    
+    If \( f(t) \) is expressed in the form
+    \[
+    f(t) = a_0 + \sum_{k=1}^\infty \left[ a_k \cos(k\omega t) + b_k \sin(k\omega t) \right]
+    \]
+    then this representation of \( f \) is called the Fourier series in the sine-cosine form. The coefficients \( a_0, a_k, \) and \( b_k \) are called the Fourier coefficients, and the collection of all Fourier coefficients is referred to as the sine-cosine spectrum of the Fourier series.
+    
+    If \( f(t) \) is expressed in the form
+
+    \begin{equation}
+        f(t) = a_0 + \sum_{k=1}^\infty A_k \cos(k\omega t + \varphi_k)
+    \end{equation}
+    
+    then this representation of the Fourier series is called the amplitude-phase form. In this case, the quantities \( A_k \) are called amplitudes, and \( \varphi_k \) are called phases of the Fourier series. The collection of all amplitudes is referred to as the amplitude spectrum, and the collection of all phases is referred to as the phase spectrum.
+}
+
+\defn{Coefficients}{
+    \[
+    a_0 = \frac{1}{T} \int_{-T/2}^{T/2} f(t) \, dt
+    \]
+    \[
+    a_l = \frac{2}{T} \int_{-T/2}^{T/2} f(t) \cos(l\omega t) \, dt
+    \]
+    \[
+    b_l = \frac{2}{T} \int_{-T/2}^{T/2} f(t) \sin(l\omega t) \, dt
+    \]
+    
+    If \( f(t) \) is an even function, then:
+    \[
+    a_0 = \frac{2}{T} \int_{0}^{T/2} f(t) \, dt
+    \]
+    \[
+    a_l = \frac{4}{T} \int_{0}^{T/2} f(t) \cos(l\omega t) \, dt
+    \]
+    \[
+    b_l = 0
+    \]
+    
+    Thus, the Fourier series of an even function contains only the constant term and cosine terms, i.e., no sine terms.
+    
+    If \( f(t) \) is an odd function, then:
+    \[
+    a_0 = 0
+    \]
+    \[
+    a_l = 0
+    \]
+    \[
+    b_l = \frac{4}{T} \int_{0}^{T/2} f(t) \sin(l\omega t) \, dt
+    \]
+    
+    Thus, the Fourier series of an odd function contains only sine terms, i.e., no constant term and no cosine terms.
+}
+
+\defn{Conversion}{
+    The conversion of Fourier coefficients from the sine-cosine form to the amplitude-phase form is performed using the following formulas:
+
+    \[
+    A_k = \sqrt{a_k^2 + b_k^2},
+    \]
+    \[
+    \varphi_k = 
+    \begin{cases} 
+    \arccos\left(\frac{a_k}{A_k}\right) & \text{if } b_k \geq 0 \\ 
+    -\arccos\left(\frac{a_k}{A_k}\right) & \text{if } b_k < 0
+    \end{cases}
+    \]
+    
+    The phases \( \varphi_k \) have the following properties:
+    - If \( a_k > 0 \) and \( b_k = 0 \), then \( \varphi_k = 0 \)
+    - If \( a_k < 0 \) and \( b_k = 0 \), then \( \varphi_k = \pi \)
+    - If \( b_k > 0 \), then \( \varphi_k \in (0, \pi] \)
+    - If \( b_k < 0 \), then \( \varphi_k \in [-\pi, 0). \)
+    
+    The conversion from amplitude-phase form to sine-cosine form is performed using the following formulas:
+    \[
+    a_k = A_k \cos(\varphi_k)
+    \]
+    \[
+    b_k = A_k \sin(\varphi_k)
+    \]
+}
+
+\thm{Dirichlet's Theorem}{
+    Let \( f(t) \) be a piecewise continuously differentiable, \( T \)-periodic function, i.e., a \( T \)-periodic function that is continuously differentiable on the interval \([0, T]\) except at finitely many points, where the right-hand and left-hand limits exist at each discontinuity.  
+    
+    Then the Fourier series \( S(t) \) of \( f(t) \) agrees with the function \( f(t) \) at all points where \( f(t) \) is continuous. Specifically, at all points of continuity of \( f(t) \), it holds that:
+    \[
+    S(t) = f(t)
+    \]
+    
+    At points \( t \) where \( f(t) \) has a discontinuity, the Fourier series converges to the average of the left-hand and right-hand limits. At such points, it holds that:
+    \[
+    S(t) = \frac{1}{2} \left( \lim_{t \to t^+} f(t) + \lim_{t \to t^-} f(t) \right)
+    \]
+}
+
+\end{document}

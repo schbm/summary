@@ -1,0 +1,9 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is '2.1.code.blg'
+[104] biber:340> INFO - === Sun Dec  8, 2024, 00:53:50
+[120] Biber.pm:418> INFO - Reading '2.1.code.bcf'
+[184] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
+[199] bbl.pm:654> INFO - Writing '2.1.code.bbl' with encoding 'UTF-8'
+[199] bbl.pm:757> INFO - Output to 2.1.code.bbl
+[199] Biber.pm:130> WARN - The file '2.1.code.bcf' does not contain any citations!
+[199] Biber.pm:132> INFO - WARNINGS: 1

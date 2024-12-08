@@ -1,0 +1,91 @@
+\documentclass[A4,12pt,twoside]{book}
+\usepackage{amd}
+
+% %--------------------------------------------------------------------------
+% %         General Setting
+% %--------------------------------------------------------------------------
+
+\graphicspath{{Images/}{../Images/}} %Path of figures
+\setkeys{Gin}{width=0.85\textwidth} %Size of figures
+\setlength{\cftbeforechapskip}{3pt} %space between items in toc
+\setlength{\parindent}{0.5cm} % Idk
+\input{theorems.tex} % Theorems styles and colors
+\usepackage[english]{babel} %Language
+
+\setlist[itemize]{itemsep=5pt} % Adjust the length as needed
+\setlist[enumerate]{itemsep=5pt} % Adjust the length as needed
+
+
+
+% \usepackage{lmodern} %  Latin Modern font
+% \usepackage{newtxtext,newtxmath}
+
+
+
+
+% %--------------------------------------------------------------------------
+% %         General Informations
+% %--------------------------------------------------------------------------
+\newcommand{\BigTitle}{
+    Wiki Schubi
+    }
+
+\newcommand{\LittleTitle}{
+    Summaries of all things computer science.
+    }
+
+    
+\begin{document}
+
+% %--------------------------------------------------------------------------
+% %         First pages 
+% %--------------------------------------------------------------------------
+\newgeometry{top=8cm,bottom=.5in,left=2cm,right=2cm}
+\subfile{files/0.0.0.titlepage}
+
+\restoregeometry
+\subfile{files/0.Preface}
+\subfile{files/0.zommaire}
+
+% %--------------------------------------------------------------------------
+% %         Core of the document 
+% %--------------------------------------------------------------------------
+\part{Fundamentals}
+\subfile{files/1.1.aprox}
+\subfile{files/1.2.wahrstat}
+%linalg
+%analysis
+%multivariate analysis primer
+
+\part{Theory of Codes, Information and Computation}
+\subfile{files/2.1.code}
+%\subfile{files/2.2.blockcode}
+%\subfile{files/2.3.convolutioncodes}
+%fundamental encodings (ieee float, utf8 unicode, ascii)
+
+\part{Algorithms and Datastructures (AD)}
+%algorithm analysis
+%datastructures
+%search algorithms
+
+\part{Data Science}
+\subfile{files/3.1.statml}
+%foundation
+%applications
+
+\part{Parallel Computation}
+\part{Distributed Systems}
+\part{Databases}
+\part{Security \& Cryptography}
+\part{Software Engineering}
+\subfile{files/4.1.arch}
+
+\part{Cheatsheets}
+
+% %--------------------------------------------------------------------------
+% %         Bibliographie 
+% %--------------------------------------------------------------------------
+\nocite{*} % to cite evey things, else cite each on using : \cite{ifrs17}. 
+\printbibliography %to print bibliographie
+
+\end{document}

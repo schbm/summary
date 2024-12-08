@@ -1,0 +1,79 @@
+\documentclass[../Main.tex]{subfiles}
+
+\begin{document}
+\chapter{Analysis}
+
+\intro{
+Analysis (pl.: analyses) is the process of breaking a complex topic or substance into smaller parts in order to gain a better understanding of it. The technique has been applied in the study of mathematics and logic since before Aristotle (384–322 B.C.), though analysis as a formal concept is a relatively recent development.
+\\\\
+The word comes from the Ancient Greek ἀνάλυσις (analysis, "a breaking-up" or "an untying;" from ana- "up, throughout" and lysis "a loosening"). From it also comes the word's plural, analyses.
+\\\\
+As a formal concept, the method has variously been ascribed to René Descartes (Discourse on the Method), and Galileo Galilei. It has also been ascribed to Isaac Newton, in the form of a practical method of physical discovery (which he did not name).
+\\\\
+The converse of analysis is synthesis: putting the pieces back together again in a new or different whole.
+}
+
+
+
+\section{Template}
+
+
+The Black-Scholes model is based on several assumptions:
+\asum{The assumptions of  Black-Scholes model}{
+\begin{enumerate}
+    \item The stock price follows a geometric Brownian motion with constant drift and volatility.
+    \item There are no arbitrage opportunities.
+    \item The markets are frictionless, with no transaction costs or taxes.
+    \item The risk-free interest rate is constant and known.
+    \item The options can only be exercised at expiration (European options).
+\end{enumerate}
+}
+
+The derivation of the Black-Scholes equation involves the use of Ito's Lemma and the concept of a risk-neutral portfolio. Consider a stock whose price \( S(t) \) follows the stochastic differential equation:
+
+\begin{equation}
+    dS = \mu S dt + \sigma S dW
+\end{equation}
+
+where:
+\begin{itemize}
+    \item \( \mu \) is the drift rate of the stock.
+    \item \( \sigma \) is the volatility of the stock.
+    \item \( W \) is a Wiener process or Brownian motion.
+\end{itemize}
+
+\defn{Call and Put Options}{
+    \begin{itemize}
+        \item \textbf{Call Option:} Gives the holder the right (but not the obligation) to buy an asset at a predefined date and price (strike price).
+        \item \textbf{Put Option:} Gives the holder the right (but not the obligation) to sell an asset at a predefined date and price (strike price).
+    \end{itemize}
+}
+
+Under the black and scholes assumptions we the PDE of the price of an European Call :
+
+\thmp{Black and Scholes PDE }{
+\begin{equation}
+    \frac{\partial C}{\partial t} + r S \frac{\partial C}{\partial S} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} = r C
+\end{equation}
+}{
+Using Ito's Lemma we get : 
+\begin{equation}
+    dC = \frac{\partial C}{\partial t} dt + \frac{\partial C}{\partial S} dS + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 dt
+\end{equation}
+
+Substituting \( dS \) into the equation, we get:
+
+\begin{equation}
+    dC = \left( \frac{\partial C}{\partial t} + \frac{\partial C}{\partial S} \mu S + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 \right) dt + \frac{\partial C}{\partial S} \sigma S dW
+\end{equation}
+}
+
+\exm{Call Option Pricing}{
+    Consider a European call option with \( S = 100 \), \( K = 100 \), \( r = 0.05 \), \( \sigma = 0.2 \), and \( T = 1 \) year. Using the Black-Scholes formula, we calculate the call option price.
+}
+
+
+\section{Conclusion}
+Placeholder
+
+\end{document}
