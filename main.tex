@@ -1,4 +1,4 @@
-\documentclass[A4,12pt,twoside]{book}
+\documentclass[12pt,twoside]{book}
 \usepackage{amd}
 
 % %--------------------------------------------------------------------------
@@ -10,15 +10,15 @@
 \setlength{\cftbeforechapskip}{3pt} %space between items in toc
 \setlength{\parindent}{0.5cm} % Idk
 \input{theorems.tex} % Theorems styles and colors
-\usepackage[english]{babel} %Language
+%\usepackage[english]{babel} %Language
 
 \setlist[itemize]{itemsep=5pt} % Adjust the length as needed
 \setlist[enumerate]{itemsep=5pt} % Adjust the length as needed
 
 
 
-% \usepackage{lmodern} %  Latin Modern font
-% \usepackage{newtxtext,newtxmath}
+ \usepackage{lmodern} %  Latin Modern font
+ \usepackage{newtxtext,newtxmath}
 
 
 
@@ -42,8 +42,8 @@
 % %--------------------------------------------------------------------------
 \newgeometry{top=8cm,bottom=.5in,left=2cm,right=2cm}
 \subfile{files/0.0.0.titlepage}
-
 \restoregeometry
+
 \subfile{files/0.Preface}
 \subfile{files/0.zommaire}
 
@@ -51,25 +51,27 @@
 % %         Core of the document 
 % %--------------------------------------------------------------------------
 \part{Fundamentals}
-\subfile{files/1.1.aprox}
-\subfile{files/1.2.wahrstat}
+This is a citation \cite{Goodrich}.
+\subfile{files/approximations}
+\subfile{files/wahrscheinlichkeit_und_statistik}
 %linalg
 %analysis
 %multivariate analysis primer
 
 \part{Theory of Codes, Information and Computation}
-\subfile{files/2.1.code}
+\subfile{files/information_theory}
 %\subfile{files/2.2.blockcode}
 %\subfile{files/2.3.convolutioncodes}
 %fundamental encodings (ieee float, utf8 unicode, ascii)
 
 \part{Algorithms and Datastructures (AD)}
+\subfile{files/algorithm_analysis.tex}
 %algorithm analysis
 %datastructures
 %search algorithms
 
 \part{Data Science}
-\subfile{files/3.1.statml}
+\subfile{files/statistical_machinelearning}
 %foundation
 %applications
 
@@ -78,7 +80,7 @@
 \part{Databases}
 \part{Security \& Cryptography}
 \part{Software Engineering}
-\subfile{files/4.1.arch}
+\subfile{files/software_architecture}
 
 \part{Cheatsheets}
 
