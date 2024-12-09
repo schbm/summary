@@ -6,7 +6,34 @@
 
 }
 
-\section{Experimental Analysis}
+\section{Classification}
+\begin{description}
+    \item[Greedy] An algorithm is greedy if we choose the most optimal solution in each subsequent step.
+    We optimize localy to find a global optimum, which obviously does not work in all cases.
+    This will approximate an optimal solution.
+    \item[Divide and Conquer] With this method we split the problem space recursively in subsets.
+    We then solve the problem in the subset space and combine them in the end.
+    \item[Backtracking] In backtracking we find solutions by trial and error.
+    When we encounter an error we backtrack to the last known correct state.
+    This will compute a tree with individual paths until one solution branch is found.
+    \item[Dynamic Programming] Instead of recomputing already found sub solutions like in the case of
+    recursion, we cache results.
+    \begin{lstlisting}[language=Java, caption=Dynamic Fib]
+        public static long dynamisch(int n) {
+            long[] f = new long[n + 2];
+            f[0] = 0;
+            f[1] = 1;
+
+            for (int i = 2; i <= n; i++) {
+                f[i] = f[i - 1] + f[i - 2];
+            }
+
+            return f[n];
+            }
+    \end{lstlisting}
+\end{description}
+
+\section{Experimental (Empiric) Analysis}
 \subsection{Drawbacks}
 There are three major disadvantages when using experimental comparisons:
 \begin{itemize}
