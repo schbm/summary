@@ -27,7 +27,7 @@ Gegeben sind \(n\)  anzuordnende Objekte. Die Fakultät ! beschreibt dabei die A
 \end{equation}
 }
 
-\defn{Kombination  (Auswahl)}{
+\defn{Kombination  (Auswahl Problem)}{
     Die Anzahl Objekte welche aus \(n\) von \(k\) möglichen ausgewählt werden (ohne zurücklegen) wird beschrieben durch:. 
     \begin{equation}
         \begin{split}
@@ -38,7 +38,7 @@ Gegeben sind \(n\)  anzuordnende Objekte. Die Fakultät ! beschreibt dabei die A
     \end{equation}
 }
 
-\defn{Variation (Kerlenketten)}{
+\defn{Variation (Perlenketten Problem)}{
    Die Arten auf welche man \(k\) mal unter \(n\) verschiedenen Objekten auswählen kann wird beschrieben durch:
    \begin{equation}
        = n \cdot n^{k-1} = n^k
@@ -180,8 +180,10 @@ Für zwei beliebige Ereignisse mit \(A\) und \(B\) mit nicht verschwindender Wah
 \end{equation}
 }
 
+\subsection{Google Matrix}
+
 \section{Zufallsvariable}
-In der \href{https://de.wikipedia.org/wiki/Stochastik}{Stochastik} ist eine \textbf{Zufallsvariable} (auch \textbf{zufällige Variable}, \textbf{zufällige Größe}, \textbf{zufällige Veränderliche}, \textbf{zufälliges Element}, \textbf{Zufallselement}, \textbf{Zufallsveränderliche}) eine Größe, deren Wert vom Zufall abhängig ist. Formal ist eine Zufallsvariable eine \href{https://de.wikipedia.org/wiki/Funktion_(Mathematik)}{Funktion}, die jedem \href{https://de.wikipedia.org/wiki/Ergebnis_(Stochastik)}{möglichen Ergebnis} eines \href{https://de.wikipedia.org/wiki/Zufallsexperiment}{Zufallsexperiments} eine Größe zuordnet. Ist diese Größe eine \href{https://de.wikipedia.org/wiki/Reelle_Zahl}{reelle Zahl}, so spricht man von einer \textbf{reellen Zufallsvariablen} oder \textbf{Zufallsgröße}. Beispiele für reelle Zufallsvariablen sind die Augensumme von zwei geworfenen Würfeln und die Gewinnhöhe in einem \href{https://de.wikipedia.org/wiki/Gl\%C3\%BCcksspiel}{Glücksspiel}. Zufallsvariablen können aber auch komplexere mathematische Objekte sein, wie \href{https://de.wikipedia.org/wiki/Zufallsfeld}{Zufallsfelder}, \href{https://de.wikipedia.org/wiki/Zufallsbewegung}{Zufallsbewegungen}, \href{https://de.wikipedia.org/wiki/Zufallspermutation}{Zufallspermutationen} oder \href{https://de.wikipedia.org/wiki/Zufallsgraph}{Zufallsgraphen}. Über verschiedene Zuordnungsvorschriften können einem Zufallsexperiment auch verschiedene Zufallsvariablen zugeordnet werden.
+In der Stochastik ist eine \textbf{Zufallsvariable} (auch \textbf{zufällige Variable}, \textbf{zufällige Größe}, \textbf{zufällige Veränderliche}, \textbf{zufälliges Element}, \textbf{Zufallselement}, \textbf{Zufallsveränderliche}) eine Größe, deren Wert vom Zufall abhängig ist. Formal ist eine Zufallsvariable eine Funktion, die jedem möglichen Ergebnis eines Zufallsexperiments eine Größe zuordnet. Ist diese Größe eine reelle Zahl, so spricht man von einer \textbf{reellen Zufallsvariablen} oder \textbf{Zufallsgröße}. Beispiele für reelle Zufallsvariablen sind die Augensumme von zwei geworfenen Würfeln und die Gewinnhöhe in einem Glücksspiel. Zufallsvariablen können aber auch komplexere mathematische Objekte sein, wie Zufallsfelder, Zufallsbewegungen, Zufallspermutationen oder Zufallsgraphen. Über verschiedene Zuordnungsvorschriften können einem Zufallsexperiment auch verschiedene Zufallsvariablen zugeordnet werden.
 \defn{Zufallsvariable}{
 Eine Zufallsvariable ist eine Funktion \(Q \rightarrow \mathbb{R} \) . Eine diskrete Zufallsvariable nimmt nurdiskrete Werte in \( \mathbb{R}\) an. Bei einer stetigen Zufallsvariable sind beliebige Werte \(X(\omega) \in \mathbb(R)\) möglich. Mit der zusätzlichen Eigenschaft , dass die Mengen \(\{\omega|X(\omega) < x\}\) Ereignisse sind. 
 \\\\
@@ -197,9 +199,9 @@ Bei einer stetigen Zufallsvariable sind die Ereignisse der Form \(\{X = a\}\) nu
 \newpage
 \section{Erwartungswert}
 Der \textbf{Erwartungswert}
-(selten und doppeldeutig \textit{\href{https://de.wikipedia.org/wiki/Mittelwert}{Mittelwert}})
-ist ein Grundbegriff der \href{https://de.wikipedia.org/wiki/Stochastik}{Stochastik}.
-Der Erwartungswert ist eine Kennzahl einer \href{https://de.wikipedia.org/wiki/Zufallsvariable}{Zufallsvariablen}.
+(selten und doppeldeutig Mittelwert)
+ist ein Grundbegriff der Stochastik.
+Der Erwartungswert ist eine Kennzahl einer Zufallsvariablen.
 Bei einer engeren Definition ist der Erwartungswert einer Zufallsvariablen eine reelle Zahl und damit endlich;
 bei einer weiteren Definition sind für den Erwartungswert einer Zufallsvariablen auch die Werte \(\pm \infty\) zugelassen.
 Es gibt Zufallsvariablen, für die kein Erwartungswert definiert ist. 
@@ -208,7 +210,7 @@ Sei \(X\) eine Funktion auf \(\Omega\) , und lasse sich \(\Omega\) in endlich vi
 \begin{equation}
     E(X)=\sum_{i=0}^n P(A_i) \cdot X(A_i)
 \end{equation}
-\textbf{Der Erwartungswert einer reelen Zufallsvariable ist diejenige Uahl, für die die Varianz minimal wird.}
+\textbf{Der Erwartungswert einer reelen Zufallsvariable ist diejenige Zahl, für die die Varianz minimal wird.}
 
 Sind \(X\) und \(Y\) Zufallsvariable mit Werten in \(\mathbb{R}\) , und \(\lambda\), dann gilt
 \begin{enumerate}
@@ -252,11 +254,10 @@ Sind X und Y unabhängige Zufallsvariablen, dann gilt
     \centering
     \includegraphics[width=1\linewidth]{Images/erwartungswert-varianz.png}
     \caption{Darstellung von Erwartungswert und Varianz}
-    \label{fig:enter-label}
 \end{figure}
 \newpage
 \section{Varianz}
-Die \textbf{Varianz} (\href{https://de.wikipedia.org/wiki/Latein}{lateinisch} \textit{variantia} „Verschiedenheit“ bzw. \textit{variare} „(ver)ändern, verschieden sein“) ist ein \href{https://de.wikipedia.org/wiki/Streuungsma\%C3\%9F_(Statistik)}{Maß für die Streuung} einer Wahrscheinlichkeitsdichte um ihren Schwerpunkt. Mathematisch wird sie definiert als die \href{https://de.wikipedia.org/wiki/Mittlere_quadratische_Abweichung}{mittlere quadratische Abweichung} einer reellen \href{https://de.wikipedia.org/wiki/Zufallsvariable}{Zufallsvariablen} von ihrem \href{https://de.wikipedia.org/wiki/Erwartungswert}{Erwartungswert}. Sie ist das \href{https://de.wikipedia.org/wiki/Moment_(Stochastik)\#Zentrale_Momente}{zentrale Moment zweiter Ordnung} einer Zufallsvariablen. 
+Die \textbf{Varianz} (lateinisch \textit{variantia} „Verschiedenheit“ bzw. \textit{variare} „(ver)ändern, verschieden sein“) ist ein zentrale Moment zweiter Ordnung einer Zufallsvariablen. 
 
 \defn{Varianz}{
 Sei \(X: \Omega \rightarrow \mathbb{R}\)  eine Zufallsvariable, dann heisst die durch \(var(X)^2 = E((X-E(X))^2) \) definierte Grösse var(X) die Varianz von X. Oder auch die mittlere quadratische Abweichung vom Erwartungswert. Es ist insbesondere
@@ -293,7 +294,6 @@ Leider sind die Vorhersagen wie auch bei der Tschebyscheff-Ungleichung nur besch
     \centering
     \includegraphics[width=0.75\linewidth]{Images/Tschebyscheff-Ungleichung.png}
     \caption{Herleitung der Tschebyscheff-Ungleichung, charakteristische Funktion des Er eignisses |X - µ| > \(\epsilon\) ist blau eingezeichnet. }
-    \label{fig:enter-label}
 \end{figure}
 
 \newpage
@@ -316,41 +316,215 @@ Wird ein Experiment \(n\) mal durchgeführt, und tritt dabei das Ereignis \(A\) 
 \end{equation}
 }
 
-\section{Lineare Regression}
+\newpage
+\section{(Einfache) Lineare Regression }
+Für weitere Informationen siehe Teil "Data Science".
+Die Abweichung eines Punktes beschreiben wir mit:
+\begin{equation}
+    \Delta = Y-(aX+b)
+\end{equation}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/lineare-regression.png}
+    \caption{Lineare Regression}
+\end{figure}
 
-\section{Verteil- und Dichtefunktionen}
+Wir möchten nun den gemittelten Fehler minimieren. Dies lässt sich veranstalten,
+wenn das \(\Delta\) quadriert wird und wir den Erwartungswert betrachten, denn:
+\begin{equation}
+    |\Delta| = (Y-aX-b)^2 \Rightarrow E(\Delta^2) = E((Y-aX-b)^2) = var(\Delta)
+\end{equation}
+Wir möchten also die Koeffizienten der linearen Funktion bestimmen, sodass
+die Varianz vom mittleren Fehler resp. erwarteten Fehler minimal wird. Den 
+mittleren Fehler betitelt man auch als MSE (Mean Squared Error).
+
+Durch Lösen des Optimierungsproblems erhält man die Koeffizienten:
+\defn{Lösung für Koeffizienten}{
+    \begin{equation}
+        \begin{split}
+            a &= \frac{E(XY)-E(X)E(Y)}{E(X^2)-E(X)^2} = \frac{cov(X,Y)}{var(X)} \\
+            b &= E(Y)-aE(X)
+        \end{split}
+    \end{equation}
+}
+\defn{Fehlerberechnung}{
+    \begin{equation}
+        \begin{split}
+            var(Y-aX-b) &= \dots \\
+            &=\frac{var(Y-aX-B)}{var(Y)} = 1 - \frac{cov(X,Y)^2}{var(X)var(Y)} = 1 - r^2\\
+            \text{Gut für } r^2 &\simeq 1 \\
+            \text{Berechnung: } &= \frac{E(XY)-E(X)E(Y)}{\sqrt{var(X)var(Y)}}
+        \end{split}
+    \end{equation}
+    \(r^2\) hängt symmetrisch von \(X\) und \(Y\) ab.
+}
+
+\begin{figure}[H]
+    \centering  %angle=90,
+    \includegraphics[height=0.5\textwidth]{Images/nichtlineare_regression.png}
+    \caption{(Nicht)Lineare Regression}
+\end{figure}
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=90,height=1\textwidth]{Images/berechnungsformular-lineare-regression.png}
+    \caption{Berechnungsformular für Lineare Regression}
+\end{figure}
+\newpage
+
+\section{Verteilung}
+Bildet das Verständnis für die Lokalisierung von Variabeln.
+Es wird hierbei zwischen folgende Typen unterschieden:
+\begin{itemize}
+    \item quantitativ-diskrete (diskrete Nummer: 1291)
+    \item quantitativ-stetig (Skala [20;100])
+    \item qualitativ-nominal (Kategorien: Rot, Blau, Pink)
+    \item qualitativ-ordinal (Kalt < Warm < Heiss)
+\end{itemize}
+\defn{Kumulative Häufigkeitsverteilung}{
+    Beschreibt die Anzahl Merkmalsausprägungen kleiner als ein 
+    bestimmter Schwellenwert.
+    \begin{equation}
+        H_j = \sum_{k=1}^j h_k = |\{x_i|x_i \leq a_j\}|
+    \end{equation}
+    Allgemeiner:
+    \begin{equation}
+        H(x) = |\{ i | x_i \leq x \}|
+    \end{equation}
+    Die Funktion ist also Stückweise konstant mit Sprungstellen bei \(a_j\),
+    und Sprunghöhe \(h_j\).
+}
+Das Maximum von \(H(x)\) hängt von \(n\) ab, dafür lässt sich
+die relative Häufigkeit betrachten:
+\begin{equation}
+    \begin{split}
+        f_j &= \frac{1}{n}h_j \\
+        F_j &= \frac{1}{n}H_j \\
+        F(x) &= \frac{1}{n}H(x)
+    \end{split}
+\end{equation}
 
 \defn{Verteilfunktion}{
-Die Verteilungsfunktion beschreibt die Wahrscheinlichkeiten der Werte einer Zufallsvariable:
+Die Verteilungsfunktion beschreibt die Wahrscheinlichkeiten der Werte einer Zufallsvariable
 \begin{equation}
-    F(x)=P(X\leq x)
+    F(x)=F_X(x)=P(X\leq x)
 \end{equation}
+Mit Eigenschaften:
+\begin{itemize}
+    \item \(F_X(x)\) ist monoton wachsend
+    \item \(0 \leq FX(x) \leq 1 \)
+    \item \( \lim_{x \to -\infty} = 0 \)
+    \item \( \lim_{x \to \infty} = 1 \)
+\end{itemize}
+Die Verteilfunktion mit \(F(x)\) ist eine Wahrscheinlichkeit
+Für ein Intervall gilt: \(P(a < X \leq b)=F_X(b)-F_X(a)\)
 }
+Rezept:
+\begin{enumerate}
+    \item Fragen über \(F(x)\) in Wahrscheinlichkeiten von Ereignissen übersetzen
+    \item Rechenregeln für Wahrscheinlichkeiten anwenden
+    \item Wahrscheinlichkeiten durch \(F(x)\) ausdrücken, rückübersetzen
+\end{enumerate}
+
+\defn{Maximum zweier Zufallsvariablen}{
+    Für zwei unabhängige Zufallsvariablen \(X,Y\) mit Verteilfunktionen \(F_X(x), F_Y(y)\)
+    gilt:
+    \begin{equation}
+        \begin{split}
+            F_{max(X,Y)} &= P(max(X,Y) \leq z) \\
+            &= P(X \leq z \land Y \leq z) = P(X \leq z) \cdot P(Y \leq z) \\
+            &= F_X(x) \cdot F_Y(y)
+        \end{split}
+    \end{equation}
+}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{Images/stetigef.png}
     \caption{Diskrete Verteilfunktion}
-    \label{fig:enter-label}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{Images/stetf.png}
     \caption{Stetige Verteilfunktion}
-    \label{fig:enter-label}
 \end{figure}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{Images/spannweitequartilabstand.png}
     \caption{Spannweite R und Quartilabstand Q}
-    \label{fig:enter-label}
 \end{figure}
-%TBD definition Median
-%Modus / Modalwert
-%Mittelwert
-%Gewichteter Mittelwert
-%\subsection{Riemann- und Stieltjes-Integral}
-\subsection{Wahrscheinlichkeitsdichte}
+
+\defn{Mittelwert}{
+    Wir suchen einen Punkt sodass die Momente ausgleichen:
+    \begin{equation}
+        \bar{x} = \frac{1}{n} \sum x_i
+    \end{equation}
+    Oder durch dass Minimalprinzip derjenige Punkt in der die Varianz minimiert ist.
+    Die Wahrscheinlichkeit einer Abweichung ist dort am kleinsten:
+    \begin{equation}
+        \text{Minimiert: } \frac{1}{n} \sum (x_i-\bar{x})^2
+    \end{equation}
+}
+
+\defn{Gewichteter Mittelpunkt}{
+    Ist der Punkt an dem die Varianz von gewichteten Punkten minimiert wird.
+    Z.B. GPS bei dem die Punkte nicht immer mit der gleichen Genauigkeit berechnet
+    werden können.
+    \begin{equation}
+        \begin{split}
+            \bar{x} &= \frac{\sum w_k x_k}{\sum w_k} \\
+            \text{Minimiert: } &\sum w_i (x_i - \bar{x})^2
+        \end{split}
+    \end{equation}
+}
+
+\defn{Median}{
+    Ist der Punkt in der Mitte (gesehen vom Zahlenstrahl) von vergleichbaren Werten.
+    Falls \(n\) gerade ist, ist dies der Mittelwert der beiden mittleren Werte.
+    \begin{equation}
+        med(x) = x_{0.5} \text{ auch 0.5-Quantil}
+    \end{equation}
+    Der Wert lässt sich direkt aus \(F_X(x)\) ermitteln:
+    \begin{equation}
+        F_X(x_{0.5}) = 0.5
+    \end{equation}
+}
+
+\defn{Quartil}{
+    Quartil kann direkt aus \(F_X(x)\) abgelesen werden.
+    Sie bezeichnet die Schranken bei für \(P(X \leq x) \leq 0.25\) und \(P(X \leq x) \leq 0.75\).
+    \begin{equation}
+        F_X(x_{0.\lambda}) = \frac{1}{\lambda}
+    \end{equation}
+
+}
+
+\defn{Spannweite}{
+    Bezeichnet die Differenz zwischen dem grössten und kleinsten Wert \(R = x_{max} - x_{min}\).
+}
+
+\defn{Modus / Modalwert}{
+    Der Modus ist der häufigste Wert in einem Datensatz.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/verteilungsfunktion-erwartungswert.png}
+    \caption{Verteilungsfunktion und Erwartungswert}
+\end{figure}
+
+\subsection{Variable gleich verteilen}
+Durch erneute Anwendung der Verteilfunktion auf \(X\) wird die Zufallsvariable gleichverteilt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/f_zaufz.png}
+    \caption{Erstellung einer Gleichverteilung}
+\end{figure}
+
+
+\section{Wahrscheinlichkeitsdichte}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{Images/wahrscheinlichkeitsdichte.png}
@@ -374,24 +548,40 @@ Mit \(\varphi(x)\) kann man nun auch \(E(X)\) berechnen:
     \end{split}
 \end{equation}
 }
+
+\subsection{Erwartungswert durch Dichtefunktion}
+\defn{Erwartungswert}{
+    Da der Erwartungswert durch \(\sum \text{Wert }\cdot \text{ Wahrscheinlichkeit}\)
+    definiert ist, lässt dieser sich auch über \(varphi(x)\) berechnen:
+    \begin{equation}
+        E(X) = \int_{- \infty}^\infty x \varphi dx
+    \end{equation}
+    Dabei gilt z.B: \(E(X^2) = \int_{- \infty}^\infty x^2 \varphi dx\) oder auch
+    \(E(f(X)) = \int_{- \infty}^\infty f(x) \varphi dx\)
+}
+
+\subsection{Summe von zwei Zufallsvariablen}
+\defn{Summe stetiger Zufallsvariablen}{
+    Für beliebige Zufallsvariable \(X\) und \(Y\) gilt mit Dichtefunktion
+    \(\varphi_X(x)\) und \(\varphi_Y(y)\) und ihrer Summer \(Z=X+Y\) gilt:
+    \begin{equation}
+        \varphi_Z(z)=\varphi_{X+Y}(z)=\varphi_X * \varphi_Y(z) = \int_{- \infty}^\infty \varphi_X(x)\varphi_Y(z-x)dx
+    \end{equation}
+    Für die Verteilsgunktionen gilt:
+    \begin{equation}
+        F_Z(z)= F_X*\varphi_Y(z)=\varphi_X*F_Y(z)
+    \end{equation}
+}
+
 %FALTUNG
-\subsection{Gleichverteilung kreieren}
-Durch erneute Anwendung der Verteilfunktion auf \(X\) wird die Zufallsvariable gleichverteilt.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{Images/f_zaufz.png}
-    \caption{Enter Caption}
-    \label{fig:enter-label}
-\end{figure}
-\newpage
 \section{Gleichverteilung}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/gleichverteilung.png}
+    \includegraphics[width=0.75\linewidth]{Images/gleichverteilung.png}
     \caption{Gleichverteilung}
-    \label{fig:enter-label}
 \end{figure}
-\defn{Dichtefunktion }{
+\defn{Gleichverteilung }{
 \begin{equation}
     \varphi(x)=
     \begin{cases}
@@ -399,8 +589,7 @@ Durch erneute Anwendung der Verteilfunktion auf \(X\) wird die Zufallsvariable g
         0 &\text{sonst}
     \end{cases}
 \end{equation}
-}
-\defn{Verteilfunktion}{
+
     \begin{equation}
         F(x) = 
         \begin{cases}
@@ -409,28 +598,224 @@ Durch erneute Anwendung der Verteilfunktion auf \(X\) wird die Zufallsvariable g
             1 &x > b
         \end{cases}
     \end{equation}
-}
-\defn{Erwartungswert}{
+
 \begin{equation}
         E(X) = \frac{a+b}{2}
 \end{equation}
-}
-\defn{Varianz}{
+
     \begin{equation}
         \sigma^2 = \frac{(b-a)^2}{12}
     \end{equation}
-}
-\defn{Median}{
+
 \begin{equation}
     x_{\frac{1}{2}}=\frac{a+b}{2}
 \end{equation}
-}
-\defn{Wahrscheinlichkeit für Abweichung}{
+
     \begin{equation}
         P(|X-E(X)|>\epsilon)=1\frac{2\epsilon}{b-a} \text{ für } \epsilon < \frac{b-a}{2}
     \end{equation}
 }
+
+\section{Schätzprobleme}
+Ein Schätzproblem ist eine Aufgabe, bei der die Parameter \(\vartheta\) einer gegebenen
+Verteilung gefunden werden sollen. Gegeben ist also \(X\) mit Verteilung
+\(\varphi(x,\vartheta)\) und \(x_1,\dots,x_n\) Beobachtungen.
+Gesucht ist eine möglichst gute Schätzung für: \(\hat{\vartheta}(x_1,\dots,x_n)\).
+Desweiteren möchten wir wissen, wie die Schätzwerte verteilt sind mit
+Stichproben \(X_i,\dots,X_n\):
+\begin{equation}
+    \hat{\vartheta} = \hat{\vartheta}(X_i,\dots,X_n)
+\end{equation}
+
+\defn{Konsistent}{
+    Ein Schätzer ist konsistent, wenn dieser korrekt ist für genügend
+    grosse Stichproben:
+    \begin{equation}
+        \lim_{n \to \infty} \hat{\vartheta}(x_i,\dots,x_n)= \vartheta
+    \end{equation}
+}
+
+\defn{Erwartungstreu}{
+    Ein Schätzer ist erwartungstreu, wenn dieser korrekt ist selbst für
+    kleine Stichproben:
+    \begin{equation}
+        E(\hat{\vartheta}(X_1,\dots,X_n))= \vartheta
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/maximum-likelihood.png}
+    \caption{Maximum Likelihood Prinzip}
+\end{figure}
+
+\defn{Maximum Likelihood Prinzip}{
+    Stichprobe \(x_1,\dots,x_n\) einer Zufallsvariable
+    mit Schätzparameter \(\mu\).
+    Die Likelihood Funktion bewertet die Kandidaten \(\mu\) mit:
+    \begin{equation}
+        \begin{split}
+            L(\mu,x_1,\dots,x_n) &= \varphi(x_1,\mu)\cdot\dots\cdot\varphi(x_n,\mu) \\
+            \hat{\mu} &= argmax(L(\mu, x_1,\dots,x_n)) \text{ für } \mu
+        \end{split}
+    \end{equation}
+    Dies kann man interpretieren als "Wahrscheinlichkeit für die Werte \(x_i\)".
+    Die Funktion \(\varphi(x_1,\dots,x_n)\) maximiert \(L\) (Maximum Likelihood Schätzer),
+    sodass mit \(\vartheta\) die Messungen \(x_i\) am wahrscheinlichsten sind.
+}
+
+\subsection{Korrektur nicht erwartungstreuer Schätzer}
+Als erstes muss aus der Schätzer bestimmt werden. Wenn wir erwarten, dass
+es sich bei diesen um einen nicht erwartungstreuen Schätzer handelt, muss
+der Erwartungswert von \(\varphi(\mu,x_n)\) bestimmt werden. Der Faktor,
+welcher mit dem Schätzwert vorhanden ist wird schlussendlich vom beim 
+Schätzer eingefügt.
+\begin{enumerate}
+    \item Maximum Likelihood Prinzip verwenden
+    \item Kontrollieren ob dieser erwartungstreu ist (\(E(\hat{b})\))
+    \item Kompensationsfaktor verwenden
+\end{enumerate}
+Grundsätzlich sind Schätzer bereits vorgegeben.
+
+\subsection{Konfidenzintervall}
+Im \([\vartheta_-,\vartheta_+]\) findet man den wahren Wert des
+Parameters mit Wahrscheinlichkeit \(1-\alpha\) (Vetrauensniveau):
+\begin{enumerate}
+    \item Verteilung von \(\hat{\vartheta}\): Wahrscheinlichkeitsdichte
+    \(\varphi(\vartheta)\) und Verteilfunktion \(F_\vartheta\)
+    \item Finde \(\vartheta\)-Werte so, dass \(1-\alpha=F(\vartheta_-)-F(\vartheta_+)\)
+\end{enumerate}
+
+\subsection{T-Verteilung}
+
+\section{Hypothesentest}
+\subsection{Grunsätzliche Testmethode}
+\begin{enumerate}
+    \item Nullhypothese \(H_0\) formulieren
+    \item Messgrösse bestimmen, mit der \(H_0\) getestet werden kann (Teststatistik)
+    \item Verteilung der Messgrösse ermitteln
+    \item Parameter der Verteilung schätzen
+    \item Kritischen Werde für die Testgrösse bestommen, der nur mit Wahrscheinlichkeit \(\alpha\) überschritten wird
+    \item Ist die Messgrösse im vorliegenden Expermiment "unwahrscheinlich gross"? So verwirft man \(H_0\)
+\end{enumerate}
+
+\subsection{Vorgehen Hypothesentest}
+
+\subsection{Fehlerarten}
+
+\section{subsection}{Verteilungstests}
+
+\section{Filter}
+\defn{Filtern}{
+    Aus fehlerbehafteten Beobachtungen eines dynamischen Systems die
+    aktuellen Parameter des Systens optimal, d.h. mit kleinstmöglichem
+    Fehler schätzen.
+    \begin{equation}
+        \hat{\mu} = \frac{X_1+\dots+X_n}{n}
+    \end{equation}
+
+    Dabei ist aber meistens die Einzelmessung
+    \(X_i\) nicht die einzige Informationsquelle
+    üver den Systemzustand \(\hat{\mu}\)
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{Images/schaetzen.png}
+    \caption{Schätzen des Systemzustandes mithilfe des Systemmodells}
+\end{figure}
+Um erfolgreich zu schätzen, möchten wir also
+zusätzliche Informationen beiziehen um ein
+statistisches Problem zu lösen.
+
+\subsection{Optimaler Schätzer für zwei Messgrössen}
+Gegeben ist ein Problem mit zwei Zufallsvariabeln
+\(X_1,X_2\), welche dieselbe grösse Messen.
+Sie sind unabhängig und besitzen unterschiedliche
+Varianz resp. Messfehler \(var(X_i)=\sigma_i^2\).
+Um die gesamte Information zu verwenden benutzen
+wir gewichtete Variabeln mit \(X\):
+\begin{equation}
+    \begin{split}
+        X &= tX_1+(1-t)X_2 \\
+        var(X) &= t^2var(X_1) + (1-t)^2var(X_2)
+    \end{split}
+\end{equation}
+Nun wird die Linearkombination so gewählt,
+dass \(var(X)\) minimal wird.
+Dies geschieht durch das Null-Setzen der Ableitung nach \(t\) mit: \(\frac{d}{dt}var(X)=0\).
+\defn{Optimale Faktoren für zwei Messgrössen mit unterschiedlichem Fehler}{
+    \begin{equation}
+        \begin{split}
+            t &= \frac{\sigma_2^2}{\sigma_1^2+\sigma_2^2} \\
+            \hat{\mu}(X_1,X_2) &= \frac{\sigma_2^2}{\sigma_1^2+\sigma_2^2}X_1+\frac{\sigma_1^2}{\sigma_1^2+\sigma_2^2}X_2\\
+            \text{Fehler: } var(\hat{\mu}) &= \frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2+\sigma_2^2}
+        \end{split}
+    \end{equation}
+}
+Für den zweiten Sensor nähme man: \(t_2 = 1-t\).
+Wenn also z.B. \(\sigma_2^2\) sehr gross ist, nähert
+sich der Ausdruck 1 an. Sprich der erste Sensor
+wir stärker gewichtet, wenn der Messfehler des Zweiten grösser ist.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/verbesserung-genauigkeit-filter.png}
+    \caption{Genauigkeitsverbesserung durch den Messwert \(X_2\)}
+\end{figure}
 \newpage
+
+\subsection{Rauchen in einem Kanal}
+Gegeben ist ein Eingangssignal \(X\) welches durch ein Rauchen gestört wird.
+Man möchte nun mit zwei Verstärkungsfaktoren \(a,b\) versuchen das Rauschen zu minimieren.
+In dem das Signal mit den gewöhnlichen Tönen verstärkt wird und schlussendlich wieder gedämpft.
+\(A,b\) kontrolliert die Verstärkung oder Dämpung des Signals bei den Einheiten.
+\\\\
+Das Ziel ist nun also \(b\) so zu wählen, damit die Varianz von \(\Delta=Y-X\) minimal wird.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/wiener-filter.png}
+    \caption{Wiener-Filter für Rauschminimierung}
+\end{figure}
+
+Durch das Minimieren der Varianz können die optimalen Faktoren bestimmt werden:
+\begin{equation}
+    \begin{split}
+        var(\Delta) &= var(b(aX+N)-X)\\
+        &\Rightarrow \frac{d}{db}var(\Delta)
+    \end{split}
+\end{equation}
+
+\defn{Wiener-Filter}{
+    \begin{equation}
+        \begin{split}
+            b &= \frac{a\sigma^2}{a^2\sigma^2+\sigma_2^2} \\
+            \text{Fehler: } var(\Delta) &= \frac{\sigma_N^2}{a^2+\sigma_N^2/\sigma^2}
+        \end{split}
+    \end{equation}
+}
+\(\frac{\sigma_N^2}{\sigma^2}\) heisst auch "Signal-Rauschabstand", wobei Zähler
+die Grössenordnung des Rauschens und der Nenner die des Signals ist.
+Diese Art von Filterung ist einer der einfachsten, jedoch nicht optimal, da
+die Qualität von den Frequenzen abhängen.
+
+\subsection{Frequenzabhängige Filterung}
+Das Verhältnis zwischen Rauschen und Signal ist unterschiedlich je nach Frequenz.
+Es ist nicht ausreichend für jede Frequenz das gleiche B zu wählen.
+
+\subsection{Systembeschreibung}
+\subsection{Fehler}
+\subsection{Kovarianz Matrix}
+
+\section{Aufgaben Lösen}
+\begin{enumerate}
+    \item Welche Zufalls grössen liegen vor?
+    \item Welche Art von Zufalls prozess erzeugt die Zufallsgrösse?
+    \item Welche Parameterwerte müssen verwendet werden? (Schätzen)
+    \item Wahrscheinlichkeiten berechnen
+\end{enumerate}
 
 \end{document}
 
