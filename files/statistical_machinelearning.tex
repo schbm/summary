@@ -261,4 +261,72 @@ One can also use a subset of \(q\) coefficients to test with a new hypothesis. W
     \end{itemize}
     \item Mixed Selection
 \end{itemize}
+
+\section{TODO: ADVANCED LINEAR REGRESSION TOPICS}
+
+\section{Unsuperviced Learning}
+In UL there is no response variable \(Y\), only
+predictors \(x_1,\dots ,x_n\). These are measured in
+\(n\) observations resulting in the data matrix \(X\)
+of dimension \(nxp\). The goal is to gather
+inference data using methods like dimensionality reduction
+and clustering. The methods require human judgement and have
+thus a subjective nature.
+\subsection{Principal Component Analysis}
+You have your dataset \(X\) up to \(X_p\) with \(n\) rows.
+Now you reduce it to include fewer features by incorporating
+information into less variables. In PCA regression the idea
+was to reduce the dimensions and then to apply a regression model.
+This will lead to lower flexibility and thus lower variance.
+
+Without regression we skip the training of a prediction model.
+The method stays the same. We try to fit a line to our data
+that contains the largest variance.
+
+\defn{PCA}{
+    Find a linear transform for principal component for which
+    a set of features is a normalized linear combination
+    of the features, resulting in the largest variance:
+    \begin{equation}
+        \begin{split}
+            Z_1 &= \Phi_{11} X_1 + \Phi_{21}X_2+\dots+\phi_{p1}X_p \\
+            \text{For which: } Z_1 = &max(var(Z_1))
+        \end{split}
+    \end{equation}
+    \(Z_1\) denotes the first principal component. We choose
+    a linear mapping to keep a simple representation.
+    One could also choose a non linear transformation (T-SNE).
+
+    With the loading vector of \(Z_1\):
+    \begin{equation}
+        \Phi_1 = (\Phi_{11},\dots,\Phi_{p1})^T
+    \end{equation}
+    Each entry \(\Phi\) is called loadings of \(Z\).
+    The sum of the loadings squared and summed up must equal to 1:
+    \begin{equation}
+        \sum_{j=1}^{p} \Phi_{j1}^2=1
+    \end{equation}
+    In other words the loadings vector must have norm or length of one.
+    Otherwise, the variance can be made arbitrarily large, by selecting
+    large loadings.
+
+    Before applying PCA the first step would be to normalize the data
+    matrix \(X\). This is done by centering the columns (predictor variables)
+    to have zero mean, by subtracting the sample mean of each column from
+    the respective column. Often also division by sample SE.
+
+}
+
+\subsubsection{Scatter-Plot}
+PCA is very useful for data visualisation. For example, we
+can use PCA to reduce dimension in order to create a scatter plot.
+Without PCA the amount of plots would equate to:
+\begin{equation}
+    \binom{p}{2} = \frac{p(p-1)}{2}
+\end{equation}
+
+
+
+\subsection{Clustering}
+
 \end{document}

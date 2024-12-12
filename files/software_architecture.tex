@@ -209,7 +209,6 @@ Context matters (the first C in C4), System Context Diagram (SCD) also present i
     \centering
     \includegraphics{Images/onion.png}
     \caption{Onion Architecture}
-    \label{fig:onionarch}
 \end{figure}
 \newpage
 \section{Story Splitting Flowchart}
@@ -217,14 +216,12 @@ Context matters (the first C in C4), System Context Diagram (SCD) also present i
     \centering
     \includegraphics[angle=90,height=1\textwidth]{Images/storysplitting.png}
     \caption{Story Splitting Flowchart}
-    \label{fig:storysplit}
 \end{figure}
 \newpage
 \begin{figure}[H]
     \centering
     \includegraphics{Images/appliedstorysplitting.png}
     \caption{Story Splitting Example}
-    \label{fig:storyplitex}
 \end{figure}
 
 \begin{table}
@@ -245,4 +242,75 @@ Persistence Layer\\ \hline
 \end{table}
 
 \section{AB CHAPTER??? 5-6-7??}
+
+%chapter 12-13
+\section{Service Orientation}
+\subsection{Service Layer Pattern}
+\subsection{Service Oriented Architecture (SOA)}
+
+
+\subsection{Hate-OAS}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/hate-oas-dectree.png}
+    \caption{Decision Tree for Hate-OAS}
+\end{figure}
+
+WHO IS IN CHARGE OF STATE TBD
+
+
+\subsection{Microservices and SOA}
+
+Many Enterprise Integration Patterns (EIP) are usable in SOA or in Microservice Design.
+E.g some patterns that can be applied:
+\begin{description}
+    \item[Messaging Gateway] Interoperability between Messaging Systems
+    \item[Message Bus] See EIP
+    \item[Service Activator] Kind of a middleware see in EIP
+    \item[Process Manager] Pattern from Message Routing. Communication of queues are coordinated over the manager (orchestrator)
+    There are many available applications for this (EAI, Message Broker)
+\end{description}
+
+\defn{Microservices Architecture by Fowler}{
+    The microservice architectural style is an \textbf{approach to developing a single application 
+    as a suite of small services}, each running in its \textbf{own process} and communicating with 
+    \textbf{lightweight mechanisms}, often an\textbf{HTTP resource API}
+}
+These services are built around business 
+capabilities and independently deployable by fully automated deployment machinery.
+There is a bare minimum of centralized management of these services, which may be written in
+different programming languages and use different data storage technologies.
+
+\defn{Principles (Newman)}{
+    \begin{itemize}
+        \item Model around business concepts (Bounded Context from DDD)
+        \item Adopt a
+    \end{itemize}
+}
+
+Some of the advantages can be the following:
+\begin{itemize}
+    \item High Velocity due to reduced communication
+    \item Some technological independence (e.g. frameworks and languages)
+    \item Improved maintainability (in theory)
+    \begin{enumerate}
+        \item Can be replaced easily
+        \item Architecture might be less prone to erosion, because boundaries are harder to overcome
+    \end{enumerate}
+    \item Suited for cloud deployment due to distributed nature, isolated state and other cloud properties.
+    \item Scalability (individually)
+    \item Failure safety (due to individual services)
+\end{itemize}
+But SOA should not be used blindly, since it also comes with disadvantages:
+\begin{itemize}
+    \item Increases complexity e.g. due to more components or coordination
+    \item Overhead in communication
+    \item More platform requirements
+    \item More (...)
+\end{itemize}
+
+\subsection{Service Contracts}
+
+
+
 \end{document}
