@@ -1,0 +1,97 @@
+\documentclass[../Main.tex]{subfiles}
+\begin{document}
+\chapter{Sorting Algorithm}
+
+\intro{
+
+}
+
+\section{Ableitungen}
+\subsection{Definition}
+Definition der Ableitungsfunktion für \(\forall x \in D\) glatt.
+\begin{equation}
+    f^{'}(n) =
+  \begin{cases}
+    D       &\rightarrow Z\\
+    x_0       &\mapsto \left.\frac{d f(x)}{dx}\right|_{x=x_0}
+  \end{cases}
+\end{equation}
+Ergibt sich aus dem Differenzenquotient:
+\begin{equation}
+    m_{x_0}(x) = \frac{f(x)-f(x_0)}{x-x_0} 
+\end{equation}
+Tangentenfunktion.
+\begin{equation}
+    t_{x_0} = f^{'}(x_0)(x-x_0)+f(x_0)
+\end{equation}
+\subsection{Ableitungsregeln}
+\begin{equation}
+    \begin{aligned}
+        &\frac{d}{dx}x^a         &= &a \cdot x^{a-1} \\
+        &\frac{d}{dx}e^x         &= &e^x \\
+        &\frac{d}{dx}\ln(x)      &= &\frac{1}{x} \\
+        &\frac{d}{dx}\log_b(x)   &= &\frac{1}{\ln(b) \cdot x} \\
+        &\frac{d}{dx}\sin(x)     &= &\cos(x) \\
+        &\frac{d}{dx}\cos(x)     &= &-\sin(x) \\
+        &\frac{d}{dx}\tan(x)     &= &\frac{d}{dx}\frac{\sin(x)}{\cos(x)}  \\
+         &&= &\frac{1}{\cos^2} \\
+         &&= &1 + \tan^2(x) \\
+        &\frac{d}{dx}\arcsin(x)  &= &\frac{1}{\sqrt{1-x^2}} \\
+        &\frac{d}{dx}\arccos(x)  &= &-\frac{1}{\sqrt{1-x^2}} \\
+        &\frac{d}{dx}\arctan(x)  &= &\frac{1}{1+x^2}
+    \end{aligned}
+\end{equation}
+\begin{equation}
+    \begin{aligned}
+        \text{Linearität: }    \enspace    &\frac{d}{dx} (f(x)+g(x))           &= &f'(x)+g'(x) \\
+        \text{Produkt: }       \enspace    &\frac{d}{dx} (f(x) \cdot g(x))     &= &f'(x)+g(x) + f(x)+g'(x) \\
+        \text{Konstante: }     \enspace    &\frac{d}{dx} (c \cdot f(x))        &= &c \cdot f' \\
+        \text{Kettenregel: }   \enspace    &\frac{d}{dx} (f(g(x)))             &= &f'(g(x))+g'(x) \\
+        \text{Quotient: }      \enspace    &\frac{d}{dx} (\frac{f(x)}{g(x)})   &= &\frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{(g(x))^2} \\
+    \end{aligned}
+\end{equation}
+
+\section{Integration}
+\section{Kurvendiskussion}
+Stationäre Punkte bei \(f^{'}(x)=0 \), wobei:
+\begin{enumerate}
+    \item \( f^{''}(x)<0 \implies\) lokale Maxima
+    \item \( f^{''}(x)>0 \implies\) lokale Minima
+    \item \( f^{''}(x)=0 \implies\) Unentschieden
+    \item \( f^{''}(x)=0 \land f^{'''}(x) \neq 0 \implies\) Wendestelle
+\end{enumerate}
+\section{Taylor}
+\section{Fourier}
+\section{Trigonometrische Funktionen}
+Add Images here
+\subsection{Spezielle Funktionswerte}
+\begin{equation}
+    \begin{aligned}
+        \sin(\frac{\pi}{6}) = \frac{1}{2},
+        \sin(\frac{\pi}{4}) = \frac{\sqrt{2}}{2},
+        \sin(\frac{\pi}{3}) = \frac{\sqrt{3}}{2} \\
+        \cos(\frac{\pi}{6}) = \frac{\sqrt{3}}{2},
+        \cos(\frac{\pi}{4}) = \frac{\sqrt{2}}{2},
+        \cos(\frac{\pi}{3}) = \frac{1}{2}
+    \end{aligned}
+\end{equation}
+\subsection{Additionstheoreme und Produktformeln}
+\begin{equation}
+    \begin{aligned}
+        \sin(a \pm b) &= &\sin(a) \cos(b) &\pm \cos(a) \sin(b) \\
+        \cos(a \pm b) &= &\cos(a)\cos(b) &\mp \sin(a) \sin(b) \\
+        \cos(a) \cos(b) &= &\frac{1}{2}(\cos(a-b) &+ \cos(a+b)) \\
+        \sin(a) \sin(b) &= &\frac{1}{2}(\cos(a-b) &- \cos(a+b)) \\
+        \cos(a) \sin(b) &= &\frac{1}{2}(\sin(a+b) &- \sin(a-b))
+    \end{aligned}
+\end{equation}
+\subsubsection{Doppelwinkeltheorem}
+\begin{equation}
+    \begin{aligned}
+        1 &= &\cos^2(x)+\sin^2(x) \\
+        \cos(2x) &= &\cos^2(x)-\sin^2(x)\\
+        \sin(2x) &= &2\sin(x)\cos(x)
+    \end{aligned}
+\end{equation}
+
+\end{document}
