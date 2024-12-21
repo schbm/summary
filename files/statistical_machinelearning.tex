@@ -8,35 +8,41 @@
 }
 
 \section{Basics}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/overview.png}
+    \caption{Overview}
+\end{figure}
+
 \defn{Correlation and Causation}{
-\textbf{REMEMBER!} Correlation does not imply causation!
+    \textbf{REMEMBER!} Correlation does not imply causality!
 }
-\subsection{Prediction vs Inference}
-\defn{Statistical Machine Learning}{
-    The main goal of statistical learning is to minimize the reducible error.
-}
-\defn{Error}{
-    Output (dependable variable) depends not only on the input, but also a from \(X\) indepentend zero meanr error term \(\epsilon\). Even a perfect prediction function \(f(x_i)\) has a \textbf{irreducible error} \(\epsilon\).
-\
-    \begin{itemize}
-        \item Random Measurement Error
-        \item Systematic Errors e.g. humidity
-    \end{itemize}
+In StatML we want to create mathematical models based on data.
+We assume a fixed but unknown relationship between the input variables \(X\) and our
+output (dependent variable) \(Y\).
 
-If the estimated \(\hat{f}(X)\) is not equal to the true function, there is the possibility to learn a better relationship between input and output, this is called \textbf{reducible error}.
+Given a dataset (usually represented by a input vector \(X\)):
 \begin{equation}
-    \begin{split}
-        MSE&=E\{(Y-\hat{Y})^2\}\\
-        &=(1)E\{(f(X)-\hat{f}(X))^2\}+(2)Var(\epsilon)\\
-        (1)\text{Reducible Error }&+(2)\text{Irreducible Error}
-    \end{split}
+    X = (X_1, X_2, \dots, X_p)
 \end{equation}
-    
+Find a function that as good as possible models our unknown relationship:
+\begin{equation}
+    Y = f(X) + \varepsilon
+\end{equation}
+One of the main goals of statistical learning is to minimize the reducible error \(\varepsilon\).
+
+\defn{Inference vs Prediction}{
+    \begin{itemize}
+        \item In \textbf{inference} we are interested in understanding the relationship between predictors and response.
+        \item The goal of \textbf{prediction} is to calculate new values \(\hat{y}\) with given predictors \(X_i\).
+    \end{itemize}
 }
 
-\defn{Inference}{
-    In inference we are interested in understanding the relationship between predictors and response. 
-}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/regr-vs-class.png}
+    \caption{Regression vs Prediction}
+\end{figure}
 
 \defn{Estimation Aproaches}{
 \begin{description}
@@ -45,27 +51,67 @@ If the estimated \(\hat{f}(X)\) is not equal to the true function, there is the 
 \end{description}
 }
 
+When choosing a method or model. There is a clear tradeoff between flexibility and model interpretability.
+One can say that a model which is easier to interprete, is in turn also less capable to predict accurate values, in comparison
+to models which are less interpretable.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/model-interpretability.png}
+    \caption{Model Interpretability Tradeoff}
+\end{figure}
+
 \defn{Supervised Learning}{
     In supervised learning for each input vector \(X\), its corresponding dependent variable \(Y\) is known.
 }
 
-\newpage
-\section{Bias-Variance}
+\subsection{Error}
+\defn{Error}{
+    The Output (dependable variable) depends not only on the input, but also a from \(X\) 
+    \textbf{indepentend zero mean error term} \(\epsilon\). Even a perfect prediction function \(f(x_i)\) has a 
+    \textbf{irreducible error} \(\epsilon\).
+    Error is introduced by internal as well as external factors:
+    \begin{itemize}
+        \item Random Measurement Error
+        \item Systematic Errors e.g. humidity
+    \end{itemize}
+
+    If the estimated \(\hat{f}(X)\) is not equal to the true function, 
+    there is the possibility to learn a better relationship between input and output, this is called \textbf{reducible error}. 
+}
+
+\exm{Error Terms with MSE}{
+    One can show using algebra that the average error consists of two terms:
+    \begin{equation}
+        \begin{split}
+            MSE&=E\{(Y-\hat{Y})^2\}\\
+            &=(1)E\{(f(X)-\hat{f}(X))^2\}+(2)Var(\epsilon)\\
+            (1)\text{Reducible Error }&+(2)\text{Irreducible Error}
+        \end{split}
+    \end{equation}
+}
+
+\subsection{Bias-Variance}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/Bias_and_variance_contributing_to_total_error.svg.png}
     \caption{Bias Variance Tradeoff}
 \end{figure}
-The expected test MSE is the sum of a variance term, a bias term squared and the irreducible error.  Its defined as the average test MSE that would be obtained if \(f(X)\) is estimated repeatedly using a large number of training sets at tested at \(x_0\).
+The \textbf{expected test MSE} is the sum of a \textbf{variance} term, a \textbf{bias} term squared and the \textbf{irreducible error}.  Its defined as the average test MSE that would be obtained if \(f(X)\) is estimated repeatedly using a large number of training sets at tested at \(x_0\).
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/bias-variance-test-mse.png}
+    \includegraphics[width=0.75\linewidth]{Images/bias-variance-test-mse.png}
     \caption{Test MSE Equivalent}
 \end{figure}
-\newpage
-The \(\sqrt{variance}\) refers to the amount by which the estimate would change, if we estimated using a different training set. Ideally the training set should have little influence on how the method estimates, this is typical for low flexibility methods.
 
-The bias refers to the error introduces by approximating. If a model is too simple (low flexibility) to capture the true shape of the function, this will result in high bias.
+\newpage
+The \(\sqrt{variance}\) refers to the amount by which the estimate would change, if we estimated using a different training set. 
+Ideally the training set should have little influence on how the method estimates, this is typical for \textbf{low flexibility} methods.
+\\
+\\
+The bias refers to the error introduced by approximation using a model that is \textbf{too simple} (low flexibility)
+to capture the \textbf{true shape} of a function, this will result in \textbf{high bias}.
 
 \begin{figure}[H]
     \centering
@@ -74,16 +120,16 @@ The bias refers to the error introduces by approximating. If a model is too simp
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/bias-variance-optimum.png}
+    \includegraphics[width=0.75\linewidth]{Images/bias-variance-optimum.png}
     \caption{Bias Variance Tradeoff Optimum}
 \end{figure}
-\newpage
-\defn{Bias-Variance Summary}{
- \begin{itemize}
-     \item Flexible methods have low bias but high variance
-     \item Simple methods have low variance but high bias
 
- \end{itemize}
+\defn{Bias-Variance Summary}{
+    In principle we say:
+    \begin{itemize}
+        \item \textbf{Flexible} methods have low bias but high variance
+        \item \textbf{Simple} methods have low variance but high bias
+    \end{itemize}
 }
 \begin{figure}[H]
     \centering
@@ -91,23 +137,262 @@ The bias refers to the error introduces by approximating. If a model is too simp
     \caption{Bias Variance Overview}
 \end{figure}
 
-\newpage
+\defn{Model Selection Merksatz}{
+    Don't select the method minimizing the \textbf{training MSE}!
+}
+
 \section{Regression}
-Quantitative (numerical) prediction where \(Y\) is an ordered numerical value. 
+Regression is a method to calculate \textbf{quantitative} (numerical) predictions where \(Y\) is an ordered numerical value.
+In its essence we define a mathematical model and an associated error function.
+We then try to minimize the error, which is \textit{just} an optimization problem.
+
+For a model to be optimizable many different well known optimization models exist.
+For most regression problems we use \textbf{RSS}.
+With the RSS we try to minimize the difference between squared sums of the prediction \(\hat{Y}\) and the actual data \(Y\).
+
+The terms are squared to keep a positive sign. It can also be modeled with the abs function, 
+but this makes it harder to find an optimization method due to it beeing harder to be optimized using analysis e.g. differentiation.
+\defn{RSS}{
+    \begin{equation}
+        RSS = \sum (y - \hat{y})^2
+    \end{equation}
+}
+
+\subsection{Model Accuracy}
+We can model the accuracy of a model using the \textbf{MSE}.
+In essence the MSE shows the on average commited error when predicting already known values.
+
 \defn{Mean Squared Error}{
+    \begin{equation}
+        \begin{split}
+            MSE &= \frac{1}{n}(y_i-\hat{f}(x_i))^2 \\
+            MSE &= \frac{RSS}{n}
+        \end{split}
+    \end{equation}
+}
+
+\subsection{Linear Regression}
+In linear regression estimates are modeled with a linear relationship between a scalar response (dependent variable) 
+and one or more explanatory variables (regressor or independent variable). There is a closed form solution for the RSS optimization.
+\defn{Linear Regression Model}{
+    We use a linear model (linear in \(b_i\)):
+    \begin{equation}
+        Y \approx \hat{Y} = \beta_0 + \sum_{i=0}^n \beta_{i+1} X_i
+    \end{equation}
+    \(b_0\) is also called a bias term.
+    We find a optimal prediction function by minimizing the RSS:
+    \begin{equation}
+        RSS = e_1^2+\dots+e_n^2 \text{ where } e_i = y_i-\hat{y}_i
+    \end{equation}
+}
+\subsection{Linear Regression: Metrics}
+\textbf{RSE} is roughly speaking, the average amount that the response will deviate from the true regression line. It provides an absolute measure of lack of fit of the model to the data. In fact the RSE carries the same unit as \(Y\).\textbf{ \(R^2\)} is the proportion of the variance explained by the model and hence it takes values between 0 and 1. \textbf{TSS} is the total sum of squares, which is the RSS if \(Y\) would always be predicted using the sample mean of \(Y\) (best possible predictor if we do not measure \(X\)). Assess accuracy of model with:
+\defn{Model Accuracy}{
+    \begin{equation}
+        \begin{split}
+            RSE &= \sqrt{\frac{1}{n-p-1}RSS} \\
+            TSS &= \sum (y_i - \bar{y} )^2 \\
+            R^2 &= \frac{TSS-RSS}{TSS} = 1-\frac{RSS}{TSS} \\
+        \end{split}
+    \end{equation}
+}
+
+Since RSE includes the predictor count in the denominator it punishes adding more predictors to the model.
+In TSS adding more predictors is always improving the metric.
+\textbf{In simple linear regression} the following holds:
 \begin{equation}
-    MSE = \frac{1}{N}(y_i-\hat{f}(x_i))^2
+    R^2 = Cor(X,Y)^2 = Cor(Y,X)^2
+\end{equation}
+\textbf{In multivariate linear regression} the following holds:
+\begin{equation}
+    R^2 = Cor(Y,\hat{Y})^2
+\end{equation}
+We require a small variance of the estimate or equivalently a small standard error. Since \(\sigma^2\) is unknown it has to be estimated from data. Note that \(\sigma\) is the standard deviation of each independent realization of \(Y\).
+\begin{equation}
+    \begin{split}
+         Var(\hat{\mu}) = SE(\hat{\mu})^2 = \frac{\sigma^2}{n}\\
+         \text{where } \sigma^2 = Var(\epsilon)
+    \end{split}
+\end{equation}
+Variance \(\sigma^2\) estimation using residual standard error (RSE):
+\defn{Standard Error Estimation using RSE}{
+    \begin{equation}
+    \begin{split}
+        \text{for }\sigma^2 &= Var(\epsilon) \\
+        \implies SE\approx  \hat{SE} = RSE &= \sqrt{\frac{RSS}{n-n_\beta}}
+    \end{split}
 \end{equation}
 }
 
+\subsection{Linear Regression: Predictor Correlation}
+There is a common effect in practice, where in simple linear regression a predictor is significant (has a low p-value)
+but is insignificant in multiple linear regression.
+This can happen when there is a latent variable, which is correlated with two other variables.
+
+When the other two variables are 
+regressed onto each other, it appears 
+that there is a relationship between 
+them, even though the both depend 
+on the same latent variable.
+
+\defn{Correlation (Empirical)}{
+    \begin{equation}
+        Cor(X,Y) = \frac{\sum (x_i - \bar{x}) (y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2} \sqrt{\sum (y_i - \bar{y})}}
+    \end{equation}
+    Here x and y does not denote dependent or independent variables but any two random variables e.g two predictors.
+}
+
+The correlation values are best interpretable in a normalized correlation matrix:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/corr-example.png}
+    \caption{Normalized Coeff Correlation Example}
+\end{figure}
+
+\subsection{Linear Regression: Prediction Errors}
+\defn{Errors in Prediction}{
+    When predicting values we have three possible errors:
+    \begin{enumerate}
+        \item Inaccuracy in estimating the coefficients (Use confidence intervals)
+        \item Model bias (Assume linear model fits good enough)
+        \item The irreducible error \(\varepsilon\) (Prediction interval)
+    \end{enumerate}
+}
+
+Confidence intervals quantify the uncertainty surrounding the averages of a prediction.
+Here we are not interested in the overall \(\varepsilon\), since it does not contribute to the uncertainty
+in the confidence interval. This is because \(\varepsilon\) is zero in the linear model.
+If you can afford to average over many take confidence intervals otherwhise choose prediction invervals
+
+\exm{Confidence vs Prediction Intervals}{
+    \begin{itemize}
+        \item Confidence interval = 95\% \textbf{of all data samples} lie in that interval.
+        \item Prediction interval = with 95\% chance, the true value \(y\) of \textbf{one data sample} lies in that interval
+    \end{itemize}
+}
+
+Under the Gaussian assumption confidence intervals can be computed using the estimated variance. 
+\defn{Confidence Intervals}{
+    \begin{equation}
+    Pr(a<\hat{b}_i<b)=0.95 \implies \hat{\beta}_i \pm 2\cdot \hat{SE}(\hat{\beta}_i)
+\end{equation}
+}
+
+\subsection{Predictor Selection}
+\begin{itemize}
+    \item Forward selection
+    \item Backward selection
+    \begin{itemize}
+        \item Cannot be used if there are more predictor variables than training samples
+    \end{itemize}
+    \item Mixed Selection
+\end{itemize}
+
+\subsection{Assessing Coefficients: T-Test}
+The T-test (with the T-statistic), is a tool for evaluating the means of one or two populations using hypothesis testing) Hypothesis tests using null hypothesis. We can test the relevance of coefficients using the T-test:
+\defn{T-Test for Coefficients}{
+
+\begin{equation}
+    \begin{split}
+        H_0 : \text{There is no relation between }X \text{ and }\\
+        \text{or } b_i = 0 \\
+        H_a : \text{There is a relationship}
+    \end{split}
+\end{equation}
+\begin{equation}
+    \text{T-statistic} = \frac{\hat{\beta}_i}{\hat{SE}(\hat{\beta}_i)}
+\end{equation}
+With \(n-n_\beta\) degrees of freedom where p:
+\begin{equation}
+    p = Pr(|T|>|t| \qquad | H_0)
+\end{equation}
+}
+\textbf{P-Value} is the probability that we realistically observe an absolute T-value equal or bigger to the one observed under the \(H_0\).
+
+\subsection{Assessing Coefficients: F-Test}
+An F-test is any statistical test used to compare the variances of two samples or the ratio of variances between multiple samples. To check if there is any relationship between predictors and the dependent variable the F-test can be used:
+\defn{F-Test}{
+    \begin{equation}
+    \begin{split}
+        H_0 &: \beta_0 = \dots = \beta_n = 0 \\
+        H_a &: \text{at least one } \beta_j \text{ is non-zero} \\
+        \text{using F-statistic} &: F=\frac{(TSS-RSS)/p}{RSS(n-p-1)}\\
+        \text{and} &: TSS = \sum (y_i-\bar{y})^2 \text{, } RSS=\sum (y_i - \hat{y})^2
+    \end{split}
+\end{equation}
+}
+F-statistic expresses the improvement of the model per parameter \(p\) in multiples of the residual variance. If the linear model assumptions are correct and \(H_a\) is true we expect the F-statistic on average to be greater than one.
+
+One can also use a subset of \(q\) coefficients to test with a new hypothesis. We order the predictor variables so that the last q variables are the one to test for being zero. Then we fit a second model that uses all the predictor variables except the last q .
+\begin{equation}
+    F = \frac{(RSS_0-RSS)/q}{RSS/(n-p-1)}
+\end{equation}
+\defn{Single Coefficient F-Test}{
+    When we leave out only one variable (q=1) then the F-statistic would tell the partial effect of adding that variable to the model. \textbf{It turns out, the F-statistic, if only one variable is left out, is identical to the squared T-statistic.}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/f-dist.png}
+    \caption{F-Distribution}
+\end{figure}
+
+\subsection{Linear Regression: Potential Problems}
+\begin{enumerate}
+    \item Non-linearity of data -> look at residual plots -> transform inputs
+    \item Correlation of error terms -> caution when collecting data!
+    \item Non-constant variance of error terms -> look at residual plots -> transform output
+    \item Outliers (unusual output value) -> if \(\frac{\hat{\epsilon}_i}{\hat{\sigma}\sqrt{1-h_i}}>3\) -> outlier
+    \item High-leverage points (unusual input value) -> if \(h_i = \frac{1}{n} + \frac{(x_i - \bar{x})^2}{\sum_{i=1}^{n} (x_i - \bar{x})^2} > (p+1)/n\) -> h.l.p
+    \item Collinearity -> if \(VIF(\hat{b}_j) = \frac{1}{1-R_{X_j|X_{-j}^2}}>5\) -> problem
+\end{enumerate}
+
+\subsection{Qualitative Predictors}
+Binary qualitative predictors can be modeled in linear regression using a technique that maps
+the class to either 0 or 1 this is often called dummy or indicator variables:
+
+\begin{equation}
+    x_i = \begin{cases}
+        1 & \text{if class x}\\
+        0 & \text{if class y}
+    \end{cases}
+\end{equation}
+The model can then be extended to:
+\begin{equation}
+    y_i = b_0 + b_1 x_1 + \varepsilon_i = \begin{cases}
+        b_0 + b_1 + \varepsilon_i \\
+        b_0 + \varepsilon_i 
+    \end{cases}
+\end{equation}
+This simplifies into a linear function with slope influence or only with a bias term.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/indicator-function.png}
+    \caption{Dummy/Indicator Variable}
+\end{figure}
+
+If multiple qualitative predictors are to be modeled new dummy variables need to be introduced.
+There always only needs to be \(l-1\) dummy variables where l is the number of levels. The level
+without a dedicated dummy variable is called the baseline.
+
+It is better to use the F-test to judge if the predictors are relevante,
+since the individual p-values of the coefficients rely on the chosen encoding of the dummy variable.
+
+
 \section{Classification}
-Qualitative (categorical) prediction where \(Y\) is discrete categorical value. 
+In classification we make qualitative (categorical) predictions where \(Y\) is a discrete categorical value.
+As in regression there are many methods to quantify the error.
+
+\subsection{Model Accuracy}
+One of the most general methods is to model error with the CER:
 \defn{Classification Error Rate}{
 \begin{equation}
     Error = \frac{1}{n}\sum_{i=1}^n I(y_i \ne \hat{y}_i)
 \end{equation}
 }
 
+A Bayes classifier results in the lowest possible test error rate:
 \defn{Bayes Classifier}{
     Test error rate is minimized, by a classifier that assigns each observation to the most probable class, given its predictor value. Results in the lowest possible error rate called Bayes error rate.
     \begin{equation}
@@ -147,115 +432,26 @@ Qualitative (categorical) prediction where \(Y\) is discrete categorical value.
     \includegraphics[width=0.5\linewidth]{Images/knn-flexibility.png}
     \caption{KNN Flexibility}
 \end{figure}
+
+\subsection{Logistic Regression}
+Linear regresseion does not work well for classification.
+We instead coul use logistic regression where a probability [0;1] is modeled.
+
+ \begin{equation}
+    log(\frac{p(X)}{1-p(X)} = b_0 + b_1 X_1 + \dots + b_p X_p)
+ \end{equation}
+ \begin{equation}
+    p(X) = \frac{e^{b_0 + b_1 X_1 + \dots + b_p X_p}}{1+ e^{b_0 + b_1 X_1 + \dots + b_p X_p}}
+ \end{equation}
+
+ The parameters are found with the Maximum Likelihood approach, where we maximize:
+ \begin{equation}
+    l(b_0,b_1) = \prod_{i:y_i=1} p(x_i) \prod_{i':y_{i'}=0} (1-p(x_{i'}))
+ \end{equation}
+
+ \subsection{Linear Discriminant Analysis}
+
 \newpage
-\section{Linear Regression}
-\defn{Linear Regression Model}{
-Estimates the linear relationship between a scalar response (dependent variable) and one or more explanatory variables (regressor or independent variable). There is a closed form solution for the RSS optimization.
-\begin{equation}
-    Y \approx \hat{Y} = \beta_0 + \sum_{i=0}^n \beta_{i+1} X_i
-\end{equation}
-By minimizing RSS:
-\begin{equation}
-    RSS = e_1^2+\dots+e_n^2 \text{ where } e_i = y_i-\hat{y}_i
-\end{equation}
-
-}
-\subsection{Metrics}
-\textbf{RSE} is roughly speaking, the average amount that the response will deviate from the true regression line. It provides an absolute measure of lack of fit of the model to the data. In fact the RSE carries the same unit as \(Y\).\textbf{ \(R^2\)} is the proportion of the variance explained by the model and hence it takes values between 0 and 1. \textbf{TSS} is the total sum of squares, which is the RSS if \(Y\) would always be predicted using the sample mean of \(Y\) (best possible predictor if we do not measure \(X\)). Assess accuracy of model with:
-\defn{Model Accuracy}{
-\begin{equation}
-    \begin{split}
-        RSE &= \sqrt{\frac{1}{n-p-1}RSS} \\
-        TSS &= \sum (y_i - \bar{y} )^2 \\
-         R^2 &= \frac{TSS-RSS}{TSS} = 1-\frac{RSS}{TSS} \\
-    \end{split}
-\end{equation}
-
-}
-\textbf{In simple linear regression} the following holds:
-\begin{equation}
-    R^2 = Cor(X,Y)^2 = Cor(Y,X)^2
-\end{equation}
-\textbf{In multivariate linear regression} the following holds:
-\begin{equation}
-    R^2 = Cor(Y,\hat{Y})^2
-\end{equation}
-We require a small variance of the estimate or equivalently a small standard error. Since \(\sigma^2\) is unknown it has to be estimated from data. Note that \(\sigma\) is the standard deviation of each independent realization of \(Y\).
-\begin{equation}
-    \begin{split}
-         Var(\hat{\mu}) = SE(\hat{\mu})^2 = \frac{\sigma^2}{n}\\
-         \text{where } \sigma^2 = Var(\epsilon)
-    \end{split}
-\end{equation}
-Variance \(\sigma^2\) estimation using residual standard error (RSE):
-\defn{Standard Error Estimation using RSE}{
-    \begin{equation}
-    \begin{split}
-        \text{for }\sigma^2 &= Var(\epsilon) \\
-        \implies SE\approx  \hat{SE} = RSE &= \sqrt{\frac{RSS}{n-n_\beta}}
-    \end{split}
-\end{equation}
-}
-Under the Gaussian assumption confidence intervals can be computed using the estimated variance. 
-\defn{Confidence Intervals}{
-    \begin{equation}
-    Pr(a<\hat{b}_i<b)=0.95 \implies \hat{\beta}_i \pm 2\cdot \hat{SE}(\hat{\beta}_i)
-\end{equation}
-}
-\subsection{T-Test}
-The T-test (with the T-statistic), is a tool for evaluating the means of one or two populations using hypothesis testing) Hypothesis tests using null hypothesis. We can test the relevance of coefficients using the T-test:
-\defn{T-Test for Coefficients}{
-
-\begin{equation}
-    \begin{split}
-        H_0 : \text{There is no relation between }X \text{ and }\\
-        \text{or } b_i = 0 \\
-        H_a : \text{There is a relationship}
-    \end{split}
-\end{equation}
-\begin{equation}
-    \text{T-statistic} = \frac{\hat{\beta}_i}{\hat{SE}(\hat{\beta}_i)}
-\end{equation}
-With \(n-n_\beta\) degrees of freedom where p:
-\begin{equation}
-    p = Pr(|T|>|t| \qquad | H_0)
-\end{equation}
-}
-\textbf{P-Value} is the probability that we realistically observe an absolute T-value equal or bigger to the one observed under the \(H_0\).
-
-\subsection{F-Test}
-An F-test is any statistical test used to compare the variances of two samples or the ratio of variances between multiple samples. To check if there is any relationship between predictors and the dependent variable the F-test can be used:
-\defn{F-Test}{
-    \begin{equation}
-    \begin{split}
-        H_0 &: \beta_0 = \dots = \beta_n = 0 \\
-        H_a &: \text{at least one } \beta_j \text{ is non-zero} \\
-        \text{using F-statistic} &: F=\frac{(TSS-RSS)/p}{RSS(n-p-1)}\\
-        \text{and} &: TSS = \sum (Y_i-\bar{y})^2 \text{, } RSS=\sum (y_i - \hat{y})^2
-    \end{split}
-\end{equation}
-}
-F-statistic expresses the improvement of the model per parameter \(p\) in multiples of the residual variance. If the linear model assumptions are correct and \(H_a\) is true we expect the F-statistic on average to be greater than one.
-
-One can also use a subset of \(q\) coefficients to test with a new hypothesis. We order the predictor variables so that the last q variables are the one to test for being zero. Then we fit a second model that uses all the predictor variables except the last q .
-\begin{equation}
-    F = \frac{(RSS_0-RSS)/q}{RSS/(n-p-1)}
-\end{equation}
-\defn{Single Coefficient F-Test}{
-    When we leave out only one variable (q=1) then the F-statistic would tell the partial effect of adding that variable to the model. \textbf{It turns out, the F-statistic, if only one variable is left out, is identical to the squared T-statistic.}
-}
-
-\subsection{Predictor Selection}
-\begin{itemize}
-    \item Forward selection
-    \item Backward selection
-    \begin{itemize}
-        \item Cannot be used if there are more predictor variables than training samples
-    \end{itemize}
-    \item Mixed Selection
-\end{itemize}
-
-\section{TODO: ADVANCED LINEAR REGRESSION TOPICS}
 
 \section{Unsuperviced Learning}
 In UL there is no response variable \(Y\), only
