@@ -67,29 +67,30 @@ Der Ausgang eines Experimentes heisst Elementarereignis, die Menge aller Element
 }
 
 \defn{Ereignisalgebra}{
-Eine Ereignisalgebra \( (\Omega , A) \) ist eine Menge \(\Omega\) mit einer Menge \(A \subset Potenzmenge(\Omega)\) von Teilmengen von \(\Omega\) , die folgende Bedingungen erfüllen: 
-\begin{enumerate}
-    \item Vereinigungen von Elementen von \(A\) sind ebenfalls in \(A\), also \\
-\[B,C \in A \Rightarrow B \cup C \in A\]
-    \item  Differenzen von Elementen von A sind in A, also \\
-\[ B,C \in A \Rightarrow B \setminus C \in A \]
-    \item        \(\Omega \in A\) d.h. es gibt das sichere Ereignis.
-\end{enumerate}
-Sind nur die Bedingungen 1 und 2 erfüllt, spricht man auch von einem Mengen-Ring. Eine Ereignisalgebra heisst manchmal auch ein Mengenkörper. Aus den Axiomen folgt direkt:
-\begin{enumerate}
-    \item Es gibt das unmögliche Ereignis: \(\emptyset\)
-    \item Das Komplement eines Ereignisses ist ebenfalls ein Ereignis
-    \item Der Durchschnitt zweier Ereignisse ist ebenfalls ein Ereignis.
-\end{enumerate}
+    Eine Ereignisalgebra \( (\Omega , A) \) ist eine Menge \(\Omega\) mit einer Menge \(A \subset Potenzmenge(\Omega)\) von Teilmengen von \(\Omega\) , die folgende Bedingungen erfüllen: 
+    \begin{enumerate}
+        \item Vereinigungen von Elementen von \(A\) sind ebenfalls in \(A\), also \\
+    \[B,C \in A \Rightarrow B \cup C \in A\]
+        \item  Differenzen von Elementen von A sind in A, also \\
+    \[ B,C \in A \Rightarrow B \setminus C \in A \]
+        \item        \(\Omega \in A\) d.h. es gibt das sichere Ereignis.
+    \end{enumerate}
+    Sind nur die Bedingungen 1 und 2 erfüllt, spricht man auch von einem Mengen-Ring. Eine Ereignisalgebra heisst manchmal auch ein Mengenkörper. Aus den Axiomen folgt direkt:
+    \begin{enumerate}
+        \item Es gibt das unmögliche Ereignis: \(\emptyset\)
+        \item Das Komplement eines Ereignisses ist ebenfalls ein Ereignis
+        \item Der Durchschnitt zweier Ereignisse ist ebenfalls ein Ereignis.
+    \end{enumerate}
 
-\begin{equation}
-    \begin{split}
-        A \cap (B \cup C) &= (A \cap B) \cup(A \cap C) \\
-        A \cup (B  \cap C) &= (A \cup B) \cap (A \cup C) \\
-        \overline{A \cap B} &= \bar{A}\cup\bar{B} \text{ and vice versa}
-    \end{split}
-\end{equation}
+    \begin{equation}
+        \begin{split}
+            A \cap (B \cup C) &= (A \cap B) \cup(A \cap C) \\
+            A \cup (B  \cap C) &= (A \cup B) \cap (A \cup C) \\
+            \overline{A \cap B} &= \bar{A}\cup\bar{B} \text{ and vice versa}
+        \end{split}
+    \end{equation}
 }
+
 \newpage
 \section{Wahrscheinlichkeit}
 Die Wahrscheinlichkeit soll ein Mass dafür sein, dass ein Ereignis eintritt. Es gibt verschiedene Ansätze, wie wir zu einem solchen Mass kommen könnten: 
@@ -157,27 +158,30 @@ Man liest dies auch als “Wahrscheinlichkeit von A bedingt B”.
 }
 
 \defn{Unabhängigkeit}{
-Die Ereignisse A und B heissen unabhängig, wenn gilt:
-\begin{equation}
-    P(A \cap B) = P(A) \cdot P(B)
-\end{equation}
+    Die Ereignisse A und B heissen unabhängig, wenn gilt:
+    \begin{equation}
+        P(A \cap B) = P(A) \cdot P(B)
+    \end{equation}
 }
 
 \defn{Satz der totalen Wahrscheinlichkeit}{
-Ist \(B_i\) eine Folge paarweise disjunkter Mengen mit \( \bigcup_{i=0}^n B_i = \Omega \) , dann gilt für jedes Ereignis \(A\) 
-\begin{equation}
-    P(A)= \sum_{i=0}^n P(A|B_i) \cdot P(B_i)
-\end{equation}
+    Ist \(B_i\) eine Folge paarweise disjunkter Mengen mit \( \bigcup_{i=0}^n B_i = \Omega \) , dann gilt für jedes Ereignis \(A\) 
+    \begin{equation}
+        P(A)= \sum_{i=0}^n P(A|B_i) \cdot P(B_i)
+    \end{equation}
 }
 
+\subsection{Bayesischer Ansatz}
+%tbd explain some more
 \defn{Satz von Bayes}{
-Für zwei beliebige Ereignisse mit \(A\) und \(B\) mit nicht verschwindender Wahrscheinlichkeit \(P(B) \neq 0\) gilt 
-\begin{equation}
-    \begin{split}
-        P(A|B) \cdot P(B) = P(A \cap B) = P(B|A) \cdot P(A),\\
-        P(A|B)= \frac{P(B|A) \cdot P(A)}{P(B)}
-    \end{split}
-\end{equation}
+    Für zwei beliebige Ereignisse mit \(A\) und \(B\) mit nicht
+    verschwindender Wahrscheinlichkeit \(P(B) \neq 0\) gilt 
+    \begin{equation}
+        \begin{split}
+            P(A|B) \cdot P(B) = P(A \cap B) = P(B|A) \cdot P(A),\\
+            P(A|B)= \frac{P(B|A) \cdot P(A)}{P(B)}
+        \end{split}
+    \end{equation}
 }
 
 \subsection{Google Matrix}
@@ -185,19 +189,90 @@ Für zwei beliebige Ereignisse mit \(A\) und \(B\) mit nicht verschwindender Wah
 \section{Zufallsvariable}
 In der Stochastik ist eine \textbf{Zufallsvariable} (auch \textbf{zufällige Variable}, \textbf{zufällige Größe}, \textbf{zufällige Veränderliche}, \textbf{zufälliges Element}, \textbf{Zufallselement}, \textbf{Zufallsveränderliche}) eine Größe, deren Wert vom Zufall abhängig ist. Formal ist eine Zufallsvariable eine Funktion, die jedem möglichen Ergebnis eines Zufallsexperiments eine Größe zuordnet. Ist diese Größe eine reelle Zahl, so spricht man von einer \textbf{reellen Zufallsvariablen} oder \textbf{Zufallsgröße}. Beispiele für reelle Zufallsvariablen sind die Augensumme von zwei geworfenen Würfeln und die Gewinnhöhe in einem Glücksspiel. Zufallsvariablen können aber auch komplexere mathematische Objekte sein, wie Zufallsfelder, Zufallsbewegungen, Zufallspermutationen oder Zufallsgraphen. Über verschiedene Zuordnungsvorschriften können einem Zufallsexperiment auch verschiedene Zufallsvariablen zugeordnet werden.
 \defn{Zufallsvariable}{
-Eine Zufallsvariable ist eine Funktion \(Q \rightarrow \mathbb{R} \) . Eine diskrete Zufallsvariable nimmt nurdiskrete Werte in \( \mathbb{R}\) an. Bei einer stetigen Zufallsvariable sind beliebige Werte \(X(\omega) \in \mathbb(R)\) möglich. Mit der zusätzlichen Eigenschaft , dass die Mengen \(\{\omega|X(\omega) < x\}\) Ereignisse sind. 
-\\\\
-Mit einer Zufallsvariablen \(X\) kann man wieder neue Ereignisse definieren.
-\begin{equation}
-    \begin{split}
-        \{X=a\} = \{ \omega \in \Omega | X(\omega) = a \} \\
-        \{a < X\leq b \} = \{ \omega \in \Omega | a < X(\omega) \leq b \}
-    \end{split}
-\end{equation}
-Bei einer stetigen Zufallsvariable sind die Ereignisse der Form \(\{X = a\}\) nur von beschränktem Nutzen, da nur ganz wenige Versuche dazu führen werden, dass das Ereignis eintritt. 
+    Eine Zufallsvariable ist eine Funktion \(Q \rightarrow \mathbb{R} \) .
+    Eine diskrete Zufallsvariable nimmt nurdiskrete Werte in \( \mathbb{R}\) an.
+    Bei einer stetigen Zufallsvariable sind beliebige Werte \(X(\omega) \in \mathbb(R)\)
+    möglich. Mit der zusätzlichen Eigenschaft , dass die Mengen
+    \(\{\omega|X(\omega) < x\}\) Ereignisse sind. 
+    \\\\
+    Mit einer Zufallsvariablen \(X\) kann man wieder neue Ereignisse definieren.
+    \begin{equation}
+        \begin{split}
+            \{X=a\} = \{ \omega \in \Omega | X(\omega) = a \} \\
+            \{a < X\leq b \} = \{ \omega \in \Omega | a < X(\omega) \leq b \}
+        \end{split}
+    \end{equation}
+    Bei einer stetigen Zufallsvariable sind die Ereignisse der Form \(\{X = a\}\) 
+    nur von beschränktem Nutzen, da nur ganz wenige Versuche dazu führen werden, 
+    dass das Ereignis eintritt. 
 }
-\newpage
+
+Die Zufälligkeit liegt in dem Versuch, der das \(\omega\) ermittelt.
+Die Zuweisung des Wertes \(X(\omega)\) ist deterministisch.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/zufallsvariable.png}
+    \caption{Die Zufallsvariable}
+\end{figure}
+
+\defn{Zufallsvariable und Wahrscheinlichkeiten}{
+    Die Zufallsvariable \(X\) definiert neue Ereignisse:
+    \begin{equation}
+        \begin{split}
+                P(X=a) &= P(\{ \omega \in \Omega | X(\omega)=a\}) \\
+                &=P(\{X=a\}) \\
+                P(X \leq a) &= P(\{\omega \in \Omega | X(\omega) \leq a\}) \\
+                &= P(\{X \leq a\}) \\
+                P(a < X \leq b) &= P(\{a < X \leq b\})
+        \end{split}
+    \end{equation}
+}
+
+\subsection{Diskret oder Stetig}
+Eine Zufallsvariable heisst \textbf{diskret}, wenn sie
+nur einzelne genau bestimmte Zahlenwerte
+\(x_1, x_2,x_3,\dots\) annehmen kann.
+
+Eine Zufallsvariable heisst \textbf{stetig}, wenn sie
+beliebige Werte in einem Intervall
+annehmen kann (Wertemenge ist nicht
+diskret)
+
+\defn{Einzelwahrscheinlichkeit von stetigen Zufallsvariabeln}{
+    Spezifische Einzelwerte haben in einer diskreten Zufallsvariabel
+    die Wahrscheinlichkeit 0.
+    \begin{equation}
+        P(X = x) = 0
+    \end{equation}
+}
+
+\subsection{Abhängigkeit}
+\defn{Unabhängigkeit}{
+    Zwei Zufallsvariable \(X\) und \(Y\) heissen unabhängig,
+    wenn die Ereignisse \(\{\omega|X(\omega) \leq x\}\) und
+    \(\{\omega|Y(\omega) \leq y\}\) für alle \(x,y \in \mathbb{R}\)
+    unabhängig sind, also
+    \begin{equation}
+        P((X \leq x)  \land (Y \leq y)) = P(X \leq x) P(Y \leq y) \quad \forall x, y \in \mathbb{R}
+    \end{equation}
+}
+Das bedeutet, dass zwei Ereignisse \(A_i, B_j\),
+auf denen \(X\) bzw. \(Y\) konstant ist \(\Rightarrow\) unabhängig.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/unkorreliert_unabhängig.png}
+    \caption{Unkorreliert - Unabhängig}
+\end{figure}
+
 \section{Erwartungswert}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/erwartungswert-varianz.png}
+    \caption{Darstellung von Erwartungswert und Varianz}
+\end{figure}
 Der \textbf{Erwartungswert}
 (selten und doppeldeutig Mittelwert)
 ist ein Grundbegriff der Stochastik.
@@ -225,47 +300,82 @@ dann gilt \(E(X_A)=P(A)\).
 \end{enumerate}
 }
 
-\defn{Unabhängigkeit}{
-Zwei Zufallsvariable \(X\) und \(Y\) heissen unabhängig, wenn die Ereignisse \(\{\omega|X(\omega) \leq x\}\) und \(\{\omega|Y(\omega) \leq y\}\) für alle \(x,y \in \mathbb{R}\) unabhängig sind, also
-\begin{equation}
-    P((X \leq x)  \land (Y \leq y)) = P(X \leq x) P(Y \leq y) \quad \forall x, y \in \mathbb{R}
-\end{equation}
+\subsection{Unabhängigkeit}
+\defn{Erwartungswert Produkregel (bei Unabhängigkeit)}{
+Sind X und Y \textbf{unabhängige} Zufallsvariablen, dann gilt 
+\[ E(XY) = E(X) \cdot E(Y) \]
 }
-
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/erwartung_unabhängigkeit.png}
     \caption{Unabhängigkeit}
     \label{fig:Erwartungswert-Unabhängigkeit}
 \end{figure}
-\begin{figure}
-    \centering
-    \includegraphics[width=1\linewidth]{Images/unkorreliert_unabhängig.png}
-    \caption{Unkorreliert - Unabhängig}
-    \label{fig:unkorreliert-unabhängig}
-\end{figure}
 
-\defn{Erwartungswert Produkregel}{
-Sind X und Y unabhängige Zufallsvariablen, dann gilt 
-\[ E(XY) = E(X) \cdot E(Y) \]
+\subsection{Empirischer Erwartungswert}
+\defn{Empirischer Erwartungswert}{
+    Mit der empirischen Wahrscheinlichkeit:
+    \begin{equation}
+        P(X=x_i) = \frac{n_i}{n}
+    \end{equation}
+    Lässt sich der empirische Erwartungswert berechnen:
+    \begin{equation}
+        \approx \sum_{i} x_i \frac{n_i}{n}
+    \end{equation}
 }
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{Images/erwartungswert-varianz.png}
-    \caption{Darstellung von Erwartungswert und Varianz}
-\end{figure}
+\subsection{Verbindung zur Wahrscheinlichkeit}
+Bei einem Ergebnis \(A \subset \Omega\), dann kann eine Funktion gebildet werden,
+die \textbf{charakteristische Funktion}, welche \(A\) wie folgt abbildet:
+\begin{equation}
+    \chi_A : \begin{cases}
+        \Omega &\to \mathbb{R} \\
+        \omega &\mapsto \chi_A(\omega) \begin{cases}
+            1 & \omega \in A\\
+            0 & \omega \notin A
+        \end{cases}
+    \end{cases}
+\end{equation}
+Ihr Erwartungswert ist somit:
+\defn{Erwartungswert der charakteristischen Funktion}{
+    \begin{equation}
+        E(\chi_A) = 1 \cdot P(A) + 0 \cdot (1-P(A)) = P(A)
+    \end{equation}
+}
+
+\subsection{Rechenregeln}
+Der Erwartungswert ist linear.
+\defn{Rechenregeln}{
+    Sind \(X,Y\) Zufallsvaribeln, dann gilt:
+    \begin{equation}
+        \begin{split}
+            E(X+Y) &= E(X) + E(Y) \\
+            E(\lambda X) &= \lambda E(X)
+        \end{split}
+    \end{equation}
+}
+
 \newpage
 \section{Varianz}
-Die \textbf{Varianz} (lateinisch \textit{variantia} „Verschiedenheit“ bzw. \textit{variare} „(ver)ändern, verschieden sein“) ist ein zentrale Moment zweiter Ordnung einer Zufallsvariablen. 
+Die \textbf{Varianz} (lateinisch \textit{variantia} „Verschiedenheit“ bzw.
+\textit{variare} „(ver)ändern, verschieden sein“) ist ein zentrale Moment
+zweiter Ordnung einer Zufallsvariablen. 
 
 \defn{Varianz}{
-Sei \(X: \Omega \rightarrow \mathbb{R}\)  eine Zufallsvariable, dann heisst die durch \(var(X)^2 = E((X-E(X))^2) \) definierte Grösse var(X) die Varianz von X. Oder auch die mittlere quadratische Abweichung vom Erwartungswert. Es ist insbesondere
+Sei \(X: \Omega \rightarrow \mathbb{R}\)  eine Zufallsvariable, dann
+heisst die durch \(var(X)^2 = E((X-E(X))^2) \) definierte Grösse var(X)
+die Varianz von X. Oder auch die mittlere quadratische Abweichung vom
+Erwartungswert. Es ist insbesondere
 \begin{equation}
     var(X) = E((X-E(X))^2) = E(X^2) - E(X)^2
 \end{equation}
 
-Man beachte, dass \(var(X)\) die Masseinheit des Quadrates von \(X\) hat. Wenn also \(X\) als Masseinheit eine Länge hat, dann hat \(var(X) \) die Masseinheit einer Fläche. Insbesondere kann man \(var(X)\) nicht in der gleichen Zeichnung visualisieren wie \(E(X)\). Aber die Grösse \(\sqrt{var(X)}\) hat die gleiche Masseinheit, sie drückt die “Streubreite” der Werte von \(X\).
+Man beachte, dass \(var(X)\) die Masseinheit des Quadrates von \(X\) hat.
+Wenn also \(X\) als Masseinheit eine Länge hat, dann hat \(var(X) \)
+die Masseinheit einer Fläche. Insbesondere kann man \(var(X)\) nicht in
+der gleichen Zeichnung visualisieren wie \(E(X)\). Aber die Grösse
+\(\sqrt{var(X)}\) hat die gleiche Masseinheit, sie drückt die "Streubreite"
+der Werte von \(X\).
 }
 
 \defn{Rechenregeln}{
@@ -278,42 +388,81 @@ Seien \(X\) und \(Y\) unabhängige Zufallsvariable, dann haben Summe und Produkt
     \end{split}
 \end{equation}
 }
+
+\subsection{Kovarianz}
+\defn{Kovarianz}{
+    Die Kovarianz wird als Korrelationsmass benutzt, diese ist definiert als:
+    \begin{equation}
+        cov(X,Y) = E(XY) - E(X) E(Y)
+    \end{equation}
+}
+
+\subsection{Empirische Varianz}{
+    Für Messwerte \(x_1, \dots, x_n\) einer Zufallsvariable \(X\),
+    ist die empirische Varianz definiert als:
+    \begin{equation}
+        var(X) \approx \frac{1}{n} \sum_{i=1}^{n} (x_i- \varphi)^2
+    \end{equation}
+    \textbf{TO BE DONE USE APPROPRIATE SCHÄTZER}
+}
+
 \newpage
 
 \section{Bewertung vom Mittelwert / Erwartungswert}
-\defn{Tschebyscheff Ungleichung}{
-\(X\) eine Zufallsvariable mit Erwartungswert \(\mu = E(X)\), dann lässt sich die Wahrscheinlichkeit, dass \(X\) um mehr als \(\epsilon\) vom Erwartungswert abweicht, wie folgt abschätzen: 
-\begin{equation}
-    P(|X- \mu| > \varepsilon) \leq \frac{var(x)}{\varepsilon^2}
-\end{equation}
-Lässt man \(\varepsilon\) wachsen findet man, dass Abweichungen deutlich grösser als \(\sqrt{var(X)}\) unwahrscheinlich sind.  
-Leider sind die Vorhersagen wie auch bei der Tschebyscheff-Ungleichung nur beschränkt nützlich. Wenn die Wahrscheinlichkeit, dass der Mittelwert um mehr als \(\sigma\) vom Erwartungswert abweicht, kleiner als 1\% sein soll, sind dafür nach dem Gesetz der grossen Zahlen mindestens 100 Summanden nötig. 
-}
 
-\begin{figure}
+\subsection{Tschebyscheff}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/tschebyschef.png}
+    \caption{Anwendung Tschebyschef}
+\end{figure}
+
+\defn{Tschebyscheff Ungleichung}{
+    \(X\) eine Zufallsvariable mit Erwartungswert \(\mu = E(X)\),
+    dann lässt sich die Wahrscheinlichkeit, dass \(X\) um mehr als
+    \(\epsilon\) vom Erwartungswert abweicht, wie folgt abschätzen: 
+    \begin{equation}
+        P(|X- \mu| > \varepsilon) \leq \frac{var(x)}{\varepsilon^2}
+    \end{equation}
+}
+Lässt man \(\varepsilon\) wachsen findet man,
+dass Abweichungen deutlich grösser als \(\sqrt{var(X)}\) unwahrscheinlich sind.  
+Leider sind die Vorhersagen wie auch bei der
+Tschebyscheff-Ungleichung nur beschränkt nützlich.
+Wenn die Wahrscheinlichkeit, dass der Mittelwert um mehr
+als \(\sigma\) vom Erwartungswert abweicht, kleiner als
+\textbf{1\% } sein soll, sind dafür nach dem Gesetz der grossen Zahlen
+mindestens \textbf{100 Summanden nötig}. 
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/Tschebyscheff-Ungleichung.png}
     \caption{Herleitung der Tschebyscheff-Ungleichung, charakteristische Funktion des Er eignisses |X - µ| > \(\epsilon\) ist blau eingezeichnet. }
 \end{figure}
 
 \newpage
-
+\subsection{Bernoulli}
 \defn{Bernoulli Gesetz der grossen Zahlen}{
-Die Wahrscheinlichkeit, dass der Mittelwert von \(n\) unabhängigen Zufallsvariablen mit Erwartungswert \(\mu\) und Varianz \(\sigma^2\) mehr als \(\varepsilon\) von \(\mu\) abweicht, ist :
-\begin{equation}
-    P(|M_n - \mu| > \varepsilon) \leq \frac{var(X)}{n\varepsilon^2}
-\end{equation}
-Insbesondere gilt
-\begin{equation}
-    \lim_{n \rightarrow \infty} P(|M_n - \mu| > \varepsilon) = 0
-\end{equation}
+    Die Wahrscheinlichkeit, dass der Mittelwert von \(n\)
+    unabhängigen Zufallsvariablen mit Erwartungswert \(\mu\)
+    und Varianz \(\sigma^2\) mehr als \(\varepsilon\) von \(\mu\) abweicht, ist :
+    \begin{equation}
+        P(|M_n - \mu| > \varepsilon) \leq \frac{var(X)}{n\varepsilon^2}
+    \end{equation}
+    Insbesondere gilt
+    \begin{equation}
+        \lim_{n \rightarrow \infty} P(|M_n - \mu| > \varepsilon) = 0
+    \end{equation}
 }
 
 \defn{Genauigkeit der empirischen Häufigkeit}{
-Wird ein Experiment \(n\) mal durchgeführt, und tritt dabei das Ereignis \(A\) mit der relativen Häufigkeit \(h\)  ein, dann ist die Wahrscheinlichkeit, dass \(h\) um mehr als  \( \varepsilon\) von \(P(A)\) abweicht
-\begin{equation}
-    P(|h-P(A)| > \varepsilon ) \leq  \frac{P(A)(1-P(A))}{n \varepsilon^2} \leq \frac{1}{4n \varepsilon^2}
-\end{equation}
+    Wird ein Experiment \(n\) mal durchgeführt, und tritt dabei das
+    Ereignis \(A\) mit der relativen Häufigkeit \(h\)  ein, dann ist
+    die Wahrscheinlichkeit, dass \(h\) um mehr als  \( \varepsilon\)
+    von \(P(A)\) abweicht
+    \begin{equation}
+        P(|h-P(A)| > \varepsilon ) \leq  \frac{P(A)(1-P(A))}{n \varepsilon^2} \leq \frac{1}{4n \varepsilon^2}
+    \end{equation}
 }
 
 \newpage
@@ -348,6 +497,8 @@ Durch Lösen des Optimierungsproblems erhält man die Koeffizienten:
         \end{split}
     \end{equation}
 }
+
+\subsection{Fehler}
 \defn{Fehlerberechnung}{
     \begin{equation}
         \begin{split}
@@ -359,13 +510,14 @@ Durch Lösen des Optimierungsproblems erhält man die Koeffizienten:
     \end{equation}
     \(r^2\) hängt symmetrisch von \(X\) und \(Y\) ab.
 }
-
+\subsection{Andere Basisfunktionen}
 \begin{figure}[H]
     \centering  %angle=90,
     \includegraphics[height=0.5\textwidth]{Images/nichtlineare_regression.png}
     \caption{(Nicht)Lineare Regression}
 \end{figure}
 \newpage
+\subsection{Vorlage}
 \begin{figure}[H]
     \centering
     \includegraphics[angle=90,height=1\textwidth]{Images/berechnungsformular-lineare-regression.png}
@@ -420,13 +572,31 @@ Mit Eigenschaften:
 Die Verteilfunktion mit \(F(x)\) ist eine Wahrscheinlichkeit
 Für ein Intervall gilt: \(P(a < X \leq b)=F_X(b)-F_X(a)\)
 }
-Rezept:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/stetigef.png}
+    \caption{Diskrete Verteilfunktion}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/stetf.png}
+    \caption{Stetige Verteilfunktion}
+\end{figure}
+
+\subsection{Rezept}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/übersicht-verteilung.png}
+    \caption{Link Zufallsvariable zu Verteilung}
+\end{figure}
 \begin{enumerate}
     \item Fragen über \(F(x)\) in Wahrscheinlichkeiten von Ereignissen übersetzen
     \item Rechenregeln für Wahrscheinlichkeiten anwenden
     \item Wahrscheinlichkeiten durch \(F(x)\) ausdrücken, rückübersetzen
 \end{enumerate}
 
+\subsection{Verteilfunktion der Max-Funktion}
 \defn{Maximum zweier Zufallsvariablen}{
     Für zwei unabhängige Zufallsvariablen \(X,Y\) mit Verteilfunktionen \(F_X(x), F_Y(y)\)
     gilt:
@@ -441,14 +611,11 @@ Rezept:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/stetigef.png}
-    \caption{Diskrete Verteilfunktion}
+    \includegraphics[width=1\linewidth]{Images/verteilung-maximum.png}
+    \caption{Verteilung der Max Funktion zweier Variabeln}
 \end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{Images/stetf.png}
-    \caption{Stetige Verteilfunktion}
-\end{figure}
+
+\subsection{Wichtige Punkte}
 
 \begin{figure}[H]
     \centering
@@ -509,6 +676,7 @@ Rezept:
     Der Modus ist der häufigste Wert in einem Datensatz.
 }
 
+\subsection{Verteilfunktion und Erwartungswert}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{Images/verteilungsfunktion-erwartungswert.png}
@@ -516,13 +684,14 @@ Rezept:
 \end{figure}
 
 \subsection{Variable gleich verteilen}
-Durch erneute Anwendung der Verteilfunktion auf \(X\) wird die Zufallsvariable gleichverteilt.
+Durch erneute Anwendung der Verteilfunktion auf \(X\) wird die Zufallsvariable 
+gleichverteilt.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/f_zaufz.png}
     \caption{Erstellung einer Gleichverteilung}
 \end{figure}
-
+\textbf{BEISPIEL UND FORMEL!}
 
 \section{Wahrscheinlichkeitsdichte}
 \begin{figure}[H]
@@ -532,46 +701,65 @@ Durch erneute Anwendung der Verteilfunktion auf \(X\) wird die Zufallsvariable g
     \label{fig:enter-label}
 \end{figure}
 \defn{Wahrscheinlichkeitsdichte Funktion}{
-Die Ableitung der Verteilungsfunktion heisst Wahrscheinlichkeitsdichte:
-\begin{equation}
-    \varphi(x)=\frac{d}{dx}F(x)=F'(X)
-\end{equation}
-Wenn \(F(x)\) (Verteilfunktion) die Stammfunktion ist bedeutet dies:
-\begin{equation}
-    P(a < X \leq b) = \int_a^b \varphi(x) dx
-\end{equation}
-Mit \(\varphi(x)\) kann man nun auch \(E(X)\) berechnen:
-\begin{equation}
-    \begin{split}
-        E(X)&=\sum x \cdot p(x) \\
-       & = \int_{-\infty}^\infty x \cdot \varphi(x)dx
-    \end{split}
-\end{equation}
+Die Ableitung einer \textbf{stetigen} Verteilungsfunktion heisst
+Wahrscheinlichkeitsdichte:
+    \begin{equation}
+        \varphi(x)=\frac{d}{dx}F(x)=F'(X)
+    \end{equation}
+    Wenn \(F(x)\) (Verteilfunktion) die Stammfunktion ist bedeutet dies:
+    \begin{equation}
+        P(a < X \leq b) = \int_a^b \varphi(x) dx
+    \end{equation}
 }
 
-\subsection{Erwartungswert durch Dichtefunktion}
-\defn{Erwartungswert}{
-    Da der Erwartungswert durch \(\sum \text{Wert }\cdot \text{ Wahrscheinlichkeit}\)
-    definiert ist, lässt dieser sich auch über \(varphi(x)\) berechnen:
+\subsection{Erwartungswert einer stetigen Verteilung}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/dichte-erwartungswert.png}
+    \caption{Erwartungswert von stetigen Verteilungen}
+\end{figure}
+\defn{Erwartungswert einer stetigen Verteilung}{
+    Mit \(\varphi(x)\), einer Dichtefunktion, kann man nun auch \(E(X)\) berechnen
+    einer \textbf{stetigen} Verteilfunktion berechnen:
     \begin{equation}
-        E(X) = \int_{- \infty}^\infty x \varphi dx
+        \begin{split}
+            E(X)&=\sum x \cdot p(x) \\
+        & = \int_{-\infty}^\infty x \cdot \varphi(x)dx
+        \end{split}
     \end{equation}
-    Dabei gilt z.B: \(E(X^2) = \int_{- \infty}^\infty x^2 \varphi dx\) oder auch
-    \(E(f(X)) = \int_{- \infty}^\infty f(x) \varphi dx\)
+
+    Da der Erwartungswert durch \(\sum \text{Wert }\cdot \text{ Wahrscheinlichkeit}\)
+    definiert ist, lässt dieser sich auch über \(\varphi(x)\) berechnen.
+    Dabei gilt:
+    \begin{equation}
+        \begin{split}
+            E(X^2) &= \int_{- \infty}^\infty x^2 \varphi dx\\
+            E(f(X)) &= \int_{- \infty}^\infty f(x) \varphi dx
+        \end{split}
+    \end{equation}
 }
 
 \subsection{Summe von zwei Zufallsvariablen}
-\defn{Summe stetiger Zufallsvariablen}{
+\defn{Summe stetiger Zufallsvariablen (Faltung)}{
     Für beliebige Zufallsvariable \(X\) und \(Y\) gilt mit Dichtefunktion
     \(\varphi_X(x)\) und \(\varphi_Y(y)\) und ihrer Summer \(Z=X+Y\) gilt:
     \begin{equation}
         \varphi_Z(z)=\varphi_{X+Y}(z)=\varphi_X * \varphi_Y(z) = \int_{- \infty}^\infty \varphi_X(x)\varphi_Y(z-x)dx
     \end{equation}
-    Für die Verteilsgunktionen gilt:
+    Für die Verteilsfunktionen gilt:
     \begin{equation}
         F_Z(z)= F_X*\varphi_Y(z)=\varphi_X*F_Y(z)
     \end{equation}
+    Dieses Verfahren wird \textbf{Faltung} (eng. Convolution) genannt.
 }
+\subsubsection{Beispiel}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/faltung-beispiel.png}
+    \caption{Beispiel einer Faltung}
+\end{figure}
 
 %FALTUNG
 \section{Gleichverteilung}
@@ -582,13 +770,13 @@ Mit \(\varphi(x)\) kann man nun auch \(E(X)\) berechnen:
     \caption{Gleichverteilung}
 \end{figure}
 \defn{Gleichverteilung }{
-\begin{equation}
-    \varphi(x)=
-    \begin{cases}
-        \frac{1}{b-a} &a \leq x \leq b \\
-        0 &\text{sonst}
-    \end{cases}
-\end{equation}
+    \begin{equation}
+        \varphi(x)=
+        \begin{cases}
+            \frac{1}{b-a} &a \leq x \leq b \\
+            0 &\text{sonst}
+        \end{cases}
+    \end{equation}
 
     \begin{equation}
         F(x) = 
@@ -598,23 +786,186 @@ Mit \(\varphi(x)\) kann man nun auch \(E(X)\) berechnen:
             1 &x > b
         \end{cases}
     \end{equation}
+}
 
-\begin{equation}
+\defn{Signifikante Werte}{
+    \begin{equation}
         E(X) = \frac{a+b}{2}
-\end{equation}
+    \end{equation}
 
     \begin{equation}
         \sigma^2 = \frac{(b-a)^2}{12}
     \end{equation}
 
-\begin{equation}
-    x_{\frac{1}{2}}=\frac{a+b}{2}
-\end{equation}
+    \begin{equation}
+        x_{\frac{1}{2}}=\frac{a+b}{2}
+    \end{equation}
+}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/gleichverteilung-abweichung.png}
+    \caption{Abweichung einer Gleichverteilung}
+\end{figure}
+
+\defn{Fehlerabschätzung}{
     \begin{equation}
         P(|X-E(X)|>\epsilon)=1\frac{2\epsilon}{b-a} \text{ für } \epsilon < \frac{b-a}{2}
     \end{equation}
 }
+
+\subsection{Parameter}
+
+\section{Exponential-Verteilung}
+Die positive Zufallsvariable T ist der Zeitpunkt, zu dem ein Ereignis eintritt:
+\begin{equation}
+    F(x) = P(T \leq x)
+\end{equation}
+\defn{Gedächtnisloser Prozess}{
+    T ist gedächtnislos, wenn die Wahrscheinlichkeit, dass das Ereignis in
+    einem Intervall eintrigg, immer gleich ist,
+    wenn es zu Beginn des Intervalls noch nicht eingetreten ist:
+    \begin{equation}
+        P(T \leq y |T>x) = P(T \leq y)
+    \end{equation}
+}
+
+\exm{Herleitung}{
+    \begin{equation}
+        \begin{split}
+            G(X) &= 1-F(x) \\
+            \frac{P(T > x + y)}{P(T>x)} &= P(T > y) \\
+            \frac{G(X+y)}{G(X)} &= G(y) \\
+            \text{Ableitung nach } y \text{, bei } y&=0 \text{:}\\
+            \Rightarrow G'(x) &= G'(0)G(X) \\
+            \Rightarrow a &= -G'(0) \\
+            \Rightarrow G(x) = Ce^{-ax} &\Rightarrow \varphi(x) = aCe^{-ax}\\
+            \Rightarrow \text{für } &x>0\text{, und Normierung: }C=1
+        \end{split}
+    \end{equation}
+}
+
+\defn{Exponential Verteilung }{
+    \begin{equation}
+        \varphi(x)= ae^{-ax},a>0
+    \end{equation}
+
+    \begin{equation}
+        F(x) = 1-e^{-ax}
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/exp-werte.png}
+    \caption{Exponentialverteilung}
+\end{figure}
+
+\defn{Signifikante Werte}{
+    \begin{equation}
+        E(X) = \frac{1}{a}
+    \end{equation}
+
+    \begin{equation}
+        \sigma^2 = \frac{a}{a^2}
+    \end{equation}
+
+    \begin{equation}
+        x_{\frac{1}{2}}=\frac{1}{a} log2
+    \end{equation}
+}
+
+\(\frac{1}{a} = \) Mean Time between Failure.
+T bei Median heisst auch Halbwertszeit
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/exp-abweichung.png}
+    \caption{Abweichung einer Exponentialverteilung}
+\end{figure}
+
+\defn{Fehlerabschätzung}{
+    \begin{equation}
+        P(|X-E(X)|>\epsilon)=1\frac{2\epsilon}{b-a} \text{ für } \epsilon < \frac{b-a}{2}
+    \end{equation}
+}
+
+\subsection{Erlang (Summe identischer Exp-Variabeln)}
+Für \(X_i\) unabhängige exponentialverteilte
+Zufallsvariable mit gleichem Parameter \(a\).
+Dann ist \(X_1+\cdots,X_n\) Erlang-verteilt.
+
+\defn{Exponential Verteilung }{
+    \begin{equation}
+        \varphi(x)= 1-e^{-ax} \sum_{i=0}^{k-1} \frac{(ax)^i}{i!}, x \leq 0
+    \end{equation}
+    Für \(k =\) Anzahl von Summanden.
+
+    \begin{equation}
+        F(x) = a^k \frac{k^{k-1}}{(k-1)!} e{-ax}, x \leq 0
+    \end{equation}
+
+    \textbf{Mit \(k=1\) ist die Formel gleicher der Exponentialverteilung.}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/erlang.png}
+    \caption{Erlang Verteilung}
+\end{figure}
+
+\subsection{Parameter}
+
+\section{Normalverteilung}
+Aufgrund des Zentralen Grenzwertsatzes, welcher besagt,
+dass sicher eine Zufallsvariable, welche aus vielen kleinen,
+unabhängigigen Zufallseinflüsse besteht, der Normalverteilung
+nähert, hat die Normalverteilung eine grosse praktische Bedeutung.
+
+\defn{Exponential Verteilung }{
+    \begin{equation}
+        \frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{x-\mu}{2\sigma^2}}
+    \end{equation}
+}
+
+\defn{Signifikante Werte}{
+    \begin{equation}
+        E(X) = \mu
+    \end{equation}
+
+    \begin{equation}
+        \sigma^2 = \sigma^2
+    \end{equation}
+
+    \begin{equation}
+        x_{\frac{1}{2}}= \mu
+    \end{equation}
+}
+
+Es gibt keine einfache Formel für die Fehlerabschätzung.
+Die Verteilungsfunktion der Normalverteilung mit Erwartungswert 0 und Varianz 1,
+der sogenannten \textbf{Standardnormalverteilung}, kann nicht in geschlossener Form gefunden werden,
+es müssen entweder Tabellen oder numerische  Lösungen verwendet werden.
+
+\defn{Summer zweier normalverteilter Variabeln}{
+    Die Summe zweier unabhängigeger Zufallsgrössen sind wieder normalverteilt.
+
+    Sind \(X_1, X_2\) normalverteilte Zufallsgrössen mit Mittelwert \(\mu_x\),
+    und Varianz \(\sigma_x\), dann ist  \(X_1+X_2\) ebenfalls normalverteilt mit
+    \(\mu = \mu_1+\mu_2\) und \(\sigma^2 = \sigma_1^2+\sigma_2^2\).
+}
+
+\subsection{Fehlerabschätzung}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/fehlerabschätzung-norm.png}
+    \caption{Fehlerabschätzung der Normalverteilung}
+\end{figure}
+
+\subsection{ADD TABLE OF NORMALVERTEILUNG}
+
+\section{Poisson-Verteilung}
 
 \section{Schätzprobleme}
 Ein Schätzproblem ist eine Aufgabe, bei der die Parameter \(\vartheta\) einer gegebenen
