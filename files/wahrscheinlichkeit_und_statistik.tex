@@ -7,6 +7,12 @@
 
 }
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/lösungsansatz.png}
+    \caption{Lösungsansatz von typischen WahrStat Aufgaben}
+\end{figure}
+
 \section{Kombinatorik}
 Die Kombinatorik ist eine Teildisziplin der Mathematik, die sich mit endlichen oder abzählbar unendlichen diskreten Strukturen beschäftigt und deshalb auch dem Oberbegriff Diskrete Mathematik zugerechnet wird.
 \defn{Produktregel (Für-jede-gibt-es-Regel)}{
@@ -403,9 +409,11 @@ Seien \(X\) und \(Y\) unabhängige Zufallsvariable, dann haben Summe und Produkt
     \begin{equation}
         var(X) \approx \frac{1}{n} \sum_{i=1}^{n} (x_i- \varphi)^2
     \end{equation}
-    \textbf{TO BE DONE USE APPROPRIATE SCHÄTZER}
 }
-
+Für einen noch genaueren Schätzer, benutzt man die Stichproben varianz, welche erwartungstreu ist:
+\begin{equation}
+    S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
+\end{equation}
 \newpage
 
 \section{Bewertung vom Mittelwert / Erwartungswert}
@@ -922,11 +930,17 @@ dass sicher eine Zufallsvariable, welche aus vielen kleinen,
 unabhängigigen Zufallseinflüsse besteht, der Normalverteilung
 nähert, hat die Normalverteilung eine grosse praktische Bedeutung.
 
-\defn{Exponential Verteilung }{
+\defn{Normalverteilung}{
     \begin{equation}
         \frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{x-\mu}{2\sigma^2}}
     \end{equation}
 }
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/normalverteilung.png}
+    \caption{Normalverteilung}
+\end{figure}
 
 \defn{Signifikante Werte}{
     \begin{equation}
@@ -942,12 +956,27 @@ nähert, hat die Normalverteilung eine grosse praktische Bedeutung.
     \end{equation}
 }
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/norm-typische-werte.png}
+    \caption{Typische Werte der Normalverteilung}
+\end{figure}
+
+\subsection{Fehlerabschätzung}
 Es gibt keine einfache Formel für die Fehlerabschätzung.
 Die Verteilungsfunktion der Normalverteilung mit Erwartungswert 0 und Varianz 1,
 der sogenannten \textbf{Standardnormalverteilung}, kann nicht in geschlossener Form gefunden werden,
 es müssen entweder Tabellen oder numerische  Lösungen verwendet werden.
 
-\defn{Summer zweier normalverteilter Variabeln}{
+\subsection{Summe und Linearität}
+\defn{Linearität}{
+    Ist \(X\) normalverteilt, dann gilt:
+    \begin{equation}
+        aX+b = \text{ normalverteilt}
+    \end{equation}
+}
+
+\defn{Summensatz}{
     Die Summe zweier unabhängigeger Zufallsgrössen sind wieder normalverteilt.
 
     Sind \(X_1, X_2\) normalverteilte Zufallsgrössen mit Mittelwert \(\mu_x\),
@@ -959,13 +988,128 @@ es müssen entweder Tabellen oder numerische  Lösungen verwendet werden.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/fehlerabschätzung-norm.png}
+    \includegraphics[width=1\linewidth]{Images/fehlerabschätzung-norm.png}
     \caption{Fehlerabschätzung der Normalverteilung}
 \end{figure}
 
+\subsection{Zentraler Grenzwertsatz}
+\defn{Zentraler Grenzwertsatz}{
+    Sind \(X_1,X_2,\dots\) identisch verteilte und unabhängige Zufallsvariabeln mit \(E(X_i)=\mu\)
+    und \(var(X_i)=\sigma^2\), dann gilt:
+    \begin{equation}
+        S_n = \sum_{i=1}^{n} X_i \Rightarrow E(S_n) = n\mu, var(S_n) = n\sigma^2
+    \end{equation}
+    Und somit für das neue \(Z\):
+    \begin{equation}
+        Z_n = \frac{S_n-n\mu}{\sqrt{n}\sigma} \Rightarrow E(Z_n) = 0, var(Z_n) = 1
+    \end{equation}
+
+    Für \(n \to \infty\) strebt die Verteilung von \(Z_n\) gegen die Standardnormalverteilung, d.h:
+    \begin{equation}
+        \lim_{n \to \infty} P(Z_n \leq z) = \phi(z)
+    \end{equation}    
+
+    Die Summe vieler vergleichbarer kleiner Einflüssse ist annähernd normalverteilt.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/central-limit.png}
+    \caption{Zum zentralen Grenzwertsatz: Die Wahrscheinlichkeitsdichte der standardisierten Summe von
+    bis zu vier gleichverteilten Zufallsvariablen (oben) konvergiert gegen die Standardnormalverteilung (unten)}
+\end{figure}
+
+\defn{Faltungseigenschaft}{
+    Für \(\varphi_i\) eine Normalverteilungsdichte mit \(\mu_i\) und \(\sigma_i\), dann ist
+    \(\varphi_1 * \varphi_2\) eine Normalverteilungsdichte mit \(\mu = \mu_1 + \mu_2\) und
+    \(\sigma^2 = \sigma_1^2 + \sigma_2^2\).
+}
+
+\defn{Summe}{
+    Sind \(X_i\) Zufallsvariabeln mit \(E(X_i) = 0\) und \(var(X_i) = 1\), dann konvergiert die
+    Verteilungsfunktion von:
+    \begin{equation}
+         S_n = \frac{X_1+\dots+ X_n}{\sqrt{n}}
+    \end{equation}
+    Gegen eine Normalverteilung mit \(\mu = 0 \) und \(\sigma = 1\)
+}
+
+\subsection{Standardnormalverteilung}
+Die Standardnormalverteilung ist die Verteilung mit \(E(X)=0\) und
+\(\sigma^2 = 1\).
+
+Eine beliebige Standardverteilte Variabel kann in diese Form gebracht werden:
+\begin{equation}
+    Z = \frac{x-\mu}{\sigma}
+\end{equation}
+
+\defn{Standardnormalverteilung}{
+    Ist \(Z = \frac{x-\mu}{\sigma}\), dann ist \(Z\) standard normalverteilt,
+    mit \(E(Z)=0\) und \(var(Z)=1\). \(Z\) heisst \textbf{Standardnormalverteilung},
+    mit Verteilungsfunktion \(\phi(z)\).
+
+    Es gilt:
+    \begin{equation}
+        \phi(-z) = 1 -\phi(z)
+    \end{equation}
+}
+
 \subsection{ADD TABLE OF NORMALVERTEILUNG}
+\subsection{ADD KENDALL NOTATION}
+
+\section{Binomial-Verteilung}
+Die Binomialverteilung modelliert Zufallsexperimente mit zwei möglichen Ausgängen \(A\) oder \(\bar{A}\).
+ \defn{Exponential Verteilung }{
+    Dabei ist \(X\) die Anzahl der eingetrettenen \(A\) in \(n\) unabghängigen Durchführungen.
+
+    \begin{equation}
+        P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}
+    \end{equation}
+
+    \begin{equation}
+        F(x) = 1-e^{-ax}
+    \end{equation}
+}
+
+\subsection{Berechnungsprobleme}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/binom-berechnungsprobleme.png}
+    \caption{Berechnungsprobleme der Binomialverteilung}
+\end{figure}
+
+\subsection{Normalapproximation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/normalapproximation.png}
+    \caption{Normalapproximation}
+\end{figure}
+
+Bei gegebener Binomialverteilung \(X\) lässt sich diese approximativ normalverteilt behandeln mit
+\(\mu = np\) und \(sigma^2 = np (1-p)\), daraus lässt sich folgendes bilden:
+\begin{equation}
+    Z =  \frac{X-\mu}{\sigma} = \frac{X-np}{\sqrt{np(1-p)}}
+\end{equation}
+
+Damit lässt sich einfacher rechnen:
+\begin{equation}
+    P(a < X \leq b) = \phi(\frac{b-np}{\sqrt{np(1-p)}}) - \phi(\frac{a-np}{\sqrt{np(1-p)}})
+\end{equation}
+Für eine genauere Approximation, kann folgendes benutzt werden:
+\begin{equation}
+    P(a < X \leq b) = \phi(\frac{b+0.5-np}{\sqrt{np(1-p)}}) - \phi(\frac{a+0.5-np}{\sqrt{np(1-p)}})
+\end{equation}
+
+\subsection{TODO Approximation für seltene Ereignisse}
+POISSON BENUTZEN!!
+
+\section{TODO: Hypergeometrische Verteilung}
 
 \section{Poisson-Verteilung}
+\section{Potenzverteilung-Verteilung}
+\subsection{Zipfs Law}
 
 \section{Schätzprobleme}
 Ein Schätzproblem ist eine Aufgabe, bei der die Parameter \(\vartheta\) einer gegebenen
@@ -977,6 +1121,11 @@ Stichproben \(X_i,\dots,X_n\):
 \begin{equation}
     \hat{\vartheta} = \hat{\vartheta}(X_i,\dots,X_n)
 \end{equation}
+
+\defn{Stichprobe}{
+    Eine Folge von Zufallsvariabeln \(X_i\) heisst eine Stichprobe der Zufallsvariabeln \(X\),
+    wenn \(X_i\) unabhängige und identisch zu \(X\) verteilt sind.
+}
 
 \defn{Konsistent}{
     Ein Schätzer ist konsistent, wenn dieser korrekt ist für genügend
@@ -996,6 +1145,13 @@ Stichproben \(X_i,\dots,X_n\):
 
 \begin{figure}[H]
     \centering
+    \includegraphics[width=1\linewidth]{Images/beispiel-nichterwartungstreu-radius.png}
+    \caption{Beispiel einer nicht erwartungstreuen Schätzung des Radius}
+\end{figure}
+
+\subsection{Maximum-Likelihood}
+\begin{figure}[H]
+    \centering
     \includegraphics[width=0.5\linewidth]{Images/maximum-likelihood.png}
     \caption{Maximum Likelihood Prinzip}
 \end{figure}
@@ -1006,7 +1162,7 @@ Stichproben \(X_i,\dots,X_n\):
     Die Likelihood Funktion bewertet die Kandidaten \(\mu\) mit:
     \begin{equation}
         \begin{split}
-            L(\mu,x_1,\dots,x_n) &= \varphi(x_1,\mu)\cdot\dots\cdot\varphi(x_n,\mu) \\
+            L(\mu,x_1,\dots,x_n) &= \varphi(x_1,\mu)\cdot \dots \cdot\varphi(x_n,\mu) \\
             \hat{\mu} &= argmax(L(\mu, x_1,\dots,x_n)) \text{ für } \mu
         \end{split}
     \end{equation}
@@ -1028,7 +1184,7 @@ Schätzer eingefügt.
 \end{enumerate}
 Grundsätzlich sind Schätzer bereits vorgegeben.
 
-\subsection{Konfidenzintervall}
+\subsection{Konfidenz-/Vertrauens-Intervall}
 Im \([\vartheta_-,\vartheta_+]\) findet man den wahren Wert des
 Parameters mit Wahrscheinlichkeit \(1-\alpha\) (Vetrauensniveau):
 \begin{enumerate}
@@ -1037,23 +1193,90 @@ Parameters mit Wahrscheinlichkeit \(1-\alpha\) (Vetrauensniveau):
     \item Finde \(\vartheta\)-Werte so, dass \(1-\alpha=F(\vartheta_-)-F(\vartheta_+)\)
 \end{enumerate}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/konfidenzintervall.png}
+    \caption{Konfidenzintervall}
+\end{figure}
+
+
+
+\subsection{Intervallschätzung}
+Mit gegebener normalverteilte Stichprobe \(X_i\), lässt sich ein
+Intervall finden, welches \(\mu\) mit einer bestimmten Wahrscheinlichkeit enthält.
+
+\begin{equation}
+    \hat{\mu} = \frac{1}{n}(X_1+\dots+X_n)
+\end{equation} 
+Mit \textbf{bekannter Varianz} lässt sich das Intervall einfach schätzen:
+\begin{equation}
+    [\hat{\mu}-1.96\frac{\sigma}{\sqrt{n}},\hat{\mu}+1.96\frac{\sigma}{\sqrt{n}}]
+\end{equation}
+
+Da \(\sigma\) aber vielfach \textbf{unbekannt} ist, lässt sich diese mit der \textbf{T-Verteilung} testen:
+\begin{equation}
+    t = \frac{\hat{\mu}-\mu}{\hat{\sigma}/\sqrt{n}}
+\end{equation} 
+Mit der T-Verteilung von \(n-1\) Freiheitsgrade. Das Intevall für 95\% ist dann:
+\begin{equation}
+    [\hat{\mu}+t_{-}\frac{\sigma}{\sqrt{n}},\hat{\mu}+t_{+}\frac{\sigma}{\sqrt{n}}]
+\end{equation}
+
+\exm{Intervall für 95\%}{
+    Gesucht ist \(x_{\pm}\) sodass:
+    \begin{equation*}
+        P(x_{-} \leq X \leq X_{+}) = 0.95
+    \end{equation*}
+    Durch Standardisierung wird daraus:
+    \begin{equation*}
+        P(\frac{x_{-}-\mu}{\sigma} \leq \frac{X-\mu}{\sigma} \leq \dots) = 0.95
+    \end{equation*}
+    Nun kann mittels der Tabelle der Normalverteilung die Werte herausgelesen werden.
+}
+
 \subsection{T-Verteilung}
 
 \section{Hypothesentest}
 \subsection{Grunsätzliche Testmethode}
 \begin{enumerate}
-    \item Nullhypothese \(H_0\) formulieren
+    \item Nullhypothese \(H_0\) formulieren.
+    \begin{itemize}
+        \item Nullhypothese \(H_0\)
+        \item Alternativhypothese \(H_1\)
+    \end{itemize}
     \item Messgrösse bestimmen, mit der \(H_0\) getestet werden kann (Teststatistik)
     \item Verteilung der Messgrösse ermitteln
     \item Parameter der Verteilung schätzen
-    \item Kritischen Werde für die Testgrösse bestommen, der nur mit Wahrscheinlichkeit \(\alpha\) überschritten wird
+    \item Kritischen Werte für die Testgrösse bestimmen, der nur mit Wahrscheinlichkeit \(\alpha\) überschritten wird
     \item Ist die Messgrösse im vorliegenden Expermiment "unwahrscheinlich gross"? So verwirft man \(H_0\)
+    \begin{itemize}
+        \item Kritischer Wert erreicht \(Rightarrow\) Nullhypothese \(H_0\) verwerfen
+    \end{itemize}
 \end{enumerate}
 
-\subsection{Vorgehen Hypothesentest}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/hypo-test.png}
+    \caption{Grundsätzlicher Hypothesentest}
+\end{figure}
 
 \subsection{Fehlerarten}
+\begin{enumerate}
+    \item Nullhypothese verworfen, obwohl dieses wahr ist. Dies passiert wenn zufallsbedingt ein unwahrscheinlicher Wert
+    der Teststatistik vorkommt. Es ist ein falsch positives Ergebnis.
+    \item Nullhypothese wird nicht verworfen, obwohl dieses falsch ist. Dies ist ein falsch negatives Ergebnis.
+\end{enumerate}
+Der Fehler 1. tritt mit einer Wahrscheinlichkeit von \(\alpha\) auf.
+Die üblichen Werte sind:
+\begin{description}
+    \item[0.05] signifikant
+    \item[0.01-0.001] hoch signifikant 
+\end{description}
 
+\subsection{T-Test}
+\subsection{\(\Xi^2\)-Test}
+\subsection{Testen einer diskreten Verteilung}
+\subsection{}
 \section{Verteilungstests}
 
 \section{Filter}
