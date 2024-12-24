@@ -33,7 +33,7 @@ Gegeben sind \(n\)  anzuordnende Objekte. Die Fakultät ! beschreibt dabei die A
 \end{equation}
 }
 
-\defn{Kombination  (Auswahl Problem)}{
+\defn{Kombination (Auswahl Problem)}{
     Die Anzahl Objekte welche aus \(n\) von \(k\) möglichen ausgewählt werden (ohne zurücklegen) wird beschrieben durch:. 
     \begin{equation}
         \begin{split}
@@ -411,9 +411,11 @@ Seien \(X\) und \(Y\) unabhängige Zufallsvariable, dann haben Summe und Produkt
     \end{equation}
 }
 Für einen noch genaueren Schätzer, benutzt man die Stichproben varianz, welche erwartungstreu ist:
-\begin{equation}
-    S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
-\end{equation}
+\defn{Schätzer für die empirische Varianz}{
+    \begin{equation}
+        S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
+    \end{equation}
+}
 \newpage
 
 \section{Bewertung vom Mittelwert / Erwartungswert}
@@ -865,7 +867,7 @@ Die positive Zufallsvariable T ist der Zeitpunkt, zu dem ein Ereignis eintritt:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/exp-werte.png}
+    \includegraphics[width=0.5\linewidth]{Images/exp-werte.png}
     \caption{Exponentialverteilung}
 \end{figure}
 
@@ -1054,12 +1056,24 @@ Eine beliebige Standardverteilte Variabel kann in diese Form gebracht werden:
     \end{equation}
 }
 
-\subsection{ADD TABLE OF NORMALVERTEILUNG}
+\subsection{Normnalverteilungstabelle}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/norm-tabelle.png}
+    \caption{Verteilungsfunktion der Normalverteilung}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/norm-tabelle-2.png}
+    \caption{Verteilungsfunktion der Normalverteilung 2}
+\end{figure}
+
 \subsection{ADD KENDALL NOTATION}
 
 \section{Binomial-Verteilung}
 Die Binomialverteilung modelliert Zufallsexperimente mit zwei möglichen Ausgängen \(A\) oder \(\bar{A}\).
- \defn{Exponential Verteilung }{
+ \defn{Binomial Verteilung }{
     Dabei ist \(X\) die Anzahl der eingetrettenen \(A\) in \(n\) unabghängigen Durchführungen.
 
     \begin{equation}
@@ -1069,6 +1083,23 @@ Die Binomialverteilung modelliert Zufallsexperimente mit zwei möglichen Ausgän
     \begin{equation}
         F(x) = 1-e^{-ax}
     \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/binomial-verteilung.png}
+    \caption{Binomialverteilung}
+\end{figure}
+
+\defn{Wichtige Kennzahlen}{
+    \begin{equation}
+        \begin{split}
+            E(X) &= np \\
+            var(X) &= np(1-p)
+        \end{split}
+    \end{equation}
+    Wenn \(X\) die Summe von \(n\) 0-1-Einflüssen ist, dann ist
+    diese approximativ normalverteilt mit \(\mu = np \) und \(\sigma^2 = np(1-p)\).
 }
 
 \subsection{Berechnungsprobleme}
@@ -1089,9 +1120,11 @@ Die Binomialverteilung modelliert Zufallsexperimente mit zwei möglichen Ausgän
 
 Bei gegebener Binomialverteilung \(X\) lässt sich diese approximativ normalverteilt behandeln mit
 \(\mu = np\) und \(sigma^2 = np (1-p)\), daraus lässt sich folgendes bilden:
-\begin{equation}
-    Z =  \frac{X-\mu}{\sigma} = \frac{X-np}{\sqrt{np(1-p)}}
-\end{equation}
+\defn{Normalapproximation}{
+    \begin{equation}
+        Z =  \frac{X-\mu}{\sigma} = \frac{X-np}{\sqrt{np(1-p)}}
+    \end{equation}
+}
 
 Damit lässt sich einfacher rechnen:
 \begin{equation}
@@ -1106,10 +1139,108 @@ Für eine genauere Approximation, kann folgendes benutzt werden:
 POISSON BENUTZEN!!
 
 \section{TODO: Hypergeometrische Verteilung}
+Die hypergeometrische Verteilung wird benutzt um
+diskrete Wahrscheinlichkeiten eines Auswahlproblems zu bestimmen.
+
+Im üblichen Fall wird dabei von \(N\) Objekten \(M\) markiert.
+Daraus werden \(n\) Objekte zufällig ausgewählt.
+
+\defn{Hypergeometrische Verteilung}{
+    \begin{equation}
+        P(X=m) = \frac{\binom{M}{m}\binom{N-M}{n-m}}{\binom{N}{n}}
+    \end{equation}
+}
+
+\defn{Wichtige Eckpunkte}{
+    \begin{equation}
+        \begin{split}
+            E(X) &= n\frac{M}{N} \\
+            var(X) &= n\frac{M}{N}(1-\frac{M}{N})\frac{N-n}{N-1}
+        \end{split}
+    \end{equation}
+}
+
+\subsection{Begründung für hg Verteilung}
+    
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/begr-hg-verteilung.png}
+    \caption{Begründung der hypergeometrischen Verteilung}
+\end{figure}
 
 \section{Poisson-Verteilung}
-\section{Potenzverteilung-Verteilung}
+\section{Potenzverteilung}
+Für Skaleninvatiante Prozesse:
+\begin{equation}
+    \varphi(bx) = g(b)\varphi(x)
+\end{equation}
+Das heisst mit der Skalierung von \(x\) mit \(b\) ändert sich
+an der Form von \(\varphi\) nichts für \(x > x_{min}\).
+Der Faktor \(g(b)\) heisst Renormierung.
+
+\defn{Potenzverteilung}{
+    \begin{equation}
+        \varphi(x) = \frac{\alpha - 1}{x_{min}}(\frac{x}{x_{min}})^{-\alpha}, \text{für } x\leq x_{min}
+    \end{equation}
+    \begin{equation}
+        F(x) = 1- (\frac{x}{x_{min}})^{1- \alpha} \text{für } x\leq x_{min}
+    \end{equation}
+}
+
+Um eine Rangfunktion zu erhalten rechnet man:
+\begin{equation}
+    \text{Rangfunktion} = log(1-F(X))
+\end{equation}
+Ergibt eine Art Rangfolge der Verteilung.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/potenzverteilung.png}
+    \caption{Potenzverteilung}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/potenz-verteilfunktion-rang.png}
+    \caption{Potenzverteilung Verteilfunktion und Rang}
+\end{figure}
+
+\subsection{Wichtige Kennzahlen}
+\defn{Kennzahlen}{
+    \begin{equation}
+        \begin{split}
+            med(X) &= 2 \frac{1}{\alpha -1} x_{min} \\
+            E(X) &= \frac{\alpha - 1}{\alpha - 2} x_{min} \\
+            var(X) &= ( \frac{\alpha - 1}{\alpha - 3} - (\frac{\alpha - 1}{\alpha - 2}^2)) x_{min}^2
+        \end{split}
+    \end{equation}
+    Für E(X) und var(X) gilt für Werte \(\alpha \leq 2\) und \(\alpha \leq 3\) macht die Bezeichnung keinen Sinn.
+    Daher ist oft nur der Median angegeben.
+}
+
 \subsection{Zipfs Law}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/80-20.png}
+    \caption{80/20-Regel}
+\end{figure}
+Man kann W(x) als den Anteil des "Wertes" interpretieren, den die Werte oberhalb von x bei
+steuern. Es ist klar, dass P(x) = 1 auch bedeutet, W(x) = 1: 100\% der Werte tragen 100\% des
+ Wertes bei. Die Definitionen besagen, dass für beliebiges x der obere P(x)-Anteil der Werte den
+ Anteil W(x) des gesamten Wertes beitragen.
+
+ \exm{80/20-Regel}{
+    Gesucht ist z.B. \(\alpha\) für eine Einkommensverteilung,
+    bei der die top 1\% 40\% des Vermögens besitzen:
+    \begin{equation*}
+        \begin{split}
+            \lambda &= \frac{log 0.4}{log 0.01} \\
+            \alpha &= \frac{\lambda-2}{\lambda-1} = 2.2484
+        \end{split}
+    \end{equation*}
+
+ }
 
 \section{Schätzprobleme}
 Ein Schätzproblem ist eine Aufgabe, bei der die Parameter \(\vartheta\) einer gegebenen
@@ -1234,10 +1365,8 @@ Mit der T-Verteilung von \(n-1\) Freiheitsgrade. Das Intevall für 95\% ist dann
     Nun kann mittels der Tabelle der Normalverteilung die Werte herausgelesen werden.
 }
 
-\subsection{T-Verteilung}
-
 \section{Hypothesentest}
-\subsection{Grunsätzliche Testmethode}
+\subsection{Grundsätzliche Testmethode}
 \begin{enumerate}
     \item Nullhypothese \(H_0\) formulieren.
     \begin{itemize}
@@ -1250,7 +1379,7 @@ Mit der T-Verteilung von \(n-1\) Freiheitsgrade. Das Intevall für 95\% ist dann
     \item Kritischen Werte für die Testgrösse bestimmen, der nur mit Wahrscheinlichkeit \(\alpha\) überschritten wird
     \item Ist die Messgrösse im vorliegenden Expermiment "unwahrscheinlich gross"? So verwirft man \(H_0\)
     \begin{itemize}
-        \item Kritischer Wert erreicht \(Rightarrow\) Nullhypothese \(H_0\) verwerfen
+        \item Kritischer Wert erreicht \(\Rightarrow\) Nullhypothese \(H_0\) verwerfen
     \end{itemize}
 \end{enumerate}
 
@@ -1273,11 +1402,62 @@ Die üblichen Werte sind:
     \item[0.01-0.001] hoch signifikant 
 \end{description}
 
-\subsection{T-Test}
+\subsection{t-Test}
+Der Einstichproben-t-Test (englisch one sample t-test) ist ein Signifikanztest aus der mathematischen Statistik.
+Er prüft anhand des Mittelwertes einer Stichprobe,
+ob der Mittelwert einer Grundgesamtheit gleich einem vorgegebenen Wert ist (bzw. kleiner oder größer).
+
+\defn{t-Test}{
+    \begin{equation}
+        T = \frac{\bar{X}-\bar{Y}}{\sqrt{(n-1)S_X^2 + (m-1)S_Y^2}} \sqrt{\frac{nm(n+m-2)}{n+m}}
+    \end{equation}
+    Ist t-Verteilt mit \(m+n-2\) Freiheitsgraden. 
+    \begin{equation}
+        S_X^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
+    \end{equation}
+    Für \(S_Y^2\) giltet dieselbe Formel.
+}
+
+Wir nehmen an, dass die Streuung der Messwerte der Stichprobe durch die Veränderung des Prozesses
+nicht verändert wurde.
+
+Der t-Test auf Gleichheit der Erwartungswerte spielt sich also wie folgt ab. Aus den beiden
+Stichproben \(X_1,\dots,X_n\) und \(Y_1,\dots,Y_m\) wird der Ausdruck T gebildet. Übersteigt T den
+t-Wert für die \(1-\alpha\)-Quantile der t-Verteilung mit n+m-2 Freiheitsgraden, wird die Hypothese
+µ=v verworfen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/t-test-tabelle.png}
+    \caption{T-Test Tabelle}
+\end{figure}
+Dabei beschreibt \(k\) das mit \(m+n-2\) den Freiheitsgrad.
+
+\subsection{p-Value}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/p-value.png}
+    \caption{p-Value}
+\end{figure}
+
+\subsection{F-Test TODO unwichtig}
+
+\section{Verteilungstests}
 \subsection{\(\Xi^2\)-Test}
 \subsection{Testen einer diskreten Verteilung}
-\subsection{}
-\section{Verteilungstests}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/beispiel-hyp-faire-münze.png}
+    \caption{Beispiel: Testen einer fairen Münze}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/beispiel-hyp-mittelwert.png}
+    \caption{Beispiel: Testen von zwei Mittelwerte}
+\end{figure}
 
 \section{Filter}
 \defn{Filtern}{
