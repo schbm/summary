@@ -470,7 +470,7 @@ mindestens \textbf{100 Summanden nötig}.
     Ereignis \(A\) mit der relativen Häufigkeit \(h\)  ein, dann ist
     die Wahrscheinlichkeit, dass \(h\) um mehr als  \( \varepsilon\)
     von \(P(A)\) abweicht
-    \begin{equation}
+    \begin{equation}v
         P(|h-P(A)| > \varepsilon ) \leq  \frac{P(A)(1-P(A))}{n \varepsilon^2} \leq \frac{1}{4n \varepsilon^2}
     \end{equation}
 }
@@ -1441,11 +1441,72 @@ Dabei beschreibt \(k\) das mit \(m+n-2\) den Freiheitsgrad.
     \caption{p-Value}
 \end{figure}
 
+\subsection{Diskrepanz}
+Eine verallgemeinerte Testgrösse eines Bernoulli Experiments für
+n verschiedene Anzahlen:
+\begin{equation}
+    D = \sum_{k=1}^{n} \frac{(X_i - np_i)^2}{np_i}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/hyp-n-anzahl.png}
+    \caption{Hypothesentest für Anzahl n}
+\end{figure}
+
 \subsection{F-Test TODO unwichtig}
 
 \section{Verteilungstests}
-\subsection{\(\Xi^2\)-Test}
+\subsection{\(\chi^2\)-Test}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/x-text.png}
+    \caption{Chi Test}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/diskrepanz-tabelle.png}
+    \caption{Chi Diskrepanz Tabelle}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/x-verteilung.png}
+    \caption{Chi Quadrat Verteilung}
+\end{figure}
+
+Chi kann auch für zu genaue Ergebnisse testen. Ob gemogelt resp. betrogen wurde.
+Der Test funktioniert mit endlich viele Ausgänge.
+Der Chi Quadrat test nimmt binomialverteilung für die einzelnen ausgänge.
+und diese sind normalapproximiert. das bedeutet, wenn man stetige ausgänge testen
+möchte z.b in dem man diese in diskrete klassen zählt, muss man an den rändern aufpassen,
+da die normalapproximation für wenige samples schlecht funktioniert.
+
+Faustregel: jede klasse muss mindestens 5 versuchsausgänge haben.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/chi-verteilung.png}
+    \caption{Chi Verteil- und Dichtefunktion}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/chi-gross-klein.png}
+    \caption{Chi zu gross oder zu klein?}
+\end{figure}
+
 \subsection{Testen einer diskreten Verteilung}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/test-diskrete-verteilung.png}
+    \caption{Testen einer diskreten Verteilung}
+\end{figure}
+K = Anzahl der Ausgänge minus eins. (auch Freiheitsgrade genannt)
 
 \begin{figure}[H]
     \centering
