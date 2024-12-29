@@ -191,7 +191,8 @@ Man liest dies auch als “Wahrscheinlichkeit von A bedingt B”.
 }
 
 \subsection{Google Matrix}
-
+%tbf
+Noch nicht geschrieben.
 \section{Zufallsvariable}
 In der Stochastik ist eine \textbf{Zufallsvariable} (auch \textbf{zufällige Variable}, \textbf{zufällige Größe}, \textbf{zufällige Veränderliche}, \textbf{zufälliges Element}, \textbf{Zufallselement}, \textbf{Zufallsveränderliche}) eine Größe, deren Wert vom Zufall abhängig ist. Formal ist eine Zufallsvariable eine Funktion, die jedem möglichen Ergebnis eines Zufallsexperiments eine Größe zuordnet. Ist diese Größe eine reelle Zahl, so spricht man von einer \textbf{reellen Zufallsvariablen} oder \textbf{Zufallsgröße}. Beispiele für reelle Zufallsvariablen sind die Augensumme von zwei geworfenen Würfeln und die Gewinnhöhe in einem Glücksspiel. Zufallsvariablen können aber auch komplexere mathematische Objekte sein, wie Zufallsfelder, Zufallsbewegungen, Zufallspermutationen oder Zufallsgraphen. Über verschiedene Zuordnungsvorschriften können einem Zufallsexperiment auch verschiedene Zufallsvariablen zugeordnet werden.
 \defn{Zufallsvariable}{
@@ -772,6 +773,8 @@ Wahrscheinlichkeitsdichte:
 \end{figure}
 
 %FALTUNG
+
+\newpage
 \section{Gleichverteilung}
 
 \begin{figure}[H]
@@ -825,15 +828,23 @@ Wahrscheinlichkeitsdichte:
 }
 
 \subsection{Parameter}
+\begin{equation}
+    \begin{split}
+        \hat{a} &= \frac{n+1}{n} min(x_n) \\
+        \hat{b} &= \frac{n+1}{n} max(x_n)
+    \end{split}
+\end{equation}
+
+\newpage
 
 \section{Exponential-Verteilung}
-Die positive Zufallsvariable T ist der Zeitpunkt, zu dem ein Ereignis eintritt:
-\begin{equation}
+Die positive Zufallsvariable \(T\) ist der Zeitpunkt, zu dem ein Ereignis eintritt:
+\begin{equation*}
     F(x) = P(T \leq x)
-\end{equation}
+\end{equation*}
 \defn{Gedächtnisloser Prozess}{
-    T ist gedächtnislos, wenn die Wahrscheinlichkeit, dass das Ereignis in
-    einem Intervall eintrigg, immer gleich ist,
+    \(\T\) ist gedächtnislos, wenn die Wahrscheinlichkeit, dass das Ereignis in
+    einem Intervall eintritt, immer gleich ist,
     wenn es zu Beginn des Intervalls noch nicht eingetreten ist:
     \begin{equation}
         P(T \leq y |T>x) = P(T \leq y)
@@ -841,28 +852,24 @@ Die positive Zufallsvariable T ist der Zeitpunkt, zu dem ein Ereignis eintritt:
 }
 
 \exm{Herleitung}{
-    \begin{equation}
+    \begin{equation*}
         \begin{split}
-            G(X) &= 1-F(x) \\
-            \frac{P(T > x + y)}{P(T>x)} &= P(T > y) \\
-            \frac{G(X+y)}{G(X)} &= G(y) \\
-            \text{Ableitung nach } y \text{, bei } y&=0 \text{:}\\
-            \Rightarrow G'(x) &= G'(0)G(X) \\
-            \Rightarrow a &= -G'(0) \\
-            \Rightarrow G(x) = Ce^{-ax} &\Rightarrow \varphi(x) = aCe^{-ax}\\
-            \Rightarrow \text{für } &x>0\text{, und Normierung: }C=1
+            G(X) \quad &= 1-F(x) \\
+            \frac{P(T > x + y)}{P(T>x)} \quad &= P(T > y) \\
+            \frac{G(X+y)}{G(X)} \quad &= G(y)
         \end{split}
-    \end{equation}
-}
+    \end{equation*}
 
-\defn{Exponential Verteilung }{
-    \begin{equation}
-        \varphi(x)= ae^{-ax},a>0
-    \end{equation}
-
-    \begin{equation}
-        F(x) = 1-e^{-ax}
-    \end{equation}
+    Daraus folgt Ableitung nach \(y\), bei \(y=0\):
+    \begin{equation*}
+        \begin{split}
+            \Rightarrow \quad &G'(x) = G'(0)G(X)\\
+            \Rightarrow \quad &a = -G'(0) \\
+            \Rightarrow \quad &G(x) = Ce^{-ax} \\
+            \Rightarrow \quad &\varphi(x) = aCe^{-ax} \\
+            \Rightarrow \quad &\text{für } x>0\text{, und Normierung: }C=1
+        \end{split}
+    \end{equation*}
 }
 
 \begin{figure}[H]
@@ -871,22 +878,27 @@ Die positive Zufallsvariable T ist der Zeitpunkt, zu dem ein Ereignis eintritt:
     \caption{Exponentialverteilung}
 \end{figure}
 
-\defn{Signifikante Werte}{
+\defn{Exponential Verteilung }{
     \begin{equation}
-        E(X) = \frac{1}{a}
-    \end{equation}
-
-    \begin{equation}
-        \sigma^2 = \frac{a}{a^2}
-    \end{equation}
-
-    \begin{equation}
-        x_{\frac{1}{2}}=\frac{1}{a} log2
+        \begin{split}
+            \varphi(x) &= ae^{-ax},a>0 \\
+            F(x) &= 1-e^{-ax}
+        \end{split}
     \end{equation}
 }
 
-\(\frac{1}{a} = \) Mean Time between Failure.
-T bei Median heisst auch Halbwertszeit
+\defn{Signifikante Werte}{
+    \begin{equation}
+        \begin{split}
+            E(X) &= \frac{1}{a} \\
+            \sigma^2 &= \frac{a}{a^2} \\
+            x_{\frac{1}{2}} &= \frac{1}{a} log2
+        \end{split}
+    \end{equation}
+}
+
+Wir nennen auch \(\frac{1}{a} = \) \textbf{Mean Time between Failure} (MTBF).
+Für \(T_{\frac{1}{2}}\) (Median) gilt auch der Name \textbf{Halbwertszeit}
 
 \begin{figure}[H]
     \centering
@@ -900,23 +912,17 @@ T bei Median heisst auch Halbwertszeit
     \end{equation}
 }
 
-\subsection{Erlang (Summe identischer Exp-Variabeln)}
+\subsection{Parameter}
+\begin{equation}
+    \frac{1}{\hat{a}} = \frac{X_1 + \dots + x_n}{n} 
+\end{equation}
+
+\newpage
+
+\section{Erlang (Summe identischer Exp-Variabeln)}
 Für \(X_i\) unabhängige exponentialverteilte
 Zufallsvariable mit gleichem Parameter \(a\).
 Dann ist \(X_1+\cdots,X_n\) Erlang-verteilt.
-
-\defn{Exponential Verteilung }{
-    \begin{equation}
-        \varphi(x)= 1-e^{-ax} \sum_{i=0}^{k-1} \frac{(ax)^i}{i!}, x \leq 0
-    \end{equation}
-    Für \(k =\) Anzahl von Summanden.
-
-    \begin{equation}
-        F(x) = a^k \frac{k^{k-1}}{(k-1)!} e{-ax}, x \leq 0
-    \end{equation}
-
-    \textbf{Mit \(k=1\) ist die Formel gleicher der Exponentialverteilung.}
-}
 
 \begin{figure}[H]
     \centering
@@ -924,17 +930,42 @@ Dann ist \(X_1+\cdots,X_n\) Erlang-verteilt.
     \caption{Erlang Verteilung}
 \end{figure}
 
-\subsection{Parameter}
+\defn{Exponential Verteilung }{
+    \begin{equation}
+        \varphi(x)= 1-e^{-ax} \sum_{i=0}^{k-1} \frac{(ax)^i}{i!}, x \geq 0
+    \end{equation}
+    Für \(k =\) Anzahl von Summanden.
+
+    \begin{equation}
+        F(x) = a^k \frac{k^{k-1}}{(k-1)!} e{-ax}, x \geq 0
+    \end{equation}
+
+    \textbf{Mit \(k=1\) ist die Formel gleicher der Exponentialverteilung.}
+}
+
+\newpage
 
 \section{Normalverteilung}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/normal-dichte-verteil}
+    \caption{Verteilungsfunktion (oben), Dichtefunktion (unten) der Normalverteilung}
+\end{figure}
+
 Aufgrund des Zentralen Grenzwertsatzes, welcher besagt,
-dass sicher eine Zufallsvariable, welche aus vielen kleinen,
+dass sich eine Zufallsvariable, welche aus vielen kleinen,
 unabhängigigen Zufallseinflüsse besteht, der Normalverteilung
 nähert, hat die Normalverteilung eine grosse praktische Bedeutung.
 
+Die Verteilungsfunktion der Normalverteilung mit Erwartungswert 0 und Varianz 1,
+der sogenannten \textbf{Standardnormalverteilung}, kann nicht in geschlossener Form gefunden werden,
+es müssen entweder Tabellen oder numerische  Lösungen verwendet werden.
+
 \defn{Normalverteilung}{
     \begin{equation}
-        \frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{x-\mu}{2\sigma^2}}
+        \varphi = \frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{x-\mu}{2\sigma^2}}
     \end{equation}
 }
 
@@ -946,29 +977,38 @@ nähert, hat die Normalverteilung eine grosse praktische Bedeutung.
 
 \defn{Signifikante Werte}{
     \begin{equation}
-        E(X) = \mu
-    \end{equation}
-
-    \begin{equation}
-        \sigma^2 = \sigma^2
-    \end{equation}
-
-    \begin{equation}
-        x_{\frac{1}{2}}= \mu
+        \begin{split}
+            E(X) &= \mu \\
+            \sigma^2 &= \sigma^2 \\
+            x_{\frac{1}{2}} &= \mu
+        \end{split}
     \end{equation}
 }
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/norm-typische-werte.png}
+    \includegraphics[width=0.75\linewidth]{Images/norm-typische-werte.png}
     \caption{Typische Werte der Normalverteilung}
 \end{figure}
 
 \subsection{Fehlerabschätzung}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/fehlerabschätzung-norm.png}
+    \caption{Fehlerabschätzung der Normalverteilung}
+\end{figure}
 Es gibt keine einfache Formel für die Fehlerabschätzung.
-Die Verteilungsfunktion der Normalverteilung mit Erwartungswert 0 und Varianz 1,
-der sogenannten \textbf{Standardnormalverteilung}, kann nicht in geschlossener Form gefunden werden,
-es müssen entweder Tabellen oder numerische  Lösungen verwendet werden.
+
+\subsection{Parameter}
+\begin{equation}
+    \begin{split}
+        \hat{\mu} &= \frac{x_i + \dots + x_n}{n} \\
+        \hat{\sigma}^2 &= \frac{1}{n-1} (\sum_{i=1}^{n} x_i^2 - \frac{1}{n}(\sum_{i=1}^{n}x_i)^2)
+    \end{split}
+\end{equation}
+
+Der Mittelwert ist \(\hat{\mu}(x_1, \dots + x_n)\) ist normalverteilt mit Erwartungswert \(\mu\) und Varianz 1
+Die Stichprobenvarianz \(\hat{\sigma}(x_1,\dots + x_n)^2/\sigma^2\) ist \(\chi^2\)-verteilt mit \(n-1\) Freiheitsgraden.
 
 \subsection{Summe und Linearität}
 \defn{Linearität}{
@@ -986,15 +1026,11 @@ es müssen entweder Tabellen oder numerische  Lösungen verwendet werden.
     \(\mu = \mu_1+\mu_2\) und \(\sigma^2 = \sigma_1^2+\sigma_2^2\).
 }
 
-\subsection{Fehlerabschätzung}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{Images/fehlerabschätzung-norm.png}
-    \caption{Fehlerabschätzung der Normalverteilung}
-\end{figure}
-
 \subsection{Zentraler Grenzwertsatz}
+Der zentrale Grenzwertsatz besagt, dass die Verteilungsfunktion einer Summe einer grossen Zahl 
+von Zufallsvariablen unter milden Voraussetzungen gegen die Verteilungsfunktion einer Normalverteilung konvergiert. 
+Dies rechtfertigt den Einsatz der Normalverteilung als Modell für Prozesse, in denen eine grosse Zahl 
+von vergleichbar grossen Einflüssen zu einem Effekt beitragen, zum Beispiel bei Messwerten.
 \defn{Zentraler Grenzwertsatz}{
     Sind \(X_1,X_2,\dots\) identisch verteilte und unabhängige Zufallsvariabeln mit \(E(X_i)=\mu\)
     und \(var(X_i)=\sigma^2\), dann gilt:
@@ -1056,7 +1092,8 @@ Eine beliebige Standardverteilte Variabel kann in diese Form gebracht werden:
     \end{equation}
 }
 
-\subsection{Normnalverteilungstabelle}
+Man beachte, dass die Zufallsvariable Z nicht mehr normalverteilt ist, wenn man \(\mu\) und \(\sigma\)
+durch \textbf{Schätzwerte} ersetzt, die resultierende Verteilung ist dann eine \textbf{t-Verteilung}.
 
 \begin{figure}[H]
     \centering
@@ -1069,19 +1106,94 @@ Eine beliebige Standardverteilte Variabel kann in diese Form gebracht werden:
     \caption{Verteilungsfunktion der Normalverteilung 2}
 \end{figure}
 
-\subsection{ADD KENDALL NOTATION}
+%\subsection{ADD KENDALL NOTATION}
 
+\newpage
+\section{Potenzverteilung}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/potenzverteilung.png}
+    \caption{Dichtefunktion einer Potenzverteilung mit alpha=3.5}
+\end{figure}
+
+Für Skaleninvatiante Prozesse:
+\begin{equation}
+    \varphi(bx) = g(b)\varphi(x)
+\end{equation}
+Das heisst mit der Skalierung von \(x\) mit \(b\) ändert sich
+an der Form von \(\varphi\) nichts für \(x > x_{min}\).
+Der Faktor \(g(b)\) heisst Renormierung.
+
+\defn{Potenzverteilung}{
+    \begin{equation}
+        \begin{split}
+            \varphi(x) &= \frac{\alpha - 1}{x_{min}}(\frac{x}{x_{min}})^{-\alpha}, \text{für } x > x_{min}\\
+            F(x) &= 1- (\frac{x}{x_{min}})^{1- \alpha} \text{für } x > x_{min}
+        \end{split}
+    \end{equation}
+}
+
+\defn{Kennzahlen}{
+    \begin{equation}
+        \begin{split}
+            med(X) &= 2 \frac{1}{\alpha -1} x_{min} \\
+            E(X) &= \frac{\alpha - 1}{\alpha - 2} x_{min} \\
+            var(X) &= ( \frac{\alpha - 1}{\alpha - 3} - (\frac{\alpha - 1}{\alpha - 2}^2)) x_{min}^2
+        \end{split}
+    \end{equation}
+    Man beachte die Werte für die die Funktion nicht definiert ist!
+    Für E(X) und var(X) gilt für Werte \(\alpha \leq 2\) und \(\alpha \leq 3\) macht die Bezeichnung keinen Sinn.
+    Daher ist oft nur der Median angegeben.
+}
+
+\subsection{Rangordnung}
+Um eine Rangfunktion zu erhalten rechnet man:
+\begin{equation}
+    \text{Rangfunktion} = log(1-F(X))
+\end{equation}
+Ergibt eine Art Rangfolge der Verteilung.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/potenz-verteilfunktion-rang.png}
+    \caption{Potenzverteilung Verteilfunktion und Rang}
+\end{figure}
+
+\subsection{Zipfs Law (80/20-Regel)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/80-20.png}
+    \caption{80/20-Regel}
+\end{figure}
+Man kann W(x) als den Anteil des "Wertes" interpretieren, den die Werte oberhalb von x bei
+steuern. Es ist klar, dass P(x) = 1 auch bedeutet, W(x) = 1: 100\% der Werte tragen 100\% des
+ Wertes bei. Die Definitionen besagen, dass für beliebiges x der obere P(x)-Anteil der Werte den
+ Anteil W(x) des gesamten Wertes beitragen.
+
+ \exm{80/20-Regel}{
+    Gesucht ist z.B. \(\alpha\) für eine Einkommensverteilung,
+    bei der die top 1\% 40\% des Vermögens besitzen:
+    \begin{equation*}
+        \begin{split}
+            \lambda &= \frac{log 0.4}{log 0.01} \\
+            \alpha &= \frac{\lambda-2}{\lambda-1} = 2.2484
+        \end{split}
+    \end{equation*}
+
+ }
+
+\newpage
 \section{Binomial-Verteilung}
 Die Binomialverteilung modelliert Zufallsexperimente mit zwei möglichen Ausgängen \(A\) oder \(\bar{A}\).
- \defn{Binomial Verteilung }{
+\defn{Binomial Verteilung }{
     Dabei ist \(X\) die Anzahl der eingetrettenen \(A\) in \(n\) unabghängigen Durchführungen.
 
     \begin{equation}
-        P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}
-    \end{equation}
-
-    \begin{equation}
-        F(x) = 1-e^{-ax}
+        \begin{split}
+            \text{Wahrscheinlichkeit} \quad P(X=k) &= \binom{n}{k} p^k (1-p)^{n-k} \\
+            \text{Verteilung} \quad F(x) &= 1-e^{-ax}
+        \end{split}
     \end{equation}
 }
 
@@ -1102,6 +1214,16 @@ Die Binomialverteilung modelliert Zufallsexperimente mit zwei möglichen Ausgän
     diese approximativ normalverteilt mit \(\mu = np \) und \(\sigma^2 = np(1-p)\).
 }
 
+\subsection{Parameter}
+In einem Bernoulliexperiment wird mit m Wiederholungen n mal wiederholt. Man erhält n Werte
+ \(k_1,\dots, k_n\). Die Wahrscheinlichkeit p kann daraus mit Hilfe des Mittelwertes erwartungstreu
+ geschätzt werden:
+\begin{equation}
+    \hat{p}(k_1,\dots , k_n) = \frac{k_1 + \dots + k_n}{n}
+\end{equation}
+Als Schätzer für den Parameter m liegt das Maximum nahe, da aber grosse Werte sehr selten
+sind, ist dieser Schätzer von unbrauchbarer Qualität.
+
 \subsection{Berechnungsprobleme}
 
 \begin{figure}[H]
@@ -1119,7 +1241,7 @@ Die Binomialverteilung modelliert Zufallsexperimente mit zwei möglichen Ausgän
 \end{figure}
 
 Bei gegebener Binomialverteilung \(X\) lässt sich diese approximativ normalverteilt behandeln mit
-\(\mu = np\) und \(sigma^2 = np (1-p)\), daraus lässt sich folgendes bilden:
+\(\mu = np\) und \(\sigma^2 = np (1-p)\), daraus lässt sich folgendes bilden:
 \defn{Normalapproximation}{
     \begin{equation}
         Z =  \frac{X-\mu}{\sigma} = \frac{X-np}{\sqrt{np(1-p)}}
@@ -1135,10 +1257,58 @@ Für eine genauere Approximation, kann folgendes benutzt werden:
     P(a < X \leq b) = \phi(\frac{b+0.5-np}{\sqrt{np(1-p)}}) - \phi(\frac{a+0.5-np}{\sqrt{np(1-p)}})
 \end{equation}
 
-\subsection{TODO Approximation für seltene Ereignisse}
-POISSON BENUTZEN!!
+\defn{Faustregel}{
+    Man benutzt die \textbf{Normalaproximation} wenn:
+    \begin{equation}
+        np \geq 5 \land n(1-p) \geq 5
+    \end{equation}
+    Unter diesen Bedingungen nähert sich die Binomialverteilung gut einer Normalverteilung an.
+    Wir benutzen die \textbf{Poisson-Verteilung} wenn der Erwartungswert klein ist und
+    die Anzahl der Versuche n sehr gross ist, aber mit geringen Wahrscheinlichkeiten p.
 
-\section{TODO: Hypergeometrische Verteilung}
+    \begin{equation}
+        n >50 \land p < 0.1 \land np=\lambda \leq 10
+    \end{equation}
+    Also wenn p klein und n gross ist. Dies ist also besonders bei seltenen Ergeignisse nützlich.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/approx-selten.png}
+    \caption{Poisson-Verteilung, Approximation von seltenen Ereignissen}
+\end{figure}
+
+\newpage
+\section{Poisson-Verteilung}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/poisson-verteilung.png}
+    \caption{Poisson-Verteilung}
+\end{figure}
+
+\defn{Poisson-Verteilung}{
+    \begin{equation}
+            P_{\lambda(k)} = \frac{\lambda^k}{k!}e^{-\lambda}
+    \end{equation}
+}
+
+\defn{PKennzahlen}{
+    \begin{equation}
+         \begin{split}
+            E(X) &= \lambda \\
+            var(X) &= \lambda
+         \end{split}
+    \end{equation}
+}
+\subsection{Parameter}
+Der Parameter \(\lambda\) ist der Erwartungswert einer Poisson-Verteilung, er lässt sich daher mit dem
+Mittelwert schätzen:
+\begin{equation}
+    \hat{\lambda} = \frac{k_1, + \dots + k_n}{n}
+\end{equation}
+
+\newpage
+\section{Hypergeometrische Verteilung}
 Die hypergeometrische Verteilung wird benutzt um
 diskrete Wahrscheinlichkeiten eines Auswahlproblems zu bestimmen.
 
@@ -1168,79 +1338,6 @@ Daraus werden \(n\) Objekte zufällig ausgewählt.
     \caption{Begründung der hypergeometrischen Verteilung}
 \end{figure}
 
-\section{Poisson-Verteilung}
-\section{Potenzverteilung}
-Für Skaleninvatiante Prozesse:
-\begin{equation}
-    \varphi(bx) = g(b)\varphi(x)
-\end{equation}
-Das heisst mit der Skalierung von \(x\) mit \(b\) ändert sich
-an der Form von \(\varphi\) nichts für \(x > x_{min}\).
-Der Faktor \(g(b)\) heisst Renormierung.
-
-\defn{Potenzverteilung}{
-    \begin{equation}
-        \varphi(x) = \frac{\alpha - 1}{x_{min}}(\frac{x}{x_{min}})^{-\alpha}, \text{für } x\leq x_{min}
-    \end{equation}
-    \begin{equation}
-        F(x) = 1- (\frac{x}{x_{min}})^{1- \alpha} \text{für } x\leq x_{min}
-    \end{equation}
-}
-
-Um eine Rangfunktion zu erhalten rechnet man:
-\begin{equation}
-    \text{Rangfunktion} = log(1-F(X))
-\end{equation}
-Ergibt eine Art Rangfolge der Verteilung.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{Images/potenzverteilung.png}
-    \caption{Potenzverteilung}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{Images/potenz-verteilfunktion-rang.png}
-    \caption{Potenzverteilung Verteilfunktion und Rang}
-\end{figure}
-
-\subsection{Wichtige Kennzahlen}
-\defn{Kennzahlen}{
-    \begin{equation}
-        \begin{split}
-            med(X) &= 2 \frac{1}{\alpha -1} x_{min} \\
-            E(X) &= \frac{\alpha - 1}{\alpha - 2} x_{min} \\
-            var(X) &= ( \frac{\alpha - 1}{\alpha - 3} - (\frac{\alpha - 1}{\alpha - 2}^2)) x_{min}^2
-        \end{split}
-    \end{equation}
-    Für E(X) und var(X) gilt für Werte \(\alpha \leq 2\) und \(\alpha \leq 3\) macht die Bezeichnung keinen Sinn.
-    Daher ist oft nur der Median angegeben.
-}
-
-\subsection{Zipfs Law}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{Images/80-20.png}
-    \caption{80/20-Regel}
-\end{figure}
-Man kann W(x) als den Anteil des "Wertes" interpretieren, den die Werte oberhalb von x bei
-steuern. Es ist klar, dass P(x) = 1 auch bedeutet, W(x) = 1: 100\% der Werte tragen 100\% des
- Wertes bei. Die Definitionen besagen, dass für beliebiges x der obere P(x)-Anteil der Werte den
- Anteil W(x) des gesamten Wertes beitragen.
-
- \exm{80/20-Regel}{
-    Gesucht ist z.B. \(\alpha\) für eine Einkommensverteilung,
-    bei der die top 1\% 40\% des Vermögens besitzen:
-    \begin{equation*}
-        \begin{split}
-            \lambda &= \frac{log 0.4}{log 0.01} \\
-            \alpha &= \frac{\lambda-2}{\lambda-1} = 2.2484
-        \end{split}
-    \end{equation*}
-
- }
 
 \section{Schätzprobleme}
 Ein Schätzproblem ist eine Aufgabe, bei der die Parameter \(\vartheta\) einer gegebenen
@@ -1402,10 +1499,11 @@ Die üblichen Werte sind:
     \item[0.01-0.001] hoch signifikant 
 \end{description}
 
-\subsection{t-Test}
-Der Einstichproben-t-Test (englisch one sample t-test) ist ein Signifikanztest aus der mathematischen Statistik.
-Er prüft anhand des Mittelwertes einer Stichprobe,
-ob der Mittelwert einer Grundgesamtheit gleich einem vorgegebenen Wert ist (bzw. kleiner oder größer).
+\subsection{t-Test (Student-Test)}
+Der t-Test ist ein Signifikanztest aus der mathematischen Statistik.
+In der üblichen Form prüft er anhand der Mittelwerte zweier Stichproben, 
+ob die Mittelwerte zweier normalverteilter Grundgesamtheiten gleich oder verschieden voneinander sind.
+Das heisst im Grundsatz, dass der Test \textbf{zwei Zufallsvariabeln} miteinander vergleicht.
 
 \defn{t-Test}{
     \begin{equation}
@@ -1434,64 +1532,158 @@ t-Wert für die \(1-\alpha\)-Quantile der t-Verteilung mit n+m-2 Freiheitsgraden
 Dabei beschreibt \(k\) das mit \(m+n-2\) den Freiheitsgrad.
 
 \subsection{p-Value}
+Der p-Wert (p-Value) einer Messung x eines Wertes
+der Zufallsvariabel \(X\), ist die Wahrscheinlichkeit,
+einen Wert \(> x\) zu erhalten.
+\defn{p-Value}{
+    \begin{equation*}
+        \text{p-value} = P(X>x) = 1-F(x)
+    \end{equation*}
+}
+Dieser kann interpretiert werden als die Wahrscheinlichkeit für einen Fehler erster Art.
+Dabei muss beachtet werden:
+\begin{equation*}
+    P(\text{Beobachtung}|\text{Nullhypothese}) \neq P(\text{Nullhypothese}|\text{Beobachtung})
+\end{equation*}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/p-value.png}
+    \includegraphics[width=0.5\linewidth]{Images/p-value.png}
     \caption{p-Value}
 \end{figure}
 
-\subsection{Diskrepanz}
+\subsection{Diskrepanz (Für diskrete Tests)}
 Eine verallgemeinerte Testgrösse eines Bernoulli Experiments für
-n verschiedene Anzahlen:
-\begin{equation}
-    D = \sum_{k=1}^{n} \frac{(X_i - np_i)^2}{np_i}
-\end{equation}
+n verschiedene Anzahlen.
+
+Für das Bernoulli-Experiment gilt:
+\begin{equation*}
+    T = \frac{X-np}{\sqrt{np(1-p)}}
+\end{equation*}
+Die Verteilung ist normalapproximiert. Für die 2 Ausgänge gilt:
+\begin{equation*}
+    \begin{split}
+        X_1 &= X \\
+        X_2 &= n-X
+    \end{split}
+\end{equation*}
+Und die Wahrscheinlichkeiten:
+\begin{equation*}
+    \begin{split}
+        p_1 &= p \\
+        p_2 &= 1-p
+    \end{split}
+\end{equation*}
+Für eine Verallgemeinerungen für \(n\)-Ausgänge definieren wir:
+\defn{Diskrepanz}{
+    Die Diskrepanz ist eine Teststatistik für diskrete Zufallsvariabeln.
+    Die Teststatistik ist symmetrisch.
+    \begin{equation}
+        D = \sum_{k=1}^{n} \frac{(X_i - np_i)^2}{np_i}
+    \end{equation}
+}
+Aus der Diskrepanz wird der Chi Quadrat Test hergeleitet.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/hyp-n-anzahl.png}
+    \includegraphics[width=0.75\linewidth]{Images/hyp-n-anzahl.png}
     \caption{Hypothesentest für Anzahl n}
 \end{figure}
 
-\subsection{F-Test TODO unwichtig}
+\subsection{F-Test (Fisher-Test)}
+F-Test testet die Varianzen mehrerer ZV gegenüber einer Gruppe.
+Er kann für viele tests eingesetzt werden, wo auch der t-test zu tragen kommen könnte.
+Mit dem F-Test lassen sich \textbf{mehrere Stichproben} oder ZV gleichzeitig testen.
+
+Der Fisher-Test kann aus dem Umstand hergeleitet werden,
+dass wenn wir eine ZV mit zwei Ausgängen so transformieren,
+dass ein Bernoulli Experiment darüber entscheidet, ob Fall 1 oder 2 auftritt folgendes
+errechnet werden kann:
+\begin{equation*}
+    \begin{split}
+        E(X) &= p E(X_1) + (1-p) E(X_2) \\
+        var(X) &= \sigma^2 + p(1-p)(\mu_1 - \mu_2)^2
+    \end{split}
+\end{equation*}
+In jenem Beispiel möchten wir errechnen können, ob \(\mu_1 = \mu_2\).
+Aus der Rechnung wird ersichtlich, dass der Unterschied zwischen den Beiden zu einer grösseren Varianz führt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/f-test-verteilung.png}
+    \caption{Bei einem F-Test vegrössert sich die Varianz, wenn die Erwartungswerte sich unterscheiden}
+\end{figure}
+
+\defn{F-Test}{
+    Mit dem F-Test können wir verschiedene Erwartungswerte normalverteiler ZV vergleichen.
+    Wir haben \(X_i\) mit \(var(X_i)= \sigma^2\) und wollen herausfinden ob sich \(\mu_i = E(X_i)\) unterscheiden.
+    Dabei ist die Nullhypothese:
+    \begin{equation*}
+        \mu_i = \mu_j \forall i,j
+    \end{equation*}
+
+    Wir verwenden für die Test-Statistik:
+    \begin{equation}
+        F = \frac{\text{Varianz über alle }i}{\text{Varianz für die Gruppe }i}
+    \end{equation}
+
+    \begin{enumerate}
+        \item Messungen für alle \(i\) mehrfach messen: \(x_ij\)
+        \item Berechne die empirische Varianz für alle Gruppen und die Gruppe \(i\)
+        \item Die Teststatistik ausrechnen
+        \item Nullhypothese: \(F=1\)
+        \item Verteilung von F: Fisher Verteilt resp. F-Verteilt
+    \end{enumerate}
+}
 
 \section{Verteilungstests}
-\subsection{\(\chi^2\)-Test}
+\subsection{\(\chi^2\)-Verteilung}
+Der Chi-Test ensteht aus der \(\chi^2\) Verteilung, welche eine Verteilung von
+einer Summe von normalverteilten Variabeln ist, welche quadriert wurden:
+\defn{\(\chi^2\) Verteilung}{
+    Sind \(X_i\) unabhängige standardnormalverteilte ZV, dann ist:
+    \begin{equation*}
+        \chi_n^2 = \sum_{i=1}^{n} X_i^2
+    \end{equation*}
+    eine \(\chi^2\) verteilte Zufallsvariabel mit n Freiheitsgraden.
+
+    Sie hat folgende Eigenschaften:
+    \begin{equation*}
+        \begin{split}
+            E(X) &= n \\
+            var(X) &= 2n \\
+            X_n + X_m &= X_{n+m}  
+        \end{split}
+    \end{equation*}
+}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/x-text.png}
-    \caption{Chi Test}
-\end{figure}
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{Images/diskrepanz-tabelle.png}
-    \caption{Chi Diskrepanz Tabelle}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{Images/x-verteilung.png}
+    \includegraphics[width=0.75\linewidth]{Images/x-verteilung.png}
     \caption{Chi Quadrat Verteilung}
 \end{figure}
 
-Chi kann auch für zu genaue Ergebnisse testen. Ob gemogelt resp. betrogen wurde.
-Der Test funktioniert mit endlich viele Ausgänge.
-Der Chi Quadrat test nimmt binomialverteilung für die einzelnen ausgänge.
-und diese sind normalapproximiert. das bedeutet, wenn man stetige ausgänge testen
-möchte z.b in dem man diese in diskrete klassen zählt, muss man an den rändern aufpassen,
-da die normalapproximation für wenige samples schlecht funktioniert.
-
-Faustregel: jede klasse muss mindestens 5 versuchsausgänge haben.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/chi-verteilung.png}
-    \caption{Chi Verteil- und Dichtefunktion}
+    \includegraphics[width=0.5\linewidth]{Images/chi-verteilung.png}
+    \caption{Chi-Verteilung Verteil- und Dichtefunktion}
 \end{figure}
+
+\subsection{Chi-Test}
+Der Chi-Quadrat-Test bezeichnet man in der Statistik eine Gruppe von Hypothesentests.
+Wir können diese verwenden um \textbf{diskrete Verteilungen} zu testen.
+
+Der Chi kann verwendet zu werden, um unwahrscheinliche Ergebnisse zu prüfen,
+gleichzeitig kann mit diesem angezeigt werden, ob Ergebnisse zu gut passen,
+respektive abgezählt wurden. Dies aufgrund der Tatsache das an beiden Rändern
+der Verteilung ein p-Value abgelesen werden kann.
+
+Der Test nimmt die Binomialverteilung als Grundlage der einzelnen Ausgängen.
+Da dieser Normalapproximiert wird, macht der Test für Randausgänge nur Sinn,
+wenn genügend viele Daten vorhanden sind.
+
+\textbf{Faustregel: jede klasse muss mindestens 5 versuchsausgänge haben.}
 
 \begin{figure}[H]
     \centering
@@ -1499,25 +1691,117 @@ Faustregel: jede klasse muss mindestens 5 versuchsausgänge haben.
     \caption{Chi zu gross oder zu klein?}
 \end{figure}
 
-\subsection{Testen einer diskreten Verteilung}
+\defn{\(\chi^2\)-Test}{
+    Wir wollen den Umstand testen, dass die Anzahlen \(X_i\) zu den Wahrscheinlichkeiten \(p_i\) der Ausgänge \(i\) gehören.
+    Dafür nehmen wir die Diskrepanz der quadrierten ZV als Teststatistik:
+    \begin{equation*}
+        D_k = X_1^2 + \dots + X_k^2
+    \end{equation*}
+    Dabei sind die standardnormalen \(X_i\), \(\chi^2\)-verteilt mit k-1 Freiheitsgraden.
+    Nun können wir prüfen, ob:
+    \begin{equation*}
+        D > D_+ \Rightarrow \text{Daten passen nicht (H verwerfen)}
+    \end{equation*}
+    Und:
+    \begin{equation*}
+        D < D_- \Rightarrow \text{Daten passen zu gut}
+    \end{equation*}
+    Für die Quantilen nehmen wir:
+    \begin{equation*}
+        \begin{split}
+            F_D(D_+) &= P(D \leq D_+) = 1-\alpha \\
+            F_D(D_-) &= P(D \leq D_-) = \alpha
+        \end{split}
+    \end{equation*}
+}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/test-diskrete-verteilung.png}
-    \caption{Testen einer diskreten Verteilung}
+    \includegraphics[width=1\linewidth]{Images/x-test-tabelle.png}
+    \caption{Chi-Test Tabelle}
 \end{figure}
-K = Anzahl der Ausgänge minus eins. (auch Freiheitsgrade genannt)
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/beispiel-hyp-faire-münze.png}
-    \caption{Beispiel: Testen einer fairen Münze}
+    \includegraphics[width=1\linewidth]{Images/diskrepanz-tabelle.png}
+    \caption{Chi Diskrepanz Tabelle}
+\end{figure}
+
+\subsection{Allgemeines zu Tests von stetigen Variabeln}
+Aus dem Umstand, dass wir aus der vorhandener Verteilfunktion und \(X\)
+eine Gleichverteilung erstellen können, ensteht der Gedanke, dass wir
+nur prüfen müssen, ob eine ZV einer Gleichverteilung folgt, nachdem wir diese Transformiert haben.
+So können wir testen, ob eine Verteilung zur ZV passt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/verteilungs-test.png}
+    \caption{Verteilungstest: Test zwischen der Abweichung der Gleichverteilung zur empirischen Verteilfunktion}
+\end{figure}
+
+
+\subsection{Kolmogorov-Smirnow-Test}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/k-verteilung.png}
+    \caption{K-Verteilungen im Vergleich}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/beispiel-hyp-mittelwert.png}
-    \caption{Beispiel: Testen von zwei Mittelwerte}
+    \includegraphics[width=1\linewidth]{Images/k-verteilung-vergleich.png}
+    \caption{K-Verteilungen im Vergleich}
+\end{figure}
+
+\defn{K-Test}{
+    Der K-Test wird benutzt, um zu testen, ob eine Zufallsvariable einer bestimmten Verteilung folgt.
+    Dafür müssen Ergebnisse in einer empirischen Verteilfunktion \(F_n(x)\) und einer theoretischen Verteilfunktion \(F(x)\) verglichen werden.
+    Der Test basiert auf der maximalen Differenz zwischen diesen beiden Funktionen:
+    \begin{equation*}
+        D_n = \sup_x |F_n(x) - F(x)|
+    \end{equation*}
+    Der kritische Wert \(D_{n,\alpha}\) wird aus der Kolmogorov-Smirnov-Tabelle entnommen, abhängig von der Stichprobengröße \(n\) und dem Signifikanzniveau \(\alpha\).
+    Wenn \(D_n > D_{n,\alpha}\), wird die Nullhypothese, dass die Zufallsvariable der theoretischen Verteilung folgt, verworfen.
+
+    \begin{equation*}
+        \begin{split}
+            K_n^+ &= \sqrt{n} \text{max}_x(F_{\text{empirisch}} - F(X)) = \sqrt{n} \text{max}_j(\frac{j}{n}-F(x_j))\\
+            K_n^- &= \sqrt{n} \text{max}_x(F(X) - F_{\text{empirisch}}) = \sqrt{n} \text{max}_j(F(x_j) - \frac{j-1}{n})
+        \end{split}
+    \end{equation*}
+    Der Faktor \(\sqrt{n}\)  wird verwendet um einfache zu rechnen.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/k-tabelle.png}
+    \caption{K-Tabelle}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/kolmogorov-tabelle.png}
+    \caption{Berechnungstabelle}
+\end{figure}
+
+\subsection{Q-Q-Plot}
+Ist eine Visuelle Methode, um eine Verteilung zu testen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/q-q-plot.png}
+    \caption{Q-Q-Plot}
+\end{figure}
+\subsection{Shapiro-Wilk-Test}
+Testen ob eine Verteilung normalverteilt ist.
+Testet genauer, als der Kolmogorov-Smirnow-Test.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/shapiro-wilk-test.png}
+    \caption{Shapiro-Wilk-Test}
 \end{figure}
 
 \section{Filter}
@@ -1616,13 +1900,13 @@ die Grössenordnung des Rauschens und der Nenner die des Signals ist.
 Diese Art von Filterung ist einer der einfachsten, jedoch nicht optimal, da
 die Qualität von den Frequenzen abhängen.
 
-\subsection{Frequenzabhängige Filterung}
-Das Verhältnis zwischen Rauschen und Signal ist unterschiedlich je nach Frequenz.
-Es ist nicht ausreichend für jede Frequenz das gleiche B zu wählen.
+%\subsection{Frequenzabhängige Filterung}
+%Das Verhältnis zwischen Rauschen und Signal ist unterschiedlich je nach Frequenz.
+%Es ist nicht ausreichend für jede Frequenz das gleiche B zu wählen.
 
-\subsection{Systembeschreibung}
-\subsection{Fehler}
-\subsection{Kovarianz Matrix}
+%\subsection{Systembeschreibung}
+%\subsection{Fehler}
+%\subsection{Kovarianz Matrix}
 
 \section{Aufgaben Lösen}
 \begin{enumerate}
@@ -1631,6 +1915,28 @@ Es ist nicht ausreichend für jede Frequenz das gleiche B zu wählen.
     \item Welche Parameterwerte müssen verwendet werden? (Schätzen)
     \item Wahrscheinlichkeiten berechnen
 \end{enumerate}
+
+\section{Beispiele}
+\subsection{Testen einer diskreten Verteilung (Mit Chi-Quadrat)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/test-diskrete-verteilung.png}
+    \caption{Testen einer diskreten Verteilung}
+\end{figure}
+K = Anzahl der Ausgänge minus eins. (auch Freiheitsgrade genannt)
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/beispiel-hyp-faire-münze.png}
+    \caption{Beispiel: Testen einer fairen Münze}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/beispiel-hyp-mittelwert.png}
+    \caption{Beispiel: Testen von zwei Mittelwerte}
+\end{figure}
 
 \end{document}
 
