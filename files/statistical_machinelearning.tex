@@ -17,6 +17,16 @@
 \defn{Correlation and Causation}{
     \textbf{REMEMBER!} Correlation does not imply causality!
 }
+
+\defn{No Free Lunch}{
+There is not one method which will 
+beat all the other methods all the 
+time. The better the assumptions of the 
+method match the true state of nature, 
+the better a particular method performs– This is sometimes referred to as the 
+"No Free Lunch Theorem".
+}
+
 In StatML we want to create mathematical models based on data.
 We assume a fixed but unknown relationship between the input variables \(X\) and our
 output (dependent variable) \(Y\).
@@ -91,6 +101,7 @@ to models which are less interpretable.
     \end{equation}
 }
 
+\newpage
 \subsection{Bias-Variance}
 
 \begin{figure}[H]
@@ -105,11 +116,10 @@ The \textbf{expected test MSE} is the sum of a \textbf{variance} term, a \textbf
     \caption{Test MSE Equivalent}
 \end{figure}
 
-\newpage
-The \(\sqrt{variance}\) refers to the amount by which the estimate would change, if we estimated using a different training set. 
+The \(\sqrt{variance}\) refers to the amount by which the estimate would change,
+if we estimated using a different training set. 
 Ideally the training set should have little influence on how the method estimates, this is typical for \textbf{low flexibility} methods.
-\\
-\\
+
 The bias refers to the error introduced by approximation using a model that is \textbf{too simple} (low flexibility)
 to capture the \textbf{true shape} of a function, this will result in \textbf{high bias}.
 
@@ -141,6 +151,7 @@ to capture the \textbf{true shape} of a function, this will result in \textbf{hi
     Don't select the method minimizing the \textbf{training MSE}!
 }
 
+\newpage
 \section{Regression}
 Regression is a method to calculate \textbf{quantitative} (numerical) predictions where \(Y\) is an ordered numerical value.
 In its essence we define a mathematical model and an associated error function.
@@ -171,6 +182,7 @@ In essence the MSE shows the on average commited error when predicting already k
     \end{equation}
 }
 
+\newpage
 \subsection{Linear Regression}
 In linear regression estimates are modeled with a linear relationship between a scalar response (dependent variable) 
 and one or more explanatory variables (regressor or independent variable). There is a closed form solution for the RSS optimization.
@@ -185,13 +197,23 @@ and one or more explanatory variables (regressor or independent variable). There
         RSS = e_1^2+\dots+e_n^2 \text{ where } e_i = y_i-\hat{y}_i
     \end{equation}
 }
+
+\defn{Coefficients in Simple Linear Regression}{
+    \begin{equation}
+        \begin{split}
+            \hat{b}_1 &= \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) }{\sum_{i=1}^{n} (x_i - \bar{x})^2} \\
+            \hat{b}_0 &= \bar{y} - \hat{b}_1 \bar{x}
+        \end{split}
+    \end{equation}
+}
+
 \subsection{Linear Regression: Metrics}
 \textbf{RSE} is roughly speaking, the average amount that the response will deviate from the true regression line. It provides an absolute measure of lack of fit of the model to the data. In fact the RSE carries the same unit as \(Y\).\textbf{ \(R^2\)} is the proportion of the variance explained by the model and hence it takes values between 0 and 1. \textbf{TSS} is the total sum of squares, which is the RSS if \(Y\) would always be predicted using the sample mean of \(Y\) (best possible predictor if we do not measure \(X\)). Assess accuracy of model with:
 \defn{Model Accuracy}{
     \begin{equation}
         \begin{split}
             RSE &= \sqrt{\frac{1}{n-p-1}RSS} \\
-            TSS &= \sum (y_i - \bar{y} )^2 \\
+            TSS &= \sum (y_i - \bar{y} )^2 = n \sigma_Y^2\\
             R^2 &= \frac{TSS-RSS}{TSS} = 1-\frac{RSS}{TSS} \\
         \end{split}
     \end{equation}
@@ -219,7 +241,7 @@ Variance \(\sigma^2\) estimation using residual standard error (RSE):
     \begin{equation}
     \begin{split}
         \text{for }\sigma^2 &= Var(\epsilon) \\
-        \implies SE\approx  \hat{SE} = RSE &= \sqrt{\frac{RSS}{n-n_\beta}}
+        \implies SE\approx  \hat{SE} = RSE &= \sqrt{\frac{1}{n-p-1}RSS}
     \end{split}
 \end{equation}
 }
@@ -316,8 +338,9 @@ An F-test is any statistical test used to compare the variances of two samples o
     \begin{split}
         H_0 &: \beta_0 = \dots = \beta_n = 0 \\
         H_a &: \text{at least one } \beta_j \text{ is non-zero} \\
-        \text{using F-statistic} &: F=\frac{(TSS-RSS)/p}{RSS(n-p-1)}\\
-        \text{and} &: TSS = \sum (y_i-\bar{y})^2 \text{, } RSS=\sum (y_i - \hat{y})^2
+        \text{using F-statistic} &: \frac{\text{explained variance}/p}{\text{unexplained variance}/(n-p-1)} \\
+        \text{using F-statistic} &: F=\frac{(TSS-RSS)/p}{RSS/(n-p-1)}\\
+        \text{and} &: TSS = \sum (y_i-\bar{y})^2 = n\sigma^2 \text{, } RSS=\sum (y_i - \hat{y})^2
     \end{split}
 \end{equation}
 }
@@ -377,22 +400,80 @@ There always only needs to be \(l-1\) dummy variables where l is the number of l
 without a dedicated dummy variable is called the baseline.
 
 It is better to use the F-test to judge if the predictors are relevante,
-since the individual p-values of the coefficients rely on the chosen encoding of the dummy variable.
+since the individual p-values of the coefficients rely on the chosen encoding of the dummy variable. 
 
+\subsection{Removing the additive assumption (Interaction Terms)}
+The linear model assumes that the relationship between the predictors and the response are additive and linear.
+Additivity implies that the change in the response due to a unit change in a predictor is independent of the value
+of the other predictors.
 
+\defn{Cross-Terms}{
+    We can remove additivity by introducting cross-terms:
+    \begin{equation}
+        Y = b_0 + b_1 X_1 + b_2 X_2 + b_3 X_1 X_2 + \varepsilon
+    \end{equation}
+}
+
+The hierarchical principle states, that if there is an interaction 
+term in a model, then the two main effects should also be 
+included even when their p-values are large.
+
+\subsection{Non-linear relationships TBD}
+
+\newpage
 \section{Classification}
 In classification we make qualitative (categorical) predictions where \(Y\) is a discrete categorical value.
 As in regression there are many methods to quantify the error.
 
 \subsection{Model Accuracy}
-One of the most general methods is to model error with the CER:
+One of the most general methods is to model error with the Classification Error Rate (CER):
 \defn{Classification Error Rate}{
 \begin{equation}
     Error = \frac{1}{n}\sum_{i=1}^n I(y_i \ne \hat{y}_i)
 \end{equation}
 }
 
-A Bayes classifier results in the lowest possible test error rate:
+\subsection{Model Accuracy with Confusion Matrix}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/conf-matrix.jpg}
+    \caption{Confusion Matrix}
+\end{figure}
+
+\subsection{Threshold selection using ROC}
+receiver operating characteristic curve, or ROC curve,
+is a graphical plot that illustrates the performance of a binary classifier model
+(can be used for multi class classification as well) at varying threshold values.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/roc.png}
+    \caption{ROC Graph}
+\end{figure}
+
+It is a graph that plots the true 
+positive rate (TP/P) as a function of 
+the false positive rate (FP/N).
+Each binary classification scheme has 
+a ROC, which is independent of the 
+selected threshold.
+The optimal curve hugs the left upper 
+corner and is non-decreasing.
+Hence the \textbf{area under the curve (AUC)} is a 
+good measure for the fundamental 
+performance of a binary classification 
+scheme.
+
+\defn{Important Terms}{
+    \begin{description}
+        \item[Sensitivity] can you find, what you want
+        \item[Specificity] can you find, what you don't want
+    \end{description}
+    Ideally both, sensitivity and specificity are 
+    high. Sensitivity is also called Recall.
+}
+\subsection{Bayes-Classifier}
+A Bayes classifier results in the lowest possible overall test error rate:
 \defn{Bayes Classifier}{
     Test error rate is minimized, by a classifier that assigns each observation to the most probable class, given its predictor value. Results in the lowest possible error rate called Bayes error rate.
     \begin{equation}
@@ -405,7 +486,9 @@ A Bayes classifier results in the lowest possible test error rate:
 
     The bayes error rate is analogous to the irreducible error and is 0.1304.
 }
+
 \newpage
+\subsection{KNN}
 \defn{K-Nearest Neighbors}{
     Bayes classifier requires knowledge of the conditional distribution of \(Y|X\), in a real world problem this is never known. K-nearest neighbors is the simplest of such methods in which given a test point \(x_0\) KNN finds \(K\) neighbors and then estimates the class probabilities as the fraction of neighbors which belong to a particular class.
 
@@ -433,27 +516,486 @@ A Bayes classifier results in the lowest possible test error rate:
     \caption{KNN Flexibility}
 \end{figure}
 
+\newpage
 \subsection{Logistic Regression}
-Linear regresseion does not work well for classification.
+Linear regression does not work well for classification.
 We instead coul use logistic regression where a probability [0;1] is modeled.
 
  \begin{equation}
-    log(\frac{p(X)}{1-p(X)} = b_0 + b_1 X_1 + \dots + b_p X_p)
+    log(\frac{p(X)}{1-p(X)}) = b_0 + b_1 X_1 + \dots + b_p X_p
  \end{equation}
- \begin{equation}
-    p(X) = \frac{e^{b_0 + b_1 X_1 + \dots + b_p X_p}}{1+ e^{b_0 + b_1 X_1 + \dots + b_p X_p}}
- \end{equation}
+
+ \defn{Logistic Regression}{
+    \begin{equation}
+        p(X) = \frac{e^{b_0 + b_1 X_1 + \dots + b_p X_p}}{1+ e^{b_0 + b_1 X_1 + \dots + b_p X_p}}
+     \end{equation}
+ }
 
  The parameters are found with the Maximum Likelihood approach, where we maximize:
  \begin{equation}
     l(b_0,b_1) = \prod_{i:y_i=1} p(x_i) \prod_{i':y_{i'}=0} (1-p(x_{i'}))
  \end{equation}
 
- \subsection{Linear Discriminant Analysis}
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/lin-reg-vs-log.png}
+    \caption{Linear vs Logistic Regression}
+\end{figure}
+
+If we had three categories, we would 
+need to estimate the probabilities of 
+each of them, given the observed 
+predictors.
+
+Problems with Logistic Regression:
+\begin{itemize}
+    \item For well-separated classes: unstable results
+    \item For small n: unstable results
+    \item Workaround required for multiple classes
+\end{itemize}
+
+\subsection{Comparison of Methods}
+\begin{multicols}{2}
+    \subsubsection{Logistic Regression vs LDA}
+    \begin{itemize}
+        \item They often have very similar 
+        performance 
+        \item LDA tends to outperform logistic 
+        regression if the Gaussian 
+        assumption is approximately correct
+        \item Logistic regression tends to 
+        outperform LDA if the Gaussian 
+        assumption is basically wrong
+    \end{itemize}
+    \subsubsection{KNN}
+    \begin{itemize}
+        \item  This is a non-parametric scheme, 
+        hence no model is assumed
+        \item Hence one would expect KNN to 
+        outperform LDA and logistic 
+        regression if the decision boundaries 
+        need to be non-linear
+        \item But KNN does not tell us which predictors 
+        are important and need lots of training data
+        \item Does not work at all in high dimensional 
+        settings 
+    \end{itemize}
+    \subsubsection{QDA}
+    \begin{itemize}
+        \item In some sense this is a compromise 
+        between simple linear boundaries of 
+        LDA/logistic regression and arbitrary 
+        boundaries of KNN
+        \item Here the boundaries are 
+        hyperparabolas, which are much 
+        more complicated than hyperplanes 
+        but still much less flexible than KNN 
+        boundaries
+        \item Hence it does take more training data 
+        than the linear methods but much 
+        less than KNN to perform well
+    \end{itemize}
+\end{multicols}
 
 \newpage
+\section{Classification with Linear Discriminant Analysis}
+\subsection{With p=1}
+In logistic regression: we directly 
+model the probability \(P(Y | X)\).
 
-\section{Unsuperviced Learning}
+In linear discriminant analysis we go 
+the other way around, we estimate 
+the probability density functions 
+(pdf's) of the observations \(X\), given a 
+particular class Y: i.e., \(p(X|Y)\)
+
+
+If we model these pdfs as Gaussian, we 
+result in a scheme very similar to logistic 
+regression.
+
+
+Then we apply Bayes' theorem to flip 
+these probabilities around and get 
+the ones on the top right, which 
+allow us to make an optimal decision.
+
+\begin{equation}
+    P(Y|X) = \frac{P(X|Y)P(Y)}{P(X)}
+\end{equation}
+
+This is done by introducing the following new variables:
+\begin{equation*}
+    \begin{split}
+        \pi_k &\quad \text{prior probability for class }k\\
+        f_k(X) &\quad \text{pdf of } X \text{ for a class } k
+    \end{split}
+\end{equation*}
+We then insert them:
+\begin{equation*}
+    P(Y=k|X=x) = \frac{\pi_k f_k(x)}{\sum_{l=1}^{K} \pi_l f_l(x)}
+\end{equation*}
+
+Estimating the prior probabilities \(\pi_k\) is 
+straight forward. Simply use the fraction of samples in the 
+training set that belong to class \(k\) as the 
+estimate of the prior probabilities:
+\begin{equation*}
+    \pi_k = \frac{n_k}{n}
+\end{equation*}
+
+Estimating \(f_k(X)\) is more challenging.
+In absence of any additional information, we use a Gaussian with different mean \(\mu_k\) and same variance \(\sigma_k^2\):
+\begin{equation*}
+    f_k(x) = \frac{1}{\sqrt{2\pi}\sigma_k} exp(-\frac{1}{2\sigma_k^2} (x - \mu_k)^2)
+\end{equation*}
+
+We further simplify the model by 
+assuming that all \(k\) classes have the 
+\textbf{same variance}. Hence:
+\begin{equation*}
+    \sigma_k^2 = \sigma^2
+\end{equation*}
+
+We can simplify this expression \(P(Y=k|X)\) to \(\varphi_k(x)\):
+\begin{equation}
+    P_k(x) = x \frac{\mu_k}{\sigma^2} - \frac{\mu_k^2}{2\sigma^2} + log(\mu_k)
+\end{equation}
+
+For two classes we could construct a new decision boundary:
+\begin{equation*}
+    f_b(x) = P_1(x)-P_2(x)
+\end{equation*}
+This could indicate class 1 for values greater than zero, class 2 for values smaller than zero and
+the boundary line where the probabilities are equal.
+This can be reformed to the decision boundary of:
+\begin{equation*}
+    x = \frac{1}{2} (\mu_1+\mu_2)
+\end{equation*}
+If the observation x falls exactly between the 
+means of the two classes, then it could 
+belong equally well to either class.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/lda-decision-boundary.png}
+    \caption{LDA Decision Boundary}
+\end{figure}
+
+\defn{LDA with p=1}{
+The LDA method approximates the 
+Bayes classifier by assuming Gaussian 
+pdfs and using the following 
+estimates for the means and the 
+common variance.
+
+\begin{equation}
+    \begin{split}
+        \hat{\mu}_k &= \frac{1}{n_k} \sum_{i:y_i=k} x_i \\
+        \hat{\sigma}^2 &= \frac{1}{n-K} \sum_{k=1}^{K} \sum_{i:y_i=k} (x_i - \hat{\mu}_k)^2 \\
+        \hat{\pi}_k &= \frac{n_k}{n} \\
+        P_k(x) &= x \frac{\mu_k}{\sigma^2} - \frac{\mu_k^2}{2\sigma^2} + log(\mu_k)
+    \end{split}
+\end{equation}
+
+Pick theclass with the largest \(P_k\)
+}
+
+\newpage
+\subsection{Multiple Predictors p>1}
+Extending LDA to multiple predictors 
+results in the need for a model of a 
+multidimensional pdf.
+
+We will select a multidimensional 
+Gaussian pdf where the means of the 
+classes are different but all classes 
+have the same covariance matrix.
+
+\defn{Covariance Matrix}{
+    Variance is defined as:
+    \begin{equation}
+        var(X) = E\{(x-\mu)^2\}
+    \end{equation}
+    In or more formally:
+    \begin{equation*}
+        var(X) = E(X^2)-E(X)^2
+    \end{equation*}
+    In multidimensional cases, this is the covariance matrix:
+    \begin{equation}
+        \Sigma = E\{ (x- \mu )(x -\mu)^T \}
+    \end{equation}
+
+    Since the correlation coefficient \(p_{ij}\) is given by:
+    \begin{equation}
+        p_{ij} = \frac{\sigma_{ij}}{\sigma_i \sigma_j}
+    \end{equation}
+    The matrix can thus be written as e.g:
+    \begin{equation}
+        \Sigma = \sigma_1 \sigma_2 \begin{bmatrix}
+            \frac{\sigma1}{\sigma_2} & p_{12} \\
+            p_{12} & \frac{\sigma_2}{\sigma_1}
+        \end{bmatrix}
+    \end{equation}
+    Here \(x\) is a vector of observations.
+    \(\mu\) is the mean vector, where each class has its own mean vector \(\mu_k\).
+    \(\Sigma\) is the \(pxp\) covariance matrix that is common to all the classes.
+}
+
+After some algebra, a similar 
+discriminant formula results in the 
+multidimensional LDA as in the one
+dimensional one:
+\defn{Multidimensional LDA}{
+    \begin{equation}
+        \begin{split}
+            \hat{\mu}_k &= \frac{1}{n_k} \sum_{i:y_i=k} x_i \\
+            \hat{\Sigma} &= \frac{1}{n-K} \sum_{k=1}^{K} \sum_{i:y_i=k} (x_i - \hat{\mu}_k) (x_i - \hat{\mu}_k)^T \\
+             \hat{\pi}_k &= \frac{n_k}{n} \\
+             P_k(x) = x^T \Sigma^{-1} \mu_k - \frac{1}{2} \mu_k^T \Sigma^{-1} \mu_k + \log \pi_k
+        \end{split}
+    \end{equation}
+
+    With little training data use LDA, otherwise QDA.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/lda-dec-boundary.png}
+    \caption{LDA Decision Boundary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/lda-dec-boundary-2.png}
+    \caption{LDA Decision Boundary}
+\end{figure}
+
+\subsection{Error Intepretation}
+In LDA the goal is 
+to approximate a Bayes classifier which is 
+optimized for minimum overall error rate.
+Minimizing the overall error rate is not always the desired goal.
+
+We can vary the threshhold to vary the error rate. We can use ROC
+to find an optimal threshold.
+
+\newpage
+\section{Classification with Quadratic Discriminant Analysis}
+
+Quadratic discriminant analysis (QDA) 
+allows for each class to have its own 
+covariance matrix
+The fundamental effect is, that the 
+discriminant functions per class for a 
+given observation x changes to 
+include a new quadratic term.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/qda-vs-lda.png}
+    \caption{QDA vs LDA}
+\end{figure}
+
+\defn{QDA}{
+    Assumption:\( p(x|y=k)\) is Gaussian, where eachclass \(k\) has its
+    own mean vector \(\mu_k\) and each class has its own covariance matrix \(\Sigma_k\).
+
+    \begin{equation}
+        P_k(x) = - \frac{1}{2} x^T \Sigma_k^{-1} (x - \mu_k) - \frac{1}{2} \log |\Sigma_k| + \log \pi_k
+    \end{equation}
+
+    QDA has more parameters than LDA thus increasing variance and decreasing bias.
+    The QDA is quadratic in x since each class has its own covariance matrix hence the boundaries are hyperparapolas.
+    With little training data use LDA, otherwise QDA.
+}
+\newpage
+
+\section{Resampling Methods}
+These are methods which use the given training 
+set over and over again, this is achieved by sampling that set, i.e., 
+create different subsets. To each of these subsets, the model 
+can be fitted which allows for a statistical evaluation of the fitting.
+
+\subsection{Cross-Validation}
+Cross-validation can be used to estimate 
+the test error in order to evaluate the 
+performance of a method and finding an 
+optimal flexibility setting (i.e., optimal hyperparameters).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{Images/cross-validation.png}
+    \caption{Cross-Validation}
+\end{figure}
+
+The basic idea is to hold out some samples from the 
+training set and use these as a test set at the end, to 
+estimate the final performance.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cross-val-comparison.png}
+    \caption{Cross-Validation Comparison}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/different-cross-validation-methods.png}
+    \caption{Different Cross Validation Methods}
+\end{figure}
+
+\begin{multicols}{2}
+
+    \subsection{Validation Set Approach} 
+    The given observations are randomly 
+    split into a training set and a 
+    validation set (hold-out set)
+
+    The model is then trained using the 
+    training set.
+    After training the model is tested 
+    using the validation set.
+
+    \subsubsection{Pros}
+    The validation set approach is 
+    conceptually simple and easy to 
+    implement, but there are two 
+    potential problems
+
+    \subsubsection{Cons}
+    \begin{itemize}
+        \item The validation MSE (an estimate of test 
+        MSE) can vary by a large amount since it 
+        depends on which observations are in the 
+        training set and which observations are in 
+        the validation set.
+    
+        \item Since only a subset if the observations is 
+        used to train the model, the resulting 
+        model is probably not as good as it could 
+        be.
+    \end{itemize}
+
+    \subsection{Leave-one-out cross-validation (LOOCV)}
+    LOOCV splits the observations into two parts.
+    But they are now NOT of comparable size, 
+    since only ONE observation is used for the validation set.
+    Now the model can be fitted to almost all 
+    data (n-1) and then the prediction is made 
+    for the one single sample that was left out.
+
+
+    The variance can be reduced by repeating 
+    the procedure by systematically leaving out 
+    one sample after the other and then 
+    averaging the resulting single sample MSEs:
+    \begin{equation*}
+        CV_{(n)} = \frac{1}{n} \sum MSE_i
+    \end{equation*}
+
+    \subsubsection{Pros}
+    \begin{itemize}
+        \item (n-1) data points are used to fit the model.  Hence there is almost no bias.
+        \item  No randomness in the procedure. Running LOOCV twice, will result in the 
+        identical values for the estimated test MSE.
+        \item We can use a trick where we only need to fit data once. (See Internet)
+    \end{itemize}
+
+    \subsubsection{Cons}
+    \begin{itemize}
+        \item LOOCV is computationally quite 
+        expensive, since the model has to be 
+        fitted n times.Usually, model fitting is slow, and n is large
+    \end{itemize}
+
+    \subsection{K-Fold}
+    The basic idea is to split the 
+    observations randomly in k
+    equally sized sets.
+
+    Then each set is left out while the other 
+    sets are used to fit the model and the left 
+    out set is used to calculate the particular 
+    validation MSE.
+
+    After k model fittings, the k validation MSEs 
+    are average into an estimate of the test 
+    MSE:
+    \begin{equation*}
+        CV_{(k)} = \frac{1}{k} \sum_{i=1}^{k} MSE_i
+    \end{equation*}
+
+    Clearly LOOCV is a special case of k
+    fold cross-validation, where k=n.
+
+    \subsubsection{Pros}
+    k-fold cross validation improves on LOOC since it is not as computationally expensive.
+\end{multicols}
+
+\subsection{Test Error Rate in k-Fold}
+\begin{equation}
+    CV_{(k)} = \frac{1}{k} \sum_{i=1}^{k} Err_i
+\end{equation}
+
+The \textbf{training set} is then usually \textbf{split again} to create a 
+validation set, for tuning hyperparameters.
+
+\subsection{Bootstrap}
+Most commonly used to provide a measure 
+of accuracy of a parameter estimate and/or 
+of a given statistical learning method.
+Used extensively for tree based schemes.
+
+
+The overall goal is to estimate uncertainty of an estimator.
+The bootstrap method allows us to 
+emulate the process of obtaining 
+new sample sets
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/bootstrapping.png}
+    \caption{Bootstrapping}
+\end{figure}
+
+This is achieved by repeatedly sampling 
+observations from the original data set
+Hence, we can estimate the variability of 
+an estimator without truly having new 
+samples.
+
+
+The sampling is performed with 
+replacement, meaning the observation 
+stays in the data set and can be selected (at 
+random) again.
+
+In general almost all machine 
+learning schemes can be improved by 
+building many models on 
+bootstrapped data and then 
+averaging the response of these 
+scheme to a new input.
+
+Computationally this is clearly an 
+expensive way to improve 
+performance.
+
+\subsubsection{Concept 1} Use the B datasetsto
+ estimate the uncertainty (e.g.
+ standard error) of a method
+\subsubsection{Concept 2} Train a separate ML model on each ofthe B datasets and 
+average their outcomesto reduce variance
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/bootstrapping-ensemble.png}
+    \caption{Ensemble using Bootstrapping}
+\end{figure}
+
+\newpage
+\section{Unsupervised Learning}
 In UL there is no response variable \(Y\), only
 predictors \(x_1,\dots ,x_n\). These are measured in
 \(n\) observations resulting in the data matrix \(X\)
