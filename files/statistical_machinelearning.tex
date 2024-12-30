@@ -23,23 +23,23 @@ There is not one method which will
 beat all the other methods all the 
 time. The better the assumptions of the 
 method match the true state of nature, 
-the better a particular method performs– This is sometimes referred to as the 
+the better a particular method performs. This is sometimes referred to as the 
 "No Free Lunch Theorem".
 }
 
 In StatML we want to create mathematical models based on data.
-We assume a fixed but unknown relationship between the input variables \(X\) and our
+We assume a fixed but unknown relationship between the input variables \(X\) (predictors) and our
 output (dependent variable) \(Y\).
 
 Given a dataset (usually represented by a input vector \(X\)):
-\begin{equation}
+\begin{equation*}
     X = (X_1, X_2, \dots, X_p)
-\end{equation}
+\end{equation*}
 Find a function that as good as possible models our unknown relationship:
-\begin{equation}
+\begin{equation*}
     Y = f(X) + \varepsilon
-\end{equation}
-One of the main goals of statistical learning is to minimize the reducible error \(\varepsilon\).
+\end{equation*}
+One of the main goals is to minimize the reducible error \(\varepsilon\). See subsection "Error" for more.
 
 \defn{Inference vs Prediction}{
     \begin{itemize}
@@ -48,20 +48,7 @@ One of the main goals of statistical learning is to minimize the reducible error
     \end{itemize}
 }
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{Images/regr-vs-class.png}
-    \caption{Regression vs Prediction}
-\end{figure}
-
-\defn{Estimation Aproaches}{
-\begin{description}
-    \item[Parametric] Assumptions are made about the functional form of \(f(X)\), where some missing parameters need to be learned. For example a simple linear model assumes form: \(f(X)=\beta_0+\beta_1X_1\).  If the form of \(\hat{f}(X)\) is far from \(f(X)\), then this approach achieves badly.
-    \item[Non-Parametric]  Methods that make no assumptions about the functional form of \(f(X)\).
-\end{description}
-}
-
-When choosing a method or model. There is a clear tradeoff between flexibility and model interpretability.
+When choosing a method or model. There is a \textbf{clear tradeoff between flexibility and model interpretability}.
 One can say that a model which is easier to interprete, is in turn also less capable to predict accurate values, in comparison
 to models which are less interpretable.
 
@@ -71,8 +58,19 @@ to models which are less interpretable.
     \caption{Model Interpretability Tradeoff}
 \end{figure}
 
-\defn{Supervised Learning}{
-    In supervised learning for each input vector \(X\), its corresponding dependent variable \(Y\) is known.
+\defn{Estimation Aproaches}{
+    \begin{description}
+        \item[Parametric] Assumptions are made about the functional form of \(f(X)\), where some missing parameters need to be learned. For example a simple linear model assumes form: \(f(X)=\beta_0+\beta_1X_1\).  If the form of \(\hat{f}(X)\) is far from \(f(X)\), then this approach achieves badly.
+        \item[Non-Parametric]  Methods that make no assumptions about the functional form of \(f(X)\).
+    \end{description}
+}
+
+We define two big methonosubcategories of statistical machine learning methods.
+\defn{Supervised Learning vs Unsupervised}{
+    \begin{description}
+        \item[Supervised] For each input vector \(X\), its corresponding dependent variable \(Y\) is known.
+        \item[Unsupervised] There is no corresponding dependent variable \(Y\) known. 
+    \end{description}
 }
 
 \subsection{Error}
@@ -106,13 +104,13 @@ to models which are less interpretable.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/Bias_and_variance_contributing_to_total_error.svg.png}
+    \includegraphics[width=0.5\linewidth]{Images/Bias_and_variance_contributing_to_total_error.svg.png}
     \caption{Bias Variance Tradeoff}
 \end{figure}
 The \textbf{expected test MSE} is the sum of a \textbf{variance} term, a \textbf{bias} term squared and the \textbf{irreducible error}.  Its defined as the average test MSE that would be obtained if \(f(X)\) is estimated repeatedly using a large number of training sets at tested at \(x_0\).
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/bias-variance-test-mse.png}
+    \includegraphics[width=0.5\linewidth]{Images/bias-variance-test-mse.png}
     \caption{Test MSE Equivalent}
 \end{figure}
 
@@ -130,7 +128,7 @@ to capture the \textbf{true shape} of a function, this will result in \textbf{hi
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/bias-variance-optimum.png}
+    \includegraphics[width=0.5\linewidth]{Images/bias-variance-optimum.png}
     \caption{Bias Variance Tradeoff Optimum}
 \end{figure}
 
@@ -153,6 +151,11 @@ to capture the \textbf{true shape} of a function, this will result in \textbf{hi
 
 \newpage
 \section{Regression}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/regr-vs-class.png}
+    \caption{Regression vs Prediction}
+\end{figure}
 Regression is a method to calculate \textbf{quantitative} (numerical) predictions where \(Y\) is an ordered numerical value.
 In its essence we define a mathematical model and an associated error function.
 We then try to minimize the error, which is \textit{just} an optimization problem.
@@ -183,7 +186,7 @@ In essence the MSE shows the on average commited error when predicting already k
 }
 
 \newpage
-\subsection{Linear Regression}
+\section{Linear Regression}
 In linear regression estimates are modeled with a linear relationship between a scalar response (dependent variable) 
 and one or more explanatory variables (regressor or independent variable). There is a closed form solution for the RSS optimization.
 \defn{Linear Regression Model}{
@@ -207,7 +210,7 @@ and one or more explanatory variables (regressor or independent variable). There
     \end{equation}
 }
 
-\subsection{Linear Regression: Metrics}
+\subsection{Metrics}
 \textbf{RSE} is roughly speaking, the average amount that the response will deviate from the true regression line. It provides an absolute measure of lack of fit of the model to the data. In fact the RSE carries the same unit as \(Y\).\textbf{ \(R^2\)} is the proportion of the variance explained by the model and hence it takes values between 0 and 1. \textbf{TSS} is the total sum of squares, which is the RSS if \(Y\) would always be predicted using the sample mean of \(Y\) (best possible predictor if we do not measure \(X\)). Assess accuracy of model with:
 \defn{Model Accuracy}{
     \begin{equation}
@@ -246,7 +249,7 @@ Variance \(\sigma^2\) estimation using residual standard error (RSE):
 \end{equation}
 }
 
-\subsection{Linear Regression: Predictor Correlation}
+\subsection{Predictor Correlation}
 There is a common effect in practice, where in simple linear regression a predictor is significant (has a low p-value)
 but is insignificant in multiple linear regression.
 This can happen when there is a latent variable, which is correlated with two other variables.
@@ -271,7 +274,7 @@ The correlation values are best interpretable in a normalized correlation matrix
     \caption{Normalized Coeff Correlation Example}
 \end{figure}
 
-\subsection{Linear Regression: Prediction Errors}
+\subsection{Prediction Errors}
 \defn{Errors in Prediction}{
     When predicting values we have three possible errors:
     \begin{enumerate}
@@ -360,7 +363,7 @@ One can also use a subset of \(q\) coefficients to test with a new hypothesis. W
     \caption{F-Distribution}
 \end{figure}
 
-\subsection{Linear Regression: Potential Problems}
+\subsection{Potential Problems}
 \begin{enumerate}
     \item Non-linearity of data -> look at residual plots -> transform inputs
     \item Correlation of error terms -> caution when collecting data!
@@ -419,6 +422,162 @@ term in a model, then the two main effects should also be
 included even when their p-values are large.
 
 \subsection{Non-linear relationships TBD}
+
+\section{Polinomial Regression}
+Is a straightforward extension to 
+linear regression:
+\defn{Polynomial Regression}{
+    \begin{equation}
+        y_i = b_0 + b_1 x_i + \dots + b_d x_i^d + \varepsilon_i
+    \end{equation}
+
+    Linear solvers will provide the covariance matrix:
+    \begin{equation*}
+        \hat{C} = Cov(\hat{b}_j)
+    \end{equation*}
+
+    The variance of the model is computed at a certain value \(x_0\)
+    \begin{equation}
+        \begin{split}
+            Var[ \hat{f}(x_0)] &= l_0^T \hat{C} l_0 \\
+            \text{With } l_0^T &= (1,x_0,\dots,x_n^d)
+        \end{split}
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/polynomial-regression.png}
+    \caption{Polynomial Regression}
+\end{figure}
+
+Orders higher than 4 are 
+uncommon, since this can result in very 
+wiggly functions especially close to the 
+boundaries of the X variable
+
+\section{Step-Functions}
+Step functions allow for local approximations by 
+braking \(X\) into bins and fitting a different constant in each bin.
+This amounts to converting a continuous 
+variable \(X\) into an ordered categorical variable.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/step-functions.png}
+    \caption{Step Functions}
+\end{figure}
+
+\defn{Step-Function}{
+    For a series of indicator functions:
+    \begin{equation*}
+        \begin{split}
+            C_0(X) &= I(X < c_1) \\
+            C_1(X) &= I(c1 \leq X < c_2) \\
+            \vdots \\
+            C_{K-1}(X) &== I(c_{K-1} \leq X < c_k) \\
+            C_K(X) &= I(c_K \leq X) \\
+            \text{For which } &C_0 +  \dots + C_K = 1
+        \end{split}
+    \end{equation*}
+    With cut points (\(c_1,\dots, c_n\)) which is a hyperparameter.
+    We use linear regression:
+    \begin{equation}
+        y_i = b_0 + b_1 C_1(x_i) + \dots + b_K C_K(x_i) + \varepsilon_i
+    \end{equation}
+    This results in a piecewise constant function.
+}
+
+\section{Basis Functions}
+The basis functions approach is a combination of
+the foundations of polynomial and step function regression.
+We construct a model function where certain basis function are used.
+
+\defn{Basis Function Approach}{
+    We define a certain function e.g polynomial basis functions:
+    \begin{equation}
+        b_j(x_i) = x_i^j
+    \end{equation}
+    \textbf{The basis functions must be fixed and known.}
+    The basis functions can be defined in certain intervals.
+    Then again we use linear regression:
+    \begin{equation}
+        y_i = \beta_0 + \beta_1 b_1(x_i) + \dots + \beta_K b_K(x_i) + \varepsilon_i
+    \end{equation}
+}
+
+\section{Regression Splines}
+
+Regression Splines combine the local approach of 
+basis function and the flexibility of 
+polynomials by fitting low degree 
+polynomials over different \(X\) regions.
+The points, where the coefficients 
+change are called \textbf{knots}.
+Using more knots leads to more flexible fits.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/regression-splines.png}
+    \caption{Regression Splines}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/diff-regression-splines.png}
+    \caption{Different Example of Regression Splines}
+\end{figure}
+
+\subsection{Constraints}
+For splines to be smooth continues transitions at the knots,
+we need to impose constraints:
+\defn{Spline Contrains}{
+    \begin{equation}
+        \begin{split}
+            f_j(x_k) &= f_k(x_k) \\
+            f_j'(x_k) &= f_k'(x_k) \\
+            f_j''(x_k) &= f_k''(x_k)
+        \end{split}
+    \end{equation}
+    Imposing constraints removes a degree of freedome (DoF).
+    The first polynomial where this makes sense is qubic.
+}
+
+\defn{Truncated Power Basis Function}{
+    \begin{equation}
+        h(x, \xi) = (x-\xi)_+^3 = \begin{cases}
+            (x-\xi)^3 &\text{if } x>\xi \\
+            0  &\text{otherwise}
+        \end{cases}
+    \end{equation}
+    Where \(\xi\) is the knot. We shift the cubic polynomial with \(\xi\).
+    The function will stay continuous and have continuous first and second derivatives.
+    If we use \(h(x,\xi)\) we are \textbf{guaranteed to have matching constraints}.
+}
+
+\subsection{Cubic Splines}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cubic-spline.png}
+    \caption{Cubic Splines}
+\end{figure}
+\defn{Cubic Regression Splines}{
+    In general, a cubic spline with K knots has \(K+4\) DOF.
+    \begin{equation}
+        y_i = b_0 + b_1 x_i + b_2 x^2_i + b_3 x^3_i + b_i h_k(x, \xi_k) + \varepsilon_i
+    \end{equation}
+}
+
+\defn{Natual Spline (Linear Boundaries)}{
+    Since when using splines the boundaries have
+    very big confidence intervals.
+    We impose the further constraint,
+    that the 
+}
+
+\section{Local Regression}
+\section{Generalized Additive Models}
 
 \newpage
 \section{Classification}
@@ -784,12 +943,12 @@ to find an optimal threshold.
 \section{Classification with Quadratic Discriminant Analysis}
 
 Quadratic discriminant analysis (QDA) 
-allows for each class to have its own 
-covariance matrix
+allows for each class to have its \textbf{own
+covariance matrix}.
 The fundamental effect is, that the 
 discriminant functions per class for a 
-given observation x changes to 
-include a new quadratic term.
+given observation \(x\) changes to 
+include a \textbf{new quadratic term}.
 
 \begin{figure}[H]
     \centering
@@ -806,7 +965,7 @@ include a new quadratic term.
     \end{equation}
 
     QDA has more parameters than LDA thus increasing variance and decreasing bias.
-    The QDA is quadratic in x since each class has its own covariance matrix hence the boundaries are hyperparapolas.
+    The QDA is quadratic in \(x\) since each class has its own covariance matrix hence the boundaries are hyperparapolas.
     With little training data use LDA, otherwise QDA.
 }
 \newpage
@@ -816,6 +975,13 @@ These are methods which use the given training
 set over and over again, this is achieved by sampling that set, i.e., 
 create different subsets. To each of these subsets, the model 
 can be fitted which allows for a statistical evaluation of the fitting.
+Resampling is especially useful when:
+\begin{itemize}
+    \item Data is limited and needs to be reused for training and evaluation.
+    \item Uncertainty estimation is critical, such as in scientific studies or risk-sensitive applications.
+    \item Model assessment and comparison are needed.
+    \item Reducing overfitting and improving generalization are priorities.
+\end{itemize}
 
 \subsection{Cross-Validation}
 Cross-validation can be used to estimate 
@@ -978,11 +1144,15 @@ bootstrapped data and then
 averaging the response of these 
 scheme to a new input.
 
+By training models on multiple bootstrap samples and aggregating
+the results (e.g., averaging predictions), bootstrapping reduces the variance of the model.
+
+
 Computationally this is clearly an 
 expensive way to improve 
 performance.
 
-\subsubsection{Concept 1} Use the B datasetsto
+\subsubsection{Concept 1} Use the B datasets to
  estimate the uncertainty (e.g.
  standard error) of a method
 \subsubsection{Concept 2} Train a separate ML model on each ofthe B datasets and 
@@ -993,6 +1163,488 @@ average their outcomesto reduce variance
     \includegraphics[width=1\linewidth]{Images/bootstrapping-ensemble.png}
     \caption{Ensemble using Bootstrapping}
 \end{figure}
+
+\newpage
+\section{Regularization}
+The goal is to improve:
+\begin{description}
+    \item[Prediction accuracy] If n is not much larger than p, than least 
+    squares results in a high variance. Hence it might not perform well on test 
+    observations since it will overfit.
+
+    If n is smaller than p, then there is no 
+    unique least squares solution. Adding constraints can help to still find a 
+    meaningful solution.
+    \item[Model interpretability] Irrelevant predictor variables should be 
+    automatically excluded.
+\end{description}
+
+\subsection{Subset Selection}
+\begin{multicols}{2}
+    \subsubsection{Best Subset Selection}
+    BSS is a brute force approach with \(2^p\) possible models.
+
+    We first fit a seperate least squares regression to p models having 1 predictor.
+    Then we fit seperate regressions to \(\frac{p(p-1)}{2}\) models having 2 predictors and so on.
+    Of all the models having \(k\) predictors, only the one with the lowest 
+    using \textbf{cross validated} error  is kept: \(M_k\)
+    Among these \(p+1\) models the best one is selected.
+
+    Best subset selection is conceptually 
+    simple, but it does have a \textbf{major 
+    problem, }we need to fit \(2^p\) models.
+    It quickly becomes \textbf{computationally 
+    infeasible}, and a faster method is needed.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{Images/best-subset-selection.png}
+        \caption{Best Subset Selection}
+    \end{figure}
+
+    \subsubsection{Forward Stepwise Selection}
+    Once a predictor makes it into the best model, it will stay there.
+    The algorithm starts again at the null model but then it will select the model
+    with the greatest additional improvement.
+    
+    Hence this method is a greedy algorithm with only \(p-k\) to be considered.
+    At the end the best out of the \(p+1\) 
+    models is selected using the cross-validated.
+
+    Forward stepwise selection \textbf{is much more computationally efficient} than best subset selection.
+    But it is \textbf{not guaranteed to find the best subset possible}.
+    
+    \subsubsection{Backward Stepwise Selection}
+    This method is almost identical as forward selection but
+    unlike forward stepwise selection, 
+    it \textbf{requires that a full model can be fit}.
+    Therefore \(p\) must be smaller than \(n\) for backward stepwise selection 
+\end{multicols}
+
+\subsubsection{Choosing the best model}
+In all these approaches, at the end the best model has to be selected.
+Since they have different number of predictors, simply \textbf{taking the model with the lowest RSS will not work}.
+
+The proper approach is picking the model with the lowest cross-validated estimated test 
+MSE.
+
+\begin{equation*}
+    MSE=\frac{RSS}{n}
+\end{equation*}
+
+All models under consideration go through a k-fold (k usually 10) crossvalidation procedure to estimate the test 
+MSE. The model with the lowest estimated test MSE will be selected.
+
+There is a rule of thumb, as discussed on 
+the right, but often one just "eye-balls" and 
+picks the lowest possible degree of 
+freedom that performs well enough, since 
+this will increase the likelihood of 
+successful generalization.
+
+\defn{1\(\sigma\)rule-of-thumb}{
+    \begin{enumerate}
+        \item Calculate standard error for each model size
+        \item Pick smallest model within 1\(\sigma\)
+        (standard error) of lowest point on curve.
+    \end{enumerate}
+}
+
+\section{Regularization of Regression Methods (Shrinkage)}
+Besides subset selection 
+methods, there are two popular 
+alternative approaches to \textbf{reduce 
+the variance} in the coefficient 
+estimates: Ridge regression (Tikhonov 
+regularization) and lasso regression.
+
+\subsection{Ridge Regression}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{Images/l2-ellipse.png}
+    \caption{L2 ellipse in 2d solution space (\(b_1^2+b_2^2 \leq s\) where s is the budget \(\lambda\))}
+\end{figure}
+
+In ridge regression, the idea is that 
+coefficients that are closer to zero 
+are more desirable.
+Therefore the optimization problem, which 
+must be solved to find the coefficients of a 
+linear model, is extended to favor small 
+coefficients over large ones.
+The problem is modified so that 
+it becomes a trade-off between 
+minimizing the RSS and minimizing 
+the weighted sum of the squared 
+coefficients:
+\defn{Ridge Regression}{
+    Also called \(L_2\)-Norm (normalization) decreases the coefficients using a wheighted sum:
+    \begin{equation}
+        min(RSS + \lambda \sum_{j=1}^{p} b_j^2)
+    \end{equation}
+
+    It is important that the predictor variables are standardized.
+}
+Standardization results in the fact, that 
+all predictors have a standard deviation of 
+one, hence they are all at the same scale.
+The weighted sum of the squared coefficients is called the \textbf{shrinkage penalty}.
+Since it penalizes the solution for large coefficients it is also called "weight decay".
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/l2-norm.png}
+    \caption{L2-Normalization}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/l2-bias-variance.png}
+    \caption{L2 - Bias Variance: Bias (black), variance (green), MSE (purple)}
+\end{figure}
+
+\begin{itemize}
+    \item There is an optimal \(\lambda\) (trade-off factor), where the sum of the variance and the \(bias^2\) is 
+    minima. It needs to be found separately using \textbf{cross-validation}.
+    \item If \(\lambda=0\), then ridge regression is 
+    simply the least squares solution, on the other extreme, if \(\lambda\) goes towards infinity, 
+    than ridge regression will result in coefficients that are all zero except \(b_0\).
+    \item Ridge regression does not remove predictors from the model. This might be no problem for prediction 
+    accuracy, but for model interpretation it is nice to have less predictors
+\end{itemize}
+
+\subsection{Lasso Regression}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{Images/l1-diamond.png}
+    \caption{L1 diamond in 2d solution space (\(|b_1|+|b_2| \leq s\) where s is the budget \(\lambda\))}
+\end{figure}
+
+
+The lasso approach overcomes the limitation of ridge regression,
+that no coefficients can be regularized to 0.
+The methods are very similar, the only difference is the norm used in the penalty term.
+
+\defn{Lasso}{
+    The lasso uses the \(l_1\)-norm (without \(b_0\)).
+    Its penalty term also encourages small coefficients and in addition, the \(l_1\) norm will force some 
+    coefficients to exactly zero which results in variable selection.
+
+    \begin{equation}
+        min(RSS + \lambda \sum_{j=1}^{p} |b_j|)
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/l1-norm.png}
+    \caption{L1-Normalization}
+\end{figure}
+
+\subsection{Comparison}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/l1-l2-comparison.png}
+    \caption{L1, L2 Comparison}
+\end{figure}
+
+\begin{itemize}
+    \item One would expect the lasso to perform 
+    better when only a small number of 
+    predictors have a strong relationship with 
+    the response.
+    \item One would expect ridge regression to 
+    perform better when the response is a 
+    function of many predictors all with 
+    coefficients of roughly equal size.
+    \item Lasso results in models that 
+    are simpler to interpret
+    \item 
+\end{itemize}
+As always cross-validation can be used to 
+pick the better approach for a particular 
+problem at hand.
+
+\subsection{Finding \(\lambda\)}
+The pragmatic approach is to choose a grid of \(\lambda\) values and compute the cross validation error.
+The \(\lambda\) that results in the lowest crossvalidation error is used to find the coefficients 
+sing all the available training data.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/finding-ld.png}
+    \caption{Finding \(\lambda\) with k-Fold=10}
+\end{figure}
+
+\newpage
+\section{Regularization with Dimensionality Reduction}
+Another class of variance reduction schemes first transforms the original predictors
+instead of selecting subset or shrinking coefficients.
+These approaches are known as dimension reduction methods since 
+in the transform domain, we use less than \(p\) variables.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/dim-reduction.png}
+    \caption{Dimension Reduction}
+\end{figure}
+
+First we need to standardize the predictors:
+\begin{equation*}
+    \begin{split}
+        Z &= \frac{X-\mu}{\sigma} \\
+        \tilde{x}_{ij} &= \frac{x_{ij} - \bar{x}_j}{\sqrt{\frac{1}{n}\sum_{i=1}^{n} (x_{ij} - \bar{x}_j)^2}}
+    \end{split}
+\end{equation*}
+Then we reduce the dimensions:
+\defn{Basic (Linear) Dimensionality Reduction}{
+    Let \(Z_1,\dots,Z_M\) represent \(M<p\) \textbf{linear combinations} of the original predictors.
+    The idea is that \(Z\) contain most relevant information:
+    \begin{equation}
+        Z_m = \sum_{j=1}^{p} \phi_{jm}X_j
+    \end{equation}
+    \(\phi_{jm}\) are known constants defining the transform it is specific for each \(X_j\)
+    and \(Z_M\). The \(Z_M\) are the now new predictors of the model.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/dim-reduction-schema.png}
+    \caption{Dimension Reduction with single \(Z_1\)}
+\end{figure}
+
+The term dimension reduction stems from the fact, that in the 
+transform domain only \(M+1<p+1\)coefficients need to be estimated.
+
+\subsection{Regression}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{Images/dim-reduction-regression.png}
+    \caption{Dimension Reduction in Regression}
+\end{figure}
+
+On lower dimensional data we now can just apply regression as usual,
+only the notation changes:
+
+\begin{equation*}
+    y_i = \theta_0 + \sum_{m=1}^{M} \theta_m z_{im} + \varepsilon_i
+\end{equation*}
+Where the coefficients (\(b\)) now are called theta \(\theta_m\).
+Now if we plugin the \(Z\) definition into the equation above:
+\begin{equation*}
+    \begin{split}
+        \sum_{m=1}^{M} \theta_m z_{im} &= \sum_{m=1}^{M}  \theta_m \sum_{j=1}^{p} \phi_{jm}x_{ij} \\
+        &= \sum_{j=1}^{p} \sum_{m=1}^{M}  \theta_m  \phi_{jm}x_{ij} \\
+        &= \sum_{j=1}^{p} b_j x_{ij}
+    \end{split}
+\end{equation*}
+We can see that we still just do linear regression, but we impose restrictions on the \(b_i\).
+It is visible that the thetas' \(\theta_m\) are shared among all betas:
+\begin{equation*}
+    b_j = \sum_{m=1}^{M} = \theta_m \phi_{jm}
+\end{equation*}
+Constraining the coefficients has the 
+potential of biasing the estimate.
+However, if \(p\) is large relative to \(n\) 
+then selecting a value of \(M<<p\) can 
+significantly reduce the variance of 
+the fitted coefficients and hence 
+more than compensate for the added 
+bias (\(MSE=bias2+variance=RSS/n\))
+
+\newpage
+\section{Dimensionality Reduction for Regression using Principal Component Analysis (PCA)}
+
+The core idea in PCA is to summarize the information of multiple variables into a new one.
+One can think of summarizing the relationship of two variables:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/pca-summarize-relation.png}
+    \caption{PCA Line}
+\end{figure}
+
+The main goal is to capture as much variance as possible.
+The first principal component direction is that along which the observations vary the most.
+If the 2D data would be projected onto the first principal component 
+then the resulting 1D observations would have the largest possible 
+variance of all possible directions to project on.
+Projecting a point onto a line simply involves finding the location on the 
+line which is the closest to the point, resulting in a perpendicular connecting line.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/first-pc.png}
+    \caption{Projecting point to the first principal component}
+\end{figure}
+
+\defn{PCA}{
+    Find a linear transform for principal component for which
+    a set of features is a normalized linear combination
+    of the features, resulting in the largest variance:
+    \begin{equation}
+        \begin{split}
+            Z_1 &= \phi_{11} X_1 + \phi_{21}X_2+\dots+\phi_{p1}X_p \\
+            \text{For which: } Z_1 = &max(var(Z_1))
+        \end{split}
+    \end{equation}
+    \(Z_1\) denotes the first principal component. We choose
+    a linear mapping to keep a simple representation.
+    One could also choose a non linear transformation (T-SNE).
+
+    With the loading vector of \(Z_1\):
+    \begin{equation}
+        \phi_1 = (\phi_{11},\dots,\phi_{p1})^T
+    \end{equation}
+    Each entry \(\phi\) is called loadings of \(Z\).
+    The sum of the loadings squared and summed up must equal to 1:
+    \begin{equation}
+        \sum_{j=1}^{p} \phi_{j1}^2=1
+    \end{equation}
+    In other words the loadings vector must have norm or length of one.
+    Otherwise, the variance can be made arbitrarily large, by selecting
+    large loadings.
+
+    Before applying PCA the first step would be to \textbf{normalize the data
+    matrix} \(X\). The \textbf{loadings} have a \textbf{geometric meaning}, they show the direction
+    of the fit.
+}
+
+It is possible to visually see if the predictors are beeing summarized well using PCA:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/pca-first-relation.png}
+    \caption{First Principal Component}
+\end{figure}
+If not the data will be more randomly distributed:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/pca-second-relation.png}
+    \caption{Second Principal Component}
+\end{figure}
+At some time all of the information is more or less captured and adding more
+principal components does not work.
+
+
+\subsection{Further PCs'}
+The second principal component is 
+also a linear combination of the 
+variables having the largest variance 
+but with the added constraint, \textbf{that it 
+has to be uncorrelated with the first 
+principal component}.
+
+This constraint implies that the two 
+principal components need to be 
+\textbf{orthogonal} (perpendicular) to each 
+other.
+
+\subsection{Comparison}
+PCA works well if the data is \textbf{highly correlated}.
+If it is not, it can well be, that ridge regression works better,
+since it can penalize unnecessary predictors or even remove them.
+This would be the case if the data is highly independent,
+and only a small subset of the predictors are relevant.
+This is because PCA cannot remove predictors. Each of the variables
+have an effect on the prediction.
+
+PCR biggest drawback is, that there is 
+no guarantee that the directions that 
+best describe the predictors will also 
+be the best directions to describe the 
+response.
+
+\subsection{Partial Least Squares}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/pcr-pls.png}
+    \caption{PLS vs PCR}
+\end{figure}
+Partial least squares (PLS) is a 
+supervised alternative to PCR.
+The fundamental idea is to place the highest weight on the predictors that are most strongly 
+correlated with the response \(Y\).
+PLS often has \textbf{a large variance}, and performs no better than PCR in practice.
+
+\defn{PLS}{
+    To find the first PLS direction, the predictors and the response Y 
+    are standardized. Now the first direction score \(Z_1\) is 
+    computed by setting the \(\phi_{j1}\)'s equal 
+    to the \(\beta\)-coefficients from the simple 
+    linear regression of \(Y\) onto the \(X_j\)'s.
+    These \(\beta\) coefficients are proportional to the 
+    \textbf{correlation coefficients} between \(Y\) and the \(X_j\)'s.
+}
+
+For further directions we use orthogonalization:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/pls-calculation.png}
+    \caption{PLS Calculation}
+\end{figure}
+
+\newpage
+\section{Considerations in High Dimensions}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/high-dim-problems.png}
+    \caption{High Variability (High Flexibility/Variance)}
+\end{figure}
+High dimensionality can have a big impact on model quality.
+In comparison to the flexibility a lot of datapoints exist in the upper left figure,
+removing some points have a low impact.
+Noise will have a lot more strength in high variance situations (upper right figure).
+\subsection{Tips for High Dimensionality Problems}
+One of the simplest and most effective methods to reduce this effect,
+is to apply regularization methods like normalization or dimensionality reduction.
+\begin{enumerate}
+    \item Shrinkage (also called regularization) plays 
+    a key role in high dimensional problem
+    \item Appropriate tuning parameter selection is 
+    crucial for good predictive performance. Often called "Hyperparameter"
+    \item The test MSE tends to increase as the 
+    dimensionality of the problem increases. Unless the additional features are truly 
+    associated with the response, which we do 
+    not know a priori. Hence \textbf{more data is not always better}. The 
+    additional \textbf{data needs to be relevant}, i.e., 
+    correlated with the response
+    \item \(R^2\) is one, this can happen due to \(p=n\) or \(p \approx n\) which will lead to overfitting.
+    \textbf{You need to look at the test metrics.} Especially in high dimensions.
+    \item Use methods to restrict flexibility: Forward stepwise selection, Ridge, Lasso, PCA
+\end{enumerate}
+
+\defn{Curse of Dimensionality}{
+    The test MSE tends to increase as the 
+    number of predictors increases unless the 
+    additional features are truly associated 
+    with the response.
+    Adding noise features will lead to a 
+    deterioration in the fitted model and hence 
+    increase the test MSE. Noise features 
+    increase the dimensionality of the model, 
+    exacerbating the risk of overfitting without 
+    improving the test MSE.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/lasso-fails-high-dim.png}
+    \caption{Even lasso detiorates in high dimensions of unrelated predictors}
+\end{figure}
+
+Multi-collinearty is a major problem 
+in high dimensional data.
+\textbf{If \(p>n\) then any predictor variable can be 
+written as a linear combination of the other 
+variables.}
+Hence we can never know exactly which 
+variables truly are predictive of the 
+outcome and we can never identify the 
+best coefficients for use in the regression.
 
 \newpage
 \section{Unsupervised Learning}
@@ -1013,40 +1665,6 @@ This will lead to lower flexibility and thus lower variance.
 Without regression we skip the training of a prediction model.
 The method stays the same. We try to fit a line to our data
 that contains the largest variance.
-
-\defn{PCA}{
-    Find a linear transform for principal component for which
-    a set of features is a normalized linear combination
-    of the features, resulting in the largest variance:
-    \begin{equation}
-        \begin{split}
-            Z_1 &= \Phi_{11} X_1 + \Phi_{21}X_2+\dots+\phi_{p1}X_p \\
-            \text{For which: } Z_1 = &max(var(Z_1))
-        \end{split}
-    \end{equation}
-    \(Z_1\) denotes the first principal component. We choose
-    a linear mapping to keep a simple representation.
-    One could also choose a non linear transformation (T-SNE).
-
-    With the loading vector of \(Z_1\):
-    \begin{equation}
-        \Phi_1 = (\Phi_{11},\dots,\Phi_{p1})^T
-    \end{equation}
-    Each entry \(\Phi\) is called loadings of \(Z\).
-    The sum of the loadings squared and summed up must equal to 1:
-    \begin{equation}
-        \sum_{j=1}^{p} \Phi_{j1}^2=1
-    \end{equation}
-    In other words the loadings vector must have norm or length of one.
-    Otherwise, the variance can be made arbitrarily large, by selecting
-    large loadings.
-
-    Before applying PCA the first step would be to normalize the data
-    matrix \(X\). This is done by centering the columns (predictor variables)
-    to have zero mean, by subtracting the sample mean of each column from
-    the respective column. Often also division by sample SE.
-
-}
 
 \subsubsection{Scatter-Plot}
 PCA is very useful for data visualisation. For example, we
