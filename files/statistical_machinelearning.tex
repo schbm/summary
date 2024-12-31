@@ -423,7 +423,7 @@ included even when their p-values are large.
 
 \subsection{Non-linear relationships TBD}
 
-\section{Polinomial Regression}
+\section{Polynomial Regression}
 Is a straightforward extension to 
 linear regression:
 \defn{Polynomial Regression}{
@@ -443,6 +443,10 @@ linear regression:
             \text{With } l_0^T &= (1,x_0,\dots,x_n^d)
         \end{split}
     \end{equation}
+
+    Polynomials (especially higher order ones) perform very bad at the \textbf{boundaries}.
+    It is better to use Regression Splines. Polynomial Regression shall be used
+    if the underlying function is "known".
 }
 
 \begin{figure}[H]
@@ -569,15 +573,154 @@ we need to impose constraints:
     \end{equation}
 }
 
+\subsection{Natural Spline}
 \defn{Natual Spline (Linear Boundaries)}{
     Since when using splines the boundaries have
     very big confidence intervals.
     We impose the further constraint,
-    that the 
+    that the edges have to be linear.
+    It has \((K+4)-4\) DOF.
+    Natural splines perform immensively better at the boundaries
+    compared to e.g. cubic regression splines.
 }
+Using a natural spline one can get more stable 
+estimates at the boundaries as can be seen 
+in the figure on the right, where the 
+confidence interval of the natural spline is 
+narrower and less wiggly than that of a 
+cubic spline.
+
+\subsection{Knot Selection}
+\begin{enumerate}
+    \item Place them manually if you know the data.
+    \item Place them at equal spacing. This is a bad approach if
+    the data is not uniformly distributed.
+    \item Do equal spacing on the histogram. E.g. space them
+    at certain percentile of the data.
+\end{enumerate}
+The number of knots can be selected using cross-validation.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/number-of-knots.png}
+    \caption{Knot Count Selection}
+\end{figure}
+
+\subsection{Smoothing Splines}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/smoothing-spline.png}
+    \caption{Smoothing Spline}
+\end{figure}
+
+When using smoothing splines one does not need to select the amount of knots
+or the placement of the knots as hyperparameter.
+
+When finding fitting our model:
+\begin{equation*}
+    \sum_{i=1}^{n} (y_i - g(x_i))^2
+\end{equation*}
+Where \(g(x_i)\) is any arbitrarily complex function,
+we can impose restrictions on the roughness of the function,
+so that it has less variance. For this we use the second
+derivative, square it to make it positive and finally intergrate over it:
+\begin{equation*}
+    \int g''(t)^2 dt
+\end{equation*}
+
+\defn{Smoothing Splines}{
+    Doesn't require pre-defined knots.
+    We place a knot at every data sample \(x_i\) and regularize to enforce a smooth solution:
+    \begin{equation}
+        \sum_{i=1}^{n} (y_i - g(x_i))^2 + \lambda \int g''(t)^2 dt
+    \end{equation}
+
+    A smoothing spline is a natural cubic 
+    spline with knots \textbf{at every unique 
+    value of \(x_i\)}.
+
+    There is a known equation for calculation the \textbf{effective degrees of freedome}
+    which is a mapping from \(\lambda\). This makes it comparable to other regression methods.
+    If you take the limit of \(\lambda = \infty\) the regression goes back to
+    a line.
+}
+You almost always want to use smoothing splines, if using regression splines is beeing considered.
 
 \section{Local Regression}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/local-regression.png}
+    \caption{Local Regression}
+\end{figure}
+\defn{Local Regression}{
+    Fit a linear regression
+    only to the data which
+    is close to our test
+    point \(x_0\).
+    
+    The nearest points are defined using a fraction of the total amount of points,
+    this is called \textbf{span}:
+    \begin{equation}
+        span = \frac{k}{n}
+    \end{equation}
+    Often we also use another degree of freedome by introducing a weight to the nearest points
+    e.g. using a gaussian (the bell in the figure).
+    Using this method one can also compute the effective degrees of freedome.
+}
+
+Closeness is easy to define in low dimensions, but in high dimensions,
+nothing is really close. This scheme only works well for \textbf{low dimensions}.
+Computationally it is \textbf{not very efficient}.
+For each new point we have to compute a linear regression.
+
 \section{Generalized Additive Models}
+
+Previous methods (Polynomial Regression, Regression Splines, Smoothing Splines and Local Regression) have been 
+developed for a single predictor.
+Generalized additive models (GAMs) extends these ideas to multiple predictors.
+GAMs provide a framework for extending a linear model by allowing non-linear functions of each of 
+the variables, while maintaining additivity. 
+
+\defn{Additivity}{
+    Additivity means that the effect of each predictor on the response variable is independent 
+    of the other predictors. The contribution of a predictor and its coefficient does not modify 
+    or depend on the effect of another predictor and its coefficient; their effects simply add up
+    linearly in the model.
+}
+
+GAMs can be applied to quantitative and qualitative responses.
+
+\defn{Generalized Additive Models}{
+    \begin{equation}
+        y_i = b_0 + \sum_{j=1}^{p} f_j(x_{ij})+\varepsilon_i
+    \end{equation}
+    We replace \(b_i x_i\) with some function \(f_i(x_i)\). It is important,
+    that \(f_i(x_i)\) only depends on a single \(x_i\) so that additivity is kept.
+    For \(f_i(x_i)\) we can use any available smooth function.
+
+    For classification one can use a modified logistical approach:
+    \begin{equation}
+        \log(\frac{p(X)}{1-p(X)}) = b_0 + \sum_{j=1}^{p} f_j(X_{j})
+    \end{equation}
+}
+
+For \(f_i(x_i)\) we could use for example: Linear Regression, Polynomial Regression, Regression Splines,
+Smoothing Splines or Local Regression. These can be mixed and selected freely.
+
+\subsection{Pros}
+\begin{itemize}
+    \item Easy method to fit non-linear functions in a linear regression framework.
+    \item High predictive power.
+    \item Interpretability thanks to additivity.
+\end{itemize}
+\subsection{Cons}
+\begin{itemize}
+    \item Model is restricted to be additive.
+    \item Interaction terms must be defined manually
+\end{itemize}
+Conclusion: GAM are a useful compromise between linear models and fully nonparametric models.
 
 \newpage
 \section{Classification}
@@ -678,10 +821,10 @@ A Bayes classifier results in the lowest possible overall test error rate:
 \newpage
 \subsection{Logistic Regression}
 Linear regression does not work well for classification.
-We instead coul use logistic regression where a probability [0;1] is modeled.
+We instead use logistic regression where a probability [0;1] is modeled using:
 
  \begin{equation}
-    log(\frac{p(X)}{1-p(X)}) = b_0 + b_1 X_1 + \dots + b_p X_p
+    \text{log odds } = log(\frac{p(X)}{1-p(X)}) = b_0 + b_1 X_1 + \dots + b_p X_p
  \end{equation}
 
  \defn{Logistic Regression}{
@@ -1628,6 +1771,9 @@ is to apply regularization methods like normalization or dimensionality reductio
     increase the dimensionality of the model, 
     exacerbating the risk of overfitting without 
     improving the test MSE.
+    Additionally in high dimensions it is very unikely to that two points are close together.
+    This is because there is a high probability that in atleast one dimension, where they
+    are far appart.
 }
 
 \begin{figure}[H]
@@ -1646,7 +1792,350 @@ variables truly are predictive of the
 outcome and we can never identify the 
 best coefficients for use in the regression.
 
+
 \newpage
+\section{Tree Based Methods}
+Tree-based methods segment the predictor space into a large number of simple regions.
+Tree-based schemes are simple and easy to interpret, the performance though is not that great.
+Averaging a lot of trees significantly improves the performance at the loss of simplicity and interpretability.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{Images/tree-based-methods.png}
+    \caption{Tree Terminology}
+\end{figure}
+
+\subsection{Building the Tree}
+The meaning of Stratification is to divide something into parts or classes.
+\begin{enumerate}
+    \item (Stratification) Divide predictor space into non-overlapping regions \(R_1,\dots,R_J\).
+    This cannot be solved optimally with reasonable computational effort. We use a greedy approach
+    (Recursive Binary Splitting).
+    \item Define the prediction for every region \(R_j\)
+    \begin{itemize}
+        \item Inside a region \(R_j\), we make the same prediction (a constant value).
+        \item For regression, the best prediction is the 
+        sample mean
+        \item For classification, we vote.
+    \end{itemize}
+\end{enumerate}
+
+Algorithm:
+\begin{enumerate}
+    \item Use recursive binary splitting togrow a large tree.
+    \item Apply cost complexity pruning toobtain a sequence of best trees as a function of \(\alpha\).
+    \item Use K-fold cross validation to choose \(\alpha\), i.e. for all \(k=1,\dots,K,\) do:
+    \begin{enumerate}
+        \item Repeat steps 1. and 2. times, using all but the k-th fold as training data.
+        \item Calcuate test error on the k-th fold
+    \end{enumerate}
+    \item Select the best subtree from step 2 with the \(\alpha\) selected in 3.
+\end{enumerate}
+
+\subsection{Recursive Binary Splitting (Stratification)}
+
+\defn{Stratification Problem}{
+    We want to find boxes \(R_1,\dots,R_J\) that minimizes the RSS:
+    \begin{equation}
+        min(RSS) \text{ where } RSS = \sum_{j=1}^{J} \sum_{i \in R_j} (y_i - \hat{y_{R_j}})^2
+    \end{equation}
+    Where \(\hat{y_{R_j}}\) is the average in a corresponding region.
+    In classification we use another metric. See sub-section classification.
+}
+
+In RBS we only look at the next split and split it optimally.
+We always pick the next split which results in the smallest RSS.
+This results in many calculation, which are parallelizable.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/recursive-binary-splitting.png}
+    \caption{Recursive Binary Splitting}
+\end{figure}
+
+The same procedure is applied recursively 
+to the newly generated regions until a 
+stopping criterion is reached.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/tree-based-splits.png}
+    \caption{Top Left: A partition of two-dimensional feature space that could
+    not result from recursive binary splitting. Top Right: The output of recursive
+    binary splitting on a two-dimensional example. Bottom Left: A tree corresponding
+    to the partition in the top right panel. Bottom Right: A perspective plot of the
+    prediction surface corresponding to that tree.}
+\end{figure}
+
+\subsection{Cost-Complexity Pruning}
+The basic idea is to grow a very large tree and then prune it down to a small one.
+\defn{Cost-Complexity Pruning}{
+    We use the number of terminal nodes \(|T|\) as a measure of flexibility of a particular tree.
+    With this we add a new penalty term:
+    \begin{equation}
+        \text{minimize: } \sum_{j=1}^{J} \sum_{i \in R_j} (y_i - \hat{y_{R_j}})^2 + \alpha |T|
+    \end{equation}
+
+    Now the tuning parameter \(\alpha\) controls the trade-off between RSS reduction and 
+    complexity (number of leaves) of the tree. As \(\alpha\) increases the tree becomes simpler.
+}
+It turns out, as we increase \(\alpha\) from zero, 
+branches get pruned from the tree in a 
+nested and predictable fashion.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/tree-pruning-optimally.png}
+    \caption{Next smaller tree (higher \(\alpha\)) is always a subtree of the bigger one}
+\end{figure}
+
+\subsection{Classification}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/tree-based-classification.png}
+    \caption{Tree Based Classification}
+\end{figure}
+
+Use winning class \(\hat{k}_m^*\) of region \(m\):
+\begin{equation}
+    \hat{k}_m^* = argmax(\hat{p}_{mk})
+\end{equation}
+Where \(\hat{p}_{mk}\) denotes the probabilities for classes \(k\) in region \(m\).
+
+For the probability of the winning class we take:
+\begin{equation}
+    \hat{p}_m^* = max(\hat{p}_{mk})
+\end{equation}
+This means our error is:
+\begin{equation}
+    E_m = 1-max_k(\hat{p}_{mk})
+\end{equation}
+
+To grow a classification tree we have to have regions with low \textbf{classification error rate} \(E_m\).
+But this does not work well (max operator gets rid of information about losers).
+We instead use Gini or Entropy.
+
+\defn{Gini Impurity}{
+    Gini Impurity:
+    \begin{equation}
+        \hat{G}_M = \sum_{k=1}^{K} \hat{p}_{mk} (1-\hat{p}_{mk})
+    \end{equation}
+    This measures how the probabilities are distributed inside a region.
+    If its distributed evenly we get a larger number. Hence it is a measure of node 
+    impurity, a low number implies that the node contains predominantly 
+    observations from one class, i.e., it is a pure node.
+}
+
+\defn{Entropy}{
+    \begin{equation}
+        \hat{D}_M = -\sum_{k=1}^{K} \hat{p}_{mk} \log \hat{p}_{mk}
+    \end{equation}
+    If all classes are about equally likely the uncertainty is high and if one 
+    class dominates, the uncertainty is low.
+}
+
+\begin{itemize}
+    \item We build the tree using Gini or Entropy
+    \item Pruning can be implemented using Error Rate
+    \item Handle categorical values with care since alot of different options are possible,
+    if the categories are greater than 2.
+\end{itemize}
+
+\subsection{Trees vs Linear Models}
+\begin{itemize}
+    \item If the relationship is highly non-linear and complex, then decision trees might outperform classical approaches
+    \item If the validated performance is comparable, one might prefer the elegant linear regression for its 
+    statistical tools or one might prefer a tree based approach for its graphical description
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/tree-vs-linear-models.png}
+    \caption{Tree vs Linear Models}
+\end{figure}
+
+\subsection{Pro and Cons}
+\subsubsection{Pro}
+\begin{itemize}
+    \item Easy to explain to people
+    \item Mirror the human decision-making more closely than e.g. linear regression
+    \item Can be displayed graphically
+    \item No need for dummy variables when working with qualitative predictors
+\end{itemize}
+\subsubsection{Cons}
+The greatest disadvantage is, that trees generally are \textbf{not as powerful} in 
+prediction as some of the other regression and classification approaches.
+
+However, by \textbf{aggregating} many decision trees, using methods like 
+bagging and random forest, this disadvantage can be greatly reduced 
+so that they are as performant as other methods.
+
+\subsection{Bagging, Random Forests, Out-of-Bag Estimates}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/tree-bagging-random-forest.png}
+    \caption{Tree with Bagging, Random Forest}
+\end{figure}
+
+Decision trees suffer from high variance.
+If we for example create a different validation split, the tree may change drastically.
+\defn{Bagging}{
+    With bagging we create \(B\) independent training datasets using bootstrapping
+    and then train \(B\) decision trees. This is called bagging (bootstrap aggregation).
+    These trees are grown deep and are not pruned!
+    Hence each tree has a high variance but a low bias.
+    Averaging these trees reduces the variance.
+    In classification we would take majority vote.
+
+    \begin{equation}
+        \hat{f}_{bag}(x) = \frac{1}{B} \sum_{b=1}^{B} \hat{f}^{*b}(x)
+    \end{equation}
+}
+While bagging improves prediction accuracy, it comes at the cost of 
+interpretability of the model, which used to be one of the advantages of tree-based methods.
+When we bag a large number of trees, it is no longer possible to represent the 
+resulting statistical learning procedure using a neat single tree and it is no longer 
+clear which variables are most important.
+
+\defn{Out-of-Bag Estimates (OOB)}{
+    In each bootstraped dataset, take all samples which are not inside the bootstrap-dataset and use these as
+    test data to estimate OOB-error on these.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{Images/random-forest.png}
+    \caption{Random Forest}
+\end{figure}
+
+\defn{Random Forests}{
+    Bagging, but for each split, select a random subset of \(m=\sqrt{p}\) features,
+    along which we can split. This reduces correlation among trees!
+}
+
+\newpage
+\section{Support Vector Machines}
+Maximal margin classifiers are used for classifying linearly separable classes.
+\textbf{Support vector classifiers} are an extension to maximal margin 
+classifiers which also work with linearly not separable classes.
+\textbf{Support vector machines} (SVMs) are an extension of support vector classifiers to non-linear boundaries.
+
+\defn{Hyperplane}{
+    \begin{equation}
+        b_0 + b_1 X_1 + \dots + b_p X_p = 0
+    \end{equation}
+    From this hyperplane we can define two sides:
+    \begin{equation}
+        \begin{split}
+            b_0 + b_1 X_1 + \dots + b_p X_p &> 0 \\
+            b_0 + b_1 X_1 + \dots + b_p X_p &< 0
+        \end{split}
+    \end{equation}
+    We are either on one side of the plane or on the plane itself.
+}
+
+Using our data vectors:
+\begin{equation*}
+    x_1 = \begin{pmatrix}
+        x_{11} \\
+        \vdots \\
+        x_{1p}
+    \end{pmatrix}, \dots , x_n
+\end{equation*}
+We want to find \(b_i\) so that our classes are separated:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/max-margin-classifier.png}
+    \caption{Binary Classifier}
+\end{figure}
+
+Then given a test point \(x^*\), we apply the transform using our \(b_i\) and
+check the sign.
+
+We want to remove the if and else statement which occurs from checking the sign.
+This can be done by multiplying by \(y_i\):
+\begin{equation*}
+    y_i (b_0 + b_1 X_1 + \dots + b_p X_p) > 0
+\end{equation*}
+
+The margin basically quantifies how close to the hyperplane the closest points are.
+The maximal margin hyperplane is the separating hyperplane that has the largest margin to each class of all 
+possible separating hyperplanes.
+
+\subsection{Maximal Margin Classifier}
+If we select our betas in a special way (beta vector is a unit vector):
+\begin{equation*}
+    \sum_{j=1}^{p} b_j^2 = 1
+\end{equation*}
+Then the calculation:
+\begin{equation*}
+    f(x^*) = b_0 + b_1 x_1^* + \dots + b_p x_p^*
+\end{equation*}
+Is actually a distance measurement which gives us the perpendicular distance to the line.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/max-margin-classifier-2.png}
+    \caption{Maximum Margin Classifier}
+\end{figure}
+
+\defn{Support Vectors}{
+    The points that define the margin are called the support vectors.
+    If one has few support vectors they can be analysed and compared.
+}
+
+\defn{Maximal Margin Classifiert}{
+    In MMC we want to maximize the margin:
+    \begin{equation*}
+        \text{maximize}_{(b_0,\dots,b_p, \varepsilon_p)} M
+    \end{equation*}
+    where \(M\) denotes the margin. This must be subjected to:
+    \begin{equation*}
+        \begin{split}
+            \sum_{j=1}^{p} b_j^2 &= 1 \\
+            y_i (b_0 + b_1 X_1 + \dots + b_p X_p) &\geq M \quad \forall i = 1, \dots, n
+        \end{split}
+    \end{equation*}
+    The classifier works only for linearly separable data!
+    This is a convex optimization problem with one global minimum.
+}
+\subsection{Support Vector Classifier}
+SVC enables non seperable data to be classified.
+We want our hyperplane to be able to make errors.
+\defn{Support Vector Classifier}{
+    In SVC we want to maximize the margin:
+    \begin{equation*}
+        \text{maximize}_{(b_0,\dots,b_p,\varepsilon_p)} M
+    \end{equation*}
+    where \(M\) denotes the margin. This must be subjected to:
+    \begin{equation*}
+        \begin{split}
+            \sum_{j=1}^{p} b_j^2 &= 1 \\
+            y_i (b_0 + b_1 X_1 + \dots + b_p X_p) &\geq M \quad \forall i = 1, \dots, n
+        \end{split}
+    \end{equation*}
+    as well as:
+    \begin{equation}
+        y_i (b_0 + b_1 X_1 + \dots + b_p X_p) \geq M(1-\varepsilon_i)
+    \end{equation}
+    and:
+    \begin{equation}
+        \varepsilon_i \geq 0, \sum_{i=1}^{n} \varepsilon_i \leq C
+    \end{equation}
+    \(\varepsilon_i\) are the slack variables it allows an observation to violate the margin.
+    \(C\) is budget for violations and is a hyperparameter.
+
+    \begin{equation}
+        \begin{split}
+            \varepsilon_i = 0 &= \text{all fine}\\  
+            0 < \varepsilon_i < 1 &= \text{Within margin} \\
+            \varepsilon_i > 1 &= \text{Misclassification}
+        \end{split}
+    \end{equation}
+}
+\newpage
+
 \section{Unsupervised Learning}
 In UL there is no response variable \(Y\), only
 predictors \(x_1,\dots ,x_n\). These are measured in
@@ -1655,6 +2144,7 @@ of dimension \(nxp\). The goal is to gather
 inference data using methods like dimensionality reduction
 and clustering. The methods require human judgement and have
 thus a subjective nature.
+
 \subsection{Principal Component Analysis}
 You have your dataset \(X\) up to \(X_p\) with \(n\) rows.
 Now you reduce it to include fewer features by incorporating
@@ -1674,6 +2164,11 @@ Without PCA the amount of plots would equate to:
     \binom{p}{2} = \frac{p(p-1)}{2}
 \end{equation}
 
+\subsubsection{Biplot}
+
+\section{Clustering}
+\subsection{k-means clustering}
+\subsection {hierarchical clustering}
 
 
 \subsection{Clustering}
