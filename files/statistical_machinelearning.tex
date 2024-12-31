@@ -359,7 +359,7 @@ One can also use a subset of \(q\) coefficients to test with a new hypothesis. W
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/f-dist.png}
+    \includegraphics[width=0.5\linewidth]{Images/f-dist.png}
     \caption{F-Distribution}
 \end{figure}
 
@@ -522,7 +522,7 @@ Using more knots leads to more flexible fits.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/regression-splines.png}
+    \includegraphics[width=0.4\linewidth]{Images/regression-splines.png}
     \caption{Regression Splines}
 \end{figure}
 
@@ -563,7 +563,7 @@ we need to impose constraints:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/cubic-spline.png}
+    \includegraphics[width=0.5\linewidth]{Images/cubic-spline.png}
     \caption{Cubic Splines}
 \end{figure}
 \defn{Cubic Regression Splines}{
@@ -591,20 +591,22 @@ narrower and less wiggly than that of a
 cubic spline.
 
 \subsection{Knot Selection}
-\begin{enumerate}
-    \item Place them manually if you know the data.
-    \item Place them at equal spacing. This is a bad approach if
-    the data is not uniformly distributed.
-    \item Do equal spacing on the histogram. E.g. space them
-    at certain percentile of the data.
-\end{enumerate}
-The number of knots can be selected using cross-validation.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{Images/number-of-knots.png}
-    \caption{Knot Count Selection}
-\end{figure}
+\begin{multicols}{2}
+    \begin{enumerate}
+        \item Place them manually if you know the data.
+        \item Place them at equal spacing. This is a bad approach if
+        the data is not uniformly distributed.
+        \item Do equal spacing on the histogram. E.g. space them
+        at certain percentile of the data.
+    \end{enumerate}
+    The number of knots can be selected using cross-validation.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{Images/number-of-knots.png}
+        \caption{Knot Count Selection}
+    \end{figure}
+\end{multicols}
 
 \subsection{Smoothing Splines}
 
@@ -749,7 +751,7 @@ is a graphical plot that illustrates the performance of a binary classifier mode
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/roc.png}
+    \includegraphics[width=0.5\linewidth]{Images/roc.png}
     \caption{ROC Graph}
 \end{figure}
 
@@ -1848,7 +1850,7 @@ We always pick the next split which results in the smallest RSS.
 This results in many calculation, which are parallelizable.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/recursive-binary-splitting.png}
+    \includegraphics[width=0.5\linewidth]{Images/recursive-binary-splitting.png}
     \caption{Recursive Binary Splitting}
 \end{figure}
 
@@ -2046,7 +2048,7 @@ Using our data vectors:
 We want to find \(b_i\) so that our classes are separated:
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/max-margin-classifier.png}
+    \includegraphics[width=0.35\linewidth]{Images/max-margin-classifier.png}
     \caption{Binary Classifier}
 \end{figure}
 
@@ -2101,6 +2103,13 @@ Is actually a distance measurement which gives us the perpendicular distance to 
     This is a convex optimization problem with one global minimum.
 }
 \subsection{Support Vector Classifier}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/svc.png}
+    \caption{Support Vector Classifiert}
+\end{figure}
+
 SVC enables non seperable data to be classified.
 We want our hyperplane to be able to make errors.
 \defn{Support Vector Classifier}{
@@ -2134,6 +2143,120 @@ We want our hyperplane to be able to make errors.
         \end{split}
     \end{equation}
 }
+The choice of \(C\) controls the bias variance tradeoff.
+If \(C\) is large we increase the margin and thus decrease flexibility
+hence lowering variance. We use cross-validation to find \(C\).
+
+This is quite different from many 
+other classification methods such as 
+the linear discriminant analysis (LDA).
+The hyperplane of binary LDA depends on 
+all class samples.
+Support vector classifiers and logistic 
+regression are closely related.
+
+\subsection{Support Vector Machine}
+The SVM is an extension of the 
+support vector classifier that results 
+from enlarging the feature space 
+using \textbf{kernels}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/kernel.png}
+    \caption{Kernel}
+\end{figure}
+
+Kernels are a computationally efficient approach for enlarging the feature space.
+It is basically a efficient way to enlarge the feature space without excplicitly
+or manually doing so.
+
+One can reformulate and show that the solution
+only needs the inner products (dot product) of the observations:
+\begin{equation*}
+    (x_i, x_{i'}) = \sum_{j=1}^{p} x_{ij} x_{i'j}
+\end{equation*}
+
+A linear support vector classifier (the decision function) can be represented with \(n\)
+parameters \(\alpha_i\) like this:
+\begin{equation*}
+    f(x) = b_0 + \sum_{i=1}^{n} \alpha_i (x,x_i)
+\end{equation*}
+
+Our line only depends on our support vectors.
+\(\alpha_i\) is only non-zero for the sv:
+\begin{equation*}
+    f(x) = b_0 + \sum_{i \in S} \alpha_i (x,x_i)
+\end{equation*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/svm.png}
+    \caption{Support Vector Machine}
+\end{figure}
+
+We now reformulate our problem to this function:
+\defn{SVM Function}{
+    \begin{equation*}
+        f(x) = b_0 + \sum_{i \in S} \alpha_i K(x,x_i)
+    \end{equation*}
+    Where \(K\) is a Kernel-Function. Fitting a model
+    results in parameters: \(b, \alpha_i\)
+}
+
+\defn{Kernel}{
+    The kernel trick does a inner product in a high dimensional space.
+    Linear Kernel:
+    \begin{equation}
+        K(x_i, x_{i'}) = \sum_{j=1}^{p} x_{ij} x_{i'j}
+    \end{equation}
+
+    Polynomial Kernel of degree \(d\):
+    \begin{equation}
+        K(x_i, x_{i'}) = (1+\sum_{j=1}^{p} x_{ij} x_{i'j})^d
+    \end{equation}
+
+    Gaussian Kernel (RBF,Radial):
+    \begin{equation}
+        K(x_i, x_{i'}) = exp(-\gamma \sum_{j=1}^{p} (x_{ij} - x_{i'j})^2)
+    \end{equation}
+    RBF has local behaviour. It takes near points into account and ignore points that are far away.
+}
+\subsubsection{Multiclass Extension}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/one-vs-one.png}
+    \caption{One vs One}
+\end{figure}
+\defn{One vs One}{
+    Constructs \( \binom{K}{2} \) binary SVMs'. Which means in total:
+    \begin{equation*}
+        (K-1) \frac{K}{2} = S
+    \end{equation*}
+    Of the SVM results, the class that is picked most often is assigned to the test observation.
+    This scheme has a problem, when more than one class has the same max number of calls.
+    This is resolved e.g. by using a fair coin toss.
+}
+
+\defn{One vs All}{
+    The class, which results in the larges decision function is assigned to the test observation.
+    \begin{equation*}
+        K = S
+    \end{equation*}
+    The magnitude of the function measures the shortest distance from the 
+    separating hyperplane in kernel space and 
+    the further away from the hyperplane, the more confident we are, that the class 
+    decision is the correct one. Furthermore, the function is positive if the 
+    sample is classified as belonging to the class k.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/one-vs-all.png}
+    \caption{One vs All}
+\end{figure}
+
 \newpage
 
 \section{Unsupervised Learning}
@@ -2156,7 +2279,22 @@ Without regression we skip the training of a prediction model.
 The method stays the same. We try to fit a line to our data
 that contains the largest variance.
 
-\subsubsection{Scatter-Plot}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/pve.png}
+    \caption{Proportion of Variance Explained}
+\end{figure}
+
+
+\defn{Proportion of Variance Explained (PVE)}{
+    Useful for selecting the number of principal
+    components to use:
+    \begin{equation}
+        PVE_m = \frac{\sum_{i=1}^{n} (\sum_{j=1}^{p} \phi_{jm}x_{ij})^2}{\sum_{j=1}^{p}\sum_{i=1}^{n} x_{ij}^2}
+    \end{equation}
+}
+
+\subsubsection{Scatter-Plot (Biplot)}
 PCA is very useful for data visualisation. For example, we
 can use PCA to reduce dimension in order to create a scatter plot.
 Without PCA the amount of plots would equate to:
@@ -2164,13 +2302,15 @@ Without PCA the amount of plots would equate to:
     \binom{p}{2} = \frac{p(p-1)}{2}
 \end{equation}
 
-\subsubsection{Biplot}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/biplot.png}
+    \caption{Biplot}
+\end{figure}
 
-\section{Clustering}
-\subsection{k-means clustering}
-\subsection {hierarchical clustering}
 
-
-\subsection{Clustering}
+\section{Clustering TBD}
+\subsection{k-Means Clustering}
+\subsection {hierarchical Clustering}
 
 \end{document}
