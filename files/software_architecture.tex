@@ -10,17 +10,21 @@
 
 \defn{Software Architecture}{
     The fundamental organization of a system is embodied in its components, their relationships to each other, and to the environment, and the principles guiding its design and evolution.  (ISO/IEC/IEEE 42010, November 2011 )
+    There exist three definitions:
+    \begin{itemize}
+        \item Structure (elements, properties, relationships)
+        \item decision rationale
+        \item both
+    \end{itemize}
 }
 
-There are many more definitions, but the one of the biggest
-are:
 \begin{enumerate}
-    \item Bass, Clements and Kazman focuses on structure
+    \item Bass, Clements and Kazman focuses on \textbf{structure}
     for example with architecture elements with their properties
     and relationships
     \item Jansen and Bosch empasizes design rational specifically
-    desicion outcome and their justifications
-    \item ISO/IEC/IEEE is a hybrid definition that combines elements from the other two
+    \textbf{desicion outcome} and their justifications
+    \item ISO/IEC/IEEE is a \textbf{hybrid definition} that combines elements from the other two
 \end{enumerate}
 
 Also Application Architecture as a sub-disiple of Software Architecture
@@ -30,7 +34,7 @@ IT Architecture covers hardware and software and therefore is a superset.
 (\href{https://martinfowler.com/eaaCatalog/index.html}{Fowler's Enterprise Architecture}),
 (\href{https://martinfowler.com/eaaDev/uiArchs.html}{Fowler's GUI Architectures})
 
-Design challenges for the architecture of large and comples projects are divers and could contain:
+Design challenges for the architecture of large and complex projects are divers and could contain:
 \begin{itemize}
     \item User and channel diversity
     \item Process and resource integrity
@@ -40,8 +44,8 @@ Design challenges for the architecture of large and comples projects are divers 
 
 \section{Requirement Engineering}
 \subsection{Architecural Significant Requirements}
-All architecture is design, but not all design is architecture according to Grady Booch3;
-hence, it has to be de cided what is in and out of scope of any architectural activity.
+All architecture is design, but not all design is architecture according to Grady Booch;
+hence, it has to be decided what is in and out of scope of any architectural activity.
 The notion of architectural significance has this purpose; it is a property of the requirements
 that are elicited/stated for a particular system and/or project, as well as design elements
 and decisions considered along the way. First and foremost, these requirements are non-functional
@@ -59,10 +63,11 @@ that has to be inte grated via an Application Programming Interface (API).
         \item The requirement has a first-of-a-kind character: e.g., the team has never built a component before that satisfies this particular requirement. 
         \item The requirement has been troublesome and caused critical situations, budget overruns or client dissatisfaction in a previous project in a similar context. 
     \end{enumerate}
+    \href{https://medium.com/olzzio/architectural-significance-test-9ff17a9b4490}{ZIO}
 }
 S. Toth asks the following five questions to classify the architectural significance of decisions that justify if and
 how a requirement is met.
-Just Enough Software Architecture:
+\textbf{Just Enough Software Architecture}:
 \begin{enumerate}
     \item Is the decision hard to change later?
     \item Is the decision expensive to implement or execute?
@@ -71,90 +76,89 @@ Just Enough Software Architecture:
     \item Is the experience in the solution space weak?
 \end{enumerate}
 
+Assessment of architectural significance scopes and prioritizes architecture analysis, 
+synthesis/design, and evaluation/review. NFRs should be specified in a SMART way.
+
 \subsection{NFR Catalogs and Taxonomies}
 
 \defn{SMART}{
 \begin{description}
-    \item[Specific]  Targeting a particular area for improvement
-    \item[Measurable] Quantifying, or at least suggesting, an indicator of progress
+    \item[Specific]  Targeting a particular area for improvement. Which feature or part of the system should satisfy the requirement?
+    \item[Measurable] Quantifying, or at least suggesting, an indicator of progress. How can testers and other stakeholders find out whether the requirement is met (or not)? Is the 
+    requirement quantified?
     \item[Assignable] Defining responsibility clearly
     \item[Realistic] Outlining attainable results with available resources. Time-related: Including a timeline for expected results 
 \end{description}
 The specific definitions of the words are not fixed.
+A, R, T are requirements engineering and project management concerns.
 }
 
 The SMART criteria can be applied to NFR engineering.
 \begin{itemize}
     \item Specific: Which feature or part of the system should satisfy the requirement?
     \item Measurable: How can testers and other stakeholders find out whether the requirement is met (or not)? Is the requirement quantified?
-    \item A, R, T are requirements engineering and project management concerns: Useful interpretation in our NFR context: Agreed Upon, Realistic, Time-Bound
 \end{itemize}
 
 \defn{FURPS+}{
-    Furps:
+    Furps+:
     \begin{itemize}
         \item Functionality
         \item Usability
         \item Reliability
         \item Performance
         \item Supportability
-    \end{itemize}
-    Furps+:
-    \begin{itemize}
         \item Design constraints
         \item Implementation constraints
         \item Physical constrains
         \item Interface contraints
     \end{itemize}
+    \href{https://ieeexplore.ieee.org/document/4384163}{Martin Glinz}
 }
 \newpage
 \subsection{Quality Attribute Scenario (QAS)}
 Quality attributes describe how a system provides its functionality, not how.
+It can be used to achieve S and M n SMART.
+Measurability is enabled by the "Response Measure field".
 
 \begin{figure}[H] 
     \centering
     \includegraphics[width=1\linewidth]{Images/qas.png}
-    \caption{QAS}
-    \label{fig:qas}
+    \caption{QAS Example}
 \end{figure}
-
+\newpage
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=1\linewidth]{Images/qas-template.png}
+    \caption{QAS Empty Template}
+\end{figure}
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=1\linewidth]{Images/qas-template-2.png}
+    \caption{QAS Template Description}
+\end{figure}
 \newpage
 \subsection{Landing Zones}
-Rather than establishing one measurable target define three.
+Rather than establishing one measurable target, define three.
 This helps agree upon a range rather than one single value.
 This is similar to release criteria but allows for tolerances
 in acceptable values. Moreover it allows for some flexibility
-in meeting goals.
+in meeting goals. This can be used without QAS.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{Images/landingzone.png}
     \caption{Landing Zones}
 \end{figure}
-\newpage
-
-\newpage
-\subsection{Quality Utility Trees}
-Quality Utility Trees (QUT) can be used to refine
-each toplevel taxonomy topic. In the trees the leaves
-represent QAS prioritized by value and risk.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{quality-utility-trees.png}
-    \caption{Quality Utility Trees}
-\end{figure}
-\newpage
 
 \subsection{System Context Diagrams}
 SCD should be use to identify external dependencies.
-In this method we represent systems as block boxes and
+In this method we represent systems as black boxes and
 depict interactions with external entities.
 It can identity the information and control flow.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{system-context-example.png}
+    \includegraphics[width=0.65\linewidth]{system-context-example.png}
     \caption{System Context Diagram Example}
 \end{figure}
 
@@ -169,10 +173,24 @@ It can identity the information and control flow.
 %\end{figure}
 %\newpage
 
+\newpage
+
+\subsection{Quality Utility Trees}
+Quality Utility Trees (QUT) can be used to refine
+each toplevel taxonomy topic. In the trees the leaves
+represent QAS prioritized by \textbf{value and risk} with classes low, medium and high (l,m,h).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{quality-utility-trees.png}
+    \caption{Quality Utility Trees}
+\end{figure}
+\newpage
+
 \section{Solution Strategy}
 The term Solution Strategy is from Gernat Starke (arc42).
 It corresponds to the Inception and Elaboration phases in
-RUP. It includes the big decisions
+RUP. It includes the \textbf{big decisions}
 one should make to which would later be costly to change (Grady Booch).
 IBM defines some reference goals for the solution stategy:
 \begin{itemize}
@@ -182,6 +200,20 @@ IBM defines some reference goals for the solution stategy:
     \item Ensure that architecture is extensible and evolving
     \item Provide a reference of documented decisions
     \item Aboid unnecessary reconsideration of the same issues
+\end{itemize}
+
+Creation of a Solution Strategy is the first step in architecture design.
+It is ASR-driven (incl. NFRs) and can be refined and adapted throughout project.
+Further help can be found in Step/section 4 in arc42 template for architecture descriptions.
+
+Decisions Made in Solution Strategy:
+\begin{itemize}
+    \item Logical layers bring flexibility and support division of labor
+    \item Client/Server Cuts (CSCs) with five options to place logical layers on tiers;  CSCs can be combined for 
+    performance, reliability, scalability 
+    \item Many other patterns also eligible as conceptual solution options
+    \item We use container diagrams, the second C in C4, for high-level, white box view.
+    There layers and tiers as well as key technologies can be mentioned/outlined
 \end{itemize}
 
 \defn{Solution Strategy (arc42)}{
@@ -221,21 +253,20 @@ and shows tradeoffs between qualities.
 The definition of layers and tiers is a typical
 big decision in solution strategy:
 \begin{itemize}
-    \item In the logical and implementation view
+    \item In the logical and implementation view,
     layers separate concerns
-    \item In the process and physical view
+    \item In the process and physical view,
     tiers distribute the workload
 \end{itemize}
 
 \defn{Layers}{
-    Layers describe the logical groupings 
-    of the functionality and components in an application.
-}
-
-\defn{Tiers}{
-    Tiers describe the physical distribution of the 
-    functionality and components on separate servers, 
-    computers, networks, or remote locations.
+    \begin{description}
+        \item[Layers]  describe the logical groupings 
+        of the functionality and components in an application.
+        \item[Tiers] describe the physical distribution of the 
+        functionality and components on separate servers, 
+        computers, networks, or remote locations.
+    \end{description}
 }
 
 Although both layers and tiers use the same set of names 
@@ -247,10 +278,10 @@ the term tier as referring to physical distribution
 patterns such as two-tier, three-tier, and n-tier.
 The following architectural drivers and decision making criteria (or forces in pattern terminology) apply:
 \begin{itemize}
-    \item Businessneedsvs.construction complexity
+    \item Business needs vs.construction complexity
     \item Processing style: online (transactional) vs. offline (batch processing)
     \item Distribution vs. performance, security, consistency
-    \item Softwaredistribution cost
+    \item Software distribution cost
     \item Reusability vs. performance vs. complexity
     \item Supportability
 \end{itemize}
@@ -277,7 +308,8 @@ The layer pattern itself does not imply process/server boundary and any use of r
     \caption{Logical Layers}
 \end{figure}
 
-With many options how to assign layers to tiers: Layer boundary or
+This figure follows Fowlers approach to layers.
+There are many options how to assign layers to tiers: Layer boundary or
 within layer,  Single or multiple assignments.
 
 \newpage
@@ -309,37 +341,24 @@ and integrated business information systems (Renzel and Keller (1997)).
         \item Those with problem/solution space outside of team's comfort zone 
     \end{enumerate}
 }
-\href{https://github.com/adr/madr}{MADR Templates}
+For reference documentation use the template \href{https://github.com/adr/madr}{MADR Templates}.
 
 \subsection{Container}
 \defn{Container}{
-    Container are application-level frameworks for tier 2 of a 2-tier or 3-tier
+    Container are \textbf{application-level frameworks} for tier 2 of a 2-tier or 3-tier
     application. Application level containers are not to be confused with container-based
-    applications on the os system level. 
+    applications on the os system level. (ZIO)
 }
 
-In the C4 model, a container represents an application or a data store.
+In the \textbf{C4 model}, a container represents an application or a data store.
 A container is something that needs to be running in order for the overall software system to work.
-
-A container is essentially a runtime boundary around some code that is
-being executed or some data that is being stored. The name “container”
-was chosen because I wanted a name that didn't imply anything about the
-physical nature of how that container is executed. For example,
-a single Java EE server like Apache Tomcat can run multiple web
-applications inside a single Java Virtual Machine, although each of
-those web applications is essentially isolated from the others.
-At development time I might have three web applications running on
-a single Apache Tomcat server, while each web application may be
-deployed onto a dedicated Apache Tomcat server in a live environment.
-In this situation, each web application is a “C4 container”,
-with the deployment being a seperate concern.
+It is essentially a \textbf{runtime boundary} around some code that is
+being executed or some data that is being stored.
 
 \subsection{Container Architecture Patterns}
-\paragraph{Inversion of Control (IoC)}
-enables (container) frameworks to control server-side execution
+\textbf{Inversion of Control (IoC)} enables (container) frameworks to control server-side execution
 and achieve extensibility with custom components even without recompilation.
-With this pattern a framework (or software component) has control and
-manages the application component instances.
+With this pattern, a framework (or software component) \textbf{has control and manages the application component instances}.
 The components know the interfaces of their members.
 External requests arrive at the framework which redispatches them.
 
@@ -359,7 +378,7 @@ is good for:
     \caption{Inversion of Control}
 \end{figure}
 
-Interface implementations are received using dependency injections.
+Interface implementations are received using \textbf{dependency injections}.
 Which is a pattern that gives an object its instance variables.
 This is good for isolating classes during testing and for systems
 with many configurations. It is a one-step class member initialization.
@@ -370,7 +389,7 @@ with many configurations. It is a one-step class member initialization.
     \caption{Dependency Injection}
 \end{figure}
 
-\subsubsection{Server-Side Container Architecture (Spring Boot)}
+\subsection{Server-Side Container Architecture (Spring Boot)}
 
 \begin{figure}[H]
     \centering
@@ -390,18 +409,18 @@ with many configurations. It is a one-step class member initialization.
     well-defined interface. If you're using a language like Java or C\#,
     the simplest way to think of a component is that it's a collection of
     implementation classes behind an interface.
+    \href{https://c4model.com/abstractions/component}{C4}
 }
-
-With the C4 model, components are not separately deployable units.
+With the C4 model, components are \textbf{not separately deployable units}.
 Instead, it's the container that's the deployable unit. In other words,
-all components inside a container execute in the same process space.
+all components inside a container execute in the \textbf{same process space}.
 Aspects such as how components are packaged (e.g. one component vs
 many components per JAR file, DLL, shared library, etc) is an
 orthogonal concern.
-
-The components that we deal with in solution strategy are candidate components.
-A candidate component is anintermediate/preliminary architectural element
-used for planning, decision making, architectural prototyp ing.
+\\\\
+The components that we deal with in solution strategy are \textbf{candidate components}.
+A candidate component is an intermediate/preliminary architectural element
+used for planning, decision making, architectural prototyping.
 The candidate components are subject to continuous refinement and
 consolidation efforts (architectural refactoring).
 
@@ -410,6 +429,20 @@ consolidation efforts (architectural refactoring).
     \includegraphics[width=1\linewidth]{Images/candidatecomponents.png}
     \caption{Candidate Components}
 \end{figure}
+
+\defn{Candidate Component (one Definition)}{
+    A candidate component is an architectural element in the logical 
+    viewpoint grouping related responsibilities that jointly satisfy
+    one or more (non-)functional requirements so that design and
+    implementation work can be planned and component realization
+    decisions can be made.
+}
+Other definitions depending on the viewpoint exist.
+\textbf{Implementation components} reside in the development/implementation viewpoint. They group one 
+or more classes (in OOP) and provide an interface that hides their implementation details e.g. in 
+JEE and Spring. Their dependencies are made explicit and managed; they are versioned.
+\textbf{Deployment units} then bundle one or more implementation components to be hosted on one or 
+more physical nodes (deployment viewpoint).
 
 \newpage
 \subsection{Component Interactions}
@@ -421,7 +454,8 @@ your system perform their job and communicate at runtime.
 You will mainly capture scenarios in your documentation
 to communicate your architecture to stakeholders that are
 less willing or able to read and understand the static models
-(building block view, deployment view). (\href{http://docs.arc42.org/section-6/}{arch42})
+(building block view, deployment view). (ZIO)
+More information with \href{http://docs.arc42.org/section-6/}{Runtime View on arch42}.
 
 \begin{figure}[H]
     \centering
@@ -439,12 +473,19 @@ less willing or able to read and understand the static models
 \end{figure}
 \newpage
 
-\subsection{Component Modeling}
-A candidate component is an architectural element in the logical 
-viewpoint grouping related responsibilities that jointly satisfy
-one or more (non-)functional requirements so that design and
-implementation work can be planned and component realization
-decisions can be made.
+\subsection{Finding Candidate Components with Story Splitting (Agile Practice)}
+Story that is too large for a sprint must be broken down to meet the INVEST properties of user stories.
+
+\defn{INVEST Properties}{
+    \begin{enumerate}
+        \item Independent
+        \item Negotiable
+        \item Valuable
+        \item Estimable
+        \item Small
+        \item Testable
+    \end{enumerate}
+}
 
 \begin{figure}[H]
     \centering
@@ -453,10 +494,12 @@ decisions can be made.
 \end{figure}
 
 \subsection{Component Identification}
-A rule of thumb is to identify one candidate component per layer and
-feature or entity without knowing too much about them.
+A rule of thumb is to \textbf{identify one candidate component per layer and
+feature} or entity without knowing too much about them.
 OOAD and business modeling techniques can help with CI.
-\defn{Identification}{
+There are many idefification techniques (e.g story splitting), but
+we should always make a buy-rent-build decision for each candidate.
+\defn{Commonly agreed/frequently listed criteria}{
     \begin{itemize}
         \item Partition by domain concepts (single responsibility principle)
         \item Partition by stakeholders or users (No reimplementations per user story (DRY!))
@@ -464,31 +507,60 @@ OOAD and business modeling techniques can help with CI.
         \item Add feature or component for locations and regions
         \item External interfaces to other systems
     \end{itemize}
+    \href{https://web.archive.org/web/20201111235328/https:/techbeacon.com/app-dev-testing/practical-guide-user-story-splitting-agile-teams}{Mark Balbes}
 }
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/zio-idenfitication-algorithm.png}
+    \caption{ZIO Component Identification Alorithm}
+\end{figure}
+
+\subsection{Components, Responsibilities, Collaborators (CRC) Cards}
+The CRC card by W. Cunningham is a notation that is well suited for component modeling, 
+complementing C4. CRC stands for Components, Responsibilities, Collaborators.
+CRC must be expressive, but also easy to understand.
+CRC cards can \textbf{complement component diagrams}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/crc-card.png}
+    \caption{CRC Card Template}
+\end{figure}
 \newpage
 
 \section{Patterns of Enterprise Application Architecture (PoEAA)}
-The PoEAA book(Fowler(2002)) is about the display, manipulation, and storage of large amounts of often complex data.
-It only has one pattern called Domain Model to represent an object-oriented BLL,
-and describes Transaction Script and Table Module as alternatives.
-
-The Business Logic Layer patterns in the PoEAA book are rather simplistic (which is somewhat surprising) and
-superseded and refined by Domain-DrivenDesign (DDD).
-%TODO
-
-\section{Tactic Domain Driven Design (DDD)}
-In DDD the domain model is put in the center. It emphasizes the need for
-modeling and communication in a ubiquitous language, the domain model.
-\defn{DDD}{
-    Tactic DDD focuses on business logic in layered architecture models.
-    It does so by decomposing the domain model pattern from Martin Fowler.
+\defn{PoEAA}{
+    The PoEAA book (Fowler 2002) is about the display, manipulation, and storage of large amounts of often complex data.
+    \textbf{It only has one pattern called Domain Model to represent an object-oriented BLL},
+    and describes Transaction Script (procedural) and Table Module (abstraction of Microsoft ADO Data Set Tools, COM/.NET) as alternatives.
 }
-It contains patterns for common roles.
-The book is from 2003, logical layers and most base patterns are still valid.
-Most patterns in PoEAA assume Distributed Presentation as CSC.
 
-In \textbf{Strategic DDD} the emphazis lies in enterprise architecture and
-portfolio management. Boundaries are very important in a macroscopic view.
+The book is from 2003, the logical layers proposed and most base patterns are still valid.
+Most patterns in PoEAA assume Distributed Presentation as CSC.
+The Business Logic Layer patterns in the PoEAA book are rather simplistic (which is somewhat surprising) and
+superseded and refined by Domain-Driven Design (DDD).
+The well known patterns include:
+\begin{itemize}
+    \item MVC
+    \item Template View
+    \item Remote Facade (Integration)
+    \item Data Transfer Object (DTO, Integration)
+    \item Service Layer (refined in SOA and Microservices, Integration)
+    \item Domain Model (refined by DDD)
+\end{itemize}
+
+\section{Domain Driven Design (DDD)}
+\defn{DDD}{
+    \begin{description}
+        \item[Tactic DDD] focuses on business logic in layered architecture models.
+        It does so by decomposing the domain model pattern from Martin Fowler by introducing two
+        BLL sublayers (application, domain).
+        It emphasizes the need for modeling and communication in a ubiquitous language, the domain model.
+        \item[Stategic DDD] emphasizes enterprise architecture and
+        portfolio management. Boundaries are very important in a \textbf{macroscopic view}.
+    \end{description}
+}
 
 \begin{figure}[H]
     \centering
@@ -497,7 +569,7 @@ portfolio management. Boundaries are very important in a macroscopic view.
 \end{figure}
 
 \newpage
-\subsection{DDD and Logical Layers}
+\subsection{Tactic DDD and Logical Layers}
 Layered Architecture pattern in DDD is not identical to PoEAA schema, but
 it can be mapped in an easy way:
 \begin{figure}[H]
@@ -506,6 +578,11 @@ it can be mapped in an easy way:
     \caption{DDD and Logical Layers}
 \end{figure}
 The instances of tactic DDD primarily lives in the domain layer.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/mapping-poeaa-ddd.png}
+    \caption{Mapping PoEAA to DDD}
+\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -514,25 +591,22 @@ The instances of tactic DDD primarily lives in the domain layer.
 \end{figure}
 \newpage
 
-\defn{Entity}{
-    Entity is an object that has an identifier and a lifecycle.
-    It can change states and can be distringuished by its identity
-    and therefore is not defined by its attributes.
-}
-\defn{Value}{
-    The value object has no identifier and is immutable.
-    Hence it has no state and is soely defined by its attribute.
-    All operations on the value object must be side effect free.
-}
-
-\defn{Aggregate}{
-    An aggregate is a collection (or graph) of entities and value objects.
-    It is the smallest unit with functional consistency while enforcing invariants.
-    All objects of an aggregate are persisted toghether, this means
-    the transaction boundary is around the collection.
-    The aggregates has a root entity as external interface and entry point.
-    External object should only reference the root entity.
-    Aggregates are responsible for business rule enforcement accross entities.
+\defn{Entity, Value, Aggregate}{
+    \begin{description}
+        \item[Entity] Entity is an object that has an \textbf{identifier and a lifecycle}.
+        It can change states and can be distringuished by its identity
+        and therefore is not defined by its attributes.
+        \item[Value] The value object has \textbf{no identifier and is immutable}.
+        Hence it has no state and is soely defined by its attribute.
+        All operations on the value object must be side effect free.
+        \item[Aggregate] An aggregate is a \textbf{collection (or graph) of entities and value objects}.
+        It is the \textbf{smallest unit with functional consistency} while enforcing invariants.
+        All objects of an aggregate are persisted toghether, this means
+        the transaction boundary is around the collection.
+        The aggregates has a root entity as external interface and entry point.
+        External object should only reference the root entity.
+        Aggregates are responsible for business rule enforcement accross entities.
+    \end{description}  
 }
 
 \begin{figure}[H]
@@ -550,9 +624,9 @@ The instances of tactic DDD primarily lives in the domain layer.
 \defn{Bussiness Rule and Invariants}{
     Business rule has (at least) two meanings:
     \begin{enumerate}
-        \item Executable part of the business logic that is not expressed as sequence of statements, but declaratively
-        \item A statement or condigtion about the domain model, its elements and their relationship that always has to be true (invariant),
-        to preserve data consistency and ensure accuracy of processing
+        \item Executable part of the business logic that is \textbf{not expressed as sequence} of statements, but \textbf{declaratively}.
+        \item A \textbf{statement or condition} about the domain model, its elements and their relationship that \textbf{always has to be true} (invariant),
+        to preserve data consistency and ensure accuracy of processing.
     \end{enumerate}
 }
 Examples of Invariants:
@@ -603,16 +677,6 @@ Examples of Invariants:
 \end{itemize}
 
 \newpage
-\subsection{CRC Cards}
-The CRC card is a notation that is well suited for component modeling, 
-complementing C4. CRC stands for Components, Responsibilities, Collaborators.
-CRC must be expressive, but also easy to understand.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{Images/crc-card.png}
-    \caption{CRC Card Template}
-\end{figure}
 
 \subsection{OOA to Tactic DDD}
 \begin{enumerate}
@@ -628,9 +692,9 @@ CRC must be expressive, but also easy to understand.
     model inside a bounded context.
 }
 
-It deals with integrating these components and managing complecity in end-to-end application landscapes for the long run.
+It deals with integrating these components and managing complexity in end-to-end application landscapes for the long run.
 In small projects and businesses such long-time perspective might be unneeded.
-
+\\\\
 DDD provides two abstractions for model partitioning, both supporting a divide-and-conquer approach to managing complexity.
 They differ in their scope and viewpoint taken:
 \begin{description}
@@ -715,8 +779,8 @@ DDD does not mandate any particular syntax such as UML, pattern icons or pictogr
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/context-map-decision-tree.png}
-    \caption{Context Map Decision Tree}
+    \includegraphics[width=1\linewidth]{Images/context-map-decision-tree.png}
+    \caption{Context Map Decision Tree (3+1)}
 \end{figure}
 
 \begin{figure}[H]
@@ -726,96 +790,19 @@ DDD does not mandate any particular syntax such as UML, pattern icons or pictogr
 \end{figure}
 
 \newpage
-\section{Integration Styles and Enterprise Integration Patterns (EIP)}
-EIP handles the integration of different bounded contexts.
-It was originally suggested by Martin Fowler and K. Brown.
-Different questions have to be asked to achieve this.
+\section{Integration Styles}
 
-
-\exm{Recapitulate}{
-    Let us recapitulate the state of affairs in architectural synthesis after Lessons 3 to 8: 
-    candidate components have been identified and specified; some or all of these components have been realized
-    (as a consequence of a make/build decision) or procured (following a buy decision). Tactic and strategic DDD patterns might
-    (but do not have to) be used along this way (for instance, during component realization with object-oriented pro gramming).
-    Next, these components need to be stitched together to yield end-to-end applications that imple mentfunctional requirements
-    (expressed as use cases and/or user stories) and satisfy NFRs (including quality attributes): integration is required.
-}
-
-
-In a good integration styles we want to achieve loose coupling.
+In a good integration styles we want to achieve loose coupling while connecting different bounded contexts.
 \defn{Loose Coupling Dimensions}{
     Loose coupling has at least four dimensions:
     \begin{itemize}
-        \item Reference autonomy
-        \item Platform autonomy
-        \item Time autonomy
-        \item Format autonomy
+        \item Reference autonomy. Producers and consumers dont know each other.
+        \item Platform autonomy. Producers and consumers may be located in different technical environments (e.g., 
+        containers), can be written in different languages, etc.
+        \item Time autonomy. Producers and consumers access channel at their own pace (Communication is asynchronous,  Data exchanged is persistent).
+        \item Format autonomy. Producers and consumers may use different formats of data exchanged.
     \end{itemize}
 }
-
-Messaging capabilities are typically provided by a separate software system called a messaging system or 
-message-oriented middleware (MOM), which is comparable to database systems that manage data 
-persistence:
-\begin{itemize}
-    \item Database administrator populates database with schema for application data; MOM administrator 
-    configures the messaging system with channels that define the paths of communication between the 
-    applications. Messaging system manages sending and receiving of messages.
-    \item Database makes sure each data record is safely persisted, and likewise main task of messaging system 
-    is to move messages from the sender's computer to the receiver's computer in a reliable fashion.
-\end{itemize}
-The reason a messaging system is needed to move messages from one computer to 
-another is that computers and the networks that connect them are inherently unreliable:
-
-Just because one application is ready to send a communication does not mean that the 
-other application is ready to receive it.
-Even if both applications are ready, the network may not be working, or may fail to 
-transmit the data properly.
-A messaging system overcomes these limitations by repeatedly trying to transmit the 
-message until it succeeds. Under ideal circumstances, the message is transmitted 
-successfully on the first try, but circumstances are often not ideal.
-
-To achieve this, an established abstraction is used: Channels.
-Channels a.k.a. Queues are a fundamental logical concept realized via several physical network connections.
-There are typically multiple middleware instances involved which send, receive and process messages and make them
-available to different endpoints. There are different protocol which implement data communication, one
-of these is AMQP which is a peer to peer transport protocol operating over TCP. AMQP supports message headers and properties
-which enables the implementation of EIP patterns. ActiveMQ is a popular messaging implementation that supports AMQP.
-
-\href{https://www.enterpriseintegrationpatterns.com/ramblings/eip1_examples_updated.html}{EIP Pattern Reference}
-
-Messaging has the advantage to enable loose coupling in the time, platform and reliability dimensions, but it comes at a price.
-For example do middleware design impose a more complex architecture and have thus more design, test and management effots.
-
-\begin{description}
-    \item[Complexity] Asynchronous messaging requires developers to work with an event-driven programming model. 
-    Application logic can no longer be coded in a single method that invokes other methods, but the logic is 
-    not split up into a number of event handlers that respond to incoming messages. Such a system is more 
-    complex and harder to develop and debug. For example, the equivalent of a simple method call can 
-    require a request message and a request channel, a reply message and a reply channel, a correlation 
-    identifier and an invalid message queue (as described in Request-Reply)
-    \item[Sequencing Issues] Message channels guarantee message delivery, but they do not guarantee when the message will be 
-    delivered. This can cause messages that are sent in sequence to get out of sequence. In situations 
-    where messages depend on each other special care has to be taken to re-establish the message 
-    sequence.
-    \item[Synchronous Scenarios] Not all applications can operate in a send-and-forget mode. If a user is looking for airline 
-    tickets, he or she is going to want to see the ticket price right away, not after some 
-    undetermined time. Therefore, many messaging systems need to bridge the gap between 
-    synchronous and asynchronous solutions.
-    \item[Performance] Messaging systems do add some overhead to communication. It takes effort to make data 
-    into a message and send it, and to receive a message and process it. If you have to 
-    transport a huge chunk of data, dividing it into a gazillion small pieces may not be a smart 
-    idea. For example, if an integration solution needs to synchronize information between two 
-    existing systems, the first step is usually to replicate all relevant information from one 
-    system to the other. For such a bulk data replication step as provided by most ETL tools 
-    are much more efficient than messaging. Messaging is best suited to keeping the systems 
-    in sync after the initial data replication.
-    \item[Platform Support]  Many proprietary messaging systems are not available on all platforms. Often times it is easier to FTP a 
-    file to another platform than accessing it via a messaging system.
-    \item[Vendor Lock-In] Many messaging system implementations rely on proprietary protocols. Even common messaging 
-    specifications such as JMS do not control the physical implementation of the solution. As a result, 
-    different messaging systems usually do not connect to one another. This can leave you with a whole 
-    new integration challenge: integrating multiple integration solutions!
-\end{description}
 
 \subsection{Top Level Remote Communication (Integration Styles)}
 \begin{multicols}{2}
@@ -850,8 +837,85 @@ For example do middleware design impose a more complex architecture and have thu
     \caption{Six General Integration Styles}
 \end{figure}
 
+\subsection{Messaging System (Middleware)}
+Messaging capabilities are typically provided by a separate software system called a messaging system or 
+message-oriented middleware (MOM), which is comparable to database systems that manage data 
+persistence:
+\begin{itemize}
+    \item Database administrator populates database with schema for application data; MOM administrator 
+    configures the messaging system with channels that define the paths of communication between the 
+    applications. Messaging system manages sending and receiving of messages.
+    \item Database makes sure each data record is safely persisted, and likewise main task of messaging system 
+    is to move messages from the sender's computer to the receiver's computer in a reliable fashion.
+\end{itemize}
+The reason a messaging system is needed to move messages from one computer to 
+another is that computers and the networks that connect them are inherently unreliable:
+
+Just because one application is ready to send a communication does not mean that the 
+other application is ready to receive it.
+Even if both applications are ready, the network may not be working, or may fail to 
+transmit the data properly.
+A messaging system overcomes these limitations by repeatedly trying to transmit the 
+message until it succeeds. Under ideal circumstances, the message is transmitted 
+successfully on the first try, but circumstances are often not ideal.
+To achieve this, an established abstraction is used: 
+\defn{Channels}{
+    Channels a.k.a. Queues are a fundamental logical concept realized via several physical network connections.
+    There are typically multiple middleware instances involved which send, receive and process messages and make them
+    available to different endpoints.
+}
+There are different protocols which implement data communication, one
+of these is AMQP which is a peer to peer transport protocol operating over TCP. AMQP supports message headers and properties
+which enables the implementation of EIP patterns. ActiveMQ is a popular messaging implementation that supports AMQP.
+\\\\
+Messaging has the \textbf{advantage} to enable loose coupling in the time, platform and reliability dimensions, but it comes at a price.
+For example do middleware design impose a more complex architecture and have thus more design, test and management effots.
+But it also comes with several \textbf{disadvantages}:
+\begin{description}
+    \item[Complexity] Asynchronous messaging requires developers to work with an event-driven programming model. 
+    Application logic can no longer be coded in a single method that invokes other methods, but the logic is 
+    not split up into a number of event handlers that respond to incoming messages. Such a system is more 
+    complex and harder to develop and debug. For example, the equivalent of a simple method call can 
+    require a request message and a request channel, a reply message and a reply channel, a correlation 
+    identifier and an invalid message queue (as described in Request-Reply)
+    \item[Sequencing Issues] Message channels guarantee message delivery, but they do not guarantee when the message will be 
+    delivered. This can cause messages that are sent in sequence to get out of sequence. In situations 
+    where messages depend on each other special care has to be taken to re-establish the message 
+    sequence.
+    \item[Synchronous Scenarios] Not all applications can operate in a send-and-forget mode. If a user is looking for airline 
+    tickets, he or she is going to want to see the ticket price right away, not after some 
+    undetermined time. Therefore, many messaging systems need to bridge the gap between 
+    synchronous and asynchronous solutions.
+    \item[Performance] Messaging systems do add some overhead to communication. It takes effort to make data 
+    into a message and send it, and to receive a message and process it. If you have to 
+    transport a huge chunk of data, dividing it into a gazillion small pieces may not be a smart 
+    idea. For example, if an integration solution needs to synchronize information between two 
+    existing systems, the first step is usually to replicate all relevant information from one 
+    system to the other. For such a bulk data replication step as provided by most ETL tools 
+    are much more efficient than messaging. Messaging is best suited to keeping the systems 
+    in sync after the initial data replication.
+    \item[Platform Support]  Many proprietary messaging systems are not available on all platforms. Often times it is easier to FTP a 
+    file to another platform than accessing it via a messaging system.
+    \item[Vendor Lock-In] Many messaging system implementations rely on proprietary protocols. Even common messaging 
+    specifications such as JMS do not control the physical implementation of the solution. As a result, 
+    different messaging systems usually do not connect to one another. This can leave you with a whole 
+    new integration challenge: integrating multiple integration solutions!
+\end{description}
+
 \newpage
-\subsection{EIP / Messaging}
+\subsection{Enterprise Integration Patterns (EIP) / Messaging}
+EIP (Gregor Hohpe 2003) handles the integration of different bounded contexts.
+It was originally suggested by Martin Fowler and K. Brown.
+EIP provide a conceptual design space for the Messaging style.
+
+\exm{Recapitulate}{
+    Let us recapitulate the state of affairs in architectural synthesis after Lessons 3 to 8: 
+    candidate components have been identified and specified; some or all of these components have been realized
+    (as a consequence of a make/build decision) or procured (following a buy decision). Tactic and strategic DDD patterns might
+    (but do not have to) be used along this way (for instance, during component realization with object-oriented pro gramming).
+    Next, these components need to be stitched together to yield end-to-end applications that imple mentfunctional requirements
+    (expressed as use cases and/or user stories) and satisfy NFRs (including quality attributes): integration is required.
+}
 \begin{multicols}{2}
     In essence, a message is send in five steps:
     \begin{enumerate}
@@ -866,11 +930,6 @@ For example do middleware design impose a more complex architecture and have thu
     Even with this easy API there are still many design choices to be made like
     how the message intent (command vs data), response (request-reply), data sequencing, message performance (message expiration),
     QoS (guaranteed delivery, transactionality, idempotency) is to be structured.
-
-    Jakarta Messaging API defines structures for the user. There exists Point-to-Point channels or Publish-Subcribe channels out
-    of the box, the API between the object is different where as one uses the Queue API and the other the Topic API.
-    The messages itselves can have different types. Typically one would use text messages, serializable objects or binary.
-    The JMS API support general QoS settings via headers.
 \end{multicols}
 
 \begin{figure}[H]
@@ -878,41 +937,52 @@ For example do middleware design impose a more complex architecture and have thu
     \includegraphics[width=0.75\linewidth]{Images/eip-overview.png}
     \caption{EIP Summary}
 \end{figure}
+\newpage
+\subsection{Jakarta Messaging API (JMS)}
+Jakarta Messaging API defines structures for the user. There exists Point-to-Point channels (\textbf{Queue API}) or 
+Publish-Subcribe channels (\textbf{Topic API}) out of the box, the API between the object is different where as one uses the 
+Queue API and the other the Topic API. The messages itselves can have different types. Typically one would 
+use text messages, serializable objects or binary. The JMS API support general QoS settings via headers.
+
+\begin{description}
+    \item[Message Enpoint] @JMSTemplate (@Controller)
+    \item[Event-Driven Consumer] @JMSListener
+    \item[Service Activator] @ServiceActivator (+ XML-Configuration)
+    \item[Content-Based Router] @Router (+ XML-Configuration)
+    \item[Content Enrichter] @Transformer, @Enricher
+\end{description}
 
 \newpage
 \subsection{Important EIP}
+\href{https://www.enterpriseintegrationpatterns.com/ramblings/eip1_examples_updated.html}{EIP Pattern Reference}
 \begin{multicols}{2}
     \begin{itemize}
-        \item Document Message Pattern
-        \item Command Message Pattern
-        \item Point-to-Point Channel*
-        \item Publish-Subscribe Channel*
-        \item Guaranteed Delivery Pattern*
-        \item Message Endpont Pattern
-        \item Event-Driven Consumer*
-        \item Message Consumption: Competing Consumers*
-        \item Message Consumption: Polling Consumers*
-        \item Request-Reply Pattern
-        \item Return Address
-        \item Message Expiration
-        \item Dead Letter Channel Pattern
-        \item Transactional Client Pattern*
-        \item Message Routing Pattern*
-        \item (...)
-    \end{itemize}
-    \textbf{Message Routing Patterns:}
-    \begin{itemize}
-        \item Content-Based Router Pattern*
-        \item Recipient List Pattern*
-        \item Splitter Pattern
-        \item Aggregator Pattern*
-        \item (...)
-    \end{itemize}
-    \textbf{Message Transformation:}
-    \begin{itemize}
-        \item Message Translator Pattern*
-        \item Content Filter Pattern
-        \item Content Enricher Pattern
+        \item Document Message Pattern. Use a Document Message to reliably transfer a data structure between applications.
+        \item Command Message Pattern. Use a Command Message to reliably invoke a procedure in another application.
+        \item \textbf{Point-to-Point Channel*}. Send the message on a Point-to-Point Channel, which ensures that only one receiver will 
+        receive a particular message.
+        \item \textbf{Publish-Subscribe Channel*}.  Send the event on a Publish-Subscribe Channel, which delivers a copy of a particular event to each receiver.
+        \item \textbf{Guaranteed Delivery Pattern*}. Use Guaranteed Delivery to make messages persistent so that they are not lost even if the 
+        messaging system crashes.
+        \item Message Endpoint Pattern. Connect an application to a messaging channel using a Message Endpoint, a client of the 
+        messaging system that the application can then use to send or receive messages.
+        \item \textbf{Event-Driven Consumer*}. The application should use an Event-Driven Consumer, one that is automatically handed messages 
+        as they're delivered on the channel.
+        \item \textbf{Competing Consumers*}. Create multiple Competing Consumers on a single channel so that the 
+        consumers can process multiple messages concurrently.
+        \item \textbf{Polling Consumers*}. The application should use a Polling Consumer, one that explicitly makes a call when it 
+        wants to receive a message.
+        \item \textbf{Selective Consumer*}. Make the consumer a Selective Consumer, one that filters the messages delivered by its 
+        channel so that it only receives the ones that match its criteria.
+        \item Request-Reply Pattern. Send a pair of Request-Reply messages, each on its own channel.
+        \item Return Address. The request message should contain a Return Address that indicates where to send the reply message.
+        \item Message Expiration.  Set the Message Expiration to specify a time limit how long the message is viable.
+        \item Dead Letter Channel Pattern. When a messaging system determines that it cannot or should not deliver a message, it may elect to move 
+        the message to a Dead Letter Channel.
+        \item \textbf{Transactional Client Pattern*}. Use a Transactional Client to make the clients session with the messaging system 
+        transactional so that the client can specify transaction boundaries.
+        \item \textbf{Message Routing Pattern*}. Insert a special filter, a Message Router, which consumes a Message from one Message 
+        Channel and republishes it to a different Message Channel depending on a set of conditions. 
         \item (...)
     \end{itemize}
 \end{multicols}
@@ -926,9 +996,34 @@ For example do middleware design impose a more complex architecture and have thu
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{Images/eip-message-routing-categories.png}
-    \caption{EIP Categories}
+    \includegraphics[width=0.9\linewidth]{Images/eip-message-routing-categories.png}
+    \caption{EIP Routing}
 \end{figure}
+
+\begin{multicols}{2}
+    \textbf{Message Routing Patterns:}
+    \begin{itemize}
+        \item \textbf{Content-Based Router Pattern*}. Use a Content-Based Router to route each message to the correct recipient based on message content. 
+        \item \textbf{Recipient List Pattern*}. Define a channel for each recipient. Then use a Recipient List to inspect an incoming message, determine 
+        the list of desired recipients, and forward the message to all channels associated with the recipients in the 
+        list.
+        \item Splitter Pattern. Use a Splitter to break out the composite message into a series of individual messages, each containing 
+        data related to one item.
+        \item \textbf{Aggregator Pattern*}. Use a stateful filter, an Aggregator, to collect and store individual messages until a complete set of related 
+        messages has been received. Then, the Aggregator publishes a single message distilled from the individual 
+        messages.
+        \item (...)
+    \end{itemize}
+    \textbf{Message Transformation (Mediation):}
+    \begin{itemize}
+        \item \textbf{Message Translator Pattern*}. Use a special filter, a Message Translator, between other filters or applications to translate 
+        one data format into another.
+        \item Content Filter Pattern.  Use a Content Filter to remove unimportant data items from a message leaving only important items.
+        \item Content Enricher Pattern. Use a specialized transformer, a Content Enricher (a.k.a. Data Enricher), to access an external data source 
+        in order to augment a message with missing information.
+        \item (...)
+    \end{itemize}
+\end{multicols}
 
 \newpage
 \section{Coupling - Tradeoff Analysis}
@@ -944,13 +1039,12 @@ For example do middleware design impose a more complex architecture and have thu
     \item Assess tradeoffs by determine the impact of change to interdependent systems
 \end{enumerate}
 
-\newpage
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{Images/coupling-elements.png}
     \caption{Coupling Tradeoff Elements}
 \end{figure}
-
+\newpage
 \subsection{Communication}
 \subsubsection{Synchronous}
 
@@ -1060,7 +1154,7 @@ This is not the same as in german with "eventuell", but it rather translates to 
 
 \subsection{Service Granularity}
 \begin{multicols}{2}
-    Disintegrator provide guidance and justification for when to break a service into smaller pieces.
+    \textbf{Disintegrator} provide guidance and justification for when to break a service into smaller pieces.
     \begin{description}
         \item[Service Scope and Function] Is the service doing too many unrelated things?
         \item[Code Volatility] Are changes isolated to only one part of the service?
@@ -1070,7 +1164,7 @@ This is not the same as in german with "eventuell", but it rather translates to 
         \item[Extensibility] Is the service always expanding to add new contexts?   
     \end{description}
     \columnbreak
-    Integrators provide guidance and justification for putting services back  toghether or not breaking apart a service in the first place.
+    \textbf{Integrators} provide guidance and justification for putting services back  toghether or not breaking apart a service in the first place.
     \begin{description}
         \item[Database Transactions] Is an ACID transaction required between separate services?
         \item[Workflow and Choreography] Do services need to talk to one another?
@@ -1081,19 +1175,22 @@ This is not the same as in german with "eventuell", but it rather translates to 
 \newpage
 
 \section{Service Orientation}
-A service is similar to a component in that it's used by foreign applications. The main 
-difference is that I expect a component to be used locally (think jar file, assembly, DLL, or a 
-source import). A service will be used remotely through some remote interface, either 
-synchronous or asynchronous (e.g. Web service, messaging system, RPC, or socket.) (Fowler)
+\defn{Service}{
+    A service is similar to a component in that it's used by foreign applications. The main 
+    difference is that I expect a component to be used locally (think jar file, assembly, DLL, or a 
+    source import). A service will be used remotely through some remote interface, either 
+    synchronous or asynchronous (e.g. Web service, messaging system, RPC, or socket.)
+    \href{http://martinfowler.com/articles/injection.html}{Martin Fowler}
+}
 
+\subsection{Patterns used for Defining SOA from PoEAA}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.25\linewidth]{Images/service-layer-pattern.png}
-    \caption{Service Layer Pattern}
+    \includegraphics[width=0.35\linewidth]{Images/service-layer-pattern.png}
+    \caption{Service Layer Pattern (PoEAA)}
 \end{figure}
 
-\subsection{Service Layer Pattern}
-With the SLP we want to hide complex domain models from the presentation layer.
+With the Service Layer Pattern we want to hide complex domain models from the presentation layer.
 For this we define an applications boundary with a layer of services that establish a set of available operations
 and coordinates the applications response in each operation.
 
@@ -1101,35 +1198,42 @@ Some other responsibilities could include: Role-Based Access Control (RBAC), tra
 activity logging, metering, monitoring and exception handling.
 \newpage
 
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{Images/remote-facade.png}
-    \caption{Remote Facade Pattern}
+    \caption{Remote Facade Pattern (PoEAA)}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/data-transfer-object.png}
-    \caption{Data Transfer Option Pattern}
+    \caption{Data Transfer Option Pattern (PoEAA)}
 \end{figure}
 \newpage
 
 \subsection{Service Oriented Architecture (SOA)}
 SOA has multiple definitions depending who is answering this question.
 \begin{itemize}
-    \item A set of services and operations that a business wants to expose to their customers and partners.
+    \item A set of services and operations that a business wants to expose to their customers and partners. (Business Domain Analyst)
     \item An architectural style which requires a service provider, a service 
     requestor (consumer) and a service contract (a.k.a. client/server).
     \item A set of architectural patterns such as service layer(with remote 
     facades, data transfer objects), enterprise service bus, service 
     composition (choreography/orchestration), and service registry, 
     promoting principles such as modularity, layering, and loose 
-    couplingto achieve design goals such as reuse, and flexibility.
+    coupling to achieve design goals such as reuse, and flexibility. (IT-Architect)
     \item A programming and deployment model realized by standards, 
     tools and technologies such as Web services (WSDL/SOAP), 
-    RESTful HTTP, or asynchronous message queuing (AMQP etc.)
+    RESTful HTTP, or asynchronous message queuing (AMQP etc.) (Developer, Administrator)
     \href{ibm.com}{IBM SOA Solution Stack}
 \end{itemize}
+
+\defn{SOA}{
+    SOA (and microservices) combine PoEAA, EIP and DDD patterns (and others) in enterprise 
+    computing context.
+    Service contract must specify syntax, semantics, QoS (interoperability)
+}
 
 \begin{figure}[H]
     \centering
@@ -1159,20 +1263,32 @@ Architectures (SOAs) to promote agility and elasticity.
 \defn{Microservices Architecture by Fowler}{
     The microservice architectural style is an \textbf{approach to developing a single application 
     as a suite of small services}, each running in its \textbf{own process} and communicating with 
-    \textbf{lightweight mechanisms}, often an\textbf{HTTP resource API}
+    \textbf{lightweight mechanisms}, often an \textbf{HTTP resource API}.
+    Microservices implement SOA, the seven tenets (Newman) including IDEAL (ZIO).
 }
-These services are built around business 
-capabilities and independently deployable by fully automated deployment machinery.
+
+\defn{IDEAL Properties (ZIO)}{
+    \begin{itemize}
+        \item Isolated State
+        \item Distribution
+        \item Elasticity
+        \item Automated Management
+        \item Loose Coupling
+    \end{itemize}
+    \href{https://medium.com/olzzio/what-is-a-cloud-native-application-anyway-part-1-8241e9c71a62}{ZIO Ideal}
+}
+
+These services are built around business capabilities and independently deployable by fully automated deployment machinery.
 There is a bare minimum of centralized management of these services, which may be written in
 different programming languages and use different data storage technologies.
-
+\\\\
 They are often deployed in lightweight containers 
 and encapsulate their own state, while communicating via message-based remote APIs
  (HTTP, queueing), idealy in a loosely coupled fashion.
 They facilitate polyglot programming and persistence, leveraging DevOps practices including decentralized continuous delivery and end-to
 end monitoring (for business agility and domain observability).
 
-\defn{Principles of Microservices (Newman)}{
+\defn{Principles (Tenets) of Microservices (Newman)}{
     \begin{itemize}
         \item Model around business concepts (Bounded Context from DDD)
         \item Adopt a culture of automation
@@ -1193,8 +1309,8 @@ Furthermore transactions would span multiple microservices and are hard to manag
 In a microservice belongs all the data it need to operate while still beeing loosely coupled with others.
 New or changed business requirements should ideally lead to changes in just a single microservice including the user interface.
 
-Some of the \textbf{advantages} can be the following:
 \begin{multicols}{2}
+    Some of the \textbf{advantages} can be the following:
     \begin{itemize}
         \item High Velocity due to reduced communication
         \item Some technological independence (e.g. frameworks and languages)
@@ -1218,37 +1334,110 @@ Some of the \textbf{advantages} can be the following:
 \end{multicols}
 
 \subsection{Service Contracts}
-
-\subsection{Application State}
+\begin{itemize}
+    \item \href{https://microservice-api-patterns.org/patterns/foundation/APIDescription.html}{API Description pattern}
+    in "Patterns for API Design" (a.k.a. MAP)
+    \item Open API Specification (f.k.a. Swagger) for technical contract (HTTP-specific) 
+    \item \href{https://microservice-api-patterns.github.io/MDSL-Specification/}{MDSL}
+    for technical contract (platform-independent, research prototype)
+    \item WSDL: XML Language for Service Descriptions
+    \item SOAP: XML Documents as Service Invocation Messages
+\end{itemize}
+\section{Patterns for API Design (MAP)}
+MAP focuses on message representations. The payloaaad exchanged when APIs are called.
+\href{https://api-patterns.org/quickstart-resources}{ZIO Map Reference}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/app-state-management.png}
+    \includegraphics[width=0.6\linewidth]{Images/map-categories.png}
+    \caption{MAP Categories}
+\end{figure}
+
+Patterns to know:
+\begin{itemize}
+    \item \textbf{Pagination}
+    \begin{itemize}
+        \item  Divide large response data sets into manageable and easy-to-transmit chunks.
+        \item Send only partial results in the first response message and inform the consumer how 
+        additional results can be obtained/retrieved incrementally. 
+        \item Process some or all partial responses on the consumer side iteratively as needed; agree 
+        on a request correlation and intermediate/partial results termination policy on consumer 
+        and provider side.
+    \end{itemize}
+    \item \textbf{Wish List Pattern}. As an API client, provide a WISH LIST in the request that enumerates all desired data elements 
+    of the requested resource.
+\end{itemize}
+
+\section{Application State}
+Statelessness (of interactions) is emphasized both in SOA and REST.
+In this context the state between service consumer/requestor and service provider is focused.
+Application and middleware (e.g., queue manager, Web server) are always coupled via invocation API (which can be a local or a remote one).
+
+\defn{Session State Management - Thin Client Options (PoEAA)}{
+    \begin{description}
+        \item[Client Session State (Rest 3)] HTML/HTTP: cookie, hidden field, URL rewrite (REST: no cookies!); JWT.
+        Scales well, but possibly has performance problems and must be secured.
+        \item[Server Session State] Uses main memory or proprietary data stores in an application server (e.g., Spring or 
+        HTTP session API in JEE servlet container). Persistent HTTP sessions no longer recommended when deploying to a cloud due to 
+        scalability and reliability concerns.
+        \item[Database Session State] Is well supported in many clouds, e.g. via highly scalable key-value storage (a type of 
+        NoSQL database) such as Redis.
+    \end{description}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/app-state-management.png}
     \caption{Who is in charge of application state?}
 \end{figure}
 
 \subsection{Representation State Transfer}
-REST is an architectural style for integration, defined via constraints.
-It is itselt not an API technology or protocol. REST-ful HTTP is one prominent incarnation of this style, if done right.
-The defining constraints are:
+\defn{REST}{
+    REST is an architectural style for integration, defined via constraints.
+    It is itselt not an API technology or protocol. REST-ful HTTP is one prominent incarnation of this style, if done right.
+    The key concepts are:
+    \begin{itemize}
+        \item Linked resources with URIs
+        \item Representations (external view)
+        \item Unified method set
+    \end{itemize}
+    Resources have representations, which does not imply data- and CRUD-orientation.
+    REST is defined by four interface constraints: 
 \begin{itemize}
-    \item Client-Server
-    \item Stateless
-    \item Cacheable
-    \item Uniform Interface (URI, HTTP)
-    \item Layered System
-    \item Code on Demand (optional)
+    \item identification of resources; 
+    \item manipulation of resources through representations; 
+    \item self-descriptive messages; and, 
+    \item hypermedia as the engine of application state.
 \end{itemize}
+}
+
+\exm{Accurate Terms}{
+    More accurate terms, depending on maturity level: 
+\begin{itemize}
+    \item 0 HTTP API
+    \item 1 RESTful HTTP API or Web API
+    \item 2 RESTful HTTP API or Web API
+    \item 3 Hypermedia API
+\end{itemize}
+}
+%The defining constraints are:
+%\begin{itemize}
+%    \item Client-Server
+%    \item Stateless
+%    \item Cacheable
+%    \item Uniform Interface (URI, HTTP)
+%    \item Layered System
+%    \item Code on Demand (optional)
+%\end{itemize}
 \href{http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm}{Architecural Style Reference}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/glory-of-rest.png}
+    \includegraphics[width=0.4\linewidth]{Images/glory-of-rest.png}
     \caption{\href{https://martinfowler.com/articles/richardsonMaturityModel.htmlT}{he Glory of REST (Maturity Levels)}}
 \end{figure}
 
 \newpage
-\subsection{HateoAs (Hypermedia Control)}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/hate-oas-dectree.png}
@@ -1256,7 +1445,7 @@ The defining constraints are:
 \end{figure}
 \newpage
 
-\section{Other Tools and Methods}
+\section{Other Tools and Methods (Attachements)}
 \section{C4 Model}
 \defn{C4 Model}{
 The C4 model is a software architecture visualization model based on a set of hierarchical abstractions: software systems, containers, components, and code. It uses corresponding hierarchical diagrams—System Context, Container, Component, and Code—to describe these abstractions. The model is intentionally notation-independent and tooling-independent, focusing on clarity and adaptability rather than imposing specific methodologies or tools.
@@ -1279,7 +1468,7 @@ Context matters (the first C in C4), System Context Diagram (SCD) also present i
 
 \newpage
 
-\subsection{Story Splitting Flowchart}
+\subsection{Story Splitting}
 A story that is too large for a sprint must be broken down
 to meet the INVEST properties of user stories.
 \begin{figure}[H]
@@ -1291,7 +1480,7 @@ to meet the INVEST properties of user stories.
 
 \begin{figure}[H]
     \centering
-    \includegraphics{Images/appliedstorysplitting.png}
+    \includegraphics[width=1\linewidth]{Images/appliedstorysplitting.png}
     \caption{Story Splitting Example}
 \end{figure}
 
@@ -1306,7 +1495,23 @@ to meet the INVEST properties of user stories.
         Interface Variations& & &\\ \hline
     \end{tabular}
     \caption{Story Splitting Example Table}
-    \label{tab:storysplitex}
 \end{table}
+
+\subsection{Topic Summary Explanations}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/topic-summary-explanation.png}
+    %\caption{Topic}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/topic-summary-explanation-1.png}
+    \caption{Topic Summary Explanations}
+\end{figure}
+
+\subsection{More}
+\begin{itemize}
+    \item \href{https://architecture-antipatterns.tech/}{Antipatterns}
+\end{itemize}
 
 \end{document}
