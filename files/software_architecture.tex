@@ -63,6 +63,7 @@ that has to be inte grated via an Application Programming Interface (API).
         \item The requirement has a first-of-a-kind character: e.g., the team has never built a component before that satisfies this particular requirement. 
         \item The requirement has been troublesome and caused critical situations, budget overruns or client dissatisfaction in a previous project in a similar context. 
     \end{enumerate}
+    Point \textbf{1 to 2} handles \textbf{business value risks} and \textbf{3 to 7} focuses mainly on \textbf{technical risks}.
     \href{https://medium.com/olzzio/architectural-significance-test-9ff17a9b4490}{ZIO}
 }
 S. Toth asks the following five questions to classify the architectural significance of decisions that justify if and
@@ -79,26 +80,41 @@ how a requirement is met.
 Assessment of architectural significance scopes and prioritizes architecture analysis, 
 synthesis/design, and evaluation/review. NFRs should be specified in a SMART way.
 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    Requirement & Score & Mapping & Explanation \\
+    \hline
+    Autoscaling & H & RC-2 & Justification \\
+    \hline
+    \end{tabular}
+    \caption{Example ASR Test}
+\end{table}
+
+
 \subsection{NFR Catalogs and Taxonomies}
+The SMART criteria are frequently used in project and people management, but they can also be applied to Non
+Functional Requirement (NFR) engineering. Most of the time only S and M are used in NFR engineering.
 
 \defn{SMART}{
 \begin{description}
     \item[Specific]  Targeting a particular area for improvement. Which feature or part of the system should satisfy the requirement?
     \item[Measurable] Quantifying, or at least suggesting, an indicator of progress. How can testers and other stakeholders find out whether the requirement is met (or not)? Is the 
     requirement quantified?
-    \item[Assignable] Defining responsibility clearly
-    \item[Realistic] Outlining attainable results with available resources. Time-related: Including a timeline for expected results 
+    \item[Agreed Upon] The goal must be realistic and achievable and have a consent in the team (everyone should know
+    what we are talking about).
+    \item[Realistic] Outlining attainable results with available resources. Time-related: Including a timeline for expected results
+    \item[Time-Bound] There should be a clearly defined timeline, including a starting date and a target date.
 \end{description}
 The specific definitions of the words are not fixed.
 A, R, T are requirements engineering and project management concerns.
 }
 
-The SMART criteria can be applied to NFR engineering.
-\begin{itemize}
-    \item Specific: Which feature or part of the system should satisfy the requirement?
-    \item Measurable: How can testers and other stakeholders find out whether the requirement is met (or not)? Is the requirement quantified?
-\end{itemize}
-
+The FURPS+ acronym, devised by Robert Grady of HP, provides a way to define requirements by non-functional
+stories, and also provides a good way to categorize such needs. The breakdown here suggests some representative
+questions around potential needs.
 \defn{FURPS+}{
     Furps+:
     \begin{itemize}
@@ -114,11 +130,35 @@ The SMART criteria can be applied to NFR engineering.
     \end{itemize}
     \href{https://ieeexplore.ieee.org/document/4384163}{Martin Glinz}
 }
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/req-categorization.png}
+    \caption{Requirement Categorization}
+\end{figure}
+
 \newpage
 \subsection{Quality Attribute Scenario (QAS)}
+There are a variety of published taxonomies and definitions and 
+architectural there are three problems with system quality attributes:
+\begin{enumerate}
+    \item The definitions provided for an attribute are not operational.
+    \item To which quality does a particular aspect belong. Is a system failure an aspect
+    of availability, an aspect of security, or an aspect of usability?
+    \item Each attribute community has developed its own vocabulary.
+\end{enumerate}
+
+We use two general solution for these problems:
+\begin{description}
+    \item[First two problems:] (nonoperational definitions and overlapping attribute concerns) Use
+    Quality Attribute Scenarios as a means of characterizing quality attributes.
+    \item[Third problem:] Provide a brief discussion of each attribute — concentrating on its underlying
+    concerns — to illustrate the concepts that are fundamental to that attribute community.
+\end{description}
+
 Quality attributes describe how a system provides its functionality, not how.
 It can be used to achieve S and M n SMART.
-Measurability is enabled by the "Response Measure field".
+Measurability is enabled by the "Response Measure field" specificity by the other fields.
 
 \begin{figure}[H] 
     \centering
@@ -143,6 +183,9 @@ This helps agree upon a range rather than one single value.
 This is similar to release criteria but allows for tolerances
 in acceptable values. Moreover it allows for some flexibility
 in meeting goals. This can be used without QAS.
+\\\\
+Goal:  Establish three measurable \textbf{(M)} values rather than a single measure that might not be realistic \textbf{(R)} and
+impossible to agree upon \textbf{(A)}.
 
 \begin{figure}[H]
     \centering
@@ -228,7 +271,20 @@ that shape the system's architecture. These include:
  \href{https://docs.arc42.org/section-4/}{ARC42 SS Template}
 }
 
-\subsection{Y-Template}
+\defn{Big Architectural Decisions}{
+    \begin{enumerate}
+        \item Those with high arch. significance score
+        \item Those requiring financial investment; those with tough consequences
+        \item Those that take a long time to execute upon
+        \item Those with many or still unclear outgoing dependencies
+        \item Those that take a long time to make according to DoD (ecADR)
+        \item Those with a high level of abstraction 
+        \item Those with problem/solution space outside of team's comfort zone 
+    \end{enumerate}
+}
+For reference documentation use the template \href{https://github.com/adr/madr}{MADR Templates}.
+
+\subsection{Y-Template (Stating Decisions)}
 The Y-Template can be used to make decisions more
 descriptive. It links AD to design context and NFRs
 and shows tradeoffs between qualities.
@@ -252,20 +308,15 @@ and shows tradeoffs between qualities.
 
 The definition of layers and tiers is a typical
 big decision in solution strategy:
-\begin{itemize}
-    \item In the logical and implementation view,
-    layers separate concerns
-    \item In the process and physical view,
-    tiers distribute the workload
-\end{itemize}
-
-\defn{Layers}{
+\defn{Layers and Tiers}{
     \begin{description}
         \item[Layers]  describe the logical groupings 
         of the functionality and components in an application.
+        In the logical and implementation view, \textbf{they separate concerns}.
         \item[Tiers] describe the physical distribution of the 
         functionality and components on separate servers, 
         computers, networks, or remote locations.
+        In the process and physical view, they \textbf{distribute the workload}.
     \end{description}
 }
 
@@ -328,20 +379,6 @@ and integrated business information systems (Renzel and Keller (1997)).
     \includegraphics[width=1\linewidth]{Images/csc-pro-con.png}
     \caption{CSC Pro and Cons}
 \end{figure}
-
-\subsection{Big Decisions}
-\defn{Big Architectural Decisions}{
-    \begin{enumerate}
-        \item Those with high arch. significance score
-        \item Those requiring financial investment; those with tough consequences
-        \item Those that take a long time to execute upon
-        \item Those with many or still unclear outgoing dependencies
-        \item Those that take a long time to make according to DoD (ecADR)
-        \item Those with a high level of abstraction 
-        \item Those with problem/solution space outside of team's comfort zone 
-    \end{enumerate}
-}
-For reference documentation use the template \href{https://github.com/adr/madr}{MADR Templates}.
 
 \subsection{Container}
 \defn{Container}{
@@ -411,24 +448,19 @@ with many configurations. It is a one-step class member initialization.
     implementation classes behind an interface.
     \href{https://c4model.com/abstractions/component}{C4}
 }
-With the C4 model, components are \textbf{not separately deployable units}.
-Instead, it's the container that's the deployable unit. In other words,
-all components inside a container execute in the \textbf{same process space}.
-Aspects such as how components are packaged (e.g. one component vs
-many components per JAR file, DLL, shared library, etc) is an
-orthogonal concern.
-\\\\
+\exm{Components in C4}{
+    With the C4 model, components are \textbf{not separately deployable units}.
+    Instead, it's the container that's the deployable unit. In other words,
+    all components inside a container execute in the \textbf{same process space}.
+    Aspects such as how components are packaged (e.g. one component vs
+    many components per JAR file, DLL, shared library, etc) is an
+    orthogonal concern.
+}
 The components that we deal with in solution strategy are \textbf{candidate components}.
 A candidate component is an intermediate/preliminary architectural element
 used for planning, decision making, architectural prototyping.
 The candidate components are subject to continuous refinement and
 consolidation efforts (architectural refactoring).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{Images/candidatecomponents.png}
-    \caption{Candidate Components}
-\end{figure}
 
 \defn{Candidate Component (one Definition)}{
     A candidate component is an architectural element in the logical 
@@ -437,12 +469,26 @@ consolidation efforts (architectural refactoring).
     implementation work can be planned and component realization
     decisions can be made.
 }
-Other definitions depending on the viewpoint exist.
-\textbf{Implementation components} reside in the development/implementation viewpoint. They group one 
-or more classes (in OOP) and provide an interface that hides their implementation details e.g. in 
-JEE and Spring. Their dependencies are made explicit and managed; they are versioned.
-\textbf{Deployment units} then bundle one or more implementation components to be hosted on one or 
-more physical nodes (deployment viewpoint).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/candidatecomponents.png}
+    \caption{Candidate Components}
+\end{figure}
+
+Different stages of components can be identified during the whole creation of a software.
+They should be created as candidate components during solution strategy, populated and refined into implementation
+ components in project iterations. Deployment units then bundle one or more implementation components
+to be hosted on one or more physical nodes (deployment viewpoint).
+
+Other definitions depending on the viewpoint exist:
+\begin{description}
+    \item[Implementation]  reside in the development/implementation viewpoint. They group one 
+    or more classes (in OOP) and provide an interface that hides their implementation details e.g. in 
+    JEE and Spring. Their dependencies are made explicit and managed; they are versioned.
+    \item[Deployment Units] then bundle one or more implementation components to be hosted on one or 
+    more physical nodes (deployment viewpoint).
+\end{description}
 
 \newpage
 \subsection{Component Interactions}
@@ -474,7 +520,7 @@ More information with \href{http://docs.arc42.org/section-6/}{Runtime View on ar
 \newpage
 
 \subsection{Finding Candidate Components with Story Splitting (Agile Practice)}
-Story that is too large for a sprint must be broken down to meet the INVEST properties of user stories.
+Story that is too large for a sprint must be broken down to meet the \textbf{INVEST} properties of user stories.
 
 \defn{INVEST Properties}{
     \begin{enumerate}
@@ -492,6 +538,33 @@ Story that is too large for a sprint must be broken down to meet the INVEST prop
     \includegraphics[width=1\linewidth]{Images/user-stories-components.png}
     \caption{User Stories for Components Example}
 \end{figure}
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=90,height=1\textwidth]{Images/storysplitting.png}
+    \caption{Story Splitting Flowchart}
+\end{figure}
+\newpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/appliedstorysplitting.png}
+    \caption{Story Splitting Example}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|c|} \hline 
+        Splitting Pattern&  Pres. Layer Responsibility &  Business Logic& Data Access Layer\\ \hline 
+        Workflow Steps&  &  & \\ \hline 
+        Operations&  &  & \\ \hline 
+        Business Rule&  &  & \\ \hline 
+        Data Variations&  &  & \\ \hline 
+        Interface Variations& & &\\ \hline
+    \end{tabular}
+    \caption{Story Splitting Example Table}
+\end{table}
+\newpage
 
 \subsection{Component Identification}
 A rule of thumb is to \textbf{identify one candidate component per layer and
@@ -551,6 +624,9 @@ The well known patterns include:
 \end{itemize}
 
 \section{Domain Driven Design (DDD)}
+DDD is a major software design concept introduced by the programmer Eric Evans in 2004, focusing on modelling
+software to match a domain according to input from that domain’s expert. Properly applied it can lead to software
+abstractions called domain models.
 \defn{DDD}{
     \begin{description}
         \item[Tactic DDD] focuses on business logic in layered architecture models.
@@ -795,22 +871,31 @@ DDD does not mandate any particular syntax such as UML, pattern icons or pictogr
 In a good integration styles we want to achieve loose coupling while connecting different bounded contexts.
 \defn{Loose Coupling Dimensions}{
     Loose coupling has at least four dimensions:
-    \begin{itemize}
-        \item Reference autonomy. Producers and consumers dont know each other.
-        \item Platform autonomy. Producers and consumers may be located in different technical environments (e.g., 
-        containers), can be written in different languages, etc.
-        \item Time autonomy. Producers and consumers access channel at their own pace (Communication is asynchronous,  Data exchanged is persistent).
-        \item Format autonomy. Producers and consumers may use different formats of data exchanged.
-    \end{itemize}
+    \begin{description}
+        \item[Reference autonomy] Producers and consumers dont know each other. (URI)
+        \item[Platform autonomy] Producers and consumers may be located in different technical environments (e.g., 
+        containers), can be written in different languages, etc. (HTTP)
+        \item[Time autonomy] Producers and consumers access channel at their own pace (Communication is asynchronous,  Data exchanged is persistent). (Messagin)
+        \item[Format autonomy] Producers and consumers may use different formats of data exchanged. (EIP)
+    \end{description}
 }
 
 \subsection{Top Level Remote Communication (Integration Styles)}
 \begin{multicols}{2}
     \begin{description}
-        \item[File Transfer]
-        \item[Shared database]
-        \item[Remote Procedure Calls]
-        \item[Messaging]
+        \item[File Transfer] Have each application produce files containing information
+        that other applications need to consume. Integrators take
+        the responsibility of transforming files into different for
+       mats. Produce the files at regular intervals according to
+        the nature of the business.
+        \item[Shared database] Integrate applications by having them store their data in a
+        single Shared Database.
+        \item[Remote Procedure Calls]  Develop each application as a large-scale object or compo
+        nent with encapsulated data. Provide an interface to allow
+         other applications to interact with the running application.
+        \item[Messaging] Use Messaging to transfer packets of data frequently, im
+        mediately, reliably, and asynchronously, using customizable
+         formats. Is a known use of the Pipes and Filters pattern.
     \end{description}
     \columnbreak
 
@@ -850,14 +935,15 @@ persistence:
 \end{itemize}
 The reason a messaging system is needed to move messages from one computer to 
 another is that computers and the networks that connect them are inherently unreliable:
-
-Just because one application is ready to send a communication does not mean that the 
-other application is ready to receive it.
-Even if both applications are ready, the network may not be working, or may fail to 
-transmit the data properly.
-A messaging system overcomes these limitations by repeatedly trying to transmit the 
-message until it succeeds. Under ideal circumstances, the message is transmitted 
-successfully on the first try, but circumstances are often not ideal.
+\begin{itemize}
+    \item Just because one application is ready to send a communication does not mean that the 
+    other application is ready to receive it.
+    Even if both applications are ready, the network may not be working, or may fail to 
+    transmit the data properly.
+    \item A messaging system overcomes these limitations by repeatedly trying to transmit the 
+    message until it succeeds. Under ideal circumstances, the message is transmitted 
+    successfully on the first try, but circumstances are often not ideal.
+\end{itemize}
 To achieve this, an established abstraction is used: 
 \defn{Channels}{
     Channels a.k.a. Queues are a fundamental logical concept realized via several physical network connections.
@@ -1334,17 +1420,36 @@ New or changed business requirements should ideally lead to changes in just a si
 \end{multicols}
 
 \subsection{Service Contracts}
+A Service contract refers to the definition of a service provided by an application component, detailing its inputs,
+outputs and behavior. A service contract is a fundamental building block of service-oriented architecture (SOA) and
+serves as a shared understanding between the provider and consumer of the service.
+\textbf{Examples of Service Contract Notations are:} OpenAPI Specification, Protocol Buffers (in gRPC context), Web
+Service Description Language WSDL, XML Schema Definition XSD.
 \begin{itemize}
     \item \href{https://microservice-api-patterns.org/patterns/foundation/APIDescription.html}{API Description pattern}
     in "Patterns for API Design" (a.k.a. MAP)
-    \item Open API Specification (f.k.a. Swagger) for technical contract (HTTP-specific) 
+    \item Open API Specification (f.k.a. Swagger) for technical contract (HTTP-specific);
+    Formerly known as Swagger, is an Interface Description Language (IDL) used
+    to describe RESTful APIs. It uses a simple YAML or JSON file to describe the structure of an API including its
+    endpoints, input and output parameters, authentication methods and other information.
     \item \href{https://microservice-api-patterns.github.io/MDSL-Specification/}{MDSL}
-    for technical contract (platform-independent, research prototype)
-    \item WSDL: XML Language for Service Descriptions
+    for technical contract (platform-independent, research prototype);
+    Microservice Domain-Specific Language (MDSL) is a language specifically de
+    signed to describe the structure and behavior of microservices. It is used to define
+    the interface, dependencies, and other aspects of a microservice, and can be used
+    to generate code, documentation, and other artifacts.
+    \item WSDL: XML Language for Service Descriptions;
+    An XML-based language used
+    to describe the functionality offered by a web service. It defines the operations
+    (methods) that can be called on the service, the inputs and outputs for those
+    operations, and the location of the service (the endpoint). It is commonly used in
+    context with SOAP interfaces.
     \item SOAP: XML Documents as Service Invocation Messages
 \end{itemize}
 \section{Patterns for API Design (MAP)}
-MAP focuses on message representations. The payloaaad exchanged when APIs are called.
+Microservice API Patterns refer to a set of best practices and design patterns for building and exposing APIs in a
+ microservice architecture. MAP helps ensure that APIs are consistent, scalable, secure, and easily consumable by
+clients. MAP focuses on message representations. The payload exchanged when APIs are called. (ZIO)
 \href{https://api-patterns.org/quickstart-resources}{ZIO Map Reference}
 
 \begin{figure}[H]
@@ -1353,10 +1458,24 @@ MAP focuses on message representations. The payloaaad exchanged when APIs are ca
     \caption{MAP Categories}
 \end{figure}
 
-Patterns to know:
-\begin{itemize}
-    \item \textbf{Pagination}
-    \begin{itemize}
+\subsection{Patterns to know}
+\subsubsection{Embedded Entity:}
+\begin{description}
+    \item[Goal] Avoid exchanging multiple messages when receivers require insights from multiple related information elements.
+    \item[Forces] Performance, Scalability, flexibility and modifiability, data quality, freshness, consistency
+    \item[Solution] For any relationship that the client has to follow, embed a Data Element in the message that contains
+    the data of the target entity (instead of linking to the target entity).
+\end{description}
+
+\subsubsection{Pagination:}
+\begin{description}
+    \item[Goal] Optimize a response to an API client that should deliver large amounts of data with the same structure.
+    \item[Forces] Data set size and data access profile, especially number of data records required to be available,
+    Variability of data (structure, rate of change),
+    Memory availability for a single request (on provider and consumer side),
+    Network capabilities (server topology, intermediaries),
+    Security and robustness (reliability) concerns
+    \item[Solution] \begin{itemize}
         \item  Divide large response data sets into manageable and easy-to-transmit chunks.
         \item Send only partial results in the first response message and inform the consumer how 
         additional results can be obtained/retrieved incrementally. 
@@ -1364,9 +1483,16 @@ Patterns to know:
         on a request correlation and intermediate/partial results termination policy on consumer 
         and provider side.
     \end{itemize}
-    \item \textbf{Wish List Pattern}. As an API client, provide a WISH LIST in the request that enumerates all desired data elements 
-    of the requested resource.
-\end{itemize}
+    \item[Variants] Cursor-based vs. offset-based
+    \item[Consequences] State Management required
+\end{description}
+
+\subsubsection{Wish List Pattern:}
+\begin{description}
+    \item[Goal] Let the API provider know at runtime, what data the client is interested in.
+    \item[Forces] Client diversity, message size vs. number of messages, endpoint complexity and more
+    \item[Solution] As an API client, provide a WISH LIST in the request that enumerates all desired data elements of the requested resource.
+\end{description}
 
 \section{Application State}
 Statelessness (of interactions) is emphasized both in SOA and REST.
@@ -1395,20 +1521,21 @@ Application and middleware (e.g., queue manager, Web server) are always coupled 
 \defn{REST}{
     REST is an architectural style for integration, defined via constraints.
     It is itselt not an API technology or protocol. REST-ful HTTP is one prominent incarnation of this style, if done right.
-    The key concepts are:
+    Constraints / Principles of REST::
+    \begin{itemize}
+        \item Client-Server
+        \item Stateless
+        \item Cacheable
+        \item Uniform Interface (URI, HTTP)
+        \item Layered System Code on Demand (Optional)
+    \end{itemize}
+    Key concepts to achieve these constraints:
     \begin{itemize}
         \item Linked resources with URIs
-        \item Representations (external view)
+        \item Representations (external view, which does not imply data- and CRUD-orientation)
         \item Unified method set
     \end{itemize}
-    Resources have representations, which does not imply data- and CRUD-orientation.
-    REST is defined by four interface constraints: 
-\begin{itemize}
-    \item identification of resources; 
-    \item manipulation of resources through representations; 
-    \item self-descriptive messages; and, 
-    \item hypermedia as the engine of application state.
-\end{itemize}
+    HATEOAS is a part of RESTful API architecture and design and intends to make the APIs self-descriptive.
 }
 
 \exm{Accurate Terms}{
@@ -1450,14 +1577,26 @@ Application and middleware (e.g., queue manager, Web server) are always coupled 
 \defn{C4 Model}{
 The C4 model is a software architecture visualization model based on a set of hierarchical abstractions: software systems, containers, components, and code. It uses corresponding hierarchical diagrams—System Context, Container, Component, and Code—to describe these abstractions. The model is intentionally notation-independent and tooling-independent, focusing on clarity and adaptability rather than imposing specific methodologies or tools.
 }
-C4 model as a "light" alternative to UML. 
+
+\begin{description}
+        \item [System Context] Shows the software system being built and how it fits into its environment. This includes the people who use it and
+        any other software systems it interacts with. It adds little detail about the system itself.
+        \item[Container] Provides an architecture overview. It zooms in to the software system and shows the containers, which are essentially
+        separately deployable units that executes code or stores data (applications, data stores, microservices, etc.). It
+        illustrates Client Server Cuts (CSCs), as well as interface protocols and technology decisions and typically gets
+        created during solution strategy.
+        \item[Component] Zooms into an individual container to show the components inside it. These components should map to real
+        abstractions (e.g., a grouping of code) in your codebase.
+        \item[Code] There nearly is never the need to draw a Code diagram, since it gives a very low level idea on how the
+        code is structured.
+\end{description}
+
+We can use a generalistic approach using C4:
 \begin{enumerate}
     \item First level of design (solution strategy): containers
     \item Second level of design (refinement): components
     \item Third level of design coded, not diagrammed (construction)
 \end{enumerate}
-
-Context matters (the first C in C4), System Context Diagram (SCD) also present in other software engineering and architecture design methods
 
 \begin{figure}[H]
     \centering
@@ -1467,35 +1606,18 @@ Context matters (the first C in C4), System Context Diagram (SCD) also present i
 \href{https://c4model.com/}{Link to C4 Model Home Page}
 
 \newpage
+\subsection{ARC42}
+arc42 is an open source documentation template and is based on practical experience of many systems in various
+domains, from information and web systems, real-time and embedded to business intelligence and data warehouses.
+arc42 answers the following two questions in a pragmatic way and can be tailored to your specific needs: What should
+you document/communicate about your architecture?, How should you document/communicate?.
 
-\subsection{Story Splitting}
-A story that is too large for a sprint must be broken down
-to meet the INVEST properties of user stories.
 \begin{figure}[H]
     \centering
-    \includegraphics[angle=90,height=1\textwidth]{Images/storysplitting.png}
-    \caption{Story Splitting Flowchart}
+    \includegraphics[width=0.75\linewidth]{Images/arc-section-overview.png}
+    \caption{Arc Section Oveview}
 \end{figure}
 \newpage
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{Images/appliedstorysplitting.png}
-    \caption{Story Splitting Example}
-\end{figure}
-
-\begin{table}
-    \centering
-    \begin{tabular}{|c|c|c|c|} \hline 
-        Splitting Pattern&  Pres. Layer Responsibility &  Business Logic& Data Access Layer\\ \hline 
-        Workflow Steps&  &  & \\ \hline 
-        Operations&  &  & \\ \hline 
-        Business Rule&  &  & \\ \hline 
-        Data Variations&  &  & \\ \hline 
-        Interface Variations& & &\\ \hline
-    \end{tabular}
-    \caption{Story Splitting Example Table}
-\end{table}
 
 \subsection{Topic Summary Explanations}
 \begin{figure}[H]
