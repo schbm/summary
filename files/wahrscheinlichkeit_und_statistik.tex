@@ -123,7 +123,7 @@ In allen Fällen ergibt sich eine Reihe von Gesetzmässigkeiten oder Formeln, we
 \begin{equation}
     P(\Omega)=1
 \end{equation}
-\textbf{Vereinigung}. Sind die Ereignisse \(A_1,A_2,\dots\) paarweise disjunkt. also \(A_i \cap A_j = \emptyset\) für \(i \neq j\), dann gilt
+\textbf{Vereinigung}. Sind die Ereignisse \(A_1,A_2,\dots\) \textbf{paarweise disjunkt}, also \(A_i \cap A_j = \emptyset\) für \(i \neq j\), dann gilt
 \begin{equation}
     P(A_1 \cup A2 \cup \dots)= P(A_1)+P(A_2)+\dots
 \end{equation}
@@ -132,7 +132,7 @@ Aus den Axiomen folgt:
     \item Die Wahrscheinlichkeit des unmöglichen Ereignisses ist \\
 \[P(\emptyset)=0\]
     \item Die Wahrscheinlichkeit des komplementären Ereignisses ist \\
-\[ P(\bar{A}=P(\Omega \setminus A) = 1-P(A) \]
+\[ P(\bar{A}=P(\Omega \setminus A) = 1-P(A)) \]
     \item Die Wahrscheinlichkeit der Differenz der Ereignisse A und B ist \\
 \[ P(A \setminus B) = P(A) - P(A \cap B) \]
     \item Die Wahrscheinlichkeit der Vereinigung zweier beliebiger Ereignisse ist (Ein-/Ausschaltformel)\\
@@ -163,7 +163,7 @@ Die bedingte Wahrscheinlichkeit eines Ereignisses A unter der Bedingung B ist
 Man liest dies auch als “Wahrscheinlichkeit von A bedingt B”.
 }
 
-\defn{Unabhängigkeit}{
+\defn{Unabhängigkeit \(\neq\) disjunkt}{
     Die Ereignisse A und B heissen unabhängig, wenn gilt:
     \begin{equation}
         P(A \cap B) = P(A) \cdot P(B)
@@ -717,6 +717,9 @@ Wahrscheinlichkeitsdichte:
     \begin{equation}
         P(a < X \leq b) = \int_a^b \varphi(x) dx
     \end{equation}
+    \begin{equation}
+        F(x) = \int_{-\infty}^{x} \varphi(\xi) d\xi
+    \end{equation}
 }
 \begin{figure}[H]
     \centering
@@ -972,7 +975,7 @@ es müssen entweder Tabellen oder numerische  Lösungen verwendet werden.
 
 \defn{Normalverteilung}{
     \begin{equation}
-        \varphi = \frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{x-\mu}{2\sigma^2}}
+        \varphi(x) = \frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{x-\mu}{2\sigma^2}}
     \end{equation}
 }
 
@@ -1198,7 +1201,7 @@ Die Binomialverteilung modelliert Zufallsexperimente mit zwei möglichen Ausgän
     \begin{equation}
         \begin{split}
             \text{Wahrscheinlichkeit} \quad P(X=k) &= \binom{n}{k} p^k (1-p)^{n-k} \\
-            \text{Verteilung} \quad F(x) &= 1-e^{-ax}
+            \text{Verteilung} \quad F(x) &= \sum_{i=0}^{k} \binom{n}{i} p^i(1-p)^{n-1}
         \end{split}
     \end{equation}
 }
@@ -1237,6 +1240,10 @@ sind, ist dieser Schätzer von unbrauchbarer Qualität.
     \includegraphics[width=0.75\linewidth]{Images/binom-berechnungsprobleme.png}
     \caption{Berechnungsprobleme der Binomialverteilung}
 \end{figure}
+\begin{description}
+    \item[Zu klein (P)] Poison benutzen
+    \item[Binom zu gross] Normalapproximation verwenden
+\end{description}
 
 \subsection{Normalapproximation}
 
@@ -1298,7 +1305,7 @@ Für eine genauere Approximation, kann folgendes benutzt werden:
     \end{equation}
 }
 
-\defn{PKennzahlen}{
+\defn{Kennzahlen}{
     \begin{equation}
          \begin{split}
             E(X) &= \lambda \\
