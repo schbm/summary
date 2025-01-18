@@ -22,7 +22,7 @@ Wenn es für jede von \(n\)  Wahlmöglichkeiten m mögliche weitere Wahlmöglich
 \end{equation}
 }
 
-\defn{Permutation (Anordnung)}{
+\defn{Permutation (Anordnung, eigentlich Fakultät)}{
 Gegeben sind \(n\)  anzuordnende Objekte. Die Fakultät ! beschreibt dabei die Anzahl Arten wie dies geschehen kann.
 \begin{equation}
     \begin{split}
@@ -31,6 +31,7 @@ Gegeben sind \(n\)  anzuordnende Objekte. Die Fakultät ! beschreibt dabei die A
       &= n!
     \end{split}
 \end{equation}
+Mit dem Ti-Nspire CX II-T: \textbf{nCr(n,k)}
 }
 
 \defn{Kombination (Auswahl Problem)}{
@@ -101,12 +102,12 @@ Der Ausgang eines Experimentes heisst Elementarereignis, die Menge aller Element
 \section{Wahrscheinlichkeit}
 Die Wahrscheinlichkeit soll ein Mass dafür sein, dass ein Ereignis eintritt. Es gibt verschiedene Ansätze, wie wir zu einem solchen Mass kommen könnten: 
 \begin{enumerate}
-    \item Je häufiger ein Ereignis eintritt, desto grösser sollte die Wahrscheinlichkeit sein. Dies setzt voraus, dass das Experiment im Prinzip beliebig oft wiederholbar ist. Man nennt dies den frequentistischen Ansatz. 
-    \item Die Wahrscheinlichkeit ist ein Mass für die persönliche Überzeugung, dass ein Ereignis eintreten wird. Im Unterschied zum frequentistischen Ansatz sollte man bei diesem Ansatz einem Ereignis auch dann eine Wahrscheinlichkeit geben können, wenn sich ein Experiment nicht wirklich wiederholen lässt. Dies ist der Bayessche Ansatz. 
-    \item Wir könnten eine Reihe von plausiblen Axiomen postulieren, nach denen sich die Wahr scheinlichkeit zu verhalten hat, und dann zu untersuchen, ob ein solches Objekt tatsäch lich existiert. Dabei ist uns egal, was der Wahrscheinlichkeitswert genau bedeutet. Dieser axiomatische Ansatz hat den Vorteil, logisch konsistent zu sein, was bei den anderen An sätzen nicht von vornherein garantiert ist. 
+    \item Je häufiger ein Ereignis eintritt, desto grösser sollte die Wahrscheinlichkeit sein. Dies setzt voraus, dass das Experiment im Prinzip beliebig oft wiederholbar ist. Man nennt dies den \textbf{frequentistischen Ansatz}. 
+    \item Die Wahrscheinlichkeit ist ein Mass für die persönliche Überzeugung, dass ein Ereignis eintreten wird. Im Unterschied zum frequentistischen Ansatz sollte man bei diesem Ansatz einem Ereignis auch dann eine Wahrscheinlichkeit geben können, wenn sich ein Experiment nicht wirklich wiederholen lässt. Dies ist der \textbf{Bayessche Ansatz}. 
+    \item Wir könnten eine Reihe von plausiblen Axiomen postulieren, nach denen sich die Wahrscheinlichkeit zu verhalten hat, und dann zu untersuchen, ob ein solches Objekt tatsäch lich existiert. Dabei ist uns egal, was der Wahrscheinlichkeitswert genau bedeutet. Dieser axiomatische Ansatz hat den Vorteil, logisch konsistent zu sein, was bei den anderen An sätzen nicht von vornherein garantiert ist. 
 \end{enumerate}
 
-In allen Fällen ergibt sich eine Reihe von Gesetzmässigkeiten oder Formeln, welche die jeweiligen Wahrscheinlichkeitsbegriffe erfüllen müssen. Soll die Wahrscheinlichkeit eine objektive Grösse sein, dann muss für wiederholbare Experimente die für den Bayesschen Ansatz nötige persönliche Überzeugung direkt mit der Häufigkeit des Eintretens zusammenhängen. Der frequentistische und der Bayessche Ansatz werden also in diesem Fall übereinstimmen. Die Axiome im axiomatischen Ansatz sind natürlich genau die Rechenregeln, die man sowohl im frequentistischen Ansatz wie auch im Bayesschen Ansatz von der Wahrscheinlichkeit erwartet. Man darf daher davon ausgehen, dass die drei Ansätze die gleichen numerischen Resultate lie fern, sie unterscheiden sich höchstens in der Interpretation der Resultate.
+In allen Fällen ergibt sich eine Reihe von Gesetzmässigkeiten oder Formeln, welche die jeweiligen Wahrscheinlichkeitsbegriffe erfüllen müssen. Soll die Wahrscheinlichkeit eine objektive Grösse sein, dann muss für wiederholbare Experimente die für den Bayesschen Ansatz nötige persönliche Überzeugung direkt mit der Häufigkeit des Eintretens zusammenhängen. Der frequentistische und der Bayessche Ansatz werden also in diesem Fall übereinstimmen. Die Axiome im axiomatischen Ansatz sind natürlich genau die Rechenregeln, die man sowohl im frequentistischen Ansatz wie auch im Bayesschen Ansatz von der Wahrscheinlichkeit erwartet. Man darf daher davon ausgehen, dass die drei Ansätze die gleichen numerischen Resultate liefern, sie unterscheiden sich höchstens in der Interpretation der Resultate.
 
 \defn{Wahrscheinlichkeit als relative Häufigkeit}{
 \begin{equation}
@@ -190,9 +191,16 @@ Man liest dies auch als “Wahrscheinlichkeit von A bedingt B”.
     \end{equation}
 }
 
-\subsection{Google Matrix}
+\subsection{Warum braucht man den Satz von Bayes, um einen Spamfilter zu bauen?}
+Ein Spamfilter muss die Wahrscheinlichkeit berechnen, dass eine E-Mail Spam ist,
+gegeben bestimmte Wörter oder Merkmale. 
+Der Satz von Bayes erlaubt, diese bedingte Wahrscheinlichkeit zu berechnen:
+\begin{equation}
+    P(\text{Spam}|\text{Merkmale}) = P(\text{Merkmale}|\text{Spam}) \frac{P(\text{Spam})}{P(\text{Merkmale})}
+\end{equation}
+%\subsection{Google Matrix}
 %tbf
-Noch nicht geschrieben.
+%Noch nicht geschrieben.
 \section{Zufallsvariable}
 In der Stochastik ist eine \textbf{Zufallsvariable} (auch \textbf{zufällige Variable}, \textbf{zufällige Größe}, \textbf{zufällige Veränderliche}, \textbf{zufälliges Element}, \textbf{Zufallselement}, \textbf{Zufallsveränderliche}) eine Größe, deren Wert vom Zufall abhängig ist. Formal ist eine Zufallsvariable eine Funktion, die jedem möglichen Ergebnis eines Zufallsexperiments eine Größe zuordnet. Ist diese Größe eine reelle Zahl, so spricht man von einer \textbf{reellen Zufallsvariablen} oder \textbf{Zufallsgröße}. Beispiele für reelle Zufallsvariablen sind die Augensumme von zwei geworfenen Würfeln und die Gewinnhöhe in einem Glücksspiel. Zufallsvariablen können aber auch komplexere mathematische Objekte sein, wie Zufallsfelder, Zufallsbewegungen, Zufallspermutationen oder Zufallsgraphen. Über verschiedene Zuordnungsvorschriften können einem Zufallsexperiment auch verschiedene Zufallsvariablen zugeordnet werden.
 \defn{Zufallsvariable}{
@@ -433,6 +441,7 @@ Für einen noch genaueren Schätzer, benutzt man die Stichproben varianz, welche
     \begin{equation}
         P(|X- \mu| > \varepsilon) \leq \frac{var(x)}{\varepsilon^2}
     \end{equation}
+
 }
 Lässt man \(\varepsilon\) wachsen findet man,
 dass Abweichungen deutlich grösser als \(\sqrt{var(X)}\) unwahrscheinlich sind.  
@@ -442,7 +451,7 @@ Wenn die Wahrscheinlichkeit, dass der Mittelwert um mehr
 als \(\sigma\) vom Erwartungswert abweicht, kleiner als
 \textbf{1\% } sein soll, sind dafür nach dem Gesetz der grossen Zahlen
 mindestens \textbf{100 Summanden nötig}. 
-
+Die Chebyshev-Ungleichung gibt eine \textbf{obere Schranke} für die Wahrscheinlichkeit.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/Tschebyscheff-Ungleichung.png}
@@ -450,6 +459,9 @@ mindestens \textbf{100 Summanden nötig}.
 \end{figure}
 
 \subsection{Bernoulli}
+Das Gesetz der grossen Zahlen besagt, dass sich die relative Häufigkeit eines
+Ereignisses bei zunehmender Anzahl von Experimenten der theoretischen Wahrscheinlichkeit
+dieses Ereignisses annähert.
 \defn{Bernoulli Gesetz der grossen Zahlen}{
     Die Wahrscheinlichkeit, dass der Mittelwert von \(n\)
     unabhängigen Zufallsvariablen mit Erwartungswert \(\mu\)
@@ -500,7 +512,8 @@ Durch Lösen des Optimierungsproblems erhält man die Koeffizienten:
     \begin{equation}
         \begin{split}
             a &= \frac{E(XY)-E(X)E(Y)}{E(X^2)-E(X)^2} = \frac{cov(X,Y)}{var(X)} \\
-            b &= E(Y)-aE(X)
+            b &= E(Y)-aE(X) \\
+            cov(X,Y) &= E(XY)-E(X)E(Y)
         \end{split}
     \end{equation}
 }
@@ -567,17 +580,45 @@ die relative Häufigkeit betrachten:
 \defn{Verteilfunktion}{
 Die Verteilungsfunktion beschreibt die Wahrscheinlichkeiten der Werte einer Zufallsvariable
 \begin{equation}
-    F(x)=F_X(x)=P(X\leq x)
+    \begin{split}
+        F(x)=F_X(x)=P(X\leq x) \\
+        F(x):
+        \begin{cases}
+            \mathbb{R} \to &\mathbb{R} \\
+            x \mapsto &P(X \leq x)
+        \end{cases}
+    \end{split}
 \end{equation}
 Mit Eigenschaften:
 \begin{itemize}
     \item \(F_X(x)\) ist monoton wachsend
-    \item \(0 \leq FX(x) \leq 1 \)
+    \item \(0 \leq F_X(x) \leq 1 \)
     \item \( \lim_{x \to -\infty} = 0 \)
     \item \( \lim_{x \to \infty} = 1 \)
 \end{itemize}
 Die Verteilfunktion mit \(F(x)\) ist eine Wahrscheinlichkeit
-Für ein Intervall gilt: \(P(a < X \leq b)=F_X(b)-F_X(a)\)
+Für ein Intervall gilt: \(P(a < X \leq b)=F_X(b)-F_X(a)\).
+
+Eine Verteilungsfunktion \(F\) kann immer zerlegt werden in eine stückweise konstante,
+ monoton wachsende, rechtsseitig stetige Funktion \(F_d\) und eine stetige Funktion \(F_s\).
+}
+
+\defn{Diskrete Wahrscheinlichkeitsverteilung}{
+    \begin{equation}
+        p(x):
+        \begin{cases}
+            S \to &\mathbb{R} \\
+            x \mapsto &p(x)
+        \end{cases}
+    \end{equation}
+    Die Funktion \(p(x)\) heisst diskrete Wahrscheinlichkeitsverteilung auf der Menge \(S\).
+    Für \(p(x)\) gilt:
+    \begin{equation}
+        \begin{split}
+            P(A) &= \sum_{x \in A \cap S} p(x) \\
+            E(f(X)) &= \sum_{x \in S} f(x)p(x)
+        \end{split}
+    \end{equation}
 }
 
 \begin{figure}[H]
@@ -717,9 +758,11 @@ Wahrscheinlichkeitsdichte:
     \begin{equation}
         P(a < X \leq b) = \int_a^b \varphi(x) dx
     \end{equation}
+    Die Funktion \(\varphi(x)\) heisst Wahrscheinlichkeitsdichte der Verteilungsfunktion \(F\) falls gilt:
     \begin{equation}
-        F(x) = \int_{-\infty}^{x} \varphi(\xi) d\xi
+        P(X \leq x) = F(x) = \int_{-\infty}^{x} \varphi(\xi) d\xi
     \end{equation}
+    Man spricht in diesem Fall von einer \textbf{stetigen Wahrscheinlichkeitsverteilung}.
 }
 \begin{figure}[H]
     \centering
@@ -794,6 +837,9 @@ Wahrscheinlichkeitsdichte:
 \end{figure}
 \defn{Gleichverteilung }{
     \begin{equation}
+        X \sim U(a,b) \text{ or } X \sim U(a,b)
+    \end{equation}
+    \begin{equation}
         \varphi(x)=
         \begin{cases}
             \frac{1}{b-a} &a \leq x \leq b \\
@@ -840,8 +886,8 @@ Wahrscheinlichkeitsdichte:
 \subsection{Parameter}
 \begin{equation}
     \begin{split}
-        \hat{a} &= \frac{n+1}{n} min(x_n) \\
-        \hat{b} &= \frac{n+1}{n} max(x_n)
+        \hat{a} &= \frac{n+1}{n} min(x_i) \\
+        \hat{b} &= \frac{n+1}{n} max(x_i)
     \end{split}
 \end{equation}
 
@@ -889,6 +935,9 @@ Die positive Zufallsvariable \(T\) ist der Zeitpunkt, zu dem ein Ereignis eintri
 \end{figure}
 
 \defn{Exponential Verteilung }{
+    \begin{equation}
+        X \sim Exp(a)
+    \end{equation}
     \begin{equation}
         \begin{split}
             \varphi(x) &= ae^{-ax},a>0 \\
@@ -940,14 +989,17 @@ Dann ist \(X_1+\cdots,X_n\) Erlang-verteilt.
     \caption{Erlang Verteilung}
 \end{figure}
 
-\defn{Exponential Verteilung }{
+\defn{Erlang-Verteilung }{
     \begin{equation}
-        \varphi(x)= 1-e^{-ax} \sum_{i=0}^{k-1} \frac{(ax)^i}{i!}, x \geq 0
+        X \sim Erlang_k(a)
+    \end{equation}
+    \begin{equation}
+        \varphi_k(x)= 1-e^{-ax} \sum_{i=0}^{k-1} \frac{(ax)^i}{i!}, x \geq 0
     \end{equation}
     Für \(k =\) Anzahl von Summanden.
 
     \begin{equation}
-        F(x) = a^k \frac{k^{k-1}}{(k-1)!} e{-ax}, x \geq 0
+        F_k(x) = a^k \frac{k^{k-1}}{(k-1)!} e{-ax}, x \geq 0
     \end{equation}
 
     \textbf{Mit \(k=1\) ist die Formel gleicher der Exponentialverteilung.}
@@ -956,7 +1008,6 @@ Dann ist \(X_1+\cdots,X_n\) Erlang-verteilt.
 \newpage
 
 \section{Normalverteilung}
-
 
 \begin{figure}[H]
     \centering
@@ -968,12 +1019,16 @@ Aufgrund des Zentralen Grenzwertsatzes, welcher besagt,
 dass sich eine Zufallsvariable, welche aus vielen kleinen,
 unabhängigigen Zufallseinflüsse besteht, der Normalverteilung
 nähert, hat die Normalverteilung eine grosse praktische Bedeutung.
+Sie modelliert vorallem Phänomene mit symetrischer Datenverteilung!
 
 Die Verteilungsfunktion der Normalverteilung mit Erwartungswert 0 und Varianz 1,
 der sogenannten \textbf{Standardnormalverteilung}, kann nicht in geschlossener Form gefunden werden,
 es müssen entweder Tabellen oder numerische  Lösungen verwendet werden.
 
 \defn{Normalverteilung}{
+    \begin{equation}
+        X \sim \mathcal{N}(\mu, \sigma)
+    \end{equation}
     \begin{equation}
         \varphi(x) = \frac{1}{\sqrt{2\pi\sigma}} e^{-\frac{x-\mu}{2\sigma^2}}
     \end{equation}
@@ -993,6 +1048,7 @@ es müssen entweder Tabellen oder numerische  Lösungen verwendet werden.
             x_{\frac{1}{2}} &= \mu
         \end{split}
     \end{equation}
+    Ist symmetrisch um \(E(X)\)!
 }
 
 \begin{figure}[H]
@@ -1095,8 +1151,13 @@ Eine beliebige Standardverteilte Variabel kann in diese Form gebracht werden:
     Ist \(Z = \frac{x-\mu}{\sigma}\), dann ist \(Z\) standard normalverteilt,
     mit \(E(Z)=0\) und \(var(Z)=1\). \(Z\) heisst \textbf{Standardnormalverteilung},
     mit Verteilungsfunktion \(\phi(z)\).
-
-    Es gilt:
+    \begin{equation}
+        \phi \sim \mathcal{N}(0, 1)
+    \end{equation}
+    \begin{equation}
+        P(Z \leq \frac{x-\mu}{\sigma}) = \phi(x)
+    \end{equation}
+    Aufgrund der symmetrie gilt:
     \begin{equation}
         \phi(-z) = 1 -\phi(z)
     \end{equation}
@@ -1135,6 +1196,9 @@ an der Form von \(\varphi\) nichts für \(x > x_{min}\).
 Der Faktor \(g(b)\) heisst Renormierung.
 
 \defn{Potenzverteilung}{
+    \begin{equation}
+        X \sim Pow(\alpha)
+    \end{equation}
     \begin{equation}
         \begin{split}
             \varphi(x) &= \frac{\alpha - 1}{x_{min}}(\frac{x}{x_{min}})^{-\alpha}, \text{für } x > x_{min}\\
@@ -1197,11 +1261,13 @@ steuern. Es ist klar, dass P(x) = 1 auch bedeutet, W(x) = 1: 100\% der Werte tra
 Die Binomialverteilung modelliert Zufallsexperimente mit zwei möglichen Ausgängen \(A\) oder \(\bar{A}\).
 \defn{Binomial Verteilung }{
     Dabei ist \(X\) die Anzahl der eingetrettenen \(A\) in \(n\) unabghängigen Durchführungen.
-
+    \begin{equation}
+        X \sim Bi(n,p)
+    \end{equation}
     \begin{equation}
         \begin{split}
-            \text{Wahrscheinlichkeit} \quad P(X=k) &= \binom{n}{k} p^k (1-p)^{n-k} \\
-            \text{Verteilung} \quad F(x) &= \sum_{i=0}^{k} \binom{n}{i} p^i(1-p)^{n-1}
+            P(X=k) &= \binom{n}{k} p^k (1-p)^{n-k} \\
+            F(x) &= \sum_{i=0}^{k} \binom{n}{i} p^i(1-p)^{n-i}
         \end{split}
     \end{equation}
 }
@@ -1265,7 +1331,7 @@ Damit lässt sich einfacher rechnen:
 \begin{equation}
     P(a < X \leq b) = \phi(\frac{b-np}{\sqrt{np(1-p)}}) - \phi(\frac{a-np}{\sqrt{np(1-p)}})
 \end{equation}
-Für eine genauere Approximation, kann folgendes benutzt werden:
+Für eine \text{genauere Approximation}, kann folgendes benutzt werden:
 \begin{equation}
     P(a < X \leq b) = \phi(\frac{b+0.5-np}{\sqrt{np(1-p)}}) - \phi(\frac{a+0.5-np}{\sqrt{np(1-p)}})
 \end{equation}
@@ -1301,7 +1367,22 @@ Für eine genauere Approximation, kann folgendes benutzt werden:
 
 \defn{Poisson-Verteilung}{
     \begin{equation}
+        X \sim Poisson(\lambda)
+    \end{equation}
+    \begin{equation}
             P_{\lambda(k)} = \frac{\lambda^k}{k!}e^{-\lambda}
+    \end{equation}
+
+    Für das Intervall \([0,x]\) gilt:
+    \begin{equation}
+        \lambda = ax  \text{ (e.g aus exponentieller ZV)}
+    \end{equation}
+    Dann gilt Wahrscheinlichkeit für \(k\)-Ereignisse im Intervall \([0,x]\),
+    wenn die Zeit zwischen den Ereignissen exponentialverteilt ist mit Dichte Exp(a).
+    (Anzahl Ereignisse mit exponentialverteilten Intervall)
+    Für die Approximation der Binomialverteilung gilt:
+    \begin{equation}
+        \lambda = np
     \end{equation}
 }
 
@@ -1329,6 +1410,9 @@ Im üblichen Fall wird dabei von \(N\) Objekten \(M\) markiert.
 Daraus werden \(n\) Objekte zufällig ausgewählt.
 
 \defn{Hypergeometrische Verteilung}{
+    \begin{equation}
+        X \sim HypGeo(N,M,n)
+    \end{equation}
     \begin{equation}
         P(X=m) = \frac{\binom{M}{m}\binom{N-M}{n-m}}{\binom{N}{n}}
     \end{equation}
@@ -1476,6 +1560,18 @@ Mit der T-Verteilung von \(n-1\) Freiheitsgrade. Das Intevall für 95\% ist dann
 }
 
 \section{Hypothesentest}
+\defn{Probabilistischer Beweis}{
+    Ein probabilistischer Beweiss kann keine absoluten Sicherheiten liefern,
+    sondern nur Aussagen über Wahscheinlichkeiten ermöglichen.
+}
+
+Unterschied zwischen mathematischen und naturwissenschaftlichen Erkenntnissen:
+\begin{itemize}
+    \item Mathematische Erkenntnisse: Sind axiomatisch und beweisbar. Sie basieren auf logischer Deduktion und gelten absolut.
+    \item Naturwissenschaftliche Erkenntnisse: Beruhen auf Beobachtungen, Experimenten und Wahrscheinlichkeitsmodellen. Sie sind empirisch und oft mit Unsicherheiten verbunden.
+    \item Rolle der Wahrscheinlichkeitsrechnung: In den Naturwissenschaften ermöglicht die Wahrscheinlichkeitsrechnung, Unsicherheiten zu modellieren, Hypothesen zu testen und Vorhersagen unter Unsicherheit zu treffen.
+\end{itemize}
+
 \subsection{Grundsätzliche Testmethode}
 \begin{enumerate}
     \item Nullhypothese \(H_0\) formulieren.
@@ -1519,6 +1615,10 @@ ob die Mittelwerte zweier normalverteilter Grundgesamtheiten gleich oder verschi
 Das heisst im Grundsatz, dass der Test \textbf{zwei Zufallsvariabeln} miteinander vergleicht.
 
 \defn{t-Test}{
+    Mit \textbf{Differenz}:
+    \begin{equation}
+        D = \bar{X} - \bar{Y}
+    \end{equation}
     \begin{equation}
         T = \frac{\bar{X}-\bar{Y}}{\sqrt{(n-1)S_X^2 + (m-1)S_Y^2}} \sqrt{\frac{nm(n+m-2)}{n+m}}
     \end{equation}
@@ -1527,6 +1627,11 @@ Das heisst im Grundsatz, dass der Test \textbf{zwei Zufallsvariabeln} miteinande
         S_X^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2
     \end{equation}
     Für \(S_Y^2\) giltet dieselbe Formel.
+
+    \(H_0\): \(x_1, \dots ,x_n\) und \(y_1, \dots , y_n\) mit gleicher Varianz und Erwartungswert.
+
+    T-Test funktioniert nur, wenn sich die Mittelwerte berechnen lassen!
+    Bei randomisierten Experimenten nicht möglich.
 }
 
 Wir nehmen an, dass die Streuung der Messwerte der Stichprobe durch die Veränderung des Prozesses
@@ -1588,14 +1693,16 @@ Und die Wahrscheinlichkeiten:
     \end{split}
 \end{equation*}
 Für eine Verallgemeinerungen für \(n\)-Ausgänge definieren wir:
-\defn{Diskrepanz}{
+\defn{Diskrepanz (Für diskrete Verteilungstests, \(\chi^2\)-Tests)}{
     Die Diskrepanz ist eine Teststatistik für diskrete Zufallsvariabeln.
     Die Teststatistik ist symmetrisch.
     \begin{equation}
-        D = \sum_{k=1}^{n} \frac{(X_i - np_i)^2}{np_i}
+        D = \sum_{i=1}^{n} \frac{(n_i - np_i)^2}{np_i}
     \end{equation}
+    Die Diskrepanz \(D\) ist für genügend grosse \(n\) annähernd \(\chi^2\)-verteilt mit \(d\)
+    Freiheitsgraden.
+    "Genügend gross" heisst nach einer verbreiteten Faustregel: so gross, dass \(n_i > 5 \forall i\).
 }
-Aus der Diskrepanz wird der Chi Quadrat Test hergeleitet.
 
 \begin{figure}[H]
     \centering
@@ -1618,6 +1725,8 @@ errechnet werden kann:
         var(X) &= \sigma^2 + p(1-p)(\mu_1 - \mu_2)^2
     \end{split}
 \end{equation*}
+Je grösser also \(\mu_1 - \mu_2\) desto grösser ist die Varianz!
+
 In jenem Beispiel möchten wir errechnen können, ob \(\mu_1 = \mu_2\).
 Aus der Rechnung wird ersichtlich, dass der Unterschied zwischen den Beiden zu einer grösseren Varianz führt.
 
@@ -1628,6 +1737,11 @@ Aus der Rechnung wird ersichtlich, dass der Unterschied zwischen den Beiden zu e
 \end{figure}
 
 \defn{F-Test}{
+
+    Sind \(X\) und \(Y\) \(\chi^2\)-verteilte Zufallsvariable mit \(n\) bzw. \(m\) Freiheitsgraden, dann
+    heisst die Verteilung von \(\frac{X}{Y}\) eine F-Verteilung mit 
+    n,m-Freiheitsgraden, auch \(F_{n,m}\) geschrieben.
+
     Mit dem F-Test können wir verschiedene Erwartungswerte normalverteiler ZV vergleichen.
     Wir haben \(X_i\) mit \(var(X_i)= \sigma^2\) und wollen herausfinden ob sich \(\mu_i = E(X_i)\) unterscheiden.
     Dabei ist die Nullhypothese:
@@ -1637,15 +1751,21 @@ Aus der Rechnung wird ersichtlich, dass der Unterschied zwischen den Beiden zu e
 
     Wir verwenden für die Test-Statistik:
     \begin{equation}
-        F = \frac{\text{Varianz über alle }i}{\text{Varianz für die Gruppe }i}
+        \begin{split}
+            F &= \frac{\text{Varianz über alle }i}{\text{Varianz für die Gruppe }i} \\
+            F &= \frac{S_X^2}{S_Y^2}
+        \end{split}
     \end{equation}
+    \(S_X\) ist die geschätzte Varianz von \(X\) mit \(n-1\) Freiheitsgraden und ist
+    durch das Quadrieren \(\chi^2\)-Verteilt. Bei \(S_Y\) dasselbe.
 
     \begin{enumerate}
-        \item Messungen für alle \(i\) mehrfach messen: \(x_ij\)
+        \item Messungen für alle \(i\) mehrfach messen: \(x_{ij}\)
         \item Berechne die empirische Varianz für alle Gruppen und die Gruppe \(i\)
         \item Die Teststatistik ausrechnen
-        \item Nullhypothese: \(F=1\)
-        \item Verteilung von F: Fisher Verteilt resp. F-Verteilt
+        \item Nullhypothese: \(F=1\) resp. \(H_0\): \(\mu_i = \mu_j \forall i,j\) resp.
+        Experiment \(X\) hat Varianz \(\sigma^2\)
+        \item Verteilung von F: Fisher-Verteilt resp. F-Verteilt
     \end{enumerate}
 }
 
@@ -1658,7 +1778,7 @@ einer Summe von normalverteilten Variabeln ist, welche quadriert wurden:
     \begin{equation*}
         \chi_n^2 = \sum_{i=1}^{n} X_i^2
     \end{equation*}
-    eine \(\chi^2\) verteilte Zufallsvariabel mit n Freiheitsgraden.
+    eine \(\chi^2\) verteilte Zufallsvariabel mit \(n\) (resp. \(k\)) Freiheitsgraden.
 
     Sie hat folgende Eigenschaften:
     \begin{equation*}
@@ -1683,7 +1803,7 @@ einer Summe von normalverteilten Variabeln ist, welche quadriert wurden:
     \caption{Chi-Verteilung Verteil- und Dichtefunktion}
 \end{figure}
 
-\subsection{Chi-Test}
+\subsection{\(\chi^2\)-Test}
 Der Chi-Quadrat-Test bezeichnet man in der Statistik eine Gruppe von Hypothesentests.
 Wir können diese verwenden um \textbf{diskrete Verteilungen} zu testen.
 
@@ -1726,7 +1846,17 @@ wenn genügend viele Daten vorhanden sind.
             F_D(D_-) &= P(D \leq D_-) = \alpha
         \end{split}
     \end{equation*}
+
+    \textbf{Faustregel: jede klasse muss mindestens 5 versuchsausgänge haben.}
 }
+
+Voraussetzungen:
+\begin{enumerate}
+    \item Unabhängigkeit: Die Datenpunkte müssen voneinander unabhängig sein.
+    \item Mindesthäufigkeit: Jede erwartete Häufigkeit in den Kategorien sollte mindestens 5 betragen (bei kleineren Stichproben kann diese Regel abgeschwächt werden).
+    \item Kategorische Daten: Der \(\chi^2\)-Test wird für nominale oder ordinalskalierte Daten verwendet.
+    \item Stichprobengröße: Die Stichprobe sollte gross genug sein, um die Normalverteilungsannahme der Teststatistik zu erfüllen.
+\end{enumerate}
 
 \begin{figure}[H]
     \centering
@@ -1784,6 +1914,8 @@ So können wir testen, ob eine Verteilung zur ZV passt.
         \end{split}
     \end{equation*}
     Der Faktor \(\sqrt{n}\)  wird verwendet um einfache zu rechnen.
+
+    \(H_0\): Die ZV X hat die Verteilung \(F(X)\).
 }
 
 \begin{figure}[H]
