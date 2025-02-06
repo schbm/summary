@@ -1,0 +1,50 @@
+\documentclass[../Main.tex]{subfiles}
+\begin{document}
+\chapter{Lagrange}
+
+\intro{
+
+}
+
+\section{Cookbook}
+\begin{description}
+    \item[Independent] When you fix all but one coordinate, still have a continous range of movement in the free coordinate
+    \item[Complete] Capable of locating all parts at all times
+    \item[Holomomic] \# Dofs = \# coordinates needed to describe motion
+\end{description}
+
+\begin{equation}
+    \begin{split}
+        L &= T - U \\
+        T &= \text{Kinematic Energy} \\
+        U &= \text{Potential Energy} \\
+        \Rightarrow &\frac{\partial L}{\partial q} - \frac{d}{dt} \frac{\partial L}{d \dot{q}} = 0 \\
+        \Rightarrow &\frac{d}{dt} \frac{\partial L}{d \dot{q}_j} - \frac{\partial L}{\partial q_j} = Q_j
+    \end{split}
+\end{equation}
+Where \(L\) is the lagrangian with \(q_j\) generalized coordinates and \(Q_j\) generalized forces.
+Where as \(Q_j\):
+\begin{equation}
+    \sum F_i \cdot d r(\delta_j)
+\end{equation}
+Where \(F_i\) is one of the forces dotted (dot product, both are vectors) with dr (eg. delta x) which is movement.
+The virtual displacements in all possible degrees of freedom.
+
+\begin{enumerate}
+    \item Determine degrees of freedome
+    \item Choose \(q_i\) (coordinates)
+    \item Verify; Complete, independent, holonomic
+    \item Compute T + U
+    \item Compute derivatives for each coordinate \(q_i\) 
+\end{enumerate}
+
+With external (non conservative) forces:
+\begin{enumerate}
+    \item For each \(q_j\) (generalized forces) find the generalized force
+    \(Q_j\) that goes with it
+    \item Compute the virtual work done \(\delta_w\) associated with
+    the virtual displacement \(\delta_{qj}\)
+    \item  \(\delta_{wj} = Q_j \delta_j\)
+\end{enumerate}
+
+\end{document}
