@@ -174,7 +174,6 @@ Weitere Produkte:
     that can be erased without loss of data-information.
 }
 
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{Images/visualization-guideline.png}
@@ -182,5 +181,62 @@ Weitere Produkte:
 \end{figure}
 
 \href{https://en.wikipedia.org/wiki/Visual_variable}{Visual Variable (Wikipedia)}
+
+
+\section{OLAP}
+
+\defn{Online Transaction Processing (OLTP)}{
+    Zum Beispiel Flugbuchungssysteme.
+    Charakterisierung:
+    \begin{itemize}
+        \item Hohe paralellität
+        \item Viele kurze Transaktionen
+        \item Transaktionen bearbeiten kleines Datenvolumen
+        \item Mission-Critical
+        \item Hohe Verfügbarkeit
+        \item Normalisierte Relationen
+        \item Wenige Indexe
+    \end{itemize}
+}
+
+\defn{OLAP}{
+    Überbegriff für Technologien, Methoden und Tools zur Ad-hoc-Analyse 
+    multidimensionaler Informationen.
+    Die Daten werden nach unterschiedlichsten (ad-hoc) Kriterien 
+    ausgewertet.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/oltp-olap.png}
+    \caption{OLTP vs OLAP}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/olap-übersicht.png}
+    \caption{OLAP Übersicht}
+\end{figure}
+
+\defn{Data Warehouse}{
+    Ein Data Warehouse ist ein Datenbanksystem (für OLAP
+    Anwendungen), in dem die entscheidungsrelevanten Daten eines 
+    Unternehmens in konsolidierter Form gesammelt werden, um sie für 
+    (zeitbasierte) Auswertungen zugänglich zu machen.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/data-warehouse.png}
+    \caption{OLTP vs OLAP}
+\end{figure}
+
+\defn{ETL - Extract-Transform-Load}{
+    \begin{itemize}
+        \item Aufbereitung von Daten aus heterogenen Quellen
+        \item Laden ins Data-Warehouse
+    \end{itemize}
+}
 
 \end{document}

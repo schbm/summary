@@ -77,6 +77,9 @@
     \end{equation}
     The identity matrix can be thought of 
     as the matrix version of the number 1.
+    \begin{equation}
+        AA^{-1} = 1 = A^{-1}A
+    \end{equation}
 \end{multicols}
 
 \defn{Diagonal Matrices}{
@@ -389,7 +392,7 @@
 
 \subsection{Matrix Decompositions}
 
-\defn{Eigenvector}{
+\defn{Eigenvector / Eigenvalue}{
     a non-zero vector \textbf{v} that satisfies the eigen-equation is called an 
     eigenvector of \textbf{A} and the scalar \(\lambda\) 
     the corresponding eigenvalue:
@@ -402,6 +405,18 @@
     itself (except a scaling factor \(\lambda\)) is an 
     eigenvector of A. Hence the word 
     "Eigen", since the vector stays itself.
+
+    To find eigenvalues of B use:
+    \begin{equation}
+        \begin{split}
+            det(\boldsymbol(B) - \lambda \boldsymbol{I}) = 0 \\
+            \Rightarrow = \lambda_1, \cdots, \lambda_n
+        \end{split}
+    \end{equation}
+    Für eigenvektoren:
+    \begin{equation}
+        (\boldsymbol{B} - \lambda_i \boldsymbol{I})v_i = \boldsymbol{0}
+    \end{equation}
 }
 
 \defn{Eigendecomposition}{
@@ -430,6 +445,41 @@
     \end{equation}
     Because \textbf{Q} is orthogonal we can write \(\boldsymbol{Q}^T\) instead of \(\boldsymbol{Q}^{-1}\)
 }
+
+Solving the system of equations \( Ax = b \) using eigendecomposition:
+
+1. If \( A \) is symmetric, we can decompose it as:
+   \[
+   A = Q \Lambda Q^T
+   \]
+   where \( Q \) is orthogonal (\( Q^T = Q^{-1} \)) and \( \Lambda \) is diagonal.
+
+2. Substitute into the system:
+   \[
+   Q \Lambda Q^T x = b
+   \]
+
+3. Multiply both sides by \( Q^T \):
+   \[
+   \Lambda Q^T x = Q^T b
+   \]
+
+4. Define \( y = Q^T x \), so that:
+   \[
+   \Lambda y = Q^T b
+   \]
+
+5. Since \( \Lambda \) is diagonal, solve for \( y \) component-wise:
+   \[
+   y_i = \frac{(Q^T b)_i}{\lambda_i}, \quad \text{for } \lambda_i \neq 0
+   \]
+
+6. Transform back to \( x \):
+   \[
+   x = Q y
+   \]
+
+Thus, we solve the system efficiently by diagonalizing \( A \), transforming \( b \), solving simple equations, and transforming back.
 
 \begin{figure}[H]
     \centering
@@ -472,10 +522,14 @@
     \begin{description}
         \item[A] mxn Matrix
         \item[U] An orthogonal mxm matrix. Cols are called left-singular vectors, these are eigenvectors of \(AA^T\).
+        Note that \(u^{(1)}\) is the eigenvector to the largest eigenvalue.
         \item[D] Diagonal mxn matrix. The diagonal elements are called singular values. Non-zero sv are square roots of eigenvalues of \(AA^T\).
-        \item[V] Orthogonal nxn matrix. Cols are called right-singular vectort and are eigenvectors of \(A^T A\)   
+        Note that: \(\lambda_1 > \lambda_2\)
+        \item[V] Orthogonal nxn matrix. Cols are called right-singular vectors and are eigenvectors of \(A^T A\)   
+        Note that \(v^{(1)}\)is the eigenvector to the larger eigenvalue \(\lambda_1\).
     \end{description}
 }
+
 \subsection{Pseudoinverse}
 The inverse of a matrix is undefined if its not square.
 This means that the inverse is of little use in deep learning.
@@ -494,14 +548,16 @@ What we really want is in a underdefined or overdefined problem to find the best
 
     Note the similarity to the SVD, 
     basically the pseudoinverse is the 
-    transpose of A=UDVT, which 
-    would result in AT=VDTUT
-    The transpose is simply the 
+    transpose of A=UD\(V^T\), which 
+    would result in \(A^T=VD^TU^T\)
+    \textbf{The transpose is simply the 
     inverse for orthogonal matrixes 
-    (U and V) but not for D. With:
+    (U and V) but not for D}. With:
     \begin{equation}
-        D^+_{i,j} = 1/D^+_{i,j}
+        D^+_{i,i} = 1/D_{i,i} 
     \end{equation}
+    the diagonal elements are inverted
+    and then the matrix is transposed!
 
     \begin{equation}
         \boldsymbol{A}^+ \boldsymbol{A} = \boldsymbol{I}
@@ -533,6 +589,150 @@ What we really want is in a underdefined or overdefined problem to find the best
             \end{split}
         \end{equation*}
     \end{itemize}
+}
+
+\exm{Pseudoinverse}{
+    We want to solve \(Ax=b\) where    
+    \begin{equation*}
+        \begin{split}
+            A &= \begin{bmatrix}
+                1 & 2 \\
+                1 & 4 \\
+                1 & 6
+            \end{bmatrix}, \\
+            b &= \begin{bmatrix}
+                1.8 \\
+                3.3 \\
+                4.1
+            \end{bmatrix}
+        \end{split}
+    \end{equation*}
+    First calculate D. Recapulate that from SVD the following is given:
+    \begin{equation*}
+        A = UDV^T
+    \end{equation*}
+    Where in D the diagonal elements are the square roots of eigenvalues of \(AA^T\)
+    \begin{equation*}
+        \begin{split}
+            B &= A^TA \\
+            \Rightarrow \\
+            det(B-\lambda I) &= 0 \\
+            (3-\lambda)(56-\lambda)-(12*12) &= 0 \\
+            \lambda_1 &= 58.59, \lambda_2 = 0.409
+        \end{split}
+    \end{equation*}
+    Now we can define D:
+    \begin{equation*}
+        \begin{split}
+            D &= \begin{bmatrix}
+                \sqrt{\lambda_1} & 0 \\
+                0 & \sqrt{\lambda_2} \\
+                0 & 0
+            \end{bmatrix} \\
+            D &= \begin{bmatrix}
+                7.6544 & 0 \\
+                0 & 0.6400 \\
+                0 & 0
+            \end{bmatrix}
+        \end{split}
+    \end{equation*}
+    Now determine matrix V where \(v^{(i)}\) are eigenvectors of B.
+    \begin{equation*}
+        \begin{split}
+            (\boldsymbol{B} - \lambda_i \boldsymbol{I})v_i &= \boldsymbol{0} \\
+            \Rightarrow \text{for } \lambda_1 \\
+            (\begin{bmatrix}
+                3 & 12\\
+                12 & 56
+            \end{bmatrix} - 58.59 I)v_1 &= \boldsymbol{0} \\
+            \begin{bmatrix}
+                -55.59x & 12y\\
+                12x & -2.59y
+            \end{bmatrix}&= 0 
+        \end{split}
+    \end{equation*}
+
+    \begin{equation*}
+        \begin{split}
+            \text{Solve linear equation} \\
+            v_1 = (0.216,1)^T \\
+            \text{Now normalize} \\
+            ||v_1||= (0.211,0.978)^T \\
+            \text{Repeat for } v_2 \\
+            \Rightarrow \\
+            V = \begin{bmatrix}
+                -0.2110 & -0.9775\\
+                -0.9775 & 0.2110
+            \end{bmatrix}
+        \end{split}
+    \end{equation*}
+
+    Now determine \(U =(u^{(1)}, u^{(2)}, u^{(3)})\) using \(C=AA^T\)
+    \begin{equation*}
+        U = \begin{bmatrix}
+            -0.2830 & -0.8679 & 0.4082\\
+            -0.5384 & -0.2085 & -0.8165\\
+            -0.7938 & 0.4508 & 0.4082
+        \end{bmatrix}
+    \end{equation*}
+
+    Now check if U and V are orthogonal:
+    \begin{equation*}
+        \begin{split}
+            UU^T = I \\
+            VV^T = I
+        \end{split}
+    \end{equation*}
+
+    Check if SVD matches:
+    \begin{eqnarray*}
+        A = UDV^T
+    \end{eqnarray*}
+
+    Now for the Moore-Penrose calculate \(D^+\):
+    \begin{equation*}
+        \begin{split}
+            D_{i,i}^+ = 1/D_{i,i} \\
+            D^+ = \begin{bmatrix}
+                \frac{1}{\lambda_1} & 0\\
+                0 & \frac{1}{\lambda_2}\\
+                0 & 0
+            \end{bmatrix}^T \\
+            = \begin{bmatrix}
+                0.1307 & 0 & 0 \\
+                0 & 1.5625 & 0
+            \end{bmatrix}
+        \end{split}
+    \end{equation*}
+
+    Now asselbe the Moore-Penrose pseudo inverse:
+    \begin{equation*}
+        A^+ = VD^+ U^T = = \begin{bmatrix}
+           4/3 & 1/3 & -2/3 \\
+            -1/4 & 0 & 1/4
+        \end{bmatrix}
+    \end{equation*}
+
+    Now since there are more equations than 
+    unknowns the optimal RSS/MSE solution can be calculated:
+    \begin{equation*}
+        \begin{split}
+            Ax = b | A^+\\
+            x = A^+ b \\
+            \begin{bmatrix}
+                4/3 & 1/3 & -2/3 \\
+                 -1/4 & 0 & 1/4
+             \end{bmatrix} \begin{bmatrix}
+                1.8 \\
+                3.3 \\
+                4.1
+            \end{bmatrix} = x \\
+            x = \begin{bmatrix}
+                0.7667 \\
+                0.5750
+            \end{bmatrix}
+        \end{split}
+    \end{equation*}
 }
 
 \subsection{Trace and Determinant}
@@ -600,7 +800,7 @@ What we really want is in a underdefined or overdefined problem to find the best
 \subsection{Sources of uncertainty}
 \begin{itemize}
     \item Inherent stochasticity in the system being modeled
-    \item Incomplete observaboöoty
+    \item Incomplete observability
     \item Incomplete modeling
 \end{itemize}
 
@@ -609,10 +809,10 @@ What we really want is in a underdefined or overdefined problem to find the best
 \defn{Discrete Random Variables - Probability Mass Functions (PMF)}{
     \begin{equation}
         \begin{split}
-            X \sim P(X) \\
-            \text{Domain of } P(X) = \text{ all possible states} \\
-            0 \leq P(x) \leq 1 \\
-            \sum P(X) = 1
+            X &\sim P(X) \\
+            \text{Domain of } P(X) &= \text{ all possible states} \\
+            0 &\leq P(x) \leq 1 \\
+            \sum P(X) &= 1
         \end{split}
     \end{equation}
     Note that probability 0 is not impossible as 
@@ -624,11 +824,11 @@ What we really want is in a underdefined or overdefined problem to find the best
     or even better "likelyhood".
     \begin{equation}
         \begin{split}
-            X \sim p(X) \\
-            \text{Domain of } P(X) = \text{ all possible values} \\
-            0 \leq P(x) \\
-            \int P(X) = 1 \\
-            P(a \leq x \leq b) = \int_{a}^{b} p(x) dx
+            X &\sim p(X) \\
+            \text{Domain of } P(X) &= \text{ all possible values} \\
+            0 &\leq P(x) \\
+            \int P(X) &= 1 \\
+            P(a \leq x \leq b) &= \int_{a}^{b} p(x) dx
         \end{split}
     \end{equation}
 }
@@ -659,8 +859,8 @@ What we really want is in a underdefined or overdefined problem to find the best
     Or use Bayes!
     \begin{equation}
         \begin{split}
-            P(X|Y) = \frac{P(X)}{P(Y)} P(Y|X) \\
-            P(Y) = \sum_{X} P(Y|X) P(X)
+            P(X|Y) &= \frac{P(X)}{P(Y)} P(Y|X) \\
+            P(Y) &= \sum_{X} P(Y|X) P(X)
         \end{split}
     \end{equation}
     Note:
@@ -949,7 +1149,359 @@ What we really want is in a underdefined or overdefined problem to find the best
     \caption{Useful Properties ofCommon Functions}
 \end{figure}
 
-\section{Introduction}
+\defn{Deterministic Functions of rvs}{
+    \begin{equation*}
+        \begin{split}
+            y = g(x) \\
+            p_y(y) \neq p_x(g^{-1}(y))
+        \end{split}
+    \end{equation*}
+    If we now one of the probability densities.
+    We cannot just calculate with the invervse function.
+
+    We need to do this:
+    \begin{equation}
+        \begin{split}
+            y = g(x) \\
+            | p_y(g(x)) dy | = |p_x(x)dx| \\
+            p_y(y) = p_x(g^{-1}(y)) |\frac{\partial x}{\partial y}| \\
+            p_x(x) = p_y(g(x)) |\frac{\partial g(x)}{\partial x}|
+        \end{split}
+    \end{equation}
+    This is because g() can warp the space. We need to account for this by looking at a small interval.
+}
+
+\defn{Deterministic Functions of multidimensional rvs}{
+    \begin{equation}
+        \begin{split}
+            p_x(x) = p_y(g(x)) | det(\frac{\partial g(x)}{\partial x}) \\
+            \text{With Jacobian:} \\
+            J = \begin{bmatrix}
+                \frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n}\\
+                \vdots & \ddots & \vdots\\
+                \frac{\partial f_m}{\partial x_1} & \cdots & \frac{\partial f_m}{\partial x_n}
+            \end{bmatrix} \\
+            \Rightarrow det(J)
+        \end{split}
+    \end{equation}
+    The determinant measures how much g(x) warps the space over which we integrate.
+}
+
+\section{Information Theory}
+Is a mathematical framework that uses probability theory to describe information.
+See lecture Digitale Kodierungen. Any measure of information should satisfy three statements:
+\defn{Fundamental Rules}{
+    \begin{enumerate}
+        \item Likely event should have low information content
+        \item Less likely events should have a higher information content
+        \item Independent events should have additive information
+    \end{enumerate}
+}
+
+\defn{Information Content}{
+    \begin{equation*}
+        I(x) = log(\frac{1}{P(x)}) = -log P(x)
+    \end{equation*}
+    The base of log is unimportant. It is common to use the natural logarithm to base e.
+    This results in the unit called \textit{nats}. In communication theory its common to use base 2.
+}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/shannon-entropy.png}
+    \caption{Shannon entropy of a binary random variable.
+    The x axis shows the argument of the bernoulli distribution.
+    The y axis shows the entropy using base e
+    If the rv is always zero or one the entropy is also 0. 
+    If the rv is completly random (0.5) then the entropy is maximized with 0.7 nats.}
+\end{figure}
+
+\defn{Shannon Entropy}{
+    Is the \textbf{average information content} over an entire distribution.
+    Since it depends on the probability distribution it is commonly written as \(H(P)\).
+    The entropy of a distribution is the expected amount of information in
+    an event drawn from this distribution.
+
+    \begin{equation}
+        H(x) = \mathbb{E}_{x \sim P}[I(x)] = -\mathbb{E}_{x \sim P}[log P(x)]
+    \end{equation}
+
+    Using base 2 the entropy describes a lower bound on the number of bits
+    needed to encode symbols drawn from distribution p.
+}
+
+\defn{Kullback-Leibler (KL) Divergence}{
+    Measures different probability distributions P and Q.
+    When using base 2 it describes how many additional bits you
+    have to send when sending symbols from distribution P with a code 
+    designed for distribution Q.
+
+    \begin{equation}
+        \begin{split}
+            D_{KL}(P||Q) = \mathbb{E}_{x \sim P}[log \frac{P(x)}{Q(x)}] \\
+            = \mathbb{E}_{x \sim P}[log P(x) - log Q(x)]
+        \end{split}
+    \end{equation}
+
+    The divergence is never negative and zero if and only if P and Q are the same.
+    The KL divergence is not symmetrical, hence not a distance measure.
+
+    \begin{equation}
+        D_{KL}(P||Q) \neq D_{KL}(Q||P)
+    \end{equation}
+
+    It can be decomposed:
+    \begin{equation}
+        \begin{split}
+            D_{KL}(P||Q) &= \mathbb{E}_{x \sim P}[log P(x)] - \mathbb{E}_{x \sim P}[log Q(x)] \\
+            \text{D} &= \text{Entropy} + \text{Cross-Entropy} \\
+            D_{KL}(P||Q) &= -H(x) + H(P,Q)
+        \end{split}
+    \end{equation}
+
+    If we want to have to similar (or equal) distributions it is feasable to minimize the KL divergence.
+    Tho it creates the same solution as minimizing the cross-entropy since only it also depends on Q.
+
+    Important: Assume that \(0 log 0 = 0\)!
+}
+
+\defn{Cross-Entropy}{
+    Measures number of bits (if used with base 2) requirede to send symbols from P
+    when using a code designed for distribution Q.
+
+    \begin{equation*}
+        H(P,Q) = - \mathbb{E}_{x \sim P}[log Q(x)]
+    \end{equation*}
+
+    Minimizing the KL divergence for Q and minimizing the crossentropy for Q are equivalent.
+    Vecause shannon entropy does not depend on Q.
+}
+
+\subsection{Using KL}
+Given some data \(x^{(1)}\) to \(x^{(m)}\) we can write down the empirical data distribution:
+\begin{equation*}
+    \hat{p}(x) = \frac{1}{m} \sum_{i=1}^{m} \delta (x -x^{(i)})
+\end{equation*}
+Then we build a prediction model pmodel using a neural network.
+The training process aims to make pmodel as similar to \(\hat{p}(x)\).
+This can be achieved by minimizing the KL divergence or equivalenty the cross-entropy.
+
+\section{Numerics}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/quantization-error.png}
+    \caption{The graph show the q scale on the y axis. Every real values must be mapped to the
+    closest quanzitation on the q scale. This results in the stair function approximation of the real function.
+    The error depends on the difference between the quantization levels.}
+\end{figure}
+
+\defn{Quantization}{
+    When using real random variables values from infinite many numbers can appear.
+    The fundamental problem lies in the fact that digital computers use bits
+    as their numeric representation.
+
+    \begin{itemize}
+        \item Hence for almost all real numbers, the digital representation must be an approximation
+        \item The error between the real number and its representation is a rounding error
+        \item Rounding errors can accumulate over several operations
+        \item An algorithm that works in therory might not work on a digital computer since
+        it may not be able to minimize the accumulation of errors.
+    \end{itemize}
+
+}
+
+\defn{Softmax Function}{
+    Is often used as the last layer of a DNN.
+    Can convert a vector x into proper class probability. (Following a multinoulli).    
+
+    \begin{equation}
+        softmax(x)_i = \frac{exp(x_i)}{\sum_{j=1}^{n} exp(x_j)}
+    \end{equation}
+
+    Stabilization in 2 dimensions:
+    \begin{equation}
+        \begin{split}
+            x &= \begin{bmatrix}
+                x_1 \\
+                x_2
+            \end{bmatrix} \\
+            softmax(x_1) &= \frac{x_1}{exp(x_1) + exp(x_2)} \\
+            &= \frac{exp(x_1 - x2)}{exp(x_1 - x_2) + exp(0)} \\
+            \sigma(x) &= \frac{exp(x)}{exp(x)- exp(0)}
+        \end{split}
+    \end{equation}
+    Hence we can stabilize softmax by subtracting the maximum entry of
+    the vector x from other entries.
+    Subtracting the scalar k does not change the result.
+    By subtractng we ensure, that the largest entry is now zero which
+    ensures 1 since log(0) = 1. The denominator is also atleast 1.
+
+    Often we take the log of a softmax function. This means when an underflow
+    occurs it can lead to \(-\infty\) which is not meaningful.
+    Henve most often a log-softmax function is provided by frameworks
+    which stabilizes in the same way as the softmax function:
+    \begin{equation}
+        \begin{split}
+            log softmax(x_1) & \Rightarrow \\
+            log \frac{exp(x_1)}{exp(x_1)+exp(x_2)} &= log \frac{exp(x_1-x_2)}{exp(x_1-x_2)+exp(0)}\\
+            &= log(exp(x_1-x_2)) - log(exp(x_1-x_2)) + exp(0) \\
+            &= (x_1-x_2) -log(exp(x_1-x_2)+1)
+        \end{split}
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/softmax-stabilization.png}
+    \caption{When stabilizing the softmax function the range of x is guaranteed to be negative and exp(x) between 0 and 1.}
+\end{figure}
+
+\defn{Poor Conditioning}{
+    If a function is poorly conditioned,
+    small changes of the input have large effects on the output.
+    The system then becomes very sensitive to rounding errors.
+
+    If we assume matrix A has an eigenvalue decomposition, then the
+    condition number is defined as:
+    \begin{equation}
+        \begin{split}
+            f(x) &= A^{-1}x \\
+            max_{i,j} |\frac{\lambda_i}{\lambda_j}| &= \text{ Condition Number}
+        \end{split}
+    \end{equation}
+    Ratio between the largest and smallest eigenvalue. (Max/Min)
+
+    \begin{itemize}
+        \item Well conditioned matrix has condition number a bit larger than 1
+        \item Under reasonable assumptions A and \(A^{-1}\) have the same conditioning number
+    \end{itemize}
+}
+
+\section{Gradient-Based Optimization}
+\defn{Learning}{
+    \begin{equation}
+        \text{Learning } = \text{ Minimizing a Loss Function}
+    \end{equation}
+}
+
+\defn{Loss function}{
+    The loss function is given as
+    f(x) where x is a vector of all learnable parameters.
+    Typically in dl we use the Kullback-Leibler Divergence
+    between the empirical distribution and the model distribution
+    as loss function.
+
+    The optimal value that minimizes the function is denoted as \(x^*\):
+    \begin{equation}
+        \boldsymbol{x}^* = arg min f(\boldsymbol{x})
+    \end{equation}
+}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/gradient-descent.png}
+    \caption{Gradient Descent}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/stationary-points.png}
+    \caption{Stationary Points. Include global and local minima and maxima as well as saddle points}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/minimas.png}
+    \caption{Graph showing function with multiple minima}
+\end{figure}
+
+\defn{Directional Derivative}{
+    At some point x the directional derivative,
+    is the derivative in direction unit vector u.
+    \begin{equation}
+        \frac{\partial}{\partial \alpha} f(\boldsymbol{x} + \alpha \boldsymbol{u}) = \boldsymbol{u}^T \nabla_x f(\boldsymbol{x}), \text{ at } \alpha = 0
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{Images/directional-derivative.png}
+    \caption{Directional derivative}
+\end{figure}
+
+\defn{Gradient Descent (Steepest Descent)}{
+    \begin{equation}
+        \begin{split}
+            f: \mathbb{R}^n &\to \mathbb{R} \\
+            \text{with } \frac{\partial}{\partial \alpha} f(\boldsymbol{x} + \alpha \boldsymbol{u}) &= \boldsymbol{u}^T \nabla_x f(\boldsymbol{x}), \text{ at } \alpha = 0 \\
+            &\Rightarrow \\
+            &min_{u,u^T|u=1} \boldsymbol{u}^T \nabla_x f(\boldsymbol{x}) \\
+            &= min || \boldsymbol{u} ||_2 || \nabla_x f(x) ||_2 cos \theta \\
+            &\Rightarrow min_u cos \theta
+        \end{split}
+    \end{equation}
+    Minimizing theta range (-1 to 1) evaluates to cos theta = -1:
+    \begin{equation}
+        \boldsymbol{x}' = \boldsymbol{x} - \varepsilon \nabla_x f(\boldsymbol{x})
+    \end{equation}
+
+    There are many schemes to pick \(\varepsilon\):
+    \begin{itemize}
+        \item Set it to small value (popular)
+        \item Search along negative gradient
+        \item Several values and compare loss function
+        \item More schemes TBD
+    \end{itemize}
+}
+
+\defn{Jacobian}{
+    \begin{equation}
+        \begin{split}
+            \text{For } f:R^n &\to R^m \\
+            (J_f (x))_{i,j} &= \frac{\partial}{\partial x_j} f_i (x) \\
+            J_{f \circ g} (x) &= J_f (g(x)) \cdot J_g (x) \\
+            \text{For surfaces applies gradients which basically is a jacobian } s: R^n &\to R \\
+            J_s (x)\approx \nabla s &=(\frac{\partial}{\partial_{x_1}} f(x),\cdots,\frac{\partial}{\partial_{x_n}})
+        \end{split}
+    \end{equation}
+
+    \begin{equation*}
+        J_{\text{Example}} = \begin{bmatrix}
+            \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} \\
+            \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2}
+        \end{bmatrix}
+    \end{equation*}
+    Gradient:
+    \begin{itemize}
+        \item Is perpendicular to contour surfaces of f(x)
+        \item Points into direction of steepest ascent
+        \item Norm is proportional to steepness
+    \end{itemize}
+    \begin{equation*}
+        \nabla s(g(x)) = \nabla s(u) \cdot J_g(x) \text{ where } g: \mathbb{R}^m \to \mathbb{R}^n
+    \end{equation*}
+}
+
+\defn{Hessian}{
+    Is the second order derivative of vector valued functions.
+    Is always symmetric.
+    \begin{equation*}
+        \begin{split}
+            f: \mathbb{R}^n \to \mathbb{R} \\
+            (H_f (x))_{i,j} &= \frac{\partial}{\partial x_i} \frac{\partial}{\partial x_j} f (x) \\
+        \end{split}
+    \end{equation*}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/hessian.png}
+    \caption{Curvature with the hessian}
+\end{figure}
+
+\section{Deepl Introduction}
 
 \begin{figure}[H]
     \centering
