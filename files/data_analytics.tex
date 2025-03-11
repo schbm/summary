@@ -239,4 +239,162 @@ Weitere Produkte:
     \end{itemize}
 }
 
+\section{Relationale Data Warehouses}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/sternschema.png}
+    \caption{Sternschema}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/sternschema-beispiel.png}
+    \caption{Beispiel einer Umsetzung des Sternschemas. Die Faktentabelle setzt sich ausschliesslich aus Foreign-Keys zusammen.}
+\end{figure}
+
+\defn{Sternschema}{
+    Die Faktentabelle ist normalisiert und typischerweise sehr gross bis mehrere Mio Tuples,
+    sie beinhaltet Bewegungsdaten mit weiteren Attributen, die Referenzen/FKs auf Dimensionstabellen sind.
+    Die Dimensionstabellen beschreiben die Fakten in der Faktentabelle und sind
+    oft nicht normalisiert und klein bis mittelgross (etwa 1'000).
+    In der Regel werden Queries über 1-stufige Joins zwischen Fakten und verknüpften Dimensionen getätigt.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/schneflockenschema.png}
+    \caption{Die Normalisierung der Dimensionstabellen führt zum Schneeflocken-Schema.}
+\end{figure}
+
+\defn{Schneeflocken-Schema}{
+    Normalisierung der Dimensionen im Sternschema führt zum Schneeflocken-Schema.
+    Pro Hierarchielevel kann in der Regel mit einer Tabelle gerechnet werden.
+    Das bedeutet Abfragen über Joins werden kompliziert, daher hat sich das Schema eher nicht durchgesetzt.
+}
+
+\subsection{Data-Warehouse Design Grundsätze}
+auch "Dimensional Modeling" genannt.
+\begin{itemize}
+    \item Faktentabellen enthalten nur numerische Werte und Fremdschlpssel
+    \item Faktentabellen sollten so granular wie möglich aufgebaut sein. (einfacher zum Aggregieren)
+    \item Dimensionstabellen haben in der Regel einen Surrogat-Schlüssel
+    \item Granularität der Zeit-Dimension kann nicht kleiner sein, als die Auflösung der Zeit im operativen System
+    \item "Conformed Dimensions" haben für alle möglichen Fact-Tables eine einheitliche Bedeutung
+    \item Hierarchien in Dimensionen sind möglichst als funktionale Abhängigkeit zwischen den Attributen einer
+    flaachen Dimensionstabelle oder als Fremdschlüsselbeziehung zwischen Dimensionstabellen zu konzipieren.
+\end{itemize}
+
+\subsection{Fakt-Tabellen}
+\begin{description}
+    \item[Transaction Fact Table] Ereignis, dass zu einem bestimmten Zeitpunkt geschah
+    \item[Periodic Snapshot] kumulative Grösse einer Kennzahl gemessen in regelmässigen Intervallen
+    \item[Accumulating Snapshot] Eintrag beschreibt eine Business-Transaktion aus mehreren Schritten zu unterschiedlichen Zeitpunkten   
+\end{description}
+
+\subsection{Spezielle Dimensionen}
+\begin{description}
+    \item[Degenerate Dimension] Identifizieren eine Transaktion (z.B Order Header)
+    \item[Role Playing Dimension] Dimension wird von Fact-Table mehrfach unterschiedlich bedeutend referenziert
+    \item[Junk Dimensions] Korrelierte Indikationen und Flags 
+\end{description}
+
+\defn{Slowly Changing Dimensions}{
+    "Veränderungen treten unerwartet, sporadisch und weitaus seltener auf als Messungen in Faktentabellen"
+    \begin{description}
+        \item[Typ 1] Keine Historisierung (Overwrite)
+        \item[Typ 2] Historisierung mittels neuem Zeilen-Eintrag und Attribute PK-BK valid-from und valid-to
+        \item[Typ 3 bis 6] Weitere Historisierung durch zusätzliche Zeit-Attribute oder Tabellen  
+    \end{description}
+}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/scd-typ-2.png}
+    \caption{SCD Typ 2}
+\end{figure}
+
+Typ 2 SCD wird z.B von MSSQL und Azure SQL unterstütz unter dem Namen "system-versioned temporal tables".
+
+\section{Aggregationsfunktionen und Pivot}
+
+\defn{GROUP BY ROLLUP}{
+    Ähnlich zu GROUPBY mit Vernubderzbg des Detaukkuerzbgsgrades,
+    Bei ROLLUP(A,B) werden Daten zuerst nach A und dann nach B aggregiert und anschliessen noch ein Total beigefügt.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/rollup.png}
+    \caption{ROLLUP Befehl}
+\end{figure}
+
+\defn{GROUP BY CUBE}{
+    Ähnlich wie der ROLLUP-Befehl fügt jedoch jedes Zwischentotal dazu.
+    Erfordert für die Generierung die Potenzmenge der zu aggregierenden Spalten.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cube.png}
+    \caption{CUBE Befehl}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/groupingset.png}
+    \caption{Grouping Sets Operator; Dieser kann generell anstelle von ROLLUP und CUBE eingesetzt werden
+    Zwischenresultate müssen explizit verlangt werden.}
+\end{figure}
+
+\defn{Pivot-Tabelle}{
+    Tabellenspalten werden aggregiert und transponiert, dies nennt man Pivotieren (drehen).
+    Es wird typischerweise in Statistik und Marktforschung verwendet zusammen mit Aggregationsfunktionen.
+    Pivot- und Kreuz-Tabellen sind praktisch synonyme.
+
+    Bei PSQL nicht integriert aber kann statisch via "crosstab" oder dynamisch über "tablefunc" erstellt werden.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/pivot.png}
+    \caption{Pivot}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/datamarts.png}
+    \caption{Data Marts: }
+\end{figure}
+
+\defn{Data Marts}{
+    Für den Zugriff auf Teilmenge eines Data Warehouses für bestimmte Subeinheiten eines Systems.
+    Data Marts sind kleiner und flexibler als das Datawarehouse.
+    Sie können strukturierte oder unstrukturierte Daten schnell und durch optimierte Abfragen (Vorberechnung \& Speicherung)
+    bereitstellen. (z.B Materialized View, Cube-Datastructures)
+
+    Wenn weitere Optimierung nötig ist, kann z.B MDX von Microsoft benutzt werden, welche Data-Cubes als
+    Datenstrukturen und Abfragesprache zur Verfügung stellt.
+}
+
+\defn{Data Lake}{
+    Speichersystem für strukturierte und unstrukturierte Daten in ihrem ursprünglichen Format.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.72\linewidth]{Images/da-begriffe.png}
+\end{figure}
+
+\section{Spatial Data}
+\defn{EVAP}{
+    \begin{itemize}
+        \item Erfassung
+        \item Verwaltung (Speicherung)
+        \item Analyse
+        \item Präsentation Darstellung
+        \end{itemize}
+}
 \end{document}
