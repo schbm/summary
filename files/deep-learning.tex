@@ -1266,6 +1266,11 @@ See lecture Digitale Kodierungen. Any measure of information should satisfy thre
     Important: Assume that \(0 log 0 = 0\)!
 }
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/kl-divergence-simmetry.png}
+\end{figure}
+
 \defn{Cross-Entropy}{
     Measures number of bits (if used with base 2) requirede to send symbols from P
     when using a code designed for distribution Q.
@@ -1486,20 +1491,149 @@ This can be achieved by minimizing the KL divergence or equivalenty the cross-en
 
 \defn{Hessian}{
     Is the second order derivative of vector valued functions.
-    Is always symmetric.
     \begin{equation*}
         \begin{split}
             f: \mathbb{R}^n \to \mathbb{R} \\
             (H_f (x))_{i,j} &= \frac{\partial}{\partial x_i} \frac{\partial}{\partial x_j} f (x) \\
         \end{split}
     \end{equation*}
+    It can describe how much a function "bends", the curvature.
+    If the curvature is zero, then the slope does not change, hence the function is a line, plane or hyperplane.
+    \begin{itemize}
+        \item Is the jacobian of the gradient of f(x)
+        \item Anywhere that the second partial defivatives are continuous, the differential operators are \textbf{commutative}
+        \item Usually for the functions we encounter the Hessian is \textbf{symmetric}.
+        \item If the Hessian is real and symmetric, it can be decomposed into a set of Eigenvalues and orthogonal eigenvectors.
+    \end{itemize}
 }
+
+For quadratic functions, the curvature tells us:
+\begin{table}[H]
+    \begin{tabular}{l|l|l}
+     Curvature & Slope & Gradient Descent Step  \\
+     \hline \\
+     Negative & gets smaller & too small  \\
+     Zero & stays constant & just right  \\
+     Positive & gets larger & too large
+    \end{tabular}
+\end{table}
+Many functions can be well approximated as quadratic functions in a small local neighborhood.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{Images/hessian.png}
     \caption{Curvature with the hessian}
+    \label{fig:hessian-curvature}
 \end{figure}
+
+\defn{Eigendecomposition of the Hessian}{
+    The hessian contains a large number of values, to analyze it more easily, the Eigenvalues are analyzed.
+
+    The second derivative in a direction by unit vector d is given by:
+    \begin{equation}
+        d^T H d
+    \end{equation}
+
+    If d is a unit eigenvector of H then:
+    \begin{equation}
+        d^THd = d^T \lambda d = \lambda d^T d = \lambda
+    \end{equation}
+
+    The second directional derivative in direction of an eigenvector is the corresponing eigenvalue.
+    For other directions, it is a weighted average of all eigenvalues.
+    The maximum eigenvalue determines the maximum second derivative and the minimum vice versa.
+
+    \textbf{Now instead of looking in any arbritary direction we can analyze the directions of the eigenvectors.
+    The curvature there is the corresponding eigenvalue.}
+
+    \begin{equation}
+        \begin{split}
+            d^T H d \text{ with } H=V \Lambda V^T \\
+            = d^T V \Lambda V^T d = \sum_{i} (d^T v_i)^2 \lambda_i \\
+            = \sum_{i} (cos \theta_i)^2 \lambda_i
+        \end{split}
+    \end{equation}
+    This is a sum over all i's eigenvalue/vector pairs, with the cosine between the angles of the directions
+    multiplied the corresponding eigenvalue.
+    \textbf{For any direction we can calculate the curvature based on this linear combination.}
+}
+
+\defn{Second order Taylor approximation}{
+    Locally approximates a function f(x)
+    around a given point x(0) using gradient g and Hessian H.
+
+    \begin{equation}
+        f(x) \approx f(x^{(0)}) + (x-x^{(0)})^T g + \frac{1}{2}(x-x^{(0)})^T H(x-x^{(0)})
+    \end{equation}
+
+    The approximated value after one step of the gradient descent is then:
+    \begin{equation}
+        \begin{split}
+            x^{(0)} - \alpha g \\
+            = f(x^{(0)} - \alpha g) \approx f(x^{(0)}) - \alpha g^T g + \frac{1}{2} \alpha^2 g^T H g
+        \end{split}
+    \end{equation}
+    The first to parts do not contribute to the analysis for the minimization problem.
+    For the last part:
+    \begin{equation}
+        \frac{1}{2} \alpha^2 g^T H g
+    \end{equation}
+    See figure \ref{fig:hessian-curvature} on page \pageref{fig:hessian-curvature}.
+    The sign of the part tells us:
+    \begin{description}
+        \item[Negative] Negative curvature
+        \item[Zero] No curvature
+        \item[Positive] Positive curvature
+        This is a optimization problem since, we might end up in the wrong place due to the curve change,
+        hence the optimization will fail.
+    \end{description}
+    When this i positive, we can theoretically calculate for the optimal \(\epsilon \text{ respectively } \alpha\):
+    \begin{equation}
+        \alpha^* = \frac{g^T g}{g^T H g}
+    \end{equation}
+}
+
+For critical points in multiple dimensions:
+\begin{equation*}
+    \nabla_x f(x) = 0
+\end{equation*}
+We can judge it in analogy to the second order derivative in one dimension:
+\begin{table}[H]
+    \begin{tabular}{l|l|l}
+     Type of critical point & Eivenvalues of H & 2nd order directional derivatives  \\
+     \hline \\
+     Minimum & All positive & Positive in all possible directions  \\
+     Maximum & All negative & Negative in all possible directions  \\
+     Saddle point & Some positive, some negative & Positive in some, negative in other directions
+    \end{tabular}
+\end{table}
+
+
+\defn{Second Order Condition Numbers}{
+    The condition number of the Hessian is a good way of measuring how much the second derivatives vary
+    as seen in figure \ref{fig:hessian-condition-number}.
+    \begin{itemize}
+        \item A small condition means curvature is similar in all directions, hence we use a large step size.
+        \item A high condition number means large curvature in one and small in another direction.
+        A small step size is needed to prevent overshooting in one direction. This means slow progress in other directions.
+    \end{itemize}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/hessian-conditioning.png}
+    \caption{Condition Number using the Hessian}
+    \label{fig:hessian-condition-number}
+\end{figure}
+
+\defn{Newtons Method}{
+    Can be used iteratively using the second order for minimizing a function(x).
+    We can analytically find the minimum of e.g a quadratic function:
+    \begin{equation}
+        x^* = x^{(0)} - H(f)(x^{(0)})^{-1} \nabla_x f(x^{(0)})
+    \end{equation}
+    This requires the inverse of the Hessian which is unreasonable in high dimensional spaces.
+}
 
 \section{Deepl Introduction}
 
