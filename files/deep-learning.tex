@@ -1635,6 +1635,243 @@ We can judge it in analogy to the second order derivative in one dimension:
     This requires the inverse of the Hessian which is unreasonable in high dimensional spaces.
 }
 
+\section{Machine Learning}
+
+\defn{ML Algorithm}{
+    A machine learning algorithm improves a computers
+    performance \textbf{P} at some task \textbf{T} via experience \textbf{E}.
+
+    Usually:
+    \begin{itemize}
+        \item Task T is predicting y based on x
+        \item Experience E is the training data
+        \item Performance P is a measurement like the test MSE
+    \end{itemize}
+}
+
+\defn{Bias Term}{
+    Is not about a statistical bias but rather refers to the intercept term.
+    When using a linear function it is strictly speaking a affine function.
+    \begin{itemize}
+        \item One approach to integrate b is to extend the x vector by one dimension and setting it to 1.
+    \end{itemize}
+}
+
+\defn{i.i.d Assumption}{
+    \begin{itemize}
+        \item Why is it ok to train on the MSEtrain when we actually want a small MSE test?
+    \end{itemize}
+
+    All samples of the training set and 
+    test set are independently and identically distributed, 
+    i.e., are generated with the same 
+    distribution.
+
+    \begin{equation}
+        \mathbb{E}[MSE_{train}] = \mathbb{E}[MSE_{test}]
+    \end{equation}
+}
+
+\defn{Goal of Machine Learning}{
+    Is to perform well on new data.
+    Therefore a good generalization results in low test (generalization) error.
+    The test error is usually estimated by 
+    measuring the performance over a test set 
+    of examples.
+    \begin{itemize}
+        \item  For this to work, the training set and the test set must come from the same data generating process.
+    \end{itemize}
+
+    \begin{enumerate}
+        \item Train MSE small
+        \begin{itemize}
+            \item If not achieved: underfitting
+        \end{itemize}
+        \item Keep gap between MSE train and test small
+        \begin{itemize}
+            \item If not achieved: overfitting
+        \end{itemize}
+    \end{enumerate}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/over_underfitting.png}
+    \caption{Overview: Over and Underfitting}
+\end{figure}
+
+\defn{Capacity}{
+    Is loosely defined as the \textbf{flexibility} of a model to fit to data.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cap-vs-error.png}
+    \caption{Capacity vs Error}
+\end{figure}
+
+\defn{Bayes Error (Irreducible)}{
+    The smallest possible error is called Bayes or irreducible error.
+    It arises from the fact that even if we would know the true data generation distribution
+    the underlying process could be inherently stochastic or that it depends on variables not in the input.
+}
+
+\defn{No Free Lunch Theorem}{
+    No machine learning algorith is universally better than any other.
+    \begin{itemize}
+        \item Deterministic View
+        \begin{itemize}
+            \item Logic rules
+            \item To create a rule about some data point, we must know that point.
+            \item We cannot create deterministic rules based on a small training dataset.
+        \end{itemize}
+        \item \textbf{Probabilistiv View}
+        \begin{itemize}
+            \item Probabilistic Rules
+            \item Rules which are probably correct for most data points
+            \item We can infer these rules based on a small training set
+            \item The only option for ML!
+        \end{itemize}
+    \end{itemize}
+
+    Averaged over all possible data generating distributions, every
+    classification algorithm has the same error rate when classifying
+    previously unobserved points.
+    \begin{itemize}
+        \item We can find the optimal algorithm for our problem
+    \end{itemize}
+}
+
+\defn{Regularization}{
+    Regularization is any modification we make to a learning 
+    algorithm that is intended to reduce its generalization 
+    error but not its training error.
+
+    This is generally achieved by adding a \textbf{penalty term} called \textbf{regularizer} to the cost function.
+}
+
+\defn{Hyper-Parameters}{
+    Hyperparameters are parameters 
+    of a learning algorithm that are 
+    not learned by the scheme.
+
+    The \textbf{training set cannot be used}, 
+    since changing hyperparameters that 
+    increase capacity will always reduce 
+    the training error.
+    The test set is used to estimate the 
+    generalization error, \textbf{we are not allowed} to 
+    use it to adjust the hyperparameters.
+
+    \begin{itemize}
+        \item \textbf{validation set} (e.g 20\% of training)
+    \end{itemize}
+}
+
+\defn{Estimators}{
+    Statistical estimators introduce the terms bias and variance.
+    \begin{itemize}
+        \item ML is an estimation process too.
+        \begin{itemize}
+            \item  Instead of estimating a sample mean, we 
+            estimate the parameters of a model.
+        \end{itemize}
+    \end{itemize}
+    The goal of point estimates is, to 
+    provide a best estimate of some 
+    quantity of interest:
+    \begin{equation}
+        \begin{split}
+            \text{True value of parameter } &\theta \\
+            \text{Estimate } &\hat{\theta}
+        \end{split}
+    \end{equation}
+
+    Point Estimator:
+    \begin{equation}
+        \hat{\theta}_m = g(x^{(1)}, \cdots, x^{(m)})
+    \end{equation}
+}
+
+\defn{Bias}{
+    \begin{equation}
+        bias(\hat{\theta}_m) = \mathbb{E}(\hat{\theta}_m) - \theta
+    \end{equation}
+    Estimators are considered unbiased, 
+    if the bias is zero, which implies that 
+    on average the estimator is correct.
+
+    A milder form is the idea of 
+    asymptotically unbiased, which 
+    means as we gather more and more 
+    data, the estimator becomes less and 
+    less biased:
+    \begin{equation}
+        \lim_{m \to \infty} \mathbb{E}(\hat{\theta}_m) = \theta
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/bias-est-bernoulli.png}
+    \caption{Estimator Bias of Bernoulli Parameter}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/bias-est-gauss.png}
+    \caption{Estimator Bias of Gauss Parameter Sigma}
+\end{figure}
+
+In both bias and variance, you assume that you 
+repeatedly collect new datasets, 
+estimate the parameter on each 
+dataset, and monitor the estimate.
+
+\defn{Consistency}{
+    Consistency combines the 
+    concepts of Bias and Variance.
+
+    A consistent estimator will 
+    converge towards the value it 
+    tries to estimate, when the 
+    available data set converges 
+    towards infinity.
+
+    \begin{equation}
+        \lim_{m \to \infty} \hat{\theta}_m \to^p \theta
+    \end{equation}
+
+    \begin{itemize}
+        \item (Asymptotic) unbiasedness
+        \item Variance decreased with increasing number of observation
+    \end{itemize}
+}
+
+\defn{MSE}{
+    On a theoretical basis, the mean 
+    square error (MSE) of the estimates 
+    is defined as:
+    \begin{equation}
+        \begin{split}
+            MSE &= \mathbb{E}[(\hat{\theta}_m - \theta)^2] \\
+            &= Bias(\hat{\theta}_m)^2 + Var(\hat{\theta}_m)
+        \end{split}
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/mse-bias-variance.png}
+    \caption{MSE Bias and Variance}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/mse-bias-variance-tradeoff.png}
+    \caption{MSE Bias and Variance Tradeoff}
+\end{figure}
+
 \section{Deepl Introduction}
 
 \begin{figure}[H]

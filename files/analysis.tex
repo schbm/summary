@@ -1,6 +1,6 @@
 \documentclass[../Main.tex]{subfiles}
 \begin{document}
-\chapter{Sorting Algorithm}
+\chapter{Calculus / Analysis}
 
 \intro{
 
@@ -51,7 +51,116 @@ Tangentenfunktion.
     \end{aligned}
 \end{equation}
 
-\section{Integration}
+\section{Integral}
+
+The integral of a function $f(x)$ over an interval $[a,b]$ is defined as:
+
+\begin{equation}
+\int_a^b f(x) \, dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i^*) \Delta x
+\end{equation}
+
+where $\Delta x = \frac{b-a}{n}$ and $x_i^*$ is a sample point in the subinterval.
+
+\subsection{Basic Integration Rules}
+
+\subsubsection{Linearity}
+\begin{equation}
+\int [af(x) + bg(x)] \, dx = a \int f(x) \, dx + b \int g(x) \, dx
+\end{equation}
+
+\subsubsection{Power Rule}
+\begin{equation}
+\int x^n \, dx = \frac{x^{n+1}}{n+1} + C, \quad n \neq -1
+\end{equation}
+
+\subsubsection{Constant Rule}
+\begin{equation}
+\int c \, dx = cx + C
+\end{equation}
+
+\subsubsection{Sum and Difference Rule}
+\begin{equation}
+\int (f(x) \pm g(x)) \, dx = \int f(x) \, dx \pm \int g(x) \, dx
+\end{equation}
+
+\subsection{Common Integrals}
+
+\subsubsection{Exponential and Logarithmic Functions}
+\begin{align}
+\int e^x \, dx &= e^x + C \\
+\int a^x \, dx &= \frac{a^x}{\ln a} + C, \quad a > 0, a \neq 1 \\
+\int \frac{1}{x} \, dx &= \ln |x| + C
+\end{align}
+
+\subsubsection{Trigonometric Functions}
+\begin{align}
+\int \sin x \, dx &= -\cos x + C \\
+\int \cos x \, dx &= \sin x + C \\
+\int \sec^2 x \, dx &= \tan x + C \\
+\int \csc^2 x \, dx &= -\cot x + C \\
+\int \sec x \tan x \, dx &= \sec x + C \\
+\int \csc x \cot x \, dx &= -\csc x + C
+\end{align}
+
+\subsubsection{Inverse Trigonometric Functions}
+\begin{align}
+\int \frac{1}{\sqrt{1-x^2}} \, dx &= \arcsin x + C \\
+\int \frac{1}{1+x^2} \, dx &= \arctan x + C \\
+\int \frac{1}{|x|\sqrt{x^2 - 1}} \, dx &= \text{arcsec}\, x + C
+\end{align}
+
+\subsection{Advanced Techniques}
+
+\subsubsection{Integration by Parts}
+\begin{equation}
+\int u \, dv = uv - \int v \, du
+\end{equation}
+
+where:
+- Choose $u$ to be the function that simplifies when differentiated.
+- Choose $dv$ to be the function that integrates easily.
+
+\subsubsection{Substitution Rule}
+\begin{equation}
+\int f(g(x)) g'(x) \, dx = \int f(u) \, du, \quad u = g(x)
+\end{equation}
+
+\subsubsection{Trigonometric Substitution}
+For integrals involving $\sqrt{a^2 - x^2}$, $\sqrt{x^2 - a^2}$, or $\sqrt{a^2 + x^2}$, use:
+
+\begin{align}
+x &= a \sin \theta, \quad dx = a \cos \theta \, d\theta \\
+x &= a \tan \theta, \quad dx = a \sec^2 \theta \, d\theta \\
+x &= a \sec \theta, \quad dx = a \sec \theta \tan \theta \, d\theta
+\end{align}
+
+\subsubsection{Partial Fraction Decomposition}
+For rational functions:
+\begin{equation}
+\frac{P(x)}{Q(x)} = \sum \frac{A_i}{(x - r_i)^m} + \sum \frac{B_ix + C_i}{(x^2 + px + q)^n}
+\end{equation}
+Decomposing into simpler fractions allows easier integration.
+
+\subsection{Improper Integrals}
+If the limit exists:
+\begin{equation}
+\int_{a}^{\infty} f(x) \, dx = \lim_{b \to \infty} \int_a^b f(x) \, dx
+\end{equation}
+
+\begin{equation}
+\int_{-\infty}^{\infty} f(x) \, dx = \lim_{a \to -\infty} \int_a^b f(x) \, dx
+\end{equation}
+
+\subsection{Special Integrals}
+
+\begin{align}
+\int \frac{dx}{x^2 + a^2} &= \frac{1}{a} \arctan \frac{x}{a} + C \\
+\int \frac{dx}{\sqrt{x^2 + a^2}} &= \ln |x + \sqrt{x^2 + a^2}| + C \\
+\int \sinh x \, dx &= \cosh x + C \\
+\int \cosh x \, dx &= \sinh x + C
+\end{align}
+
+
 \section{Kurvendiskussion}
 Stationäre Punkte bei \(f^{'}(x)=0 \), wobei:
 \begin{enumerate}
@@ -61,7 +170,283 @@ Stationäre Punkte bei \(f^{'}(x)=0 \), wobei:
     \item \( f^{''}(x)=0 \land f^{'''}(x) \neq 0 \implies\) Wendestelle
 \end{enumerate}
 \section{Taylor}
+\subsection{Definition of Taylor Series}
+
+The Taylor series of a function $f(x)$ centered at $x = a$ is given by:
+
+\begin{equation}
+f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x - a)^n
+\end{equation}
+
+where:
+- $f^{(n)}(a)$ is the $n$th derivative of $f(x)$ evaluated at $x = a$.
+- $n!$ is the factorial of $n$.
+- The series provides an approximation of $f(x)$ near $x = a$.
+
+\subsection{Commonly Used Taylor Expansions}
+
+For small values of $x$, the following approximations are useful:
+
+\subsubsection{Exponential Function}
+\begin{equation}
+e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots
+\end{equation}
+
+\subsubsection{Sine Function}
+\begin{equation}
+\sin x = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n+1)!} x^{2n+1} = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots
+\end{equation}
+
+\subsubsection{Cosine Function}
+\begin{equation}
+\cos x = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n} = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots
+\end{equation}
+
+\subsubsection{Natural Logarithm (for $|x| < 1$)}
+\begin{equation}
+\ln(1+x) = \sum_{n=1}^{\infty} (-1)^{n+1} \frac{x^n}{n} = x - \frac{x^2}{2} + \frac{x^3}{3} - \dots
+\end{equation}
+
+\subsection{Approximating a Function with Taylor Polynomials}
+
+A Taylor polynomial of degree $N$ is:
+
+\begin{equation}
+T_N(x) = \sum_{n=0}^{N} \frac{f^{(n)}(a)}{n!} (x - a)^n
+\end{equation}
+
+For small $(x-a)$, higher-order terms become smaller, so a low-degree polynomial can approximate $f(x)$ well.
+
+\subsection{Error Estimation (Lagrange Remainder)}
+
+The remainder term $R_N(x)$, which measures the error in the approximation, is given by:
+
+\begin{equation}
+R_N(x) = \frac{f^{(N+1)}(c)}{(N+1)!} (x - a)^{N+1}, \quad \text{for some } c \in (a, x)
+\end{equation}
+
+This helps estimate how accurate the Taylor polynomial is.
+
+\subsection{Convergence}
+The Taylor series is an infinite series, but it does not always converge to the function it represents. The key condition for convergence is:
+
+\begin{equation} \lim_{N \to \infty} T_N(x) = f(x) \quad \text{for all } x \text{ in the domain}. \end{equation}
+
+If the Taylor series converges absolutely, meaning each term shrinks as $N \to \infty$, then it can be used to represent $f(x)$.
+If the remainder term $R_N(x)$ tends to zero, the Taylor series exactly represents $f(x)$.
+The radius of convergence $R$ is found using the Cauchy-Hadamard theorem:
+\begin{equation} R = \frac{1}{\limsup\limits_{n \to \infty} \sqrt[n]{|c_n|}} \end{equation}
+
+where $c_n = \frac{f^{(n)}(a)}{n!}$ are the Taylor series coefficients.
+
+\subsection{Multivariate}
+For a function $f(x, y)$ of two variables expanded around $(a, b)$, the Taylor series takes the form:
+
+\begin{equation} f(x,y) = f(a,b) + \frac{\partial f}{\partial x} (x-a) + \frac{\partial f}{\partial y} (y-b) + \frac{1}{2!} \left( \frac{\partial^2 f}{\partial x^2} (x-a)^2 + 2 \frac{\partial^2 f}{\partial x \partial y} (x-a)(y-b) + \frac{\partial^2 f}{\partial y^2} (y-b)^2 \right) + \dots \end{equation}
+
+This generalizes to higher dimensions using partial derivatives.
+
+\subsection{Higher-Order and Truncating Errors}
+In practical applications, we often truncate the Taylor series at a finite number of terms. The error is estimated using the Lagrange remainder:
+
+\begin{equation} R_N(x) = \frac{f^{(N+1)}(c)}{(N+1)!} (x - a)^{N+1}, \quad c \in (a, x) \end{equation}
+
+If $R_N(x)$ is small for some $N$, the function is well approximated.
+
 \section{Fourier}
+\subsection{Definition of Fourier Series}
+
+A function $f(x)$ defined on an interval $[-L, L]$ can be expressed as a **Fourier series**, which is a sum of sine and cosine functions:
+
+\begin{equation}
+f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos \frac{n\pi x}{L} + b_n \sin \frac{n\pi x}{L} \right).
+\end{equation}
+
+The Fourier coefficients are computed as:
+
+\begin{equation}
+a_0 = \frac{1}{L} \int_{-L}^{L} f(x) \, dx
+\end{equation}
+
+\begin{equation}
+a_n = \frac{1}{L} \int_{-L}^{L} f(x) \cos \frac{n\pi x}{L} \, dx, \quad n \geq 1
+\end{equation}
+
+\begin{equation}
+b_n = \frac{1}{L} \int_{-L}^{L} f(x) \sin \frac{n\pi x}{L} \, dx, \quad n \geq 1
+\end{equation}
+
+These coefficients determine how much of each sine and cosine component is present in $f(x)$.
+
+\subsection{Complex Form of Fourier Series}
+
+Using Euler’s formula:
+
+\begin{equation}
+e^{i\theta} = \cos\theta + i\sin\theta,
+\end{equation}
+
+the Fourier series can be written in complex form:
+
+\begin{equation}
+f(x) = \sum_{n=-\infty}^{\infty} c_n e^{i n \frac{\pi x}{L}}
+\end{equation}
+
+where the complex Fourier coefficients are:
+
+\begin{equation}
+c_n = \frac{1}{2L} \int_{-L}^{L} f(x) e^{-i n \frac{\pi x}{L}} \, dx.
+\end{equation}
+
+\subsection{Fourier Transform}
+
+For a function $f(x)$ defined over all real numbers, the Fourier transform is:
+
+\begin{equation}
+F(\omega) = \int_{-\infty}^{\infty} f(x) e^{-i\omega x} \, dx.
+\end{equation}
+
+This transforms $f(x)$ from the time/spatial domain to the frequency domain.
+
+The inverse Fourier transform is:
+
+\begin{equation}
+f(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\omega) e^{i\omega x} \, d\omega.
+\end{equation}
+
+\subsection{Properties of the Fourier Transform}
+
+The Fourier transform has the following useful properties:
+
+\subsubsection{Linearity}
+\begin{equation}
+\mathcal{F} \{ a f(x) + b g(x) \} = a F(\omega) + b G(\omega).
+\end{equation}
+
+\subsubsection{Time Shifting}
+If $f(x)$ is shifted by $x_0$, then:
+
+\begin{equation}
+\mathcal{F} \{ f(x - x_0) \} = e^{-i\omega x_0} F(\omega).
+\end{equation}
+
+\subsubsection{Scaling}
+If $f(ax)$ is scaled by $a > 0$, then:
+
+\begin{equation}
+\mathcal{F} \{ f(ax) \} = \frac{1}{|a|} F\left(\frac{\omega}{a}\right).
+\end{equation}
+
+\subsubsection{Convolution Theorem}
+The Fourier transform of the convolution of two functions is:
+
+\begin{equation}
+\mathcal{F} \{ f * g \} = F(\omega) G(\omega).
+\end{equation}
+
+\subsubsection{Parseval's Theorem}
+The total energy of a function is preserved in the frequency domain:
+
+\begin{equation}
+\int_{-\infty}^{\infty} |f(x)|^2 \, dx = \int_{-\infty}^{\infty} |F(\omega)|^2 \, d\omega.
+\end{equation}
+
+\subsection{Fourier Transform of Common Functions}
+
+\subsubsection{Gaussian Function}
+\begin{equation}
+\mathcal{F} \left\{ e^{-x^2} \right\} = \sqrt{\pi} e^{-\omega^2 / 4}.
+\end{equation}
+
+\subsubsection{Sinc Function}
+\begin{equation}
+\mathcal{F} \left\{ \text{sinc}(x) \right\} = \Pi(\omega),
+\end{equation}
+where $\Pi(\omega)$ is a rectangular function.
+
+\subsubsection{Rectangular Function}
+\begin{equation}
+\mathcal{F} \left\{ \Pi(x) \right\} = \text{sinc}(\omega).
+\end{equation}
+% Fourier Series for Real-Valued Functions
+\subsection{Fourier Series for Periodic Real-Valued Functions}
+
+For a **real-valued periodic function** \( f(x) \) with period \( T = 2L \), the Fourier series representation is:
+
+\begin{equation}
+f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos \frac{n\pi x}{L} + b_n \sin \frac{n\pi x}{L} \right).
+\end{equation}
+
+where the **real Fourier coefficients** are:
+
+\begin{equation}
+a_0 = \frac{1}{L} \int_{-L}^{L} f(x) \, dx.
+\end{equation}
+
+\begin{equation}
+a_n = \frac{1}{L} \int_{-L}^{L} f(x) \cos \frac{n\pi x}{L} \, dx, \quad n \geq 1.
+\end{equation}
+
+\begin{equation}
+b_n = \frac{1}{L} \int_{-L}^{L} f(x) \sin \frac{n\pi x}{L} \, dx, \quad n \geq 1.
+\end{equation}
+
+\subsection{Approximation of Real-Valued Functions}
+
+For practical applications like **sound wave approximation**, we approximate \( f(x) \) by truncating the series to a finite number of terms:
+
+\begin{equation}
+f_N(x) = \frac{a_0}{2} + \sum_{n=1}^{N} \left( a_n \cos \frac{n\pi x}{L} + b_n \sin \frac{n\pi x}{L} \right).
+\end{equation}
+
+\subsection{Fourier Transform of Real-Valued Functions}
+
+For a **real-valued function** \( f(x) \) defined over all real numbers, the Fourier transform is:
+
+\begin{equation}
+F(\omega) = \int_{-\infty}^{\infty} f(x) e^{-i\omega x} \, dx.
+\end{equation}
+
+The inverse Fourier transform is:
+
+\begin{equation}
+f(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\omega) e^{i\omega x} \, d\omega.
+\end{equation}
+
+\subsection{Fourier Transform of Common Real-Valued Functions}
+
+\subsubsection{Gaussian Function}
+\begin{equation}
+\mathcal{F} \left\{ e^{-x^2} \right\} = \sqrt{\pi} e^{-\omega^2 / 4}.
+\end{equation}
+
+\subsubsection{Sinc Function}
+\begin{equation}
+\mathcal{F} \left\{ \text{sinc}(x) \right\} = \Pi(\omega),
+\end{equation}
+where \( \Pi(\omega) \) is a rectangular function.
+
+\subsubsection{Rectangular Function}
+\begin{equation}
+\mathcal{F} \left\{ \Pi(x) \right\} = \text{sinc}(\omega).
+\end{equation}
+
+\subsection{Parseval's Theorem for Real Functions}
+
+The total energy of a function is preserved in the frequency domain:
+
+\begin{equation}
+\int_{-\infty}^{\infty} |f(x)|^2 \, dx = \int_{-\infty}^{\infty} |F(\omega)|^2 \, d\omega.
+\end{equation}
+
+\subsection{Convolution Theorem for Real Functions}
+
+The Fourier transform of the convolution of two real functions is:
+
+\begin{equation}
+\mathcal{F} \{ f * g \} = F(\omega) G(\omega).
+\end{equation}
+
 \section{Trigonometrische Funktionen}
 Add Images here
 \subsection{Spezielle Funktionswerte}
@@ -93,5 +478,152 @@ Add Images here
         \sin(2x) &= &2\sin(x)\cos(x)
     \end{aligned}
 \end{equation}
+
+\section*{1. Basic Definitions and Notation}
+
+\subsection*{Differential Equation:}
+A differential equation is an equation that relates a function \( y(t) \) (or \( y(x) \)) to its derivatives.
+
+\textbf{General Form:}
+\[
+F(x, y, y', y'', \dots, y^{(n)}) = 0
+\]
+Where:
+\begin{itemize}
+    \item \( y \) is the dependent variable,
+    \item \( x \) is the independent variable,
+    \item \( y' \), \( y'' \), etc., represent the derivatives of \( y \) with respect to \( x \),
+    \item \( y^{(n)} \) is the nth derivative.
+\end{itemize}
+
+\subsection*{Order of a Differential Equation:}
+The order is the highest derivative in the equation.
+For \( y'' + y' = 0 \), the order is 2.
+
+\subsection*{Degree of a Differential Equation:}
+The degree is the exponent of the highest derivative after the equation is made polynomial in derivatives.
+For \( (y'')^2 + y' = 0 \), the degree is 2.
+
+\section*{2. Simple Differential Equations}
+
+\subsection*{First-order Linear Differential Equation:}
+A first-order linear differential equation has the form:
+\[
+\frac{dy}{dx} + P(x)y = Q(x)
+\]
+The solution can be found using the integrating factor method:
+\[
+I(x) = e^{\int P(x)dx}
+\]
+Then the solution is:
+\[
+y(x) = \frac{1}{I(x)} \int Q(x) I(x) \, dx + C
+\]
+where \( C \) is the constant of integration.
+
+\subsection*{Separable Differential Equation:}
+A separable differential equation has the form:
+\[
+\frac{dy}{dx} = f(x)g(y)
+\]
+To solve:
+\[
+\frac{1}{g(y)} \, dy = f(x) \, dx
+\]
+Integrate both sides:
+\[
+\int \frac{1}{g(y)} \, dy = \int f(x) \, dx
+\]
+Then solve for \( y(x) \).
+
+\section*{3. Higher-order Differential Equations}
+
+\subsection*{Second-order Linear Differential Equation:}
+A second-order linear differential equation has the form:
+\[
+a(x) \frac{d^2y}{dx^2} + b(x) \frac{dy}{dx} + c(x) y = f(x)
+\]
+The solution consists of the homogeneous solution:
+\[
+y_h(x) = c_1 y_1(x) + c_2 y_2(x)
+\]
+and the particular solution, which depends on \( f(x) \).
+
+\subsection*{Homogeneous Linear Differential Equation:}
+For a second-order homogeneous linear differential equation:
+\[
+a(x) \frac{d^2y}{dx^2} + b(x) \frac{dy}{dx} + c(x) y = 0
+\]
+The characteristic equation is:
+\[
+ar^2 + br + c = 0
+\]
+The general solution depends on the roots of the characteristic equation:
+\begin{itemize}
+    \item If the roots are real and distinct, \( y(x) = c_1 e^{r_1 x} + c_2 e^{r_2 x} \),
+    \item If the roots are real and repeated, \( y(x) = (c_1 + c_2 x) e^{r x} \),
+    \item If the roots are complex, \( y(x) = e^{\alpha x} \left( c_1 \cos(\beta x) + c_2 \sin(\beta x) \right) \),
+\end{itemize}
+where \( r_1 \) and \( r_2 \) are the roots of the characteristic equation, and \( \alpha \pm i\beta \) are complex roots.
+
+\subsection*{Non-homogeneous Linear Differential Equation:}
+For a non-homogeneous second-order linear differential equation:
+\[
+a(x) \frac{d^2y}{dx^2} + b(x) \frac{dy}{dx} + c(x) y = f(x)
+\]
+The solution is:
+\[
+y(x) = y_h(x) + y_p(x)
+\]
+where \( y_h(x) \) is the homogeneous solution and \( y_p(x) \) is a particular solution. Methods like undetermined coefficients or variation of parameters can be used to find \( y_p(x) \).
+
+\subsection*{Cauchy-Euler Equation:}
+A Cauchy-Euler equation is of the form:
+\[
+x^2 \frac{d^2y}{dx^2} + ax \frac{dy}{dx} + by = 0
+\]
+The solution is found by assuming a solution of the form \( y(x) = x^r \), leading to the characteristic equation:
+\[
+r(r-1) + ar + b = 0
+\]
+
+\section*{4. Systems of Differential Equations}
+
+\subsection*{First-order System:}
+A system of first-order linear differential equations is given by:
+\[
+\frac{d\mathbf{y}}{dt} = A\mathbf{y} + \mathbf{b}(t)
+\]
+where \( \mathbf{y} \) is a vector of dependent variables, and \( A \) is a matrix of coefficients.
+
+\subsection*{Solution of Linear Systems:}
+For a system of linear equations with constant coefficients, the general solution is:
+\[
+\mathbf{y}(t) = e^{At} \mathbf{y}_0 + \int e^{A(t-\tau)} \mathbf{b}(\tau) \, d\tau
+\]
+where \( \mathbf{y}_0 \) is the initial condition vector.
+
+\section*{5. Partial Differential Equations}
+
+\subsection*{Heat Equation:}
+The one-dimensional heat equation is:
+\[
+\frac{\partial u}{\partial t} = k \frac{\partial^2 u}{\partial x^2}
+\]
+where \( u(x,t) \) is the temperature distribution and \( k \) is the thermal diffusivity.
+
+\subsection*{Wave Equation:}
+The one-dimensional wave equation is:
+\[
+\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2}
+\]
+where \( u(x,t) \) is the displacement and \( c \) is the wave speed.
+
+\subsection*{Laplace's Equation:}
+Laplace's equation is:
+\[
+\nabla^2 u = 0
+\]
+where \( \nabla^2 \) is the Laplacian operator. It describes the behavior of scalar fields in regions where no sources or sinks are present.
 
 \end{document}
