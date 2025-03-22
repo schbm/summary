@@ -30,6 +30,67 @@
     \item Many more (see trends like transformers)
 \end{itemize}
 
+\section{Deepl Introduction}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/deepl-diff.png}
+    \caption{Flowcharts showing the relation between different parts of an AI system}
+\end{figure}
+\defn{Knowledge Encoding}{
+    Several artiﬁcial intelligence projects have sought to hard-code knowledge about
+    the world in formal languages. A computer can reason automatically about statements
+    in these formal languages using logical inference rules. This is known as the knowledge
+    base approach to artiﬁcial intelligence. None of these projects has led to a major success.
+    https://www.deeplearningbook.org/contents/intro.html
+}
+
+The diffculties faced by systems relying on hard-coded knowledge suggestthat AI systems 
+need the ability to acquire their own knowledge, by extracting
+patterns from raw data. This capability is known as machine learning.
+The performance of these simple machine learning algorithms depends heavily
+on the representation of the data they are given. (Example: Graph using Caresian vs Polar coordinates)
+
+
+One solution to this problem is to use machine learning to discover not only
+the mapping from representation to output but also the representation itself.
+This approach is known as representation learning.
+The quintessential example of a representation learning algorithm is the \textbf{autoencoder}.
+
+\defn{Feature Design}{
+    When designing features or algorithms for learning features, our goal is usually
+    to separate the factors of variation that explain the observed data.
+
+    The word "factors" simply to refer to separate sources of inﬂuence
+}
+
+When it is nearly as diffcult to obtain a representation as to solve theoriginal problem,
+representation learning does not, at ﬁrst glance, seem to help us.
+
+\textbf{Deep learning} solves this central problem in representation learning by 
+introducing representations that are expressed in terms of other, simpler representations.
+
+\defn{Perspectives of Deep Learning}{
+    The idea of learning the right representation for the data provides one perspective on deep learning.
+    (Encodes factors of variation that explain the input)
+    Another perspective on deep learning is that depth
+    enables the computer to learn a multistep computer program.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/multistepalgorithm.png}
+    \caption{An alorithm breaks a problem into feasable subproblems. It itself learns the data's representation.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/computational-depth.png}
+\end{figure}
+
+Deep learning can be safely regarded as thestudy of models that involve a greater amount of composition 
+of either learned functions or learned concepts than traditional machine learning does.
+
 \newpage
 \section{Short Linear Algebra Recap}
 
@@ -1390,6 +1451,7 @@ This can be achieved by minimizing the KL divergence or equivalenty the cross-en
     \begin{equation}
         \text{Learning } = \text{ Minimizing a Loss Function}
     \end{equation}
+    Optimization algorithms that use only the gradient are called \textbf{first-order optimization algorithms}.
 }
 
 \defn{Loss function}{
@@ -1583,8 +1645,8 @@ Many functions can be well approximated as quadratic functions in a small local 
     \begin{description}
         \item[Negative] Negative curvature
         \item[Zero] No curvature
-        \item[Positive] Positive curvature
-        This is a optimization problem since, we might end up in the wrong place due to the curve change,
+        \item[Positive] Positive curvature;
+        This is an optimization problem since, we might end up in the wrong place due to the curve change,
         hence the optimization will fail.
     \end{description}
     When this i positive, we can theoretically calculate for the optimal \(\epsilon \text{ respectively } \alpha\):
@@ -1633,6 +1695,12 @@ We can judge it in analogy to the second order derivative in one dimension:
         x^* = x^{(0)} - H(f)(x^{(0)})^{-1} \nabla_x f(x^{(0)})
     \end{equation}
     This requires the inverse of the Hessian which is unreasonable in high dimensional spaces.
+
+    This comes from the second order taylor approximation:
+    \begin{equation*}
+        f(x^{(0)} - \epsilon g) \approx f(x^{(0)}) - \epsilon g^T g + \frac{1}{2} \epsilon^2 g^T H g
+    \end{equation*}
+    Where g is the gradient and H the Hessian.
 }
 
 \section{Machine Learning}
@@ -1648,6 +1716,68 @@ We can judge it in analogy to the second order derivative in one dimension:
         \item Performance P is a measurement like the test MSE
     \end{itemize}
 }
+
+Tasks T:
+\begin{itemize}
+    \item Classification 
+        \begin{itemize}
+            \item Model assigns a Class using \(f : \mathbb{R}^n \to {1,\dots,k}\)
+            \item Model outputs probability distribution over classes. 
+        \end{itemize}
+    \item Classiﬁcation with missing inputs
+        \begin{itemize}
+            \item No guarantees that all inputs are available
+            \item When some of the inputs may be missing,rather than providing a single classiﬁcation function,
+            the learning algorithmmust learn a set of functions.
+            Each function corresponds to classifyingxwitha diﬀerent subset of its inputs missing.
+            \item One way to effciently deﬁne such a large set of functions is to learn a probability distribution
+            over all the relevant variables, then solve theclassiﬁcation task by
+            marginalizing out the missing variables.
+            \item program needsto learn only a single function describing the joint probability distribution
+        \end{itemize}
+    \item Regression
+        \begin{itemize}
+            \item \(\mathbb{R}^n \to \mathbb{R}\)
+        \end{itemize}
+    \item Transcription
+        \begin{itemize}
+            \item Unstructured representation into discrete textual form
+        \end{itemize}
+    \item Machine translation
+    \item Structured output
+        \begin{itemize}
+            \item Any task where output is a vector with important relationships between values
+            \item subsumes the transcription and translation tasks
+        \end{itemize}
+    \item Anomaly detection
+        \begin{itemize}
+            \item E.g detect action / data comming from a different probability distribution
+        \end{itemize}
+    \item Synthesis and sampling
+        \begin{itemize}
+            \item enerate new examples that are similar
+        \end{itemize}
+    \item mputation of missing values
+    \item Denoising
+    \item Density estimationorprobability mass function estimation
+\end{itemize}
+Of course, many other tasks and types of tasks are possible.
+
+Performance Measure P:
+\begin{itemize}
+    \item Classification
+        \begin{itemize}
+            \item Accuracy and Error-Rate
+            \item 0-1 Loss (Error-Rate)
+        \end{itemize}
+    \item Density Estimation
+        \begin{itemize}
+            \item average log-probability the model assigns to some samples
+        \end{itemize}
+\end{itemize}
+he choice of performance measure may seem straightforward
+and objective, but it is often diﬃcult to choose a performance 
+measure that corresponds well to the desired behavior of the system.
 
 \defn{Bias Term}{
     Is not about a statistical bias but rather refers to the intercept term.
@@ -1872,65 +2002,306 @@ dataset, and monitor the estimate.
     \caption{MSE Bias and Variance Tradeoff}
 \end{figure}
 
-\section{Deepl Introduction}
+\defn{Maximum Likelihood Estimation}{
+    Method to find good estimators.
+    Given an \textbf{i.i.d dataset} with m examples
+    from an unkown data generating distribution:
+    \begin{equation*}
+        \mathbb{X} = \{x^{(1)},\dots,x^{(m)}\}
+    \end{equation*}
+
+    Our goal is to estimate the 
+    unknown \(p_{data}(x)\) based on the 
+    observed data.
+
+    We define some parametric model distribution:
+    \begin{equation*}
+        p_{model}(x,\theta)
+    \end{equation*}
+
+    Now we try to find the parameter 
+    vector \(\theta\) that results in the largest
+    likelihood of having generated our
+    measured data. Hence, we maximize the likelihood:
+    \begin{equation*}
+        \hat{\theta}_{ML} = {\text{arg max}}_{\theta} p_{model}(\mathbb{X};\theta)
+    \end{equation*}
+    This is called "parametric estimation".
+
+    Because we assume it is i.i.d. we can decompose into:
+    \begin{equation*}
+        {\text{arg max}}_{\theta} p_{model}(\mathbb{X};\theta) = {\text{arg max}}_{\theta} \prod_{i=1}^{m} p_{model}(x^{(i);\theta})
+    \end{equation*}
+    And transform it into a sum:
+    \begin{equation*}
+        {\text{arg max}}_{\theta} \sum_{i=1}^{m} \log p_{model}(x^{(i);\theta})
+    \end{equation*}
+
+    We describe the observed data with an empirical
+    distribution, which is given by (\(\frac{1}{m}\) does not change resulting \(\theta\)):
+    \begin{equation*}
+       \hat{p}_{data}(x) = \frac{1}{m}\sum_{i=1}^{m} \delta (x-x^{(i)})
+    \end{equation*}
+
+    This means the likelyhood closely resembles the structure of the Expectation of a function
+    applied to x following a model emprirical distribution:
+    \begin{equation*}
+        \mathbb{E}_{x \sim \hat{p}_{data}} f(x) = \frac{1}{m} \sum_{i=1}^{m} f(x^{(i)})
+    \end{equation*}
+
+    This means the maximum likelyhood estimation is equivalent to:
+    \begin{equation}
+        \begin{split}
+            =  &{\text{arg max}}_{\theta} \mathbb{E}_{x \sim \hat{p}_{data}} \log p_{model}(x;\theta) \\
+            &H(P,Q) = -\mathbb{E}_{x \sim P} \log Q(x)
+        \end{split}
+    \end{equation}
+
+    \textbf{Maximum likelihood estimation is equivalent to minimizing the cross-entropy 
+    between the empirical distribution and the model distribution}.
+
+    \begin{equation}
+        \hat{\theta}_{ML} = {\text{arg min}}_{\theta} H(\hat{p}_{data}, p_{model})
+    \end{equation}
+}
+
+
+Maximum likelihood estimation 
+can be interpreted as making the 
+model distribution match the 
+empirical distribution.
+
+We would rather match the true data 
+generating distribution, but we have 
+no direct access to this distribution.
+
+\defn{Max Likelihood and KL-Divergence}{
+    Since the first part of Kullback-Leibler divergence does not depend on the model,
+    minimizing the cross-entropy is equivalent to minimizing the KL-divergence, hence
+    minimizing KL-divergence leads to a maximum likelihood estimate.
+    \begin{equation*}
+        D_{KL} = (\hat{p}_{data} || p_{model}) = \mathbb{E}_{x \sim \hat{p}_{data}}[\log \hat{p}_{data}(x) - \log p_{model}(x)]
+    \end{equation*}
+    \begin{equation}
+        \hat{\theta}_{ML} = {\text{arg min}}_{\theta} D_{KL}(\hat{p}_{data} || p_{model})
+    \end{equation}
+}
+
+\defn{Conditional Log-Likelihood}{
+    In supervised learning we need to estimate the conditional probability:
+    \begin{equation*}
+        p_{model}(x;\theta) \to P(y | x;\theta)
+    \end{equation*}
+    Where X is a matrix containing measured input (design matrix) and Y containing all measured outputs.
+    \begin{equation*}
+        \hat{\theta}_{ML} = {\text{arg max}}_{\theta} P(y | x;\theta)
+    \end{equation*}
+    \begin{equation}
+        \hat{\theta}_{ML} = {\text{arg max}}_{\theta} \log P(y^{(i)} | x^{(i)};\theta)
+    \end{equation}
+}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/deepl-diff.png}
-    \caption{Flowcharts showing the relation between different parts of an AI system}
-\end{figure}
-\defn{Knowledge Encoding}{
-    Several artiﬁcial intelligence projects have sought to hard-code knowledge about
-    the world in formal languages. A computer can reason automatically about statements
-    in these formal languages using logical inference rules. This is known as the knowledge
-    base approach to artiﬁcial intelligence. None of these projects has led to a major success.
-    https://www.deeplearningbook.org/contents/intro.html
-}
-
-The diffculties faced by systems relying on hard-coded knowledge suggestthat AI systems 
-need the ability to acquire their own knowledge, by extracting
-patterns from raw data. This capability is known as machine learning.
-The performance of these simple machine learning algorithms depends heavily
-on the representation of the data they are given. (Example: Graph using Caresian vs Polar coordinates)
-
-
-One solution to this problem is to use machine learning to discover not only
-the mapping from representation to output but also the representation itself.
-This approach is known as representation learning.
-The quintessential example of a representation learning algorithm is the \textbf{autoencoder}.
-
-\defn{Feature Design}{
-    When designing features or algorithms for learning features, our goal is usually
-    to separate the factors of variation that explain the observed data.
-
-    The word "factors" simply to refer to separate sources of inﬂuence
-}
-
-When it is nearly as diffcult to obtain a representation as to solve theoriginal problem,
-representation learning does not, at ﬁrst glance, seem to help us.
-
-\textbf{Deep learning} solves this central problem in representation learning by 
-introducing representations that are expressed in terms of other, simpler representations.
-
-\defn{Perspectives of Deep Learning}{
-    The idea of learning the right representation for the data provides one perspective on deep learning.
-    (Encodes factors of variation that explain the input)
-    Another perspective on deep learning is that depth
-    enables the computer to learn a multistep computer program.
-}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{Images/multistepalgorithm.png}
-    \caption{An alorithm breaks a problem into feasable subproblems. It itself learns the data's representation.}
+    \includegraphics[width=0.75\linewidth]{Images/estimation-pmodel.png}
+    \caption{We use a gaussian model which we want to fit to our empirical distribution.
+    When using "better" parameters of the gaussian model the fit measured in the maximum likelyhood aproaches 1.
+    Meaning samples of the underlying empirical distribution are likely to appear in our model distribution.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/computational-depth.png}
+    \includegraphics[width=0.75\linewidth]{Images/linear-regression-assumption.png}
+    \caption{For linear regression we include probabilistic error in our model, converting it into a
+    probabilistic model. For this we assume e.g that the error mean is zero (resp. is around y) but with an unkown variance.}
 \end{figure}
 
-Deep learning can be safely regarded as thestudy of models that involve a greater amount of composition 
-of either learned functions or learned concepts than traditional machine learning does.
+\defn{Linear Model in Conditional Log-Likelihood}{
+    We assume:
+    \begin{itemize}
+        \item Model is on average correct
+        \item There is a remaining random error, which follows a gaussian
+        \item We assume a \textbf{constant} variance e.g 1 since we don't know the true variance (this does not matter later on)
+    \end{itemize}
+    \begin{equation}
+        p(y|x) = N(y; \hat{y}(x;w),\sigma^2)
+    \end{equation}
+
+    If we now rewrite the log likelihood as shown in figure \ref{fig:linear-regression-loglikelihood} on page
+    \pageref{fig:linear-regression-loglikelihood} we can find that this is equvalent to minimizing the MSE.
+
+    \textbf{Hence, minimizing MSE is a maximum likelihood estimate under the assumption 
+    that the errors follow a Gaussian distribution.}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/linear-regression-loglikelihood.png}
+    \caption{If we plug in the linear probabilistic model into the conditional log likelihood,
+    we will get the minimization of the MSE as a result}
+    \label{fig:linear-regression-loglikelihood}
+\end{figure}
+
+\defn{Stochastic Gradient Descent}{
+    When training neural networks using Maximum Likelihood and
+    a gradient based approach, we require the gradient.
+    This requires the gradient calculation over all training data which can be slow.
+    
+    We can use SGD to solve this problem.
+    For this we decompose the max likelihood problem as seen in figure \ref{fig:decomposition-maxlikelihood-sgd}
+    on page \pageref{fig:decomposition-maxlikelihood-sgd}.
+
+    When calculating the gradient of loss function J we can show that this is also an expectation:
+    \begin{equation*} 
+        \begin{split}
+            \nabla_\theta J(\theta) &= \frac{1}{m} \sum_{i=1}^{m} \nabla_\theta L(x^{(i)},y^{(i)},\theta) \\
+            \nabla_\theta J(\theta) &= \mathbb{E}_{x,y \sim \hat{p}_{data}}[\nabla_\theta L(x,y,\theta)]
+        \end{split}
+    \end{equation*}
+
+    Key idea: an expectation can be estimated with any number m' of data samples:
+    \begin{equation}
+        \hat{g} = \frac{1}{m'} \sum_{i=1}^{m'} \nabla_\theta L(x^{(i)},y^{(i)},\theta)
+    \end{equation}
+
+    In each step of SGD, a so called 
+    \textbf{minibatch} \(\mathbb{B}\) of samples is used, 
+    where the m' samples are drawn randomly from the training set.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/sgd-rewrite.png}
+    \caption{We decompose the Log Likelihood for SGD in multiple components}
+    \label{fig:decomposition-maxlikelihood-sgd}
+\end{figure}
+
+\section{Building an ML Algorithm}
+
+\subsection{Requirements}
+\begin{itemize}
+    \item Dataset
+    \item Cost (loss/objective) function
+    \item Probabilistic model
+    \item An optimization algorithm
+\end{itemize}
+
+\subsection{Components of the Cost Function}
+\begin{itemize}
+    \item Term that causes some form of statistical estimation
+        \begin{itemize}
+            \item Negative log-likelihood
+        \end{itemize}
+    \item Additional regularization terms
+\end{itemize}
+When cost functions are selected to be nonlinear, closed form solutions are rare.
+
+\subsection{Challenges Motivating Deep Learning}
+\begin{itemize}
+    \item High dimensional problems becomes exponentially more difficult for generalization
+    \item Traditional ml are insufficient to learn complicated functions in higher dimensions
+\end{itemize}
+
+\defn{Curse of Dimensionality}{
+    As the number of variables 
+    increase, the number of distinct 
+    configurations increases 
+    exponentially.
+
+    \begin{itemize}
+        \item Number of training samples need to increase exponentially to have the same sample density
+        \item Most space is empty
+            \begin{itemize}
+                \item Traditional machine learning 
+                approaches basically assume that the 
+                output should be similar to the 
+                nearest training points
+                \item They might be very far away in high dimensionality
+            \end{itemize}
+    \end{itemize}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/curse-dimensionality.png}
+    \caption{Curse of High Dimensionality: Sample density decreases if not mitigated by exponentially more samples}
+\end{figure}
+
+\defn{Local Constancy and Smoothness}{
+    For good generalization we guide by some form of prior knowledge.
+    Very popular is the smoothness (local constancy) prior:
+    \begin{equation*}
+        f*(x) \approx f*(x+\epsilon)
+    \end{equation*}
+    The function should not change much in small neighborhood \(\epsilon\).
+    Many classical ml schemes are based on this (KNN, Trees, SVM) and tend to fail in more complex tasks.
+    \textbf{Deep learning introduces additional priors.}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/local-constancy.png}
+    \caption{Local Constancy}
+\end{figure}
+
+\subsection{Local Constancy in Deep Learning}
+The \textbf{core assumption} in deep learning is \textbf{composition of factors}.
+We assume the data was generated hierarchically over several levels by the composition of factors.
+
+These (mild) assumptions allow for an exponential relationship between
+the number of training examples and the number of regions that can be distinguished.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/composition-factors.png}
+    \caption{Composition of Factors: We assume exponential hierarchical relationships between the training examples}
+\end{figure}
+
+\defn{Manifold Learning}{
+    A manifold is a set of points 
+    associated with a \textbf{neighborhood} 
+    around each point or also a smaller dimensional region
+    in a higher dimensional space.
+    From any given point, the manifold 
+    locally appears to be a Euclidean space.
+    The idea of a manifold is, that the 
+    connected set of points can be 
+    approximated well by considering 
+    only a small number of dimensions, 
+    embedded in a higher-dimensional space.
+    Many problems seem arbitrarily 
+    complex, if the scheme needs to 
+    learn functions with variations 
+    across all dimensions. In manifold learning, this is simplified 
+    by assuming that\textbf{ interesting inputs 
+    must lie along manifolds}. Hence 
+    most inputs are not valid inputs.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/manifold-example-1.png}
+    \caption{Manifold Example: Interesting points follow a lower dimensional manifold in higher dimensional space.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{Images/manifold-example-2.png}
+    \caption{Manifold Example: In machine learning, the dimensionality of the manifold is 
+    allowed to vary from one point to another. This for example happens at an intersection.}
+\end{figure}
+
+The assumption that the data lies along a low-dimensional manifold 
+may not always be correct or useful.
+However for many tasks the assumpation may seem to hold or be atleast useful.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/manifold-example-3.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/manifold-example-4.png}
+\end{figure}
 
 \end{document}
