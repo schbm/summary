@@ -392,9 +392,611 @@ Typ 2 SCD wird z.B von MSSQL und Azure SQL unterstütz unter dem Namen "system-v
 \defn{EVAP}{
     \begin{itemize}
         \item Erfassung
+            \begin{itemize}
+                \item GPS (Outdoor)
+                \item DGPS (Outdoor)
+                \item 3D-Scanner (Kinect)
+                \item WLAN
+                \item Bluetooth
+                \item Kamera (SLAM)
+            \end{itemize}
         \item Verwaltung (Speicherung)
+            \begin{itemize}
+                \item Kommerziell: ArcGIS, Oracle, MSSQL, MongoDB
+                \item Open Source: PostGreSQL, MySQL, DuckDB
+                \item Geodatentypen, Funktionen, Indexe
+            \end{itemize}
         \item Analyse
         \item Präsentation Darstellung
         \end{itemize}
 }
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/evap-eingabe.png}
+    \caption{EVAP: Eingabe / Erfassung}
+\end{figure}
+
+\defn{Geodaten (Geospatial Data)}{
+    Sind allgemein Daten mit Raumbezug
+    \begin{itemize}
+        \item Geografische Namen
+        \item Adressen
+        \item Codes
+        \item Punkte, Linien, Flächen, Pixel/Voxel
+    \end{itemize}
+    Geodaten weisen eine komplexe Datenstruktur mit vielen Formaten auf.
+    Sie sind:
+    \begin{itemize}
+        \item komplexe Konsistenzbedingungen
+        \item Grosser Erfassungsaufwand
+        \item Grosse Datenmengen
+        \item Viele Metadaten
+            \begin{itemize}
+                \item Koordinaten Referenzsystem
+                \item Auflösung
+                \item Qualität
+            \end{itemize}
+    \end{itemize}
+}
+
+\subsection{Raumbezug - Projektion}
+Eine 2D Abbildung unseres 3D Raumes ist schwierig.
+Der Modellierungsprozess erfordert abstraktion, welcher zu Informationsverlust führen kann.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/raumbezug.png}
+    \caption{Raumbezug - Projektion}
+\end{figure}
+Längengrad/Breitengrad sind ein "geozentrischer 
+Vektor". Karten und Bildschirme sind jedoch 
+"eben/flach".
+\\\\
+Eine Projektion bildet das Ellipsoid auf eine Fläche 
+ab, d.h. auf kartesische Koordinaten: der Nordwert 
+(Mathe Y) und der Ostwert (Mathe X) und stehen 
+rechtwinklig zueinander.
+\\\\
+Koordinatensysteme inkl. Projektionen erhalten 
+eine Abkürzung, z.B. CHLV95 (Schweizerische 
+Landesvermessung 1995) oder WGS84 (World 
+Geodetic System) und einen Code
+
+\defn{Bekannte Codes}{
+    \begin{itemize}
+        \item WGS84 - EPSG-Code:4326 ("GPS-Koordinaten")
+            \begin{itemize}
+                \item geozentrisch, geografisch, Grad
+                \item Beiten/Längengrad (lat/lon N/E)
+            \end{itemize}
+        \item Web Mercator - EPSG-Code 3857 ("Schulwandkarte")
+            \begin{itemize}
+                \item kartesisch (=eben), metrisch
+            \end{itemize}
+        \item CHLV95 - EPSG-Code 2056 ("Schweizer Koordinatensystem")
+            \begin{itemize}
+                \item Landvermessung CH neu, kartesisch-metrisch
+                \item 7-stellige Koordinaten
+            \end{itemize}
+    \end{itemize}
+    Die National Geospatial-Intelligence Agency der USA empfiehlt WGS 84 (EPSG:4326). Sie rät von 
+    Web Mercator (EPSG:3857) für militärische und nachrichtendienstliche Zwecke ab, da es 
+    Probleme mit der Positionsgenauigkeit gibt, insbesondere in hohen Breitengraden.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/coordinate_precision.png}
+    \caption{Koordinatenpräzision}
+\end{figure}
+
+\subsection{GIS Architecture}
+\begin{itemize}
+    \item  Produktpalette mit ArcGIS Pro und ArcGIS Online als bekannteste Produkte
+    \item  QGIS Projekt (Open Source GPL)
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/gis-architektur.png}
+    \caption{GIS: Generelle Architektur}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/gis-architekturen.png}
+    \caption{GIS: Produkt Architektur}
+\end{figure}
+
+\subsubsection{Web-Apps}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/gis-webapps.png}
+    \caption{GIS: Webapps}
+\end{figure}
+
+\subsubsection{Geovisualisierung für Data Engineers}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/geovisualisierung-data-eng.png}
+    \caption{Geovisualisierung für Data Engineers}
+\end{figure}
+
+\subsection{Prinzipien von GIS Verarbeitung}
+\defn{Ebenenprinzip}{
+    Informationen werden in Ebenen übereinander geschichtet.
+    Koordination ermöglichen einen vertikalen Lagenvergleich.
+    Die Stärke von GIS ist durch Kombination unabhängiger Daten neue Informationen abzuleiten.
+}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/gis-layers.png}
+    \caption{Layerprinzip}
+\end{figure}
+
+\defn{Universelle Fremdschlüssel (Raumbezug)}{
+    Der Razmbezug wird als gemeinsamen Nenner aller Objekte herangezogen.
+    Koordinaten sttelllen einen grundsätzlich neuen Beziehungstyp dar,
+    der Kombinationen z.b via räumlichen Joins erlaubt.
+}
+
+\defn{Modellierung / Repräsentation}{
+    \begin{itemize}
+        \item Diskret (Räumlich begrenzt), z.B Gebäude
+        \item Kontinuierlich (Felder), z.B Luftdruck
+    \end{itemize}
+    Diese werden codiert:
+    \begin{itemize}
+        \item Vektorbasiert (Vektordaten)
+            \begin{itemize}
+                \item Geometrische Datentypen Punktkoordinaten, Linien und Flächen
+                \item Einzeln ansprechbar, gruppierbar, skalierbar, "berechenbarer"
+            \end{itemize}
+        \item Rasterbasiert (Rasterdaten, z.B Bilder)
+            \begin{itemize}
+                \item zusammengehörige Menge von (Farb-)Pixeln, die einen Raumbezug haben (sie 
+                sind sogenannt "geo-referenziert")
+                \item Erfasst durch CCD/CMOS-Sensoren in Scanner und Kameras; z.B. GeoTIFF-Format
+                \item Schneller in Darstellung als Vektoren, billiger in der Herstellung
+            \end{itemize}
+    \end{itemize}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/geodaten-zu-grafik.png}
+    \caption{Geodaten zu Grafik}
+\end{figure}
+
+\subsubsection{Geodaten Vektor Formate}
+\begin{itemize}
+    \item GeoJSON
+        \begin{itemize}
+            \item Lesbar
+        \end{itemize}
+    \item GeoPackage
+        \begin{itemize}
+            \item Verbessertes Shapefile
+            \item Erweiterung SQLite
+            \item Binärformat
+        \end{itemize}
+    \item Shapefile
+        \begin{itemize}
+            \item Industrie Norm
+            \item Binär
+            \item 2 Abhängige Dateien (Geometrie (.shp) + Sachdaten (.dbf))
+            \item Veraltet
+        \end{itemize}
+    \item DXF
+        \begin{itemize}
+            \item Reine Geometrie/CAD
+            \item Keine Sachdaten
+        \end{itemize}
+    \item GeoParquet
+        \begin{itemize}
+            \item Erweiterung Parquet
+            \item Spaltenorientiert
+            \item Offenes Speicherformat für effiziente Komprimierung (\&schnelle Abfragen)
+        \end{itemize}
+    \item CSV
+    \item SVG
+\end{itemize}
+Konvertierungsprogramme:
+\begin{itemize}
+    \item https://geoconverter.infs.ch/
+    \item https://mygeodata.cloud/converter/
+\end{itemize}
+
+\subsubsection{Geodaten Raster Formate}
+\begin{itemize}
+    \item PDF
+    \item PNG, JPG
+    \item TIFF, GeoTIFF
+        \item Standard
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/postgis-vektordatentypen.png}
+    \caption{PostGIS Vektordatentypen}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/geonormen.png}
+    \caption{Geo-Normen}
+\end{figure}
+
+\begin{lstlisting}[language=SQL]
+    CREATE TABLE eisenbahn (
+        id int4 PRIMARY KEY, 
+        name TEXT,
+        geom GEOMETRY('LINESTRING', 2056)
+    );
+
+    CREATE INDEX 
+        in_eisenbahnen_the_geom
+        ON eisenbahnen
+        USING gist(geom);
+
+
+    INSERT INTO uster(id, name, geom) VALUES (
+        100,
+        'Uster'
+        ST_GeometryFromText('LINESTRING(8.81 47.22,8.81 47.22)',4326)  
+    );
+
+    SELECT id, name, ST_AsText(geom) FROM uster;
+
+    CREATE TABLE beers (
+        id GENERATED ALWAYS AS IDENTITY,
+        name VARCHAR(60),
+        price NUMERIC(10, 2),
+        geom GEOMETRY('POINT', 4326)
+        -- use usually a planar CRS not a geocentric
+    );
+
+    select name, price,
+        round((price + 0.001 * ST_DistanceSphere(geom, 
+            ST_GeometryFromText(
+                'POINT(8.816511 47.223064)',4326)))::numeric, 2
+            ) as net_price
+    from beers order by net_price;
+\end{lstlisting}
+
+\subsection{PostGIS Queries}
+\begin{lstlisting}[language=SQL]
+-- Aufgabe 5.1: Distanzberechnung
+-- => Im Lokalkoordinatensystem
+SELECT ST_distance(
+    (SELECT geom FROM orte 
+        WHERE "name" = 'Bern' AND type = 'Medium City'),
+    (SELECT geom FROM orte
+        WHERE "name" = 'Zurich'AND type = 'Medium City'));
+-- => basierend auf einer Kugel
+SELECT ST_distanceSphere(
+    (SELECT ST_Transform(geom,4326) FROM orte
+        WHERE "name" = 'Bern' AND type = 'Medium City'),
+    (SELECT ST_Transform(geom,4326) FROM orte
+        WHERE "name" = 'Zurich'AND type = 'Medium City')
+    );
+-- => basierend auf einem Bessel 1841 Ellipsoid.
+SELECT ST_distanceSpheroid(
+    (SELECT ST_Transform(geom,4326) FROM orte
+        WHERE "name" = 'Bern' AND type = 'Medium City'),
+    (SELECT ST_Transform(geom,4326) FROM orte
+        WHERE "name" = 'Zurich'AND type = 'Medium City'),
+    'SPHEROID["Bessel 1841",6377397.155,299.1528128]');
+
+
+-- Aufgabe 5.2: Objektselektion mit angrenzenden Flaechen
+-- Selektieren Sie alle Gemeinden,
+-- die an die Gemeinde Rapperswil-Jona grenzen.
+SELECT * FROM gemeinden
+WHERE ST_Touches(
+    geom, 
+    (SELECT geom FROM gemeinden WHERE name = 'Rapperswil-Jona')
+) 
+ORDER BY name ASC;
+
+
+-- Aufgabe 5.3: Objektselektion als Umkreissuche
+-- Selektieren Sie alle Orte im Umkreis
+-- von 10 km um die HSR (CH1903: 704472/231216)
+SELECT name, geom 
+FROM orte
+WHERE ST_DWithin(geom, 
+    ST_GeomFromText('POINT(704472 231216)', 21781),10000)
+ORDER BY name ASC;
+
+
+-- Aufgabe 5.4: Pufferzone
+-- Selektieren Sie alle Orte, die in einer Pufferzone
+-- von 2km um den Fluss Emme liegen.
+SELECT name 
+FROM orte
+WHERE ST_Within(
+    geom,
+    (SELECT ST_Buffer(geom, 2000) FROM fluesse WHERE name = 'Emme')
+)
+ORDER BY name ASC;
+
+
+-- Aufgabe 5.5. 
+-- Schreiben Sie eine Query, die alle Gemeinden selektiert,
+-- durch die der Fluss Emme fliesst. 
+SELECT g.name 
+FROM gemeinden g
+WHERE ST_Intersects(geom, (SELECT geom FROM fluesse WHERE name = 'Emme'))
+ORDER BY 1;
+-- oder 
+SELECT g.name 
+FROM gemeinden g
+JOIN fluesse f ON ST_Intersects(f.geom, g.geom)
+WHERE f.name = 'Emme' 
+ORDER BY 1;
+    
+\end{lstlisting}
+
+\section{Big Data}
+\defn{Big Data}{
+    Zu "Big Data" gib es keine einheitliche Definition; wird häufig auch als 
+    Sammelbegriff verwendet für (Real-Time-)Analyse massiver Datenmengen.
+
+    Unterteilunge auch möglich:
+    \begin{itemize}
+        \item Small Data: Memory eines einzelnen Systemes
+        \item Medium Data: Auf Disk eine Systems
+        \item Big Data: Erfordert verteilte Systeme
+    \end{itemize}
+
+    Blogbeitrag von Jordan Tigani (*), Zusammenfassung:
+    \begin{itemize}
+        \item Meisten Daten <100GB
+        \item Wenn doch, wahrscheinlich nicht alle auf einmal abgefragt
+    \end{itemize}
+    (*) "Big Data is Dead" (2023) by Jordan Tigani, DuckDB Maintainer (Open Source); 
+    vorher bei Google BigQuery: https://motherduck.com/blog/big-data-is-dead/ 
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/4v-bigdata.png}
+    \caption{Die 4 V's von Big Data}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/treiber-bigdata.png}
+    \caption{Die Treiber von Big Data}
+\end{figure}
+
+\defn{Big Data Analytics}{
+    Vielmals ist bei Big Data Analytics real-time analysen erforderlich.
+    Dazu sind traditionelle Data Warehouse Architekuren ungeeignet.
+    \begin{description}
+        \item[Ansatz 1] Scaling Up, In-Memory Column Stores
+        \item[Ansatz 2] Scaling Out, Shared Nothing Architektur, Verteilte Systeme  
+    \end{description}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/bigdata-tech.png}
+    \caption{Big Data Technology Landscape}
+\end{figure}
+
+\section{Analytical Processing}
+\defn{In-Memory Column Store}{
+    \begin{itemize}
+        \item \textbf{Column Store:} Spaltenorientiertes DMBS
+            \begin{itemize}
+                \item Bessere Komprimierung
+                \item Bessere Indexierung
+                \item Datenverwaltung pro Spalte
+            \end{itemize}
+        \item In-Memory:
+            \begin{itemize}
+                \item Nur Memory
+                \item Keine Persistenz
+                \item Persistenz durch logischem WAL oder Snapshots
+            \end{itemize}
+    \end{itemize}
+    Bietet aufgrund der Architektur schnellere OLAP-Lese-Anfragen (10-100x)
+    sind jedoch langsamer bei Updates und daher ungeeignet für write-heavy OLTP.
+}
+
+Produkte:
+\begin{itemize}
+    \item Oracle 12 (Erweiterung)
+    \item MSSQL (Erweiterung)
+    \item PostgreSQL (Third Party Erweiterung)
+    \item SAP Hana (Standard, teuer, grosse Ressourcenanforderungen (Memory 500GB))
+    \item Hbase
+\end{itemize}
+
+Weitere Optimierungen:
+\begin{itemize}
+    \item Materialisierte Strukturen
+    \item Indexe
+    \item Parallel Query Processing
+    \item Vectorized Query Processing Style (Tupel Batches als Vektoren, SIMD) vs. Volcano (einzelne Tupel)
+\end{itemize}
+
+\section{Verteilte Technologien und Tools}
+\subsection{Map-Reduce}
+MapReduce war lange ein Kernkonzept in der Big-Data-Welt, insbesondere in Hadoop-Umgebungen.
+Es ist noch in bestimmten Szenarien wichtig, wie z.B. Massive Batch-Jobs, Log
+Analysen, verteilte Berechnungen ohne Echtzeitanforderungen.
+Technologien wie Apache Spark, Dask, Vaex und Cloud-Data-Warehouses (z.B. 
+BigQuery, Snowflake) sind inzwischen populärer.
+\begin{itemize}
+    \item Google
+    \item Funktionales Modell gür gross angelegte Datenverarbeitung mittels vielen Computern
+    \item Hohe Parallelität und Verfügbarkeit
+    \item HDFS (Hadoop File System)
+    \item Map-Reduce wird immer auf Disk geschrieben (langsamer als Spark)
+    \item Hohe Abstraktion für den Benutzer (einfachere Handhabung)
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/map-reduce.png}
+    \caption{Map-Reduce Diagramm}
+\end{figure}
+
+Nachteile:
+\begin{itemize}
+    \item Master ist SPOF
+    \item Master ist Engpass für Skalierbarkeit
+    \item Latenz beim Öffnen von Dateien
+\end{itemize}
+
+\subsection{Spark}
+Ist eine Open-Source (2010) Big-Data-Framework mit verteilter Architektur.
+Benutzt schnelles In-Memory Computing.
+Geschrieben in Scala mit Spark API für Python, Java, R und Clojure (Lisp)
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/spark-architektur.png}
+    \caption{Spark Architektur: Driver ist z.B der Benutzer via PySpark.
+    Spark erstellt Abstraktionsebene auf Datenablage. 
+    Beliebige Nodes können hinzugefügt werden (Horizontale Skalierung).}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/RDD.png}
+    \caption{RDD's sind immutable und können nur als Input oder Output von Funktionen verwendet werden}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/spark-ecosystem.png}
+    \caption{Spark Ecosystem}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/spark-operations.png}
+    \caption{Spark Operations}
+\end{figure}
+
+Leistungsmerkmale:
+\begin{itemize}
+    \item Kann Daten vollkommen In-Memory verarbeiten (im Vergleich zu Map-Reduce)
+    \item Wenn RDD nicht in Memory passt, verschlechtert sich die Performance
+\end{itemize}
+
+\subsection{Spark Notebook}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/spark-driver.png}
+    \caption{Spark Driver JVM}
+\end{figure}
+Jeder Executor hat eine Anzahl "Slots" (Apache Spark nennt diese "Cores", auch wenn sie nicht direkt mit 
+den physischen CPU-Kernen zu tun haben). Das sind Threads, auf denen die eigentliche Rechenarbeit geschieht.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/spark-driver-slot.png}
+    \caption{Der "Driver" schickt Aufgaben (Tasks) an die leeren Slots der Executors, um Arbeit aufzuteilen}
+\end{figure}
+
+\begin{lstlisting}[language=Python]
+# DF API is similar to pandas API
+fire_service_calls_df = spark.read.csv(
+        SF_FIRE_CALL_CSV_URL, header=True, schema=fire_schema
+    )
+# Column Names
+fire_service_calls_df.columns
+
+# Row Count
+fire_service_calls_df.count()
+# -> 6 892 945
+\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/spark-df-actions.png}
+    \caption{Spark Aktionen auf oder an DF}
+\end{figure}
+Im Gegensatz zu Transformationen auf Pandas-DataFrames wird beim Aufruf
+von Spark-DataFrame-Transformationen noch nichts "wirklich" ausgeführt,
+sondern nur die Transformation im Query-Plan des zurückgegebenen neuen DataFrames vermerkt.
+
+Erst beim Aufruf einer Aktion wird der Query-Plan (mit allen so angesammelten Transformationen und mit der Aktion)
+optimiert und dann ausgeführt.
+
+\begin{lstlisting}[language=Python]
+# select distinct call types
+fire_service_calls_df.select('CallType').distinct().show()
+
+
+# count distinct call types
+fire_service_calls_df.select('CallType').distinct().count()
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+# register new sql context on df for sql queries
+sqlContext.registerDataFrameAsTable(
+        fire_service_calls_df, "fireServiceCalls"
+    )
+
+# query via sql
+# %sql ist eine Databricks-spezifische "Notebook Magic", 
+# die in Jupyter (oder in Python-Programmen, die Spark als 
+# Bibliothek verwenden) nicht zur Verfuegung steht.
+%sql
+SELECT CallType
+FROM fire_service_calls_df
+LIMIT 5;
+
+# Oder via Python
+spark.sql(
+  """
+  SELECT CallType
+  FROM fireServiceCalls
+  LIMIT 5
+  """
+).show()
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=Python]
+# schema ausgeben
+fire_service_calls_df.printSchema()
+
+from pyspark.sql.functions import year
+# Wieviele Jahre umfassen die vorliegenden Notrufdaten?
+fire_service_calls_ts_df
+    .select(year('CallDateTS'))
+    .distinct()
+    .orderBy('year(CallDateTs)')
+    .show()
+
+# Bis zu welchem Datum gehen die Daten?
+fire_service_calls_ts_df
+    .agg({"CallDateTS": "max"})
+    .collect()
+
+# Anruf Zahl pro Tag
+count_df = fire_service_calls_ts_df \
+  .filter('CallDateTS >= "2015-06-28"') \
+  .filter('CallDateTS <= "2015-07-10"') \
+  .groupBy('CallDateTS') \
+  .count() \
+  .orderBy('CallDateTS')
+
+count_df.show()
+
+# Gibt die Anzahl Paritionen zurueck
+# in welche die Daten verteilt werden
+fire_service_calls_df.rdd.getNumPartitions()
+
+# Neupartitionierung
+fire_service_calls_ts_8partitions_df = 
+    fire_service_calls_ts_df.repartition(8)
+\end{lstlisting}
+Wenn ein Job sich auf mehrere Tasks aufteilen lässt, bearbeitet jeder Task eine dieser Partitions.
+Die Tasks werden auf zur Ausführung auf die Executor-Slots verteilt und die Ergebnisse dann zusammengeführt.
+Bei der Ausführung können Tasks, die gleichzeitig in verschiedenen Slots liegen, parallel ausgeführt werden.
+
 \end{document}
