@@ -2304,4 +2304,318 @@ However for many tasks the assumpation may seem to hold or be atleast useful.
     \includegraphics[width=0.75\linewidth]{Images/manifold-example-4.png}
 \end{figure}
 
+\section{Deep Feedforward Networks}
+Synonyms:
+\begin{itemize}
+    \item Deep Feedforward Network
+    \item Feedforward Neural Network
+    \item Fully-Connected Neural Network
+    \item Dense Neural Network
+    \item Multilayer Perceptron (MLP)
+        \begin{itemize}
+            \item Historically it was first a perceptron modelled after biological neurons.
+            \item Stacked together they form a MLP, hence basically the same as a Deep Feedforward Network
+        \end{itemize}
+\end{itemize}
+Dense or fully connected refers to networks in which each neuron in the layers are interconnected to each previous neurons.
+
+\defn{DFN Core Concept}{
+    Core idea: represent functions 
+    with higher and higher 
+    complexity by adding more and 
+    more layers.
+
+    Called feedforward because 
+    information flows from input to 
+    output, hence No loops / cycles also a directed acyclic graph (DAG).
+
+    We approximate some unknown function \(f*(x)\) with:
+    \begin{equation}
+        y = f(x,\theta)
+    \end{equation}
+    Using function composition (chaining of vector functions):
+    \begin{equation}
+        f(x) = f^{(3)}(f^{(2)}(f^{(1)}(x)))
+    \end{equation}
+
+    Instead of interpreting the layers as 
+    vector valued functions, each layer 
+    can be considered of consisting of an 
+    array of (mathematical) neurons.
+
+    The output of a neuron is usually called an 
+    activation and hence the function these 
+    neurons calculate are usually called 
+    activation functions
+}
+
+\subsection{Capacity of classical ML (XOR-Problem)}
+Linear models have a very limited capacity.
+Very famously linear models cannot solve the simple XOR problem.
+
+Linear models can be extended by 
+applying a nonlinear function to x 
+and then applying a linear model to 
+the transformed x:
+\begin{equation}
+    \phi(x)
+\end{equation}
+The problem now boils down to finding such a mapping:
+\begin{enumerate}
+    \item Manually engineer \(\phi(x)\)
+        \begin{itemize}
+            \item Classical approach
+            \item High Effort
+            \item Does not work well in many domain e.g due to unknown structures
+        \end{itemize}
+    \item User a very generic \(\phi(x)\)
+        \begin{itemize}
+            \item E.g SVM with RBF-Kernel
+            \item Often not powerfull (complex) enough
+        \end{itemize}
+    \item Learn \(\phi(x)\) itself
+        \begin{itemize}
+            \item Done in Deep Learning
+        \end{itemize}
+\end{enumerate}
+
+\subsubsection{XOR-Problem}
+\defn{XOR Linear Regression}{
+    When trying to solve the XOR-Problem using:
+    \begin{equation*}
+        f(x,w,b) = x^T w + b
+    \end{equation*}
+    and cost function:
+    \begin{equation*}
+        J(\theta) = \frac{1}{4} \sum_{x \in \mathbb{X}} (f*(x) - f(x;\theta))^2
+    \end{equation*}
+    Solving optimaly for \(\theta\) results in:
+    \begin{equation*}
+        w = 0, b = \frac{1}{2}
+    \end{equation*}
+    Hence the model is not capable to represent this function.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/xorproblem.png}
+    \caption{XOR-Problem can be summarized as finding a mapping \(\phi(x)\) so that,
+    the problem can be linearly separated. Using linear boundary this is not solvable.}
+\end{figure}
+
+\defn{XOR NN}{
+    One solution to this problem is, 
+    that a network learns a new 
+    feature space (representation) 
+    where a linear model can solve 
+    the problem. See figure \ref{fig:xornn} on page \pageref{fig:xornn}.
+
+    The output layer is still just a linear 
+    regression model but now it is 
+    applied to the hidden vector h and 
+    not to the input vector x.
+    This corresponds to a linear regression applied to a transformation:
+    \begin{equation*}
+        h = \phi(x)
+    \end{equation*}
+
+    \textbf{Typically}, the activation function is an 
+    element-wise function, hence each 
+    output hi is independent.
+    \textbf{Hence, we don't need Jacobians to 
+    calculate the gradient!}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/xornn.png}
+    \caption{NN Model Architecture that is able to solve XOR. Only one layer is needed
+    since the non-linear activation function is able to map the problem so that its linearly seperatable.}
+    \label{fig:xornn}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/xornnexample.png}
+    \caption{We can manualy evaluate the simple NN for the NN problem.}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/xornnexample-2.png}
+    \caption{When applying the nonlinear function (RELU) the magic happens:
+    Negative values are mapped to zero, this creates a new data representation that is linearly seperable.
+    If we now in the final step find a linear boundary using a linear model the problem is solvable.}
+\end{figure}
+
+\subsection{Gradient Based Learning}
+\begin{itemize}
+    \item We typically use a negative log lieklihood
+    \item NN have loss functions which are \textbf{not convex}
+        \begin{itemize}
+            \item Hence GD will probably not find a global minimum
+            \item Wordks well in practice
+            \item Initialization of weights and biases is of major importance.
+        \end{itemize}
+\end{itemize}
+
+\defn{Gradient Based Learning}{
+   Use gradient method to minimize:
+   \begin{equation}
+    J(w,b) = -\mathbb{E}_{x \sim \hat{p}_{data}}[\log p_{model}(x)]
+   \end{equation}
+   We assume an empirical data generating function \(\hat{p}_{data}\).
+   And a stochastic model function:
+   \begin{equation}
+        p_{model}(x) = p(y | x;\theta)
+   \end{equation}
+
+   Often the cost function is augmented with a regularization term:
+   \begin{equation}
+    J(w,b) = \lambda ||w||_2^2 -\mathbb{E}_{x \sim \hat{p}_{data}}[\log p_{model}(x)]
+   \end{equation}
+
+   \textbf{Important!}:
+   \begin{itemize}
+    \item When using gradient-based optimization, it is very important that 
+    the gradient does not vanish
+        \begin{itemize}
+            \item Sigmoid function: narrow space (-1,1) and g=0 everywhere else
+            \item Relu: g=0 if <0
+            \item Leaky Relu introduces gradient by multiplying by small value if <0.
+        \end{itemize}
+    \item Negative Log-Likelihood has numerical advantages:
+        \begin{itemize}
+            \item output units involve often an exponential function.
+            which will saturate, when the argument is very negative.
+            Log function undoes the exp function, hence this allows for progress
+        \end{itemize}
+   \end{itemize}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/outputunit.png}
+    \caption{Most used output units}
+\end{figure}
+
+\defn{Quantative}{
+    \begin{equation}
+        p(y|x) = N(y;(W^T h + b),I)
+    \end{equation}
+    In this case, the 
+    Maximum Likelihood is equivalent 
+    to minimizing the MSE.
+    if the variance is not 
+    constant, a different method must 
+    be used. For example, the variance can also be learned.
+}
+
+\defn{Bernoulli Output}{
+    \begin{equation}
+        \phi = P(y=1 | x)
+    \end{equation}
+    he parameter \(\phi\) of a Bernoulli 
+    must be between 0 and 1 Otherwise, it is not a valid 
+    probability.
+
+    We could use:
+    \begin{equation*}
+        P(y=1|x) = max \{0, min \{ 1, w^T h + b \}\}
+    \end{equation*}
+    But at the boundaries the optimization does not work because g=0.
+    Thus we use the sigmoid:
+    \begin{equation}
+        P(y=1|x) = \sigma(w^T h + b)
+    \end{equation}
+    If we take this further we can show \ref{fig:sigmoidtosoftmax} on page \pageref{fig:sigmoidtosoftmax}:
+    \begin{equation}
+        \begin{split}
+            P(y|z) &= \sigma((2y-1)z) \\
+            J(\theta) &= \xi((1-2y)z)
+        \end{split}
+    \end{equation}
+    Where \(\xi\) is the \textbf{softmax} function.
+}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/sigmoidevidence.png}
+    \caption{Reasoning for using the sigmoid function}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/bernoutput.png}
+    \caption{Bernoulli Output with Sigmoid results in Softmax}
+    \label{fig:sigmoidtosoftmax}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/bernoutput-softmax.png}
+    \caption{Bernoulli Output with Sigmoid results in Softmax}
+\end{figure}
+
+\defn{Multinoulli}{
+    \begin{equation}
+        \hat{y}_i = P(y=i|x)
+    \end{equation}
+    with:
+    \begin{equation*}
+        z_i = log \hat{P}(y=i | x)
+    \end{equation*}
+    using:
+    \begin{equation}
+        \text{softmax}(z)_i = \frac{\exp(z_i)}{\sum_{j} \exp(z_j)}
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/commonactivation.png}
+    \caption{Common Activation Functions}
+\end{figure}
+
+\defn{Universal Approximation Properties and Depth}{
+    \begin{itemize}
+        \item One can approximate, up to any desired non-zero error all functions using a single sufficiently wide layer 
+        \item Mathematically Proven "Multilayer Feedforward Networks are Universal Approximators"
+            \begin{itemize}
+                \item Regression Problems with linear output unit
+                \item Using sigmoid as activation
+            \end{itemize}
+    \end{itemize}
+    theoretically:
+    \begin{itemize}
+        \item Use sigmoid as activation
+        \item Use only 1 layer
+        \item Make the hidden layer very wide
+    \end{itemize}
+    By todays standards this is bad advice:
+    \begin{itemize}
+        \item Purely theoretical proof
+        \item Not guaranteed to ever find a solution
+    \end{itemize}
+
+    It was shown that piecewise linear 
+    networks (using the abs() as activation 
+    function) can represent functions with a 
+    number of regions that is exponential in 
+    the depth of the network.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/absfolding.png}
+    \caption{Piecewise linear 
+    networks using the abs() as activation 
+    function can represent functions with a 
+    number of regions that is exponential in 
+    the depth of the network, by folding solution space.}
+\end{figure}
+
+
+
 \end{document}
