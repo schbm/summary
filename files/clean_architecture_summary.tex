@@ -79,7 +79,7 @@ Key-Take-Away:
 \section{Paradigms}
 
 \defn{Structured}{
-    Structured	programming	imposes	discipline	on	direct	transfer	of	control.
+    Structured	programming	imposes	discipline	on	direct	transfer of	control.
     When dismissing goto statements one could proof programs.
     \begin{itemize}
         \item Proofable Programs is not widely used.
@@ -88,6 +88,7 @@ Key-Take-Away:
         \item Software that is not provable (goto) cannot be deemed correct.
         \item modern	languages	do	not
         typically	support	unrestrained	goto	statements.
+        \item functional decomposition
     \end{itemize}
     Structured	programming	forces	us	to	recursively	decompose	a	program	into	a	set
     of	small	provable	functions.	We	can	then	use	tests	to	try	to	prove	those	small
@@ -115,14 +116,79 @@ Key-Take-Away:
     e.g paralellize!!!!
 }
 
-Each	of	the	paradigms	removes	capabilities	from	the
+Each of	the	paradigms removes, capabilities, from	the
 programmer.
 
 Aims of a software architect:
 \begin{itemize}
     \item Software	architects	strive
     to	define	modules,	components,	and	services	that	are	easily	falsifiable	(testable).
-    \ item 
 \end{itemize}
+
+\section{Single Responsibility Principle (SRP)}
+\begin{itemize}
+    \item A module should be responsible to	one, and only one, actor.
+    \item Misunderstood in the SOLID principle
+    \item "module"?	Cohesive set of functions and data structures
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/employee.png}
+    \caption{Employee class that has functions for different actors}
+\end{figure}
+
+Symptoms
+ \begin{itemize}
+    \item Accidental Duplication
+        \begin{itemize}
+            \item Accidental change to code which other code within the same module depends on.
+        \end{itemize}
+    \item Merges
+        \begin{itemize}
+            \item Actors want to change the same source file
+        \end{itemize}
+ \end{itemize}
+
+ Solution:
+ \begin{itemize}
+    \item Put into seperate classes
+    \item Use facade
+ \end{itemize}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/employeefacade.png}
+    \caption{Facade enables easier usage of class. It is responsible for instantiating and delegating.}
+\end{figure}
+
+\section{Open-Closed Principle (OCP)}
+    A software artifact should be open for extension but closed for modification-
+    \begin{itemize}
+        \item Seperate code on how, why and when it changes
+        \item Make code hierarchical with the central business logic at the top
+        \item If component A should be protected from B, then component B should depend on component A.
+            \begin{itemize}
+                \item Use interfaces for this
+            \end{itemize}
+    \end{itemize}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{Images/cleanarch/ocp.png}
+        \caption{Abstractions should be structured in a way, so that 
+        it protects the most important business logic. Here, the lowest
+        level is code that interact with the peripherie. It changes the most.}
+    \end{figure}
+
+    Playbook:
+    \begin{itemize}
+        \item Partition system into components
+        \item Arrange components into a dependency hierarchy
+        \item protect higher-level components from changes
+    \end{itemize}
+
+\section{Liskov Substitution Principle (LSP)}
+
 
 \end{document}
