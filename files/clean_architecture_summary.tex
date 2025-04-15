@@ -14,12 +14,12 @@
 Requirements:
 \begin{itemize}
     \item The most important contents from the book
-    \item A personal reflection about the book by the author of the summary 
+    \item A personal reflection about the book by the author of the summary
     \item Regular meetings with progress and insights
     \item Atleast 3 meetings
     \item Presentations / slides of the books read by your team. In your final team-meeting, every team
-    member must present his/her book using these slides. 
-    \item Any proof that at least three team-sessions took place, e.g. meeting notes, video recordings, etc. 
+          member must present his/her book using these slides.
+    \item Any proof that at least three team-sessions took place, e.g. meeting notes, video recordings, etc.
 \end{itemize}
 
 \section{Introduction}
@@ -30,11 +30,11 @@ Wether it is a small or complex system. page 21
 
 Difference between architecture and design -> none at all page 29
 The	low-level	details	and	the	high-level
-structure	are	all	part	of	the	same	whole.	
+structure	are	all	part	of	the	same	whole.
 
 \defn{Goal}{
     The	goal	of	software	architecture	is	to	minimize	the	human	resources	required	to	build	and
- maintain	the	required	system
+    maintain	the	required	system
 }
 
 \begin{figure}[H]
@@ -48,31 +48,32 @@ structure	are	all	part	of	the	same	whole.
 \end{itemize}
 
 \section{Values}
-Software provides two values:
-\begin{description}
-    \item[Behavior] How the software meets stakeholder requirements.
-    [Structure] how easily the software can be changed.
-\end{description}
+%Software provides two values:
+%\begin{description}
+%    \item[Behavior] How the software meets stakeholder requirements.
+%    \item [Structure] how easily the software can be changed.
+%\end{description}
 
 Developers ensure both behavior and structure are high.
 
 \begin{description}
     \item[Behavior]
-    Developers make machines behave according to requirements.
-    Debugging and fixing issues when the behavior deviates.
-    Structure:
-    [Software] must be "soft" and easy to change.
-    Changes should only depend on scope, not the system's complexity.
-    Over time, changes get harder if the system's architecture isn't flexible.
-    [Architecture]
-    Needs to be shape-agnostic to allow easy integration of new features.
-    Should not prefer one shape over another, to avoid complex fitting of new features.
+        Developers make machines behave according to requirements.
+        Debugging and fixing issues when the behavior deviates.
+    \item [Structure]: \begin{description}
+              \item [Software] must be "soft" and easy to change.
+                    Changes should only depend on scope, not the system's complexity.
+                    Over time, changes get harder if the system's architecture isn't flexible.
+              \item [Architecture]
+                    Needs to be shape-agnostic to allow easy integration of new features.
+                    Should not prefer one shape over another, to avoid complex fitting of new features.
+          \end{description}
 \end{description}
 
-Key-Take-Away:
+\subsection{Key-Take-Away}
 \begin{itemize}
     \item A system with poor architecture can lead to high costs for future changes,
-    making it more important for software to be easy to modify than to be initially functional without flexibility.
+          making it more important for software to be easy to modify than to be initially functional without flexibility.
     \item Focus on both, not just one.
 \end{itemize}
 
@@ -84,17 +85,18 @@ Key-Take-Away:
     \begin{itemize}
         \item Proofable Programs is not widely used.
         \item Tests use the "scientific" not the matematical method.
-        It proofs something is not wrong, not that something is correct.
+              It proofs something is not wrong, not that something is correct.
         \item Software that is not provable (goto) cannot be deemed correct.
         \item modern	languages	do	not
-        typically	support	unrestrained	goto	statements.
+              typically	support	unrestrained	goto	statements.
         \item functional decomposition
+        \item Falsifiable units of programming
     \end{itemize}
     Structured	programming	forces	us	to	recursively	decompose	a	program	into	a	set
     of	small	provable	functions.	We	can	then	use	tests	to	try	to	prove	those	small
     provable	functions	incorrect.	If	such	tests	fail	to	prove	incorrectness,	then	we
     deem	the	functions	to	be	correct	enough	for	our	purposes.
-   
+
 }
 
 \defn{Object Oriented}{
@@ -110,22 +112,19 @@ Key-Take-Away:
     that	contain	high-level	policies
 }
 
-\defn{Funcational}{
+\defn{Functional}{
     Functional	programming	imposes	discipline	upon	assignment.
-    TBD
-    e.g paralellize!!!!
 }
 
-Each of	the	paradigms removes, capabilities, from	the
-programmer.
+\subsection{Key Take-Away}
 
-Aims of a software architect:
 \begin{itemize}
-    \item Software	architects	strive
-    to	define	modules,	components,	and	services	that	are	easily	falsifiable	(testable).
+    \item Each of the paradigms removes capabilities from the programmer.
+    \item Software architects strive to define modules, components, and services that are easily falsifiable (testable).
 \end{itemize}
 
 \section{Single Responsibility Principle (SRP)}
+S in Solid.
 \begin{itemize}
     \item A module should be responsible to	one, and only one, actor.
     \item Misunderstood in the SOLID principle
@@ -138,57 +137,204 @@ Aims of a software architect:
     \caption{Employee class that has functions for different actors}
 \end{figure}
 
-Symptoms
- \begin{itemize}
+\subsection{Symptoms}
+\begin{itemize}
     \item Accidental Duplication
-        \begin{itemize}
-            \item Accidental change to code which other code within the same module depends on.
-        \end{itemize}
+          \begin{itemize}
+              \item Accidental change to code which other code within the same module depends on.
+          \end{itemize}
     \item Merges
-        \begin{itemize}
-            \item Actors want to change the same source file
-        \end{itemize}
- \end{itemize}
+          \begin{itemize}
+              \item Actors want to change the same source file
+          \end{itemize}
+\end{itemize}
 
- Solution:
- \begin{itemize}
+\subsection{Solution}
+\begin{itemize}
+    \item Many different solutions
+    \item Seperate data from functions
     \item Put into seperate classes
     \item Use facade
- \end{itemize}
+\end{itemize}
 
- \begin{figure}[H]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/cleanarch/employeefacade.png}
     \caption{Facade enables easier usage of class. It is responsible for instantiating and delegating.}
 \end{figure}
 
 \section{Open-Closed Principle (OCP)}
-    A software artifact should be open for extension but closed for modification-
-    \begin{itemize}
-        \item Seperate code on how, why and when it changes
-        \item Make code hierarchical with the central business logic at the top
-        \item If component A should be protected from B, then component B should depend on component A.
-            \begin{itemize}
-                \item Use interfaces for this
-            \end{itemize}
-    \end{itemize}
+A software artifact should be open for extension but closed for modification-
+\begin{itemize}
+    \item Seperate code on how, why and when it changes
+    \item Make code hierarchical with the central business logic at the top
+    \item If component A should be protected from B, then component B should depend on component A. Use interfaces for this.
+\end{itemize}
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.75\linewidth]{Images/cleanarch/ocp.png}
-        \caption{Abstractions should be structured in a way, so that 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/ocp.png}
+    \caption{Abstractions should be structured in a way, so that
         it protects the most important business logic. Here, the lowest
         level is code that interact with the peripherie. It changes the most.}
-    \end{figure}
+\end{figure}
 
-    Playbook:
-    \begin{itemize}
-        \item Partition system into components
-        \item Arrange components into a dependency hierarchy
-        \item protect higher-level components from changes
-    \end{itemize}
+\subsection{Playbook}
+\begin{itemize}
+    \item Partition system into components
+    \item \textbf{Arrange components into a dependency hierarchy}
+    \item protect higher-level components from changes
+\end{itemize}
 
 \section{Liskov Substitution Principle (LSP)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/lsp-example.png}
+    \caption{Example of correct subtype. Behaviour of Billing does not depend on the subtype}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/lsp-wrong-example.png}
+    \caption{Example of incorrect usage. The behaviour of the user depends on the types.}
+\end{figure}
+
+\subsection{Key Take-Away}
+\begin{itemize}
+    \item A simple violation of substitutability can cause the architecture to be polluted with extra mechanisms.
+\end{itemize}
+
+\section{Interface Segregation Principle (ISP)}
+\subsection{Problem}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/isp-example-1.png}
+    \caption{User1 only uses op1. Since it depends on OPS class it also depends on changes to the op2 and op3 methods}
+\end{figure}
+
+\subsection{Solution}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/isp-solution.png}
+    \caption{Break behaviour dependencies into multiple interfaces}
+\end{figure}
+
+\subsection{Key Take-Away}
+\begin{itemize}
+    \item Harmful to depend on things you dont need
+    \item Do not depend on uneccessary modules
+\end{itemize}
+
+\section{Dependency Inversion Principle (DIP)}
+Most flexible systems are those in which source code dependencies refer only to abstractions.
+
+We want to avoit depending on volatile concrete elements.
+\textbf{We want stable abstractions.}
+
+\begin{itemize}
+    \item Don't refer to volatile concrete classes. (Interfaces, Abstract Interfaces)
+    \item Don't derive from volatile concrete classes.
+    \item Don't override concrete functions.
+    \item Never mention the name of anything concrete and volatile.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/dip-factory.png}
+    \caption{The red line divides the system inabstract and concrete. The flow of control crosses
+    the boundary in the opposite direction of the source code dependencies, thats why its called DIP}
+\end{figure}
+
+\subsection{Components}
+
+\defn{Components}{
+    In this book components refers to:
+    \begin{itemize}
+        \item Smallest units of deployment
+        \item Can be linked together
+        \item Can be aggregated into archives
+        \item Can be independently deployed as seperate dynamically loaded plugins (e.g DLL)
+    \end{itemize}
+    We want them to be independently deployable and therefore \textbf{developable}.
+}
+
+\section{Component Cohesion}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/component-cohesion.png}
+\end{figure}
+
+\subsection{Reuse Release Equivalence (REP)}
+\begin{itemize}
+    \item Classes and modules that are formed into a component must belong to a cohesive group
+    \item Overarching theme or purpose
+    \item Should be releasable together
+        \begin{itemize}
+            \item Same Version Number
+            \item Release tracking
+            \item Release documentation
+        \end{itemize}
+\end{itemize}
+
+\subsection{Common Closure Principle (CCP)}
+\begin{itemize}
+    \item Same as SRP but for components
+    \item Gather classes that change together
+    \item Separate classes to other components if they change for different reasons
+\end{itemize}
+
+\subsection{Common Reuse Principle (CRP)}
+\begin{itemize}
+    \item Dont force users of a component to depend on things they don't need
+    \item Classes and modules that tend to be reused together belong in the same component
+    \item Classes that are not tightly bound should not be in the same component
+\end{itemize}
+
+\section{Component Coupling}
+Deal with relationships beteen components.
+\subsection{Acyclic Dependencies Principle (ADP)}
+
+\subsubsection{Weekly Build}
+Is the practice of isolating devs to work on tasks then integrating at the end of the week.
+As the project grows the integration efforts grow.
+
+\subsubsection{Resolution}
+\begin{itemize}
+    \item Partitioning the development into releasable components.
+    Components as units of work can be the responsibility of a single developer or a team.
+    \item \textbf{There can be no dependency cycles}
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/dependency-cycle.png}
+    \caption{Handle dependency acyclic so that changes in components do not affect everything}
+\end{figure}
+
+\begin{itemize}
+    \item With cycles it is harder to make changes and create unit tests
+\end{itemize}
+
+To break the cycle:
+\begin{itemize}
+    \item Apply Dependency Inversion Principle (DIP)
+    \item Create a new component that both components depend on
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/breaking-the-cycle.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/cleanarch/break-the-cycle-component.png}
+\end{figure}
+
+\subsection{Top-Down Design and Component Dependency Graph}
+\defn{Component Dependency Graph}{
+    Has kittle to do with describing functionality.
+    Instead, maps the buildability and maintainability of the application.
+    It is not planned at the beginning of the project and evolves.
+}
 
 
 \end{document}
