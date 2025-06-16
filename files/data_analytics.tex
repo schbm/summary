@@ -1,4 +1,6 @@
 \documentclass[../Main.tex]{subfiles}
+\usepackage{tabularx}
+
 \begin{document}
 \chapter{Data Analytics}
 
@@ -43,13 +45,13 @@ measurement" or "Scales of measure")
     \defn{Qualitative Daten}{
         \begin{itemize}
             \item Beziehen sich auf Informationen die nicht gemessen werden
-            \item In der Regel beschreibend also in Textform (können auch numerisch codiert sein).
+            \item In der Regel beschreibend also in Textform (können auch numerisch codiert sein)
         \end{itemize}
     }
     \defn{Quantitative Daten}{
         \begin{itemize}
-            \item Werden verwendet, um Informationen zu definieren, die gezählt werden können. 
-            \item Sind numerisch.
+            \item Werden verwendet, um Informationen zu definieren, die gezählt werden können
+            \item Sind numerisch
         \end{itemize}
     }
 \end{multicols}
@@ -68,6 +70,8 @@ measurement" or "Scales of measure")
     \includegraphics[width=0.75\linewidth]{Images/noir.png}
     \caption{NOIR}
 \end{figure}
+
+\newpage
 
 \section{Business Intelligence (BI)}
 Datenvisualisierungs- und –Publikation-Werkzeuge ist allgemeiner  
@@ -131,7 +135,7 @@ Weitere Produkte:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/quantitative-messages.png}
+    \includegraphics[width=0.55\linewidth]{Images/quantitative-messages.png}
     \caption{Quantitative Messages}
 \end{figure}
 
@@ -229,7 +233,7 @@ Weitere Produkte:
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{Images/data-warehouse.png}
-    \caption{OLTP vs OLAP}
+    \caption{Datawarehouse: Orchestriert Daten für weitere Analysen}
 \end{figure}
 
 \defn{ETL - Extract-Transform-Load}{
@@ -244,7 +248,7 @@ Weitere Produkte:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/sternschema.png}
-    \caption{Sternschema}
+    \caption{Sternschema: In diesem Schema werden verschiedene Dimensionstabellen eienr Faktentabelle zugeordnet}
 \end{figure}
 
 
@@ -277,16 +281,16 @@ Weitere Produkte:
 \subsection{Data-Warehouse Design Grundsätze}
 auch "Dimensional Modeling" genannt.
 \begin{itemize}
-    \item Faktentabellen enthalten nur numerische Werte und Fremdschlpssel
+    \item Faktentabellen enthalten nur numerische Werte und Fremdschlüssel
     \item Faktentabellen sollten so granular wie möglich aufgebaut sein. (einfacher zum Aggregieren)
     \item Dimensionstabellen haben in der Regel einen Surrogat-Schlüssel
     \item Granularität der Zeit-Dimension kann nicht kleiner sein, als die Auflösung der Zeit im operativen System
     \item "Conformed Dimensions" haben für alle möglichen Fact-Tables eine einheitliche Bedeutung
     \item Hierarchien in Dimensionen sind möglichst als funktionale Abhängigkeit zwischen den Attributen einer
-    flaachen Dimensionstabelle oder als Fremdschlüsselbeziehung zwischen Dimensionstabellen zu konzipieren.
+    flachen Dimensionstabelle oder als Fremdschlüsselbeziehung zwischen Dimensionstabellen zu konzipieren.
 \end{itemize}
 
-\subsection{Fakt-Tabellen}
+\subsection{Fakt-Tabellen Klassifizierung}
 \begin{description}
     \item[Transaction Fact Table] Ereignis, dass zu einem bestimmten Zeitpunkt geschah
     \item[Periodic Snapshot] kumulative Grösse einer Kennzahl gemessen in regelmässigen Intervallen
@@ -321,7 +325,7 @@ Typ 2 SCD wird z.B von MSSQL und Azure SQL unterstütz unter dem Namen "system-v
 \section{Aggregationsfunktionen und Pivot}
 
 \defn{GROUP BY ROLLUP}{
-    Ähnlich zu GROUPBY mit Vernubderzbg des Detaukkuerzbgsgrades,
+    Ähnlich zu GROUPBY mit unterschiedlichen Detailierungsgraden,
     Bei ROLLUP(A,B) werden Daten zuerst nach A und dann nach B aggregiert und anschliessen noch ein Total beigefügt.
 }
 
@@ -366,7 +370,7 @@ Typ 2 SCD wird z.B von MSSQL und Azure SQL unterstütz unter dem Namen "system-v
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{Images/datamarts.png}
-    \caption{Data Marts: }
+    \caption{Data Marts: Teilmenge eines grösseren DW}
 \end{figure}
 
 \defn{Data Marts}{
@@ -380,7 +384,7 @@ Typ 2 SCD wird z.B von MSSQL und Azure SQL unterstütz unter dem Namen "system-v
 }
 
 \defn{Data Lake}{
-    Speichersystem für strukturierte und unstrukturierte Daten in ihrem ursprünglichen Format.
+    Speichersystem für strukturierte und unstrukturierte Daten in ihrem ursprünglich en Format.
 }
 
 \begin{figure}[H]
@@ -388,8 +392,16 @@ Typ 2 SCD wird z.B von MSSQL und Azure SQL unterstütz unter dem Namen "system-v
     \includegraphics[width=0.72\linewidth]{Images/da-begriffe.png}
 \end{figure}
 
+\subsection{Cube}
+Ein Cube besteht aus Measures und Dimensions. Die Measure beschreiben numerische Grössen mit denselben Dimensionsverknüpfungen.
+Dimensionen beschreiben Measure-Groups. Eine Dimension besteht aus einem oder mehereren Attributen.
+Jedes Attribut kann eine Hierachie aufweisen. Auf den Dimensionen können Hierarchien zwischen den Attributen definiert werden.
+Abfragen können über spezialisierte Spracvhen getätigt werden z.B. Microsoft MDX.
+
 \section{Spatial Data}
-\defn{EVAP}{
+\defn{Geo-Informationssystem (GIS) mit EVAP}{
+    
+Geografisches Informationssystem zur:
     \begin{itemize}
         \item Erfassung
             \begin{itemize}
@@ -499,12 +511,12 @@ Geodetic System) und einen Code
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/gis-architektur.png}
+    \includegraphics[width=0.75\linewidth]{Images/gis-architektur.png}
     \caption{GIS: Generelle Architektur}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/gis-architekturen.png}
+    \includegraphics[width=1\linewidth]{Images/gis-architekturen.png}
     \caption{GIS: Produkt Architektur}
 \end{figure}
 
@@ -535,7 +547,7 @@ Geodetic System) und einen Code
 \end{figure}
 
 \defn{Universelle Fremdschlüssel (Raumbezug)}{
-    Der Razmbezug wird als gemeinsamen Nenner aller Objekte herangezogen.
+    Der Raumbezug wird als gemeinsamen Nenner aller Objekte herangezogen.
     Koordinaten sttelllen einen grundsätzlich neuen Beziehungstyp dar,
     der Kombinationen z.b via räumlichen Joins erlaubt.
 }
@@ -564,7 +576,7 @@ Geodetic System) und einen Code
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Images/geodaten-zu-grafik.png}
+    \includegraphics[width=1\linewidth]{Images/geodaten-zu-grafik.png}
     \caption{Geodaten zu Grafik}
 \end{figure}
 
@@ -617,7 +629,7 @@ Konvertierungsprogramme:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Images/postgis-vektordatentypen.png}
+    \includegraphics[width=1\linewidth]{Images/postgis-vektordatentypen.png}
     \caption{PostGIS Vektordatentypen}
 \end{figure}
 
@@ -795,7 +807,7 @@ ORDER BY 1;
                 \item Bessere Indexierung
                 \item Datenverwaltung pro Spalte
             \end{itemize}
-        \item In-Memory:
+        \item \textbf{In-Memory:}
             \begin{itemize}
                 \item Nur Memory
                 \item Keine Persistenz
@@ -995,8 +1007,906 @@ fire_service_calls_df.rdd.getNumPartitions()
 fire_service_calls_ts_8partitions_df = 
     fire_service_calls_ts_df.repartition(8)
 \end{lstlisting}
+
 Wenn ein Job sich auf mehrere Tasks aufteilen lässt, bearbeitet jeder Task eine dieser Partitions.
 Die Tasks werden auf zur Ausführung auf die Executor-Slots verteilt und die Ergebnisse dann zusammengeführt.
 Bei der Ausführung können Tasks, die gleichzeitig in verschiedenen Slots liegen, parallel ausgeführt werden.
+
+\subsubsection{Persistance}
+Durch persisiertung speichert jeder Knoten alle von ihm berechneten Partitionen im SPeicher und verwendet sie in anderen Aktionen wieder.
+Künftige Aktionen können somit schneller ausgeführt werde.
+
+\begin{lstlisting}[language=Python]
+# persistieren
+RDD.persist() # MEMORY_ONLY, MEMORY_AND_DISK, MEMORY_ONLY_SER, DISK_ONLY
+RDD.unpersist()
+\end{lstlisting}
+
+\section{Cloud Computing}
+\defn{Cloud Computing (NIST)}{
+    Ein Modell für den bequemen, bedarfsorientierten Netzzugang zu einem gemeinsam genutzten Pool konfigurierbarer 
+    Rechenressourcen (z.B. Netze, Server, Speicher, Anwendungen und Dienste), die mit minimalem Verwaltungs- oder 
+    Interaktionsaufwand mit dem Dienstanbieter schnell bereitgestellt und freigegeben werden können.
+}
+
+\begin{table}[H]
+\begin{tabularx}{\columnwidth}{X|X|X}
+    \hline
+    Typ & Vorteil & Nachteil \\
+    \hline
+    Cloud & 
+    \begin{minipage}[t]{\linewidth}
+        \begin{itemize}
+            \item Skalierbarkeit
+            \item Flexibilität
+            \item geringere Initial- und Vorlaufkosten
+            \item Prototyping, schneller und günstiger
+            \item Für grosse Unternehmen sinnvoll, da Änderung an Architektur und Prozessen erzwingt
+        \end{itemize}
+    \end{minipage} & 
+    \begin{minipage}[t]{\linewidth}
+        \begin{itemize}
+            \item Technik, Integration und Betrieb
+            \item Verlust der physischen Kontrolle \& Datenschutz
+            \item Teuer: Cloud-Native Prinzipien und Anpassungen
+            \item Fehlende Standards
+            \item Bindung an den Anbieter
+            \item Unerwartete Kosten
+            \item Komplexität der Verwaltung
+            \item Performance-Probleme (Latenz)
+        \end{itemize}
+    \end{minipage} \\
+    \hline
+    OnPrem & \begin{itemize}
+        \item Kontrolle über den Lifecycle
+        \item Daten InHouse
+    \end{itemize} & \begin{itemize}
+        \item Meraufwand durch Lifecycle
+        \item Initiale Kosten
+    \end{itemize}
+\end{tabularx}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/datan/xaas.png}
+    \caption{Comparison between different XaaS types}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/gartner-cloud.png}
+    \caption{Cloud Magic Quadrant by Gartner}
+\end{figure}
+
+\subsubsection{Weitere Begriffe}
+\begin{description}
+    \item[Einfache Einrichtung und Betrieb]
+    \item[Elastizität] Flexible Anpassung an die Arbeitslast.
+    "Das Ausmass, in dem sich ein System an Änderung der Arbeitslast anpassen kann,
+    indem es Ressourcen auf autonome Weise bereitstellt und entfernt, sodass zu jedem
+    Zeitpunkt die verfügbaren Ressourcen so gut wie möglich dem aktuellen Bedarf entsprechen."
+    \item[Segmentierung] Concurrency durch Partitionierung und Segmentierung maximieren.
+    Verschiedene Benutzergruppen / Prozesse können isoliert auf denselben Daten arbeiten unter
+    der Berücksichtigung von Priorität und Antwortzeitanforderungen.
+    \item[Skalierbarkeit] Scale Up, Scale Out
+    \item[Verwaltung heterogener Daten] 
+\end{description}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/datan/dw-vs-dl.png}
+    \caption{Data Warehouse vs Data Lake}
+\end{figure}
+
+\section{Cloud Data Analytics Services}
+\subsection{Amazon Redshift}
+Verfügbar seit 2012 aus AWS. Ist ein vollständig verwalteter Service der eine spalten-orientierte Datenbank bereitstellt.
+\begin{itemize}
+    \item Keine "on-the-fly" Elastizität
+    \item Workload Manager (WLM): Segmentierung nach Priorität
+    \item Begrenzte Anzahl von SQL-Funktionen zur Verwaltung semi
+    strukturierter JSON-Daten
+    \item Gute Integration in andere Services von AWS
+    \item On-Demand günstiges Preismodell
+\end{itemize}
+\subsection{Snowflake}
+Ist ein 2012 gegründetes, kommerzielles Produkt basierend auf einer cloud-native Architektur.
+Es stellt Data Warehouse mit Data Lakes (Data Lakehouse) in form von spalten-orientierten SQL Datenbanken zur verfügung.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/datan/snowflake-1.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/datan/snowflake-2.png}
+\end{figure}
+
+\begin{itemize}
+    \item Sofortige Elastizität
+    \item Einfache Einrichtung als SaaS
+    \item Gute Unterstützung von JSON Daten
+    \item Jede Benutzergruppe betreibt virtuelles Warehouseauf isolierter Hardware
+    \item Kostenkontrolle: Speicher und Compute getrennt
+    \item Zero Copy Clone (Schnelle Kopie von Datenbanken)
+\end{itemize}
+
+\subsection{Data Lakes}
+\begin{itemize}
+    \item Hadoop: Kein Data Warehouse, Bietet keine Elastizität, Komplex, Initialaufwand, optimierte Speicherschichten
+    \item Apache Iceberg
+    \item Delta Lake: Schnellste, kleine Bekanntschaft
+    \item Apache Hudi
+\end{itemize}
+
+\section{Google Earth Engine}
+GEE ist Function- und Platform-as-a-Service (PaaS) mit bereits 
+aufbereiteten Daten (aka Data Warehouse)
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/datan/gee-arch.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/gee-example.png}
+\end{figure}
+
+\begin{lstlisting}[language=Java,
+                   breaklines=true,
+                   breakatwhitespace=true,
+                   keepspaces=true,
+                   basicstyle=\ttfamily\small]
+var temperatureDataset = ee.Image('NASA/ASTER_GED/AG100_003');
+//https://developers.google.com/
+//earth-engine/datasets/catalog/NASA_ASTER_GED_AG100_003
+
+var nightLightsDataset = ee.ImageCollection('NOAA/VIIRS/DNB/MONTHLY_V1/VCMSLCFG')
+  .filterDate('2021-01-01')
+  .first();
+//https://developers.google.com/
+//earth-engine/datasets/catalog/NOAA_VIIRS_DNB_MONTHLY_V1_VCMSLCFG?hl=en
+  
+var temperature = temperatureDataset.select('temperature').divide(100); // dataset is in 1/100 kelvin
+var temperatureAverage = temperature.reduceNeighborhood(
+  ee.Reducer.mean(),                  // calculate the mean
+  ee.Kernel.square(2000, 'meters'),   // of a square with 'radius' of 2000 m (which is 4000 * 4000 m)
+  "kernel",                           // using the kernel as the input weight
+  true,                               // skipping masked or missing pixels in calculation
+  "boxcar"                            // using the more efficient boxcar method to compute 
+);
+var temperatureDifferenceToSurrounding = temperature.subtract(temperatureAverage); 
+
+var lights = nightLightsDataset.select('avg_rad').divide(60); // dataset is in range ~ 0 - 60, we want it normalized (0 - 1)
+var lightsAverage = lights.reduceNeighborhood(
+  ee.Reducer.mean(),
+  ee.Kernel.square(4000, 'meters'), // use an area of 8000 * 8000 meters this time
+  "kernel",
+  true,
+  "boxcar"
+).multiply(10)
+ .clamp(0, 1); // Multiplying and then clamping the value to 1 allows for light values as low as 0.1 to pass through the whole temperature in the next step
+
+var wheightedTemperatureDifference = temperatureDifferenceToSurrounding.multiply(lightsAverage); // use the lights as a kind of mask, so we only see temperature in cities
+
+
+// This specifies how we want our data to be displayed.
+var vis = {
+  min: -10, // minimum value to consider (here: minus 10 degrees kelvin difference)
+  max: 10, // maximum value to consider (here: plus 10 degrees kelvin difference)
+  palette: [ // color palette for displaying, ranging from blue to red 
+    '0602ff', '235cb1', '307ef3', '269db1', '30c8e2', '32d3ef', '3ae237',
+    'b5e22e', 'd6e21f', 'fff705', 'ffd611', 'ffb613', 'ff8b13', 'ff6e08',
+    'ff500d', 'ff0000', 'de0101', 'c21301'
+  ],
+};
+
+Map.setCenter(8.541111, 47.374444, 13); // Set map center and zoom
+
+Map.addLayer(wheightedTemperatureDifference, vis, 'Temperature', true, 0.75); // Add our data as a map layer, with 75% opacity 
+\end{lstlisting}
+
+\section{ETL}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/datan/etl-prozess.png}
+\end{figure}
+
+\begin{itemize}
+    \item ETL
+    \item ELT: Zuerst in das andere System übertragen dann transformieren. Einfachere Architektur und weniger Speicherplatz
+    \item Zero-ETL: Direkt in ein anderes System übetragen
+\end{itemize}
+
+Datenintegration beinhaltet: Datenimport, Datenkonversion, Datenvalidierung, Datenbereinigung,
+Datentransformation, Datenfusion (conflation, conciliation), Datenaggregation, Datenfilterung,
+Datenberechnung, (Datenanreicherung, Datenanonymisierung, Datengenerierung) und weiteres.
+
+\begin{enumerate}
+    \item Datenbereinigung: Entfernen von Duplikaten, ungültige oder fehlende Werte
+    \item Datentransformation: Schema-Abbildung, Strukturänderungen, Konvertierung von Werden, Aufteilen Spalten, Zusammenführung von Spalten
+    \item Datenaggregation: Zusammenfassen von Daten aus mehreren Quellen
+    \item Datenfilterung
+    \item Datenberechnung
+    \item Datenanreicherung: HInzufügen aus externen Quellen, Scraping, Geocoding
+    \item Datenanomysierung, Generierung
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/datenintegration-dw.png}
+    \caption{Schematische Darstellung des Datenflusses einer Datenintregration in ein Data Warehouse}
+\end{figure}
+
+\begin{table}[H]
+    \begin{tabularx}{\columnwidth}{X|X}
+        Top-Down & Ausgangspunkt vorgegebenes Zielschema (z.B. durch Standards). 
+        Finden der Korrespondenzen zu lokalen Quell-Schemata und Definition der Abbildungen \\
+        \hline
+        Bottom-Up & Ausgangspunkt existierende Quell-Schemata.
+        Konstruktion eines davon abgeleiteten, integrierten Zielschemata,
+        das möglichst den vollständigen Informationsgehalt aller Quellen enthält \\
+    \end{tabularx}
+\end{table}
+\subsection{Kriterien fpr die Integrationsmethodik}
+\begin{itemize}
+    \item Vollständigkeit
+    \item Minimalität
+    \item Verständlichkeit
+    \item Korrektheit
+\end{itemize}
+
+\subsection{Typen von Integrationskonflikten}
+\begin{itemize}
+    \item Semantisch
+    \item Beschreibung: Unterschiedliche Eigenschaften derselben Objekte; Homonyme und Synonyme; Datentypkonflikte, Wertebereiche; Masseinheiten
+    \item Heterogenität: Unterschiedliche Schema; Schema-Transformation
+    \item Strukturell: Unterschiedliche Modellierung; fehlende AttributeM unterschiedliche Annahmen (defaults)
+    \item Datenkonflikt: Inkorrekte, veraltete Daten; Unterschiedliche codierte Werte
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/datan/datenintegration-example.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/datan/datenintegration-fehler.png}
+\end{figure}
+
+\subsection{Wartungsansätze}
+\begin{itemize}
+    \item Aktualisieren-Kopieren: Gesamtaustausch; Gesamtaufwand wächst mit Volumen
+    \item Inkrementelle Kopie: Vorkehrungen für Anomalien aus der asynchronen Datenverarbeitung
+\end{itemize}
+
+\subsection{Pro / Contra DW in der Datenintegration}
+
+\begin{table}[H]
+    \begin{tabularx}{\columnwidth}{X|X|X}
+        DW &
+        Abfragen über das DW stören Quelle nicht. Können schwierige Berechnungen durchführen. Data Mining und Bereinigung &
+        Zeit muss Aufgewendet werden, um das physische und logische Datenbanklayout zu entwerfen
+        Daten in der Regel nicht aktuell
+    \end{tabularx}
+\end{table}
+
+\subsection{Tools}
+\begin{itemize}
+    \item SQL: Meist fehlen Extract Tools
+    \item Python mit Pandas: Mühsame Implementation und Pflege
+    \item GUI: Apache Hop, OpenRefine, Open Data Editor, AirByte, CJ Workbench
+    \item MS SQL Server Integration Services
+    \item Azure Data Factory Studio
+    \item Low Code: Apache AirFlow, Keboola
+    \item Pentaho Data Integration: Kommerziell
+    \item Talend Open Studio: Java, Kommerziell
+    \item KNIME: ETL und ML
+\end{itemize}
+
+Nach Kategorie:
+\begin{itemize}
+    \item Preperation: csvkit, DuckDB, Excel, Openrefine, OKFN
+    \item Datenflussmanagement: Apache Airflow, Apache NiFi
+    \item Dataprocessing: Knime, Microsoft SQL Server (SSIS), IBM InfoSphere Datastage, OpenRefine
+    \item Dataprocessing (Transformation): dbt, Looker Studio
+    \item Hybrid: Apache Hop, FME by Safe Software, Informatica PowerCenter
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/datan/etl-tools.png}
+    \caption{Jahr 2025}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/datan/openrefine.png}
+    \caption{Opensource Desktoptool. Low Code. Spaltendarstellung. Memory basiert. Ursprünglich von Google. Verbreitet für Wikipedia}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/datan/hop.png}
+\end{figure}
+
+\section{Data Science}
+\defn{Data Science}{
+    Its an interdisciplinary field:
+    \begin{itemize}
+        \item Business need to be undestood
+        \item Data Mining for extraction
+        \item Hypothesis Testing
+        \item Model Evaluation
+        \item Result presentation for the target audience
+        \item Conclusions to be understood and fitting measures
+    \end{itemize}
+    The field is about extracting knowledge from data to discover new patterns and information.
+}
+
+\defn{Data Mining}{
+    Refers to the extraction or collection of meaningful data.
+    Looks for consistencies of patterns and relationships.
+    The undelying goal is finding new knowledge.
+    3 most important methods:
+    \begin{itemize}
+        \item Association Analysis
+        \item Classification
+        \item Clustering
+    \end{itemize}
+}
+
+\subsection{CRISP-DM}
+CRISP-DM is a industry standard defining processes for data mining.
+It is a leading methodology and is divided in six phases:
+\begin{enumerate}
+    \item Business Understanding
+    \item Data UnderstandingData Preparation
+    \item Modeling
+    \item Evaluation
+    \item Deployment
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/datan/ds-q-to-methods.png}
+\end{figure}
+
+\defn{Data Objects}{
+    Another taxonomy for data sample.
+    A sample of a data set descibed by attributes.
+}
+
+
+\begin{table}[H]
+    \begin{tabularx}{\columnwidth}{X|X}
+        Accuracy & Wie genau sind unsere Daten? Falsche Messungen? Noise? \\
+        \hline
+        Completeness & Fehlende Daten? Standardwerte? \\
+        \hline
+        Consistency & Einheitliche Daten? Datentypen? Normalisierungsebene? \\
+        \hline
+        Timeliness & Aktualität, Daten frisch halten \\
+        \hline
+        Believability & Sind Daten glaubwürdig? \\
+        \hline
+        Interpretability & Verstehen wir die Daten? Domänen-Expertise \\
+        \hline
+        Value Adding & \\
+        \hline
+        Acessibility & \\
+    \end{tabularx}
+    \caption{Types of errors}
+\end{table}
+
+\subsection{Preprocessing}
+Low quality data will lead to low quality mining results.
+We use different techniques to improve data quality.
+\begin{itemize}
+    \item (Data) Integration
+    \item Cleaning
+    \item Reduction
+    \item Transformation
+\end{itemize}
+
+\subsection{Basic Stat Descriptions}
+\subsubsection{Mean}
+\begin{figure}[H]
+    \begin{equation}
+        \bar{x} = \frac{\sum_{i=1}^{N} x_i}{N}
+    \end{equation}
+    \caption{Arithmetic Mean}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        \bar{x} = \frac{\sum_{i=1}^{N} w_i x_i}{\sum_{i=1}^{N} w_i}
+    \end{equation}
+    \caption{Weighted Arithmetic Mean}
+\end{figure}
+ Mean is sensitive to outliers this can be mitigated by using a trimmed mean.
+ That is, removing the bottom and top values.
+\subsubsection{Median and Mode}
+The median is more robust against outliers for example in skewed data.
+On an odd number of values in a set use the mean of the two middle values.
+The Mode represents the most frequent value. For more information refer to stat lecture.
+When multiple mode exist we refer to them by bimodal and multimodal.
+\subsubsection{Dispersion of data}
+\begin{figure}[H]
+    \begin{equation}
+        R = max(X) - min(X)
+    \end{equation}
+    \caption{Range; Can be wrong mislead with outliers}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{equation}
+        q\text{-quantile} = \text{Split data in } q \text{ equal sets with } q-1 \text{ samples}
+    \end{equation}
+    \caption{Quantile; 4-quantiles known as quartiles and 100-quantiles as percentiles. On uneven sets calculate the middle}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{equation}
+        k = p (n+1)
+    \end{equation}
+    \caption{Quartile; k = index, p = Quantilanteil (z.B. 0.25), n = Anzahl Daten}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{equation}
+        ICR = Q_1 - Q_3
+    \end{equation}
+    \caption{Inter Quartile Range; Measure of spread}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{Images/datan/dispersion.png}
+    \caption{Dispersion example}
+\end{figure}
+
+\defn{Five Number Summary}{
+    \begin{itemize}
+        \item minimum
+        \item \(Q_1\)
+        \item Median
+        \item \(Q_3\)
+        \item Maximum
+    \end{itemize}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/datan/box-plot.png}
+    \caption{Boxplots visualize a variables five number summary}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{equation}
+        \sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (x_i - \bar{x})^2
+    \end{equation}
+    \caption{Empiric Variance; the average of the squared differences from the mean}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        \sigma = \sqrt{\sigma^2}
+    \end{equation}
+    \caption{Standard Deviation; Is in the measurement of the feature}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \bar{x}) (y_i - \bar{y})} {\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2 \sum_{i=1}^{n}(y_i - \bar{y})^2}}
+    \end{equation}
+    \caption{Pearson Correlation Coefficient}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        r_{xy} = \frac{\sum x_i y_i - n \bar{x} \bar{y}}{\sqrt{(\sum x_i^2 - n \bar{x}^2)} \sqrt{(\sum y_i^2 - n \bar{y}^2)}}
+    \end{equation}
+    \caption{Pearson Correlation Coefficient in a different form}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{equation}
+        \chi^2 = \sum_{i=1}^{c} \sum_{j=1}^{r} \frac{ (o_{ij} - e_{ij})^2 }{ e_{ij}}
+    \end{equation}
+    \caption{\(\chi^2\)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/scatter-plot.png}
+    \caption{Visualy displays linear relationships}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/scatter-plot2.png}
+    \caption{Scatter plot example with non-linear relationships}
+\end{figure}
+Other forms but refer to stat course:
+\begin{itemize}
+    \item QQ-Plot
+    \item Scatter Plot Matrix
+    \item Tree Maps
+    \item Tag Clouds
+\end{itemize}
+
+\subsubsection{Missing Data}
+\begin{itemize}
+    \item Missing Completely at Random (MCAR); Sensor malfunction
+    \item Missing at Random (MAR); Income missing by age
+    \item Missing not at Random; Weight missing because of shame
+\end{itemize}
+Handling of missing data:
+\begin{itemize}
+    \item Discard samples (rows)
+    \item Fill missing with estimation
+    \begin{itemize}
+        \item Central Tendencies (Mean, median, mode)
+        \item  Global constant
+        \item Regression
+    \end{itemize}
+    \item Maximum Likelihood
+    \item ML Based Methods
+\end{itemize}
+
+\subsubsection{Nois}
+Aproaches for noise:
+\begin{itemize}
+    \item Filtering
+    \item Noise robust methods
+    \item Regression, smoothing by data fitting
+    \item Smoothing by bins
+\end{itemize}
+
+\subsubsection{Outliers}
+Approaches for outliers:
+\begin{itemize}
+    \item Analyse
+    \item Delete
+    \item Binning
+    \item Imputing
+\end{itemize}
+
+\subsubsection{Smoothing: Binning}
+\begin{itemize}
+    \item Equal bins (equi-depth)
+    \item Bin Means
+    \item Bin Boundaries
+\end{itemize}
+
+\subsubsection{Normalization - Scaling}
+Normalization is essential to present data in a consistent state, enabling a fair comparison of the weight of 
+different parameters. Larger numerical ranges for example can dominate an algorithm.
+\begin{figure}[H]
+    \begin{equation}
+        v_i' = \frac{v_i}{10^j} \text{ where j is the smallest value such that } max(|v_j'|) < 1
+    \end{equation}
+    \caption{Decimal Scaling: E.g. take the biggest value of a set then take the "stellen" / digits for j.}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        v_i' = \frac{v_i - min_A}{max_A - min_A}
+    \end{equation}
+    \caption{Min-Max}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        \begin{split}
+            \text{let } R = [min_R, max_R] \\
+            v_i' = \frac{v_i - min_A}{max_A - min_A} \cdot (max_R - min_R) + min_R
+        \end{split}
+    \end{equation}
+    \caption{Min-Max Range}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        \begin{split}
+            v_i' = \frac{v_i - \mu}{\sigma} \\
+            v_i' = \frac{v_i - \bar{A}}{S_A} \\
+            \text{with few values or outliers: } S_A' = \frac{1}{N} (|v_1 - \bar{A}|) + \cdots
+        \end{split}
+    \end{equation}
+    \caption{Z-Score}
+\end{figure}
+
+\subsubsection{Discretication}
+Special form of data reduction this in turn:
+\begin{itemize}
+    \item Simplifies data
+    \item More efficient mining
+    \item Continous feature with smaller chance of correlation with target variable
+    \item Easier to understand
+    \item Many algorithms for nominal data
+    \item Eliminate noise
+\end{itemize}
+Methods for discretication:
+\begin{itemize}
+    \item Bins of equal size
+    \item Bins of equal intervals
+    \item Clustering is a type of discretication
+\end{itemize}
+Binning boundaries must by disjoint and adjacent.
+
+\subsubsection{Data Reduction}
+\defn{Curse of Dimensionality (Again :X)}{
+    Data is increasingly and exponentially sparce in the space it is in.
+    Sparsity creates a difficult environment to achieve statistical significance.
+    Definitions of norm (distance) and density become less useful.
+}
+Data reduction helps in:
+\begin{itemize}
+    \item Improve performance
+    \item Visualize data for model selection
+    \item Reduce dimensionality
+    \item Remove noise
+    \item Reducing complexity
+    \item Increasing predictve accuracy
+    \item Remove irrelevant data
+\end{itemize}
+
+Reduce dimensions for example by Sampling:
+\begin{itemize}
+    \item Simple Random Sample Without Replacement (SRSWOR)
+    \item Simple Random Sample With Replacement (SRSWR)
+    \item Stratified Sample
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/stratified-example.png}
+    \caption{An example application of stratified sampling}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/feature-selection.png}
+    \caption{Other methods for feature selection}
+\end{figure}
+
+\section{Association}
+\subsection{Support}
+Support reflects significance, hence the importance of an itemset.
+With high support implying higher and low support lower relevance.
+\begin{itemize}
+    \item Occurence Frequency: Absolute number of transactions of that itemset (absolute support)
+    \item Relative Support: Percentage of transactions
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/relative-frequency.png}
+    \caption{Relative frequency as a measurement of support}
+\end{figure}
+
+\subsection{Confidence}
+Is the support of a rule compared to the requirement of a rule.
+It's a reliability measure, how certain, that B will occur given that A is present.
+\begin{figure}[H]
+    \begin{equation}
+        Confidence(X \Rightarrow Y) = \frac{Support(U \cup Y)}{Support(X)} = P(Y|X)
+    \end{equation}
+\end{figure}
+\subsection{Association Analysis Process}
+It is called Apriori because it uses prior knowledge (i.e., the "A-priori property").
+\begin{enumerate}
+    \item How to identitfy subset of effective rules
+    \item Data preparation
+    \item Find frequent itemsets. Set up rules only for frequent itemsets
+    \begin{itemize}
+        \item Set minimum support \(\sigma\)
+        \item Frequent 1-itemsets with support \(\geq \sigma\)
+        \item Combine possible 1-itemsets
+        \item Use frequent superset to generate next batch of candidates
+    \end{itemize}
+    \item Generate rules only from frequent itemsets and select only rules which are frequently true.
+    \begin{itemize}
+        \item Set minimum confidence \(\delta\)
+        \item For each frequent itemset setup possible combinatorical rule
+        \item Calculate confidence and select rules \(\geq \delta\)
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/a-priori-association-example.png}
+    \caption{A-Priori Association Analysis Example}
+\end{figure}
+
+Types of association include:
+\begin{itemize}
+    \item Boolean Association
+    \item Quantitative Association
+    \item Single and multidimensional Associations
+    \item Abstraction Levels
+\end{itemize}
+
+\subsubsection{Lift Measure}
+Is supplementary significance measure
+used as correlation measure in market basket analysis.
+Indicates overall significance, i.e. how much better does it predict the right hand side of the rule.
+\begin{figure}[H]
+    \begin{equation}
+        Lift(X \Rightarrow Y) = \frac{Support(X \cup Y)}{Support(X) \cdot Support(Y)} = \frac{Confidence(X \Rightarrow Y)}{Support(Y)}
+    \end{equation}
+\end{figure}
+
+\begin{lstlisting}[language=Python]
+from mlxtend.frequent_patterns import apriori
+from mlxtend.frequent_patterns import association_rules
+fi_sets = apriori(mba, min_support=.05, use_colnames=True)
+rules = association_rules(fi_sets, metric="confidence", min_threshold=.2)
+
+\end{lstlisting}
+
+
+\section{Classification}
+\subsection{Metrics}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/cm.png}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        Precision = \frac{TP}{TP+FP}
+    \end{equation}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        Recall = \frac{TP}{TP+FN}
+    \end{equation}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        F = 2 * \frac{P \cdot R}{P + R} = \frac{2 TP}{2 TP + FN + FP}
+    \end{equation}
+\end{figure}
+\subsection{OneR}
+Is a simple rule-based method.
+The name reflects the method's simplicity: it ultimately builds and uses only one rule based on one attribute.
+We naively assume all attributes are independent of each other.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/oner-example.png}
+\end{figure}
+\subsection{Naive Bayes}
+The Bayesian principle is to assign a case to the 
+class that has the largest posterior probability.
+The classifier is called naive because it does not respect additional rules like grammar and other considerations.
+\begin{figure}[H]
+    \begin{equation}
+        P(A|B) = P(B|A) \frac{P(A)}{P(B)}
+    \end{equation}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/naive-bayes.png}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        P(H|E) = P(Spam|Evidence) \Rightarrow P(Spam) P(Money | Spam) P(Hello | Spam) \cdots
+    \end{equation}
+    \caption{Naive Bayes example of a single hypothesis. We take the hypothesis with the highest likelihood.}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        P(H) = \frac{\text{number that belong to class }c_i}{\text{total number}}
+    \end{equation}
+    \caption{Prior; A-Priori}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        P(E|H) = \prod_i P(e_i|H)
+    \end{equation}
+    \caption{Since we naively assume attributes are independent we can multiply. \(e_i\) refers to an attribute
+    that is present given that H is true. E.g. the word "money" is in an email that is indeed H=spam.}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/naive-bayes-example.png}
+\end{figure}
+
+Optimizations:
+\begin{itemize}
+    \item Ignore predictor if every value is missing
+    \item Ignore predictor if it has only one observed category
+    \item Ignore case if value of the target variable is missing
+    \item Ignore case if value of all predictors are missing
+    \item Use only predictors for cases with nonmissing values
+    \item Use binning for continuous variables
+    \item Replace values by the parameters of a probability distribution
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/naive-bayes-pd-replacement.png}
+    \caption{Example: Use parameters of a distribution to estimate the probability of numerical values}
+\end{figure}
+
+\begin{lstlisting}[language=Python]
+# Reference: https://scikit-learn.org/stable/modules/naive_bayes.html
+from sklearn.feature_extraction.text import TfidfVectorizer 
+# TF_IDF alg assigns significance to every word within data
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
+
+tfidf = TfidfVectorizer()
+
+train_mod = tfidf.fit_transform(train.data)
+model = MultinomialNB()
+
+model.fit(train_mod, train.target)
+test_mod = tfidf.transform(test.data)
+
+pred = model.predict(test_mod)
+
+accuracy_score(test.target, pred)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+from sklearn.metrics import confusion_matrix
+# Comparing the expected categories with the predicted categories
+matrix = confusion_matrix(test.target, pred)
+
+fig, ax = plt.subplots(figsize=(10, 10))
+sns.heatmap(
+    matrix.T,
+    square=True,
+    annot=True,
+    fmt="d",
+    cbar=True,
+    xticklabels=train.target_names,
+    yticklabels=train.target_names,
+    ax=ax
+)
+ax.set(xlabel="True Category", ylabel="Predicted Category")
+\end{lstlisting}
+
+\section{Decision Tree}
+\subsection{ID3 Alhorithm}
+Is the precurso to the C4.5 and is commonly used in ML and NLP.
+It uses a greedy approach.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/id3-algorithm.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/tree-attribute-calc.png}
+\end{figure}
+Comparison with ID4.5:
+\begin{itemize}
+    \item Supports continous and discrete
+    \item Handles incomplete data samples
+    \item Solves overfitting by bottom up techniques
+    \item Different weighting to features
+\end{itemize}
+\subsection{Pruning}
+With the Gain Ratio metric one can punish a bigger count of nodes using split information.
+\begin{figure}[H]
+    \begin{equation}
+        GR(Y,X) = \frac{I(Y,X)}{SI(Y,X)}
+    \end{equation}
+    \caption{Gain Ratio}
+\end{figure}
+\begin{figure}[H]
+    \begin{equation}
+        SI(Y,X) = - \sum_{m} \frac{|T_i|}{|T|} log_2 \frac{T_i}{T}
+    \end{equation}
+    \caption{Split Information}
+\end{figure}
+\subsection{Missing Values}
+\begin{itemize}
+    \item Replace missing attribute with mode
+    \item Replace missing attribute X which has the highest count the target class 
+\end{itemize}
+
+\section{KNN}
+KNN preserves the data, no model is created and calculations are done during classification.
+The underlying idea is to classify by distance similarity using k-nearest samples.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/k-parameter-knn.png}
+    \caption{The hyperparameter k dictates the amount of samples that dictate the class.
+    The parameter also sll
+\end{figure}
+\section{Clustering}
 
 \end{document}

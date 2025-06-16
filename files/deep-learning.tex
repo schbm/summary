@@ -2616,6 +2616,104 @@ The problem now boils down to finding such a mapping:
     the depth of the network, by folding solution space.}
 \end{figure}
 
+\section{Back-Propagation}
+TBD
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/deepl/backprop-summary.png}
+    \caption{Backpropagation Summary}
+\end{figure}
+
+\section{Regularization}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/deepl/regularization.png}
+    \caption{Regularization aims to reduce generalization gap}
+\end{figure}
+
+\subsection{Parameter Norm Penalties}
+
+\defn{Parameter Norm Penalties}{
+    Add a penaltyterm to the cost function \(J\).
+
+    \(\alpha\) is a non negative hyperparameter that weights the contribution.
+    \(\Omega(\theta)\) is any norm of the learnable parameters.
+    Typically the norm is only applied to the weights.
+    \begin{equation}
+        J(\theta, X, y) + \alpha \Omega(\theta)
+    \end{equation}
+}
+
+\defn{L2 Parameter Regularization}{
+    \begin{equation}
+        \Omega(\theta) = \frac{1}{2} ||w||_2^2
+    \end{equation}
+
+    This is also called:
+    \begin{itemize}
+        \item Weight decay
+        \item Ridge regression
+        \item Tikhonov regularization
+    \end{itemize}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/deepl/l2-regularization.png}
+    \caption{Gradient descent with L2 regularization. If the gradient is zero, then the wweights will slowly decay to 0}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/deepl/l-comparison.png}
+    \caption{Comparing L2 and L1}
+\end{figure}
+
+\subsection{Data Augmentation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/deepl/image-augmentation.png}
+    \caption{Image Augmentation}
+\end{figure}
+
+\defn{Adding Noise}{
+    Add noise, typically gaussian.
+    Almost all data contains random noise, this is a realistic way to augment.
+    \begin{equation}
+        \tilde{X} = X + N
+    \end{equation}
+    Noise can also be added to hiffen layers.
+}
+
+\defn{Noise Robustness}{
+    We can add noise to the hidden layers.
+    This will task the model to find a minimum which is more flat.
+    Hence more robust against changes in the weights.
+    We try to find a flat region in the cost function.
+}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/deepl/adding-noise.png}
+    \caption{When adding noise to the weights, the effect is finding a flat region for the solutions.
+    This is shown in the way that there is now two terms for the cost function.}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/deepl/label-smoothing.png}
+    \caption{Label Smoothing: Adding noise to the output}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/deepl/robustness-noise.png}
+    \caption{Table showing different ways to add noise to the model}
+\end{figure}
+
 
 
 \end{document}
