@@ -414,6 +414,15 @@ of either learned functions or learned concepts than traditional machine learnin
     \end{itemize}
 }
 
+\defn{Squared Euclidian Norm}{
+    \begin{equation}
+        ||y-\hat{y}||_2^2 = \sum (y_i - \hat{y}_i)^2
+    \end{equation}
+    \begin{equation}
+        \frac{\partial}{\partial \hat{y}} = 2(\hat{y}-y)
+    \end{equation}
+}   
+
 \defn{Max Norm}{
     \(L^{\infty}\) norm which simplifies:
     \begin{equation}
@@ -467,16 +476,17 @@ of either learned functions or learned concepts than traditional machine learnin
     eigenvector of A. Hence the word 
     "Eigen", since the vector stays itself.
 
-    To find eigenvalues of B use:
+    To find eigenvalues of A use:
     \begin{equation}
         \begin{split}
-            det(\boldsymbol(B) - \lambda \boldsymbol{I}) = 0 \\
+            det(\boldsymbol(A) - \lambda \boldsymbol{I}) = 0 \\
             \Rightarrow = \lambda_1, \cdots, \lambda_n
         \end{split}
     \end{equation}
-    Für eigenvektoren:
+    Für Eigenvektoren:
+    For each eigenvalue \(\lambda\) solve:
     \begin{equation}
-        (\boldsymbol{B} - \lambda_i \boldsymbol{I})v_i = \boldsymbol{0}
+        (\boldsymbol{A} - \lambda \boldsymbol{I})v = \boldsymbol{0}
     \end{equation}
 }
 
@@ -824,6 +834,10 @@ What we really want is in a underdefined or overdefined problem to find the best
     \end{equation}
 }
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/det.png}
+\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -994,6 +1008,9 @@ What we really want is in a underdefined or overdefined problem to find the best
     \begin{equation}
         Var(f(x)) = \mathop{\mathbb{E}}[(f(x)-\mathop{\mathbb{E}}[f(x)])^2]
     \end{equation}
+    \begin{equation}
+        Var(f(x)) = \mathop{\mathbb{E}}[x^2] - (\mathop{\mathbb{E}}[x])^2
+    \end{equation}
 }
 
 \defn{Different Notation for Covariance}{
@@ -1004,6 +1021,10 @@ What we really want is in a underdefined or overdefined problem to find the best
 
     \begin{equation}
         Cov(f(x),g(x)) = \mathop{\mathbb{E}}[(f(x)- \mathop{\mathbb{E}}[f(x)]) (g(y)-\mathop{\mathbb{E}}[g(y)])]
+    \end{equation}
+
+    \begin{equation}
+        Cov(X,Y) = \mathop{\mathbb{E}}[XY] - \mathop{\mathbb{E}}[X]\mathop{\mathbb{E}}[Y]
     \end{equation}
 
     The correlation is the covariance 
@@ -1635,6 +1656,8 @@ Many functions can be well approximated as quadratic functions in a small local 
             = f(x^{(0)} - \alpha g) \approx f(x^{(0)}) - \alpha g^T g + \frac{1}{2} \alpha^2 g^T H g
         \end{split}
     \end{equation}
+    The first is a local directional approximation using gradient and Hessian for step analysis.
+
     The first to parts do not contribute to the analysis for the minimization problem.
     For the last part:
     \begin{equation}
@@ -1652,6 +1675,12 @@ Many functions can be well approximated as quadratic functions in a small local 
     When this i positive, we can theoretically calculate for the optimal \(\epsilon \text{ respectively } \alpha\):
     \begin{equation}
         \alpha^* = \frac{g^T g}{g^T H g}
+    \end{equation}
+
+    When analyzing stationary points, that is points where the gradient is 0, the approximation 
+    is simplified to:
+    \begin{equation}
+        \tilde{J}{w} = J(w*) + \frac{1}{2}(w-w*)^T H(w-w*)
     \end{equation}
 }
 
@@ -2642,7 +2671,7 @@ TBD
     \(\Omega(\theta)\) is any norm of the learnable parameters.
     Typically the norm is only applied to the weights.
     \begin{equation}
-        J(\theta, X, y) + \alpha \Omega(\theta)
+        \tilde{J}(\theta;X,y) = J(\theta, X, y) + \alpha \Omega(\theta)
     \end{equation}
 }
 
@@ -2657,6 +2686,18 @@ TBD
         \item Ridge regression
         \item Tikhonov regularization
     \end{itemize}
+
+    L2 reduces contributions from directions that do not contribute to
+    the unregularized \(J()\) can be shrunken to zero
+    by scaling the eigenvalues with \(\alpha\):
+    \begin{equation}
+        \frac{\lambda_i}{\lambda:i + \alpha}
+    \end{equation}
+    This results in wheights shrinked by features with small variance relative to \(\alpha\).
+    For the update step this results in:
+    \begin{equation}
+        w \leftarrow (1-\epsilon \alpha) w- \epsilon \nabla_wJ(w;X,y)
+    \end{equation}
 }
 
 \begin{figure}[H]
@@ -2664,6 +2705,13 @@ TBD
     \includegraphics[width=0.75\linewidth]{Images/deepl/l2-regularization.png}
     \caption{Gradient descent with L2 regularization. If the gradient is zero, then the wweights will slowly decay to 0}
 \end{figure}
+
+\defn{L1}{
+    \begin{equation}
+        \Lambda(\theta) = ||w||_1 = \sum | w_i |
+    \end{equation}
+    The effect of regularization is the constant \(\alpha\).
+}
 
 \begin{figure}[H]
     \centering
@@ -2677,6 +2725,8 @@ TBD
     \includegraphics[width=0.75\linewidth]{Images/deepl/image-augmentation.png}
     \caption{Image Augmentation}
 \end{figure}
+
+\subsection{Noise}
 
 \defn{Adding Noise}{
     Add noise, typically gaussian.
@@ -2700,6 +2750,13 @@ TBD
     This is shown in the way that there is now two terms for the cost function.}
 \end{figure}
 
+\defn{Label smoothing}{
+    By adding noise to the target output,
+    we mitigate the effect of learning errors.
+    In softmax this can be done by setting the 
+    probability of the output vector to \(1-\epsilon \)
+    this is called label smoothing.
+}
 
 \begin{figure}[H]
     \centering
@@ -2714,6 +2771,802 @@ TBD
     \caption{Table showing different ways to add noise to the model}
 \end{figure}
 
+\subsection{Early Stopping}
+\defn{Early Stopping}{
+    In early stopping we stop the training process
+    when the validation error does not decrease anymore.
+    Since it will fluctuate, we introduce patience \(p\).
+    The main advantage is that the learning process is unchanged.
+    This requires more data.
 
+    With the assumptions of wheights beeing initialized with 0 and 
+    a second order approximation around a minimum this is reduced to:
+    \begin{equation}
+        Q^T w(\tau) = ( I - (i - \epsilon \Lambda)^\tau ) Q^T w*
+    \end{equation}
+
+    Early stopping acts as a regularizer with:
+    \begin{equation}
+        \tau = \frac{1}{\epsilon \alpha}
+    \end{equation}
+    \begin{equation}
+        \alpha = \frac{1}{\epsilon \tau}
+    \end{equation}
+    Where \(\alpha\) is the hyperparameter of a L2 regularizer.
+    The assumptions do not hold exactly, so one typically uses both.
+}
+
+\subsection{Ensemble}
+In bagging and esemble methods we train multiple models and let them vote.
+This is called model averaging or mixture of experts.
+Different models will make different errors.
+If the errors are uncorrelated we can reduce the variance.
+
+\defn{Ensemble Methods}{
+    When estimating MSE with \(k\) individual estimates it boils down to:
+    \begin{equation}
+        \begin{split}
+                    \mathbb{E}[\frac{1}{k} \sum \epsilon_i] = \frac{1}{k^2} \mathbb{E}[\sum (\epsilon_i^2 + \sum_{j \ne i} \epsilon_i \epsilon_j)] \\
+                    = \frac{1}{k}v + \frac{k-1}{k}c
+        \end{split}
+    \end{equation}
+    Where v is the variance and c the covariance.
+    \begin{itemize}
+        \item If c=0 we reduce the variance by k
+        \item If c=v no change
+    \end{itemize}
+}
+
+\defn{Bagging}{
+    Create an ensemble of identical modesl trained on different dataset.
+    Bagging stands for bootstrap aggregating where
+    instead of collecting multiple datasets, we randomly sample new sets from the training data.
+    This is typically done \textbf{with replacement}.
+    The new datasets follow the same distribution but are or should be \textbf{independent}.
+
+    For voting we use:
+    \begin{equation}
+        \frac{1}{k} \sum_{i=1}^{k} p^{(i)}(y|x)
+    \end{equation}
+}
+
+\defn{Dropout}{
+    In dropout we add \textbf{multiplicative binary noise} to the \textbf{hidden units}, it is hence
+    a form of noise robustness.
+
+    Hidden units are randomly switched off which can be thought of as an
+    \textbf{ensemble of exponentially many neural networks}.
+
+    Dropout \textbf{approximates} this process since training all subnetworks is unfeasable.
+
+    Typical values include:
+    \begin{itemize}
+        \item Input unit \(\mu = 0.8\)
+        \item Hidden unit \(\mu = 0.5\)
+    \end{itemize}
+
+    Differences to bagging:
+    \begin{itemize}
+        \item In dropout the models have \textbf{shared parameters}
+        \item In dropout we train a "single model" to convergence
+    \end{itemize}
+
+    For voting we use the \textbf{geometric mean} to simplify the problem:
+    \begin{equation}
+        \begin{split}
+            \tilde{p}(y|x) = \sqrt[2^d]{\prod_{\mu} p(y|x,\mu)} \\
+            \text{Normalize:}
+            p_{\text{ensemble}}(y|x) = \frac{\tilde{p}(y|x)}{\sum \tilde{p}(y'|x)}\\
+            \text{We approximate: } p_{\text{ensemble}}
+        \end{split}
+    \end{equation}
+
+    We approximate by scaling the weights by the expected value of \(\mu\),
+    this is called \textbf{weight scaling inference rule}.
+
+    For softmax:
+    \begin{equation}
+        p_{\text{ensemble}}(y=y|v) = \text{softmax}(\mathbb{E}[d] \cdot W^t v + v)_y
+    \end{equation}
+    We replace the expectation of d with \(P(d_i=1)\) for example \(\frac{1}{2}\).
+}
+
+In dropout we initially vote by using the rule of total probability:
+\begin{equation}
+    \sum_{\mu} p(\mu) p(y|x,\mu)
+\end{equation}
+Where \(p(\mu)\) is the distribution used to sample \(\mu\) at \textbf{training time}.
+This is \textbf{computationally unfeasable!}.
+
+Per default for regularizing deep networks we use:
+\begin{itemize}
+    \item Parameter Norm Penalties
+    \item Dataset Augmentation
+    \item Early Stopping
+    \item Dropout
+    \item Collect More Training Data
+\end{itemize}
+
+\section{Model Optimization}
+
+\subsection{Optimization vs Learning}
+\defn{Difference to Pure Optimization}{
+    We care about the performance measure P with respect to the test-set,
+    tho we optimize on the cost function \(J(\theta)\) w.r.t. the training set.
+    
+    \begin{itemize}
+        \item In optimization \(\hat{p}\) suffice
+        \item In learning we are interested in the true underlying data distribution
+    \end{itemize}
+}
+
+\defn{Cost Function as Expectation of per-sample Loss}{
+    \begin{equation}
+        J(\theta) = \mathbb{E}_{(x,y) \sim \hat{p}} L(f(x;\theta), y)
+    \end{equation}
+}
+Where \(L(x, \theta)\) is the per-sample loss,
+typically the cross-entropy between model and empirical distribution.
+
+\defn{Empirical Risk Minimization}{
+    Typically we want to minimize risk:
+    \begin{equation*}
+        risk = prob \cdot cost
+    \end{equation*}
+    We can minimize the risk on the training set, this is called
+    \textbf{empirical risk minimization}. (minimizing training error rate)
+    Tho, binary errors are unsuited for optimization since most of the gradients are zero.
+}
+
+\defn{Surrogate Loss Functions}{
+    For efficient optimization we use surrogate loss to replace the risk.
+    Example: Typically cross-entropy is used as a surrogate for the error rate.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/surrogate-loss.png}
+    \caption{We replace the risk by a surrogate loss function for efficient optimization}
+\end{figure}
+
+\subsection{Batch- Stochastic-Methods}
+\begin{itemize}
+    \item Batch methods use the entire training data in each iteration with high computational effort (deterministic gradient)
+    \item Stochastic methods use only one training sample with high variance (online methods)
+    \item Mixed methods like minibatch stochastic method use a random subset
+\end{itemize}
+
+\defn{Minibatch Stochastic Method}{
+    \begin{itemize}
+        \item In maximum likelihood the sum over all training samples is equivalent to an expectation over the empirical distribution
+        \item Hence the gradient is also an expectation
+    \end{itemize}
+    We can thus train on a subset of the data.
+    The standard error of this estimation scales with \(\sqrt{n}\) with n beeing the batch size.
+
+    \textbf{Increase the mini-batch size to utilize GPU memory consumption and use powers of 2.}
+
+    \begin{itemize}
+        \item Memory scales linearly
+        \item The return scales less than linearly
+        \item Data must be i.i.d
+        \item Ideally shuffled data (on big data sets shuffle once before training)
+    \end{itemize}
+}
+
+\defn{Core Assumption i.i.d}{
+    Mini-Batch assumes independent and identically distributed data.
+    Only if i.i.d. the expectation holds.
+    \text{This is untrue of structured data, e.g. caused by ordering or time}
+}
+
+\subsection{Challenges}
+\begin{itemize}
+    \item DL is non-convex
+    \item Ill-Conditioning of the Hessian
+    \item Saddle point
+    \item Cliffs
+    \item Long-Term Dependencies
+    \item Vanishing and Exploding Gradient
+    \item Poor Correspondence between Local and Global Structure
+    \item Initialization
+\end{itemize}
+
+\defn{Detect Ill-Conditioning}{
+    As we approach a minimum we expect the gradient to get small.
+    If the cost function becomes flat but the gradient does not shrink we expect a problem.
+    \textbf{We can detect this by monitoring the L2 norm of the gradient}
+}
+
+\defn{Identifiable}{
+    A model is called identifiable if we can find one global minimum.
+}
+
+\defn{Weight Space Symmetry}{
+    We can shift all nodes in a model leaving the loss the same.
+    This is called weight space symmetry.
+}
+
+\defn{Saddle Point, Plateus}{
+    Is characterized by:
+    \begin{itemize}
+        \item Zero Gradient
+        \item Hessian Matrix with positive and negative eigenvalues
+    \end{itemize}
+    Meaning the curvature is positive and negative in some directions.
+    Gradient Descent stops in a saddle point.
+    Saddlepoints are extremly common since in a random function f the
+    probability that all eigenvalues the hessian are positive or negative is
+    uncommon compared to beeing different.
+
+    \textbf{Currently measures are unclear. Tho SGD could be able to
+    escape saddle points.}
+}
+
+\subsection{Cliffs}{
+    NN with many layers typically have extreemly steep regions: cliffs.
+    They are the results of multiplication of serveral large weights.
+
+    This can be mitigated by using \textbf{Gradient Clipping}.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/cliffs.png}
+    \caption{Cliffs}
+\end{figure}
+
+\defn{Long-Term Dependencies and vanishing or exploding gradient}{
+    In deep computational graphs/nn gradients can explode or vanish due to
+    many multiplications.
+
+    \begin{itemize}
+        \item Vanishing gradients make it difficult to decide in which direction to move
+        \item Exploding gradients make learning unstable because of huge steps
+    \end{itemize}
+
+    Recurrent networks use the same matrix W at each time step, that makes training them more challenging!
+    To reduce this effect one can use \textbf{gradient clipping}.
+
+    }
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/expl-van-gradient.png}
+    \caption{Vanishing or Exploding Gradients: This shows a decomposition of
+    a simple deep network. The weights either explode depending on \(\lambda_i\)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/expl-van-gradient-example.png}
+    \caption{Vanishing or Exploding Gradients Example: without measures and depending on the
+    location it shows how the gradient can vanish or explode}
+\end{figure}
+
+\defn{Poor Correspondence between 
+Local and Global Structure}{
+    Following the gradient might lead to no good 
+    solution at all or just very slowly.
+    learning is slow or fails if the local structure (gradient) and the global structure
+    overall shape of \(J(\theta)\) are too different.
+
+    \textbf{In the and this can be mitigated by choosing better initialization
+    and using optimizer techniques like momentum.}
+}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/poor-correspondance.png}
+    \caption{Poor correspondance:  following the (blue) gradient leads into a flat 
+    valley, where progress is slow}
+\end{figure}
+
+\defn{Minima with log-likelihood}{
+    With the typitcal loss function of log-likelihood,
+    we can get arbitrarily close to a minimum but never reach it. (Consult a graph)
+}
+
+\section{Parameter Initialization Strategies}
+\defn{Breaking the Simmetry}{
+    If two weights are the same then the training will not be able to change them.
+    The weights will exactly stay the same during training unless
+    there is randomness like dropout in the process.
+    \textbf{It is thus best practice to break this symmetry.}
+}
+
+\defn{Default Random Initialization}{
+    \begin{itemize}
+        \item Wheight receive random numbers (e.g. gaussian)
+        \item Biases are set constant. Most often 0; or 0.1 for RELU.
+    \end{itemize}
+}
+
+\subsection{Choosing a Scale}
+Saturating activation functions are especially critical! Too large initialization can lead to saturation.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/weight-init-normal.png}
+    \caption{Shows pro and contra of different deviation choice when initializing with normal distribution}
+\end{figure}
+
+\defn{LeCun}{
+    The goal of LeCun initialization is to prevent the expectation of the activations of each layer
+    from exploding or diminishing.
+    We assume input have zero mean and unit variance.
+    \begin{equation}
+        Var(w) = \frac{1}{m}
+    \end{equation}
+    Where m is the number of inputs, thus we initialize using a normal distribution with:
+    \begin{equation}
+        \mathbb{N}(0,\frac{1}{m})
+    \end{equation}
+    When using a uniform distribution:
+    \begin{equation}
+        \mathbb{U}(-\sqrt{\frac{3}{m}}, \sqrt{\frac{3}{m}})
+    \end{equation}
+}
+
+\defn{Glorot}{
+    Extends LeCun by respecting the gradient.
+    The gradient shall not explore or diminish.
+    Thus the weights are initialized such that the gradient
+    also has zero mean and unit variance.
+    \begin{equation}
+        Var(w) = \frac{2}{m+n}
+    \end{equation}
+    \begin{equation}
+        \mathbb{N}(0, \frac{2}{m+n})
+    \end{equation}
+    Where m is the number of inputs and n is the number of outputs.
+    \begin{equation}
+        \mathbb{U}(-\sqrt{\frac{6}{m+n}}, \frac{6}{m+n})
+    \end{equation}
+}
+
+\defn{He}{
+    He initialization compensates the effect of ReLU activation,
+    since LeCun and Glorot only look at the linear part.
+}
+
+\defn{Bias Initialization}{
+    We typically use zero initialion for the bias since often we dont need to break the symmetry.
+    There are situations tho:
+    \begin{itemize}
+        \item Output Units: Init to prior probability of each class
+        \item ReLU: Small positive for saturation avoidance
+        \item LSTM with 1 for gate
+    \end{itemize}
+}
+
+\subsection{Measures}
+\begin{itemize}
+    \item Monitor activation and gradients
+    \item Treat the initialization scale of the weights as a hyperparameter
+    \item Initialize parameter to trained values which are known to work! (transfer learning)
+\end{itemize}
+
+\subsection{Optimizers / Trainers}
+SGD is the basis for most used optimization methods in DL.
+The learning rate \(\epsilon\) is critical.
+\begin{itemize}
+    \item Too large: Jump over minimum
+    \item Too small: slow learning
+\end{itemize}
+
+\defn{LR Schedule /Decreasing Learning Rate}{
+    SGD introduces noise which does not decrease when approaching a minimum.
+    Thus we want a variable learning rate.
+}
+
+\defn{Linear LR Decay}{
+    Common to decay the lr linerly, tho this can be switched and combined with e.g. exp decay etc.
+    \begin{equation}
+        \begin{split}
+             \epsilon_k = (1 - \alpha) \epsilon_0 + \alpha \epsilon_{\tau}\\
+             \text{where } \alpha = min(\frac{k}{\tau},1)
+        \end{split}
+    \end{equation}
+}
+
+\defn{Momentum}{
+    Using momentum we want to counter ill-conditioning (also noisy or inconsistent gradients).
+    The core idea is smoothing the gradient using exponential decaying moving average.
+
+    Definition of a moving average filter:
+    \begin{equation*}
+        y^{(t)} = \alpha y^{(t-1)} + (1- \alpha) x^(t)
+    \end{equation*}
+    Where \(\alpha\) denotes the degree of smoothing in range [0,1).
+
+    \begin{equation}
+        \begin{split}
+                    velocity \leftarrow \alpha v - \epsilon \nabla_{\theta}(\frac{1}{m} \sum L(f(x^i;\theta),y^i))\\
+                    \theta \leftarrow \theta + v
+        \end{split}
+    \end{equation}
+
+    This results in:
+    \begin{itemize}
+        \item High gradient variance with small step size
+        \item Consistend gradients with big step size
+    \end{itemize}
+
+    Final step size becomes:
+    \begin{equation}
+        \frac{\epsilon ||g||}{1-\alpha}
+    \end{equation}
+}
+
+Normal Weight Update:
+\begin{equation}
+    \Delta \theta = \epsilon grad
+\end{equation}
+
+Momentum:
+\begin{equation}
+    \Delta \theta \leftarrow \alpha \Delta \theta - \epsilon grad
+\end{equation}
+
+\defn{AdaGrad}{
+    Adapt the learning rate for each dimension, based on the history of squared gradients.
+    The higher the gradient war the smaller the learning rate.
+    \begin{equation}
+        \begin{split}
+            r \leftarrow r + g \odot g \\
+            \Delta \theta \leftarrow -\frac{\epsilon}{\delta + \sqrt{r}} \odot g
+        \end{split}
+    \end{equation}
+    \(\delta\) is a small number for numerical stability.
+}
+
+\defn{RMSProb}{
+    Replaces the su with an exponentially devaying moving average.
+    This in turn takes only recent history into account.
+        \begin{equation}
+        \begin{split}
+            r \leftarrow \rho r + (1- \rho) g \odot g \\
+            \Delta \theta \leftarrow -\frac{\epsilon}{\delta + \sqrt{r}} \odot g
+        \end{split}
+    \end{equation}
+    \(\delta\) is a small number for numerical stability.
+}
+
+\defn{ADAM}{
+    Adaptive moments adds momentum to RMSProb.
+    \begin{itemize}
+        \item s is an exponentially devaying moving average of the gradient (momentum)
+        \item r is an exponentially decaying average of the squared gradient
+    \end{itemize}
+    \begin{equation}
+        \begin{split}
+            s \leftarrow \rho_1 s + (1 - \rho_1) g \\
+            r \leftarrow \rho_2 r + (1 - \rho_2) g \odot g \\
+            \Delta \theta = - \epsilon \frac{\hat{s}}{\sqrt{\hat{r}}+ \delta}
+        \end{split}
+    \end{equation}
+    Again \(\delta\) is a small constant for numerical stability.
+    Correction due to bias at initialization with 0:
+    \begin{equation}
+        \begin{split}
+            \hat{s} \leftarrow \frac{s}{1 - \rho_1^t} \\
+            \hat{r} \leftarrow \frac{r}{1- \rho_2^t}
+        \end{split}
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/optimizer-comparison.png}
+    \caption{Comparison of different optimizers: Often times a well-tuned SGD outperforms Adam}
+\end{figure}
+
+\subsection{Batch Norm}
+\defn{Batch Norm}{
+    The gradient assumes all other parameters stay constant.
+    This is not the case since we change all simultaneously.
+    With batch norm we bring every hidden unit to zero mean and unit variance.
+    \begin{equation}
+        \begin{split}
+            H' = \frac{H - \mu}{ \sigma }  \\
+            H'' =  y H' + \beta
+        \end{split}
+    \end{equation}
+    For each hidden unit \(\mu\) and \(\sigma\) is calculated seperately.
+
+    \begin{equation}
+        \begin{split}
+            \mu = \frac{1}{m} \sum_{i} H_{i,:} \\
+            \sigma = \sqrt{\delta + \frac{1}{m} \sum_{i} (H - \mu)_{i,:}^2}
+        \end{split}
+    \end{equation}
+    At test time we use a saved \(\mu\) and \(\sigma\) typically with a running average.
+    Also backpropagation will be run through batch norm.
+
+    Due to this beeing a strong regularizor we apply the activation function after batch norm.
+}
+
+\section{CNN}
+\defn{CNN}{
+    Special architecture for grid-like topology or structured data like time series data.
+    \begin{itemize}
+        \item 1D time series
+        \item 2D images
+        \item 3D videos
+    \end{itemize}
+    We use it because multiplication treats pixel for example independently, thus ignoring spatial relations.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/cnn-datatypes.png}
+\end{figure}
+
+\defn{Convolution}{
+    \begin{equation}
+        s(t) = \int x(a) w (t-a) da
+    \end{equation}
+    \begin{equation}
+        s(t) = (x*w)(w)
+    \end{equation}
+    \(w(a)\) is called a filter.
+    For discrete values:
+    \begin{equation}
+        s(t) = \sum y(a) w(t-a)
+    \end{equation}
+    For multidimensional data:
+    \begin{equation}
+        S(i,j) = (I*K)(i,j) = \sum_m \sum_n I(m,n) K(i-m,j-n)
+    \end{equation}
+    Cross-correlation is the sam as a kernel but with the Kernel flipped.
+    Since often times have 4 dimensional kernels because of width, length, channels and then batch.
+    \begin{equation}
+        Z_{i,j,k} = \sum_{l,m,n} V_{l,j+m-1,k+n-1} K_{i,l,m,n}
+    \end{equation}
+}
+
+\defn{Strided Kernel}{
+    Absolut fucking unnötig aber markiert als wichtig:
+    \begin{equation}
+        Z_{i,j,k} = c(K,V,s)_{i,j,k} = \sum_{l,m,n} V_{l,(j-1)\times s+m,(k-1)\times s+n} K_{i,l,m,n}
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/2d-kernel.png}
+    \caption{Example: 2 dimensional convolution by sliding a kernel over the data}
+\end{figure}
+
+\subsection{Motivation}
+Motivation for using CNN:
+\begin{itemize}
+    \item Sparce interactions
+    \begin{itemize}
+        \item Weights are shared. Kernel is usually smaller than the input.
+        \item Receiptive field (range of input of certain output) increases from layer to layer
+        \item Faster
+    \end{itemize}
+    \item Parameter sharing
+    \begin{itemize}
+        \item Less memory
+        \item Helps generalization
+    \end{itemize}
+    \item Equivariance to translation
+    \begin{itemize}
+        \item Is not affected by shifting the input
+        \item Output of conv layer shows where a feature is present, hence feature map
+        \item Convolution is not equivariant to scaling or rotation
+        \item Helps generalization
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/receptive-field.png}
+    \caption{In a cnn the receptive field increases with the layer count.}
+\end{figure}
+
+\subsection{Pooling}
+\defn{Pooling}{
+    Pooling combines certain neighbourhood values using an operation.
+    It thus approximates invariance to small translations. (Is a feature present? Not where)
+    \begin{itemize}
+        \item Maximum
+        \item Average
+        \item Weighted average pooling
+        \item L2 norm
+    \end{itemize}
+
+    Stride controls the downsamling which removes redundant information or can handle input of varying size.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/cnn-padding.png}
+    \caption{Padding in conv operations:  Padding with: Valid (no pad, m-k+1), Same, Full (upsample)}
+\end{figure}
+
+\subsubsection{Further CNN Optimizations}
+\begin{itemize}
+    \item Seperable Kernels for complex networks
+    \item Frequency domain for calculating conv
+\end{itemize}
+
+\section{RNN}
+\defn{Recurrent Networks}{
+    A recurrent neural network is a neural network that is specialized for processing a sequence of values.
+    RNN become powerful mostly because of parm sharing.
+
+    \begin{equation}
+        h_t = f(h_{t-1},x_t;\theta)
+    \end{equation}
+    Where h captures all information from the past that is required.
+    The state transition function f() updates the state.
+
+    Cases of different RNN types:
+    \begin{itemize}
+        \item Default reuse hidden state
+        \item Adapted: reuse output (less powerfull, better parallelized)
+        \item Only one output: Whole sequence is used
+        \item Gate
+        \item LSTM
+    \end{itemize}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/rnn.png}
+    \caption{Unfolded simple RNN. In a simple RNN the previous output is used as well as additional input. 
+    All history is taken into account. Infinite Impulse Respone Filter (IIR)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.15\linewidth]{Images/deepl/rnn-2.png}
+    \caption{Physical visualization of simple RNN}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/unfolding.png}
+    \caption{Unfolding process}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/rnn-only-one.png}
+    \caption{Only One Output Method: The whole sequence is fed in and one output is created.}
+\end{figure}
+
+\subsection{RNN Forward Pass}
+\defn{RNN Forward Equations}{
+    \begin{equation}
+        \begin{split}
+            a^{(t)} = b + W h^{(t-1)} + U x^{(t)} \\
+            h^{(t)} = tanh/a^{(t)}
+        \end{split}
+    \end{equation}
+
+    Weights W, U and bias b do not change over time.
+    Then for the output:
+    \begin{equation}
+        \begin{split}
+            o^{(t) = c + V h^{(t)}} \\
+            \hat{y}^{(t)} = softmax(o^{(t)})
+        \end{split}
+    \end{equation}
+    For the loss at time step t:
+    \begin{equation}
+        L^{(t)} = log p_{model}(y^{(t)} | \{ x^{(1)},\cdots, x^{(t)} \})
+    \end{equation}
+    For the overall loss:
+    \begin{equation}
+        L(x,y) = \sum_{t} L^{(t)} = - \sum_{t} log p_{model}(y^{(t)} | \{ x^{(1)},\cdots, x^{(t)} \})
+    \end{equation}
+}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\linewidth]{Images/deepl/rnn-forward-equation.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.15\linewidth]{Images/deepl/rnn-forward-equation-2.png}
+\end{figure}
+
+\subsection{RNN Backpropagation Trough Time (BPTT)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/rnn-back.png}
+    \caption{For backpropagation we calculate an entire forward pass of a sequence.
+    We then need to backpropagate the overall loss with the unfolded computational graph.}
+\end{figure}
+
+\defn{BPTT}{
+    Is unrolling an entire forward pass of an RNN to calculate the gradient.
+    This is extremly expensibe using compute and memory.
+    Most importantly it cannot be parallelized.
+}
+
+\subsection{Additional Measures for RNN}
+\begin{itemize}
+    \item Gradient clipping
+\end{itemize}
+
+\defn{Gradient Clipping}{
+    \begin{itemize}
+        \item Element-Wise
+        \item Clip the norm of the gradient
+    \end{itemize}
+}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/gradient-clipping.png}
+    \caption{Gradient Clipping}
+\end{figure}
+
+\subsection{Bidirectional RNN}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/rnn-bidi.png}
+    \caption{In a bidirectional RNN we include both a layer that
+    receives values forward as well as backwards in time.}
+\end{figure}
+
+\subsection{Encoder Decoder}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{Images/deepl/encoder-decoder.png}
+    \caption{Encoder Decoder Architecture: For input and output of different length. Also called transformer.
+    In typical transformers attention is used instead of RNN.}
+\end{figure}
+
+\subsection{Deep RNN Approach}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{Images/deepl/rnn-deep.png}
+    \caption{Deep RNN: Typically the left model is used (stack RNN layers);
+    The right approach keeps a single state but makes connections deep.}
+\end{figure}
+
+\subsection{Gated Approach}
+Long-Term dependencies have the drawback, that gradients may vanish or explode.
+RNN must be able to modify the state by:
+\begin{itemize}
+    \item Write info (large gradient)
+    \item Remember info (zero gradient)
+    \item Remove info (large gradient)
+\end{itemize}
+This must be possible short as well as long-term.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{Images/deepl/gate.png}
+    \caption{Gates control the state using an element-wise multiplication.
+    They allow information to flow. Signal that control gates are typically learned.}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/deepl/lstm.png}
+    \caption{LSTM Architecture: Read show signals and blue the information flow.
+    The gates consist of affine transform and sigmoid acivation function.
+    The input consists of an affine transform and a non-linear activation (tanh).
+    The state loop has no weights. There is a internal state s which is different from h}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/deepl/lstm-math.png}
+    \caption{Mathematics of LSTM}
+\end{figure}
+
+\defn{GRU}{
+    Gated Recurrent units are generalized LSTM.
+    They do not have an internal state.
+    \begin{itemize}
+        \item No inner state
+        \item Save whole state in h
+        \item Use only two gates
+    \end{itemize}
+}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/deepl/lstm-math.png}
+    \caption{Mathematics of GRU. Red in the figure is the reset gate and in green the update gate.}
+\end{figure}
 
 \end{document}
