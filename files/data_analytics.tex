@@ -1858,8 +1858,8 @@ sns.heatmap(
 ax.set(xlabel="True Category", ylabel="Predicted Category")
 \end{lstlisting}
 
-\section{Decision Tree}
-\subsection{ID3 Alhorithm}
+\subsection{Decision Tree}
+\subsubsection{ID3 Alhorithm}
 Is the precurso to the C4.5 and is commonly used in ML and NLP.
 It uses a greedy approach.
 \begin{figure}[H]
@@ -1877,7 +1877,7 @@ Comparison with ID4.5:
     \item Solves overfitting by bottom up techniques
     \item Different weighting to features
 \end{itemize}
-\subsection{Pruning}
+\subsubsection{Pruning}
 With the Gain Ratio metric one can punish a bigger count of nodes using split information.
 \begin{figure}[H]
     \begin{equation}
@@ -1891,22 +1891,301 @@ With the Gain Ratio metric one can punish a bigger count of nodes using split in
     \end{equation}
     \caption{Split Information}
 \end{figure}
-\subsection{Missing Values}
+\subsubsection{Missing Values}
 \begin{itemize}
     \item Replace missing attribute with mode
     \item Replace missing attribute X which has the highest count the target class 
 \end{itemize}
 
-\section{KNN}
+\subsection{KNN}
 KNN preserves the data, no model is created and calculations are done during classification.
 The underlying idea is to classify by distance similarity using k-nearest samples.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Images/datan/k-parameter-knn.png}
-    \caption{The hyperparameter k dictates the amount of samples that dictate the class.
-    The parameter also sll
+    \caption{The hyperparameter k dictates the amount of samples that dictate the class.}
 \end{figure}
+
+
+Prerequisites:
+\begin{itemize}
+    \item Enough examples
+    \item Instances with no more than 20 attributes
+    \item Ordinal or cardinal attributes mappable to \(\mathbb{R}^n\)
+\end{itemize}
+
+Pro:
+\begin{itemize}
+    \item Easy
+    \item Fast training
+    \item Training information not lost
+    \item Allows regression of other classification tasks
+\end{itemize}
+
+Contra:
+\begin{itemize}
+    \item Possibly slow
+    \item Memory based
+    \item Can be fooled (irrelevant attributes)
+\end{itemize}
+
+\defn{Inverse Distance Weighting (IDW)}{
+    Used to weight nearer neighbors to contribute more.
+    Assigned valoues are calculated with weighted average.
+    We weight the vote by the inverse of the square of the Euclidian distance.
+}
+
+\section{Ensemble}
+In Ensewmble learning multiple models are combined to improve results.
+Consult ML lecture for more information.
+\begin{itemize}
+    \item Bagging, \textbf{less variance}
+    \item Boosting, \textbf{less bias, less variance}
+    \item Stacking, \textbf{less bias, less variance}
+\end{itemize}
+
+\subsection{Bagging}
+Initial idea is to parallelize learning by utilizing the same model multiple times.
+For this we can use bootstrap aggregation by taking repeatad samples from the training set
+with the underlying theory that this averaging will reduce variance.
+
+\subsection{Random Forest}
+Take bootstrapped samples (with replacement) and traing on bootstrapped set.
+Classify by majority vote or average (soft vs hard-voting).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/random-forest.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/ensemble.png}
+    \caption{This shows the effect of esemble methods. Compared to a single model predictions can have
+    very hard edges. This may be because of the single model using a specific distance metric.
+    Using multiple models we can now make this border more smooth, by e.g. averaging the predictions.}
+\end{figure}
+
+
+\subsection{Boosting}
+Most known algorithm is AdaBoost. Boost increases accuracy and leads to
+perfect training performance. On training data a specific count of model are created.
+Its an iterative method, where we build models to correct the previous mistakes.
+Each descendant model, improves the models which misclassify a lot.
+It uses a weighted training set (starts with equal weighting).
+Weights are adjusted after each model creation.
+Wrongly classified samples get a bigger weight.
+The result consists of multiple models where each model gets a different weight
+depending on the achieved training performance.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/boosting.png}
+\end{figure}
+
+\subsection{Stacking}
+In stacking multiple base learners provide predictions for the meta-learner.
+Where the base-learner is also called Level-0-Modell and the metra learner
+Level-1-Modell. One usually picks different base learner altorithms.
+
 \section{Clustering}
+
+\defn{General Clustering Process}{
+    The basic goal is to partition a set of n objects into a set of k clusters.
+    We use unsupervised learning to break up the set into a manageable number of classes.
+
+    One can use different approaches:
+    \begin{itemize}
+        \item Partitioning Methods 
+        \item Hierarchical Methods
+        \item Model-based Methods
+        \item Density-based Methods
+        \item A Mix
+    \end{itemize}
+
+    Using this one can assess if elements are similar to on another.
+}
+
+\subsection{Common Distance Metrics}
+
+Manhattan:
+\begin{equation}
+    d_{ij} = \sum |x_{ia} - x{ja}|
+\end{equation}
+
+Euclidean:
+\begin{equation}
+    d_{ij} = \sqrt{\sum |x_{ia} - x_{ja}|^2 }
+\end{equation}
+
+Minkowski:
+\begin{equation}
+    d_{ij} = [\sum |x_{ia}- x{ja}|^r]^{\frac{1}{r}} 
+\end{equation}
+
+Others include:
+\begin{itemize}
+    \item Pearson Correlation
+    \item Canberra
+    \item Mahalanobis
+\end{itemize}
+
+\subsection{K-Mean}
+Partition N data points into K disjoint subsets.
+Cluster center are not represented as a real instance but an average.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/k-means.png}
+    \caption{When dim is greater or equal to 2 then its NP-Hard. 
+    Finding the best solution in p-time is unfeasable.
+    Iterative algorithms converges often quickly to local optimum.}
+\end{figure}
+
+K-means may work best for compact, distinct, sphere shaped clusters.
+Results depend o0n initialization with hyperparameters like the cluster count.
+Clusters are heavily influenced by outliers.
+
+\subsection{K-Medoid}
+Is a similar method to K-Means but uses a real instance as cluster center.
+In Medoid one also uses the Manhattan distance.
+Foreach non-center instance we calculate the total cost of swapping the center.
+With the error after swap - Error before the swap.
+
+We swap the current center for non-centers where the least total cost is \(< 0 \)
+
+And as error:
+\begin{equation}
+    E = \sum_{j=1}^{k} \sum_{p \in C_j} |p - c_j|
+\end{equation}
+
+\subsection{Nominal Scales}
+
+\defn{Hemming Distance}{
+    Count the number of attributes at which the corresponding objects are different.
+    Distance is increased by 1 if different.
+
+    \begin{equation}
+        D_H = \sum |x_i - y_i|
+    \end{equation}
+
+    With multiple attributes we scew into the range [0,1]:
+    \begin{equation}
+        d(x,y) = \frac{D_H(x,y)}{n}
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/contingency-table.png}
+    \caption{Distance Metrics for Non-Numerical Attributes. Showing binary distance using contingency table}
+\end{figure}
+
+\defn{Distance in Contingency Table}{
+    \begin{equation}
+        d(x_i, x_j) = \frac{b+c}{a+b+c+d}
+    \end{equation}
+
+    Jaccard Distance for asymmetric distributions (skewed):
+    \begin{equation}
+        d(x_i,x_j) = \frac{b+c}{a+b+c}
+    \end{equation}
+    We leave out negative matches.
+}
+
+\subsection{Ordinals}
+\defn{Normalized Rank Transformation}{
+    Convert the ordinal value into a rank by value \(r = [1,R]\).
+    Normalize the rank into standardized values of zero to one.
+    \begin{equation}
+        r_N = \frac{r-1}{R-1}
+    \end{equation}
+    Finally calculate the distance.
+}
+
+\subsection{Hierarchical Clustering}
+
+In HC we start by treating each sample as cluster.
+Then we iteratively identify the two closest clusters and merge them.
+The key operation is the proximity computiation also called the \textbf{linkage criteria}.
+
+Types:
+\begin{itemize}
+    \item Bottom-Up
+    \item Top-Down, Start with a single cluster then split
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/hierarchical-clustering.png}
+\end{figure}
+
+Linkage Criteria / Fusion Method
+\begin{itemize}
+    \item Single Linkage, Smallest distance between two clusters, tends to chaining, cannot separate if there is noise between clusters ,can separate non-elliptical shapes
+    \item Complete Linkage, Take the similarity of the farthest points within two clusters, works well for noise, avoids chaining, suffers from crowding, tends to break large cluster
+    \item Average Linkage, 
+    \item Centroid
+    \item Ward, sum of the square of the distances, minimize the increase of withing cluster variance
+    \begin{itemize}
+        \item \begin{equation*}
+            W(C) = \sum |x_i - \mu_C |^2
+        \end{equation*}
+        \item \begin{equation*}
+            \Delta W = W(C) - (W(A) + W(B))
+        \end{equation*}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Validating Clusters}
+
+\begin{itemize}
+    \item Internal Criteria, often compactness, connectedness and separation
+    \item External Criteria, comparison with external result
+    \item Relative Criteria, results with altered parameters or other algorithms
+\end{itemize}
+
+\defn{Compactness}{
+    Describes:
+    \begin{itemize}
+        \item Instances in a cluster are close
+        \item Intraclass similarity is high
+        \item Distances within a cluster
+    \end{itemize}
+}
+
+\defn{Cluster density}{
+    \begin{eqnarray}
+        den(C) = \frac{1}{n} \sum (x_i - c)
+    \end{eqnarray}
+}
+
+\defn{Cluster Variance}{
+    \begin{equation}
+        var(C) = \sum (x_i - C)^2
+    \end{equation}
+    And average variance:
+    \begin{equation}
+        var(C) = \frac{1}{n} \sum (x_i - C)^2
+    \end{equation}
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Images/datan/cluster-validation.png}
+    \caption{Compactness for validating cluster: The typical knee-shape is visible, where at a specific
+    amount of clusters the density does not decrease by much.}
+\end{figure}
+
+\defn{Seperation}{
+    Describes the distance between clusters.
+    \begin{itemize}
+        \item Single Linkage
+        \item Complete Linkage
+        \item Average Linkage
+        \item Distance of Cluster Centers
+    \end{itemize}
+}
 
 \end{document}

@@ -365,6 +365,78 @@ Technologies:
     \item Better hardware utilization and resource sharing
 \end{itemize}
 
+\section{Loadbalancing}
+Distribution of workloads across computing resources
+with the options to:
+\begin{itemize}
+    \item Ensure HA and reliability
+    \item Add or subtract server as demand dictates
+\end{itemize}
+
+\subsection{Types}
+Types of LB:
+\begin{enumerate}
+    \item Hardware
+    \item Cloud-Based
+    \item Software
+\end{enumerate}
+
+Subtypes:
+\begin{itemize}
+    \item Layer 7 http
+    \item DNS
+        \begin{itemize}
+            \item Round-Robin, very easy, static, caching with no fast changes
+            \item Split Horizon DNS, different DNS per source of request
+        \end{itemize}
+    \item Layer 3 Anycast, needs AS, difficult, 
+    
+\end{itemize}
+
+\subsection{Algorithms}
+\begin{itemize}
+    \item Round Robin, may drop req on congestion
+    \item Weighted Round Robin, high variance in server load
+    \item Least connections, latency issues
+    \item Peak Exponentially weighted moving average, complexity
+    \item Others: ip-hash, least-time, random, uri-hash, cookie
+\end{itemize}
+
+\section{Web Architectures}
+\subsection{Server Side Rendering SSR}
+In SSR the Server generates the resources.
+User sends a request to the web server.
+The server processes the request running server-side code.
+
+The big advantage here is to use SEO.
+Whereas the disadvantage os that it needs rendering for each request which
+can be mitigated by generating a static site.
+When using static site generators the site is generated when content changes.
+
+\subsection{Single Page Application SPA}
+In a SOA the client page updates as the user interacts with it.
+It relies on JavaScript for dynamic behaviour.
+
+One advantage is that the application does not require a page reload.
+SEO only works if JS is executed at SE.
+
+\subsection{CORS (Cross-Origin Resource Sharing)}
+The browser restricts cross-origin requests from scripts.
+
+Solution:
+\begin{itemize}
+    \item Reverse Proxy with builtin webserver
+    \item Reverse Proxy with external webserver
+    \item Modify CORS headers to include the correct domains
+\end{itemize}
+
+\defn{Hydration}{
+    IN Hydration the first content is already presented in HTML, like in SSR.
+    Further access howerer is then made via an API.
+    So its the combination of SSR and SPA.
+    
+}
+
 \section{Categorization}
 
 \defn{Categorization}{
